@@ -25,15 +25,13 @@ jobs:
           curl -fsSL https://rclone.org/install.sh | sudo bash
 
       - name: Configure rclone
+        env:
+          RCLONE_TOKEN: ${{ secrets.RCLONE_DRIVE_TOKEN }}
         run: |
           mkdir -p ~/.config/rclone
-          cat > ~/.config/rclone/rclone.conf << 'EOF'
-          [gdrive_repo]
-          type = drive
-          scope = drive
-          token = ${{ secrets.RCLONE_DRIVE_TOKEN }}
-          team_drive = 
-          EOF
+          printf "[gdrive_repo]\ntype = drive\nscope = drive\ntoken = %s\nteam_drive =\n" "$RCLONE_TOKEN" > ~/.config/rclone/rclone.conf
+          echo "rclone config check:"
+          cat ~/.config/rclone/rclone.conf | head -3
 
       - name: Download & Organize GitHub Repos
         env:

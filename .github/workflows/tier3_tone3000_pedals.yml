@@ -25,15 +25,16 @@ jobs:
           curl -fsSL https://rclone.org/install.sh | sudo bash
 
       - name: Configure rclone
+        env:
+          RCLONE_TOKEN: ${{ secrets.RCLONE_DRIVE_TOKEN }}
         run: |
           mkdir -p ~/.config/rclone
-          cat > ~/.config/rclone/rclone.conf << 'EOF'
-          [gdrive_repo]
-          type = drive
-          scope = drive
-          token = ${{ secrets.RCLONE_DRIVE_TOKEN }}
-          team_drive = 
-          EOF
+          printf "[gdrive_repo]
+type = drive
+scope = drive
+token = %s
+team_drive =
+" "$RCLONE_TOKEN" > ~/.config/rclone/rclone.conf
 
       - name: Download existing cache from Drive
         run: |
@@ -62,8 +63,7 @@ jobs:
             --drive-chunk-size 64M \
             --fast-list \
             --stats 30s \
-            --log-level INFO \
-            -v
+            --log-level INFO
 
       - name: Verify
         run: |

@@ -312,25 +312,35 @@ GITHUB_REPOS = [
     {"url": "https://github.com/GuitarML/ToneLibrary", "desc": "GuitarML Tone Library models"},
     {"url": "https://github.com/GuitarML/Proteus", "desc": "Proteus tone models"},
     {"url": "https://github.com/sdatkinson/neural-amp-modeler", "desc": "NAM official examples"},
+    {"url": "https://github.com/mikeoliphant/NeuralAmpModels", "desc": "Neural amp model collection"},
     # === SPEAKER CABINET IRs ===
     {"url": "https://github.com/orodamaral/Speaker-Cabinets-IRs", "desc": "Speaker Cabinet IRs"},
     {"url": "https://github.com/itsmusician/IR-Library", "desc": "IR Library collection"},
+    {"url": "https://github.com/keyth72/AxeFxImpulseResponses", "desc": "Axe-Fx Impulse Responses"},
+    {"url": "https://github.com/IsaakCode/freeaudio", "desc": "Curated free audio IRs list"},
     # === ML/AI AMP MODELS ===
     {"url": "https://github.com/Alec-Wright/Automated-GuitarAmpModelling", "desc": "ML guitar amp models"},
     {"url": "https://github.com/GuitarML/SmartGuitarAmp", "desc": "SmartGuitarAmp models"},
     {"url": "https://github.com/GuitarML/SmartGuitarPedal", "desc": "SmartGuitarPedal models"},
     {"url": "https://github.com/GuitarML/SmartAmpPro", "desc": "SmartAmpPro models"},
     {"url": "https://github.com/GuitarML/GuitarLSTM", "desc": "GuitarLSTM trained models"},
+    {"url": "https://github.com/GuitarML/TS-M1N3", "desc": "TS-M1N3 overdrive models"},
+    {"url": "https://github.com/GuitarML/Chameleon", "desc": "Chameleon amp modeler"},
     # === AIDA-X MODELS ===
     {"url": "https://github.com/AidaDSP/AIDA-X", "desc": "AIDA-X amp modeler models"},
-    {"url": "https://github.com/AidaDSP/AIDA-X-Models", "desc": "AIDA-X community models"},
-    # === REVERB & UTILITY IRs ===
-    {"url": "https://github.com/voxengo/impulse-responses", "desc": "Voxengo reverb impulses"},
-    {"url": "https://github.com/eedeidk/PulseAudio-IRSs", "desc": "Publicly available IRs"},
-    # === ADDITIONAL COLLECTIONS ===
-    {"url": "https://github.com/GuitarML/TS-M1N3", "desc": "TS-M1N3 overdrive models"},
-    {"url": "https://github.com/mikeoliphant/NeuralAmpModels", "desc": "Neural amp model collection"},
-    {"url": "https://github.com/keyth72/AxeFxImpulseResponses", "desc": "Axe-Fx Impulse Responses"},
+    # === ADDITIONAL NAM/ML REPOS ===
+    {"url": "https://github.com/carlthome/nam-models", "desc": "NAM models collection"},
+    {"url": "https://github.com/Draftsman/nam-captures", "desc": "NAM amp captures"},
+    {"url": "https://github.com/liveplayback/nam-models", "desc": "Liveplayback NAM models"},
+]
+
+# GitHub repos that have releases with downloadable model files
+GITHUB_RELEASE_REPOS = [
+    {"owner": "GuitarML", "repo": "Proteus", "desc": "Proteus tone models releases"},
+    {"owner": "GuitarML", "repo": "TS-M1N3", "desc": "TS-M1N3 overdrive releases"},
+    {"owner": "GuitarML", "repo": "SmartGuitarAmp", "desc": "SmartGuitarAmp releases"},
+    {"owner": "GuitarML", "repo": "Chameleon", "desc": "Chameleon releases"},
+    {"owner": "mikeoliphant", "repo": "NeuralAmpModels", "desc": "Neural amp model releases"},
 ]
 
 def download_github_repos(session, cache, organizer):
@@ -424,6 +434,112 @@ def download_github_repos(session, cache, organizer):
 
         except Exception as e:
             logging.error(f"Error downloading {repo_name}: {e}")
+            stats["errors"] += 1
+
+    return stats
+
+# ---------------------------------------------------------------------------
+# GitHub Releases Downloader (release assets with .nam/.wav files)
+# ---------------------------------------------------------------------------
+def download_github_releases(session, cache, organizer):
+    """Download model files from GitHub release assets."""
+    stats = {"downloaded": 0, "skipped": 0, "errors": 0, "organized": 0}
+
+    for repo_info in GITHUB_RELEASE_REPOS:
+        owner = repo_info["owner"]
+        repo = repo_info["repo"]
+        repo_name = f"{owner}/{repo}"
+        release_cache_key = f"gh_releases_{repo_name}"
+
+        if cache.is_downloaded(release_cache_key):
+            logging.info(f"SKIP releases (cached): {repo_name}")
+            stats["skipped"] += 1
+            continue
+
+        logging.info(f"Checking releases for {repo_name}...")
+
+        try:
+            api_url = f"https://api.github.com/repos/{owner}/{repo}/releases"
+            resp = session.get(api_url, timeout=30,
+                             headers={"Accept": "application/vnd.github+json"})
+            if resp.status_code == 404:
+                logging.warning(f"No releases found for {repo_name}")
+                stats["errors"] += 1
+                continue
+            resp.raise_for_status()
+            releases = resp.json()
+
+            file_count = 0
+            for release in releases[:10]:  # Check first 10 releases
+                for asset in release.get("assets", []):
+                    asset_name = asset["name"]
+                    asset_url = asset["browser_download_url"]
+                    ext = Path(asset_name).suffix.lower()
+
+                    # Download zips and model files
+                    if ext not in ALL_EXTENSIONS and ext != ".zip":
+                        continue
+                    if cache.is_downloaded(asset_url):
+                        stats["skipped"] += 1
+                        continue
+
+                    try:
+                        dl_resp = session.get(asset_url, stream=True, timeout=300)
+                        dl_resp.raise_for_status()
+
+                        tmp_path = Path("/tmp/gh_releases") / asset_name
+                        tmp_path.parent.mkdir(parents=True, exist_ok=True)
+                        with open(tmp_path, "wb") as f:
+                            for chunk in dl_resp.iter_content(chunk_size=1024*1024):
+                                f.write(chunk)
+
+                        if ext == ".zip":
+                            # Extract zip
+                            try:
+                                extract_dir = tmp_path.parent / tmp_path.stem
+                                with zipfile.ZipFile(tmp_path, "r") as zf:
+                                    zf.extractall(extract_dir)
+                                for root, dirs, files in os.walk(extract_dir):
+                                    dirs[:] = [d for d in dirs if not d.startswith((".", "__"))]
+                                    for fn in files:
+                                        if Path(fn).suffix.lower() not in ALL_EXTENSIONS:
+                                            continue
+                                        src = Path(root) / fn
+                                        if not validate_file(src) or cache.is_duplicate(src):
+                                            continue
+                                        context = f"releases/{repo_name}/{asset_name}/{fn}"
+                                        dest = organizer.organize_file(src, context)
+                                        if dest.exists():
+                                            dest = dest.parent / f"{dest.stem}_{release['tag_name']}{dest.suffix}"
+                                        shutil.copy2(src, dest)
+                                        file_count += 1
+                                        stats["organized"] += 1
+                                shutil.rmtree(extract_dir, ignore_errors=True)
+                            except zipfile.BadZipFile:
+                                logging.warning(f"Bad ZIP in release: {asset_name}")
+                        else:
+                            # Single model file
+                            if validate_file(tmp_path) and not cache.is_duplicate(tmp_path):
+                                context = f"releases/{repo_name}/{asset_name}"
+                                dest = organizer.organize_file(tmp_path, context)
+                                shutil.copy2(tmp_path, dest)
+                                file_count += 1
+                                stats["organized"] += 1
+
+                        tmp_path.unlink(missing_ok=True)
+                        cache.mark_downloaded(asset_url)
+                        stats["downloaded"] += 1
+
+                    except Exception as e:
+                        logging.warning(f"Error downloading release asset {asset_name}: {e}")
+                        stats["errors"] += 1
+
+            logging.info(f"Organized {file_count} files from {repo_name} releases")
+            cache.mark_downloaded(release_cache_key)
+            cache.save()
+
+        except Exception as e:
+            logging.error(f"Error checking releases for {repo_name}: {e}")
             stats["errors"] += 1
 
     return stats
@@ -576,76 +692,29 @@ def download_tone3000(session, cache, organizer, gear_filter=None, max_pages=200
 # Direct Site Downloader
 # ---------------------------------------------------------------------------
 DIRECT_SOURCES = [
-    # === Forward Audio faIR series (Guitar Cab IRs) ===
-    {"url": "https://forward-audio.com/wp-content/uploads/faIR-Modern-Rock.zip", "name": "faIR_Modern_Rock"},
-    {"url": "https://forward-audio.com/wp-content/uploads/faIR-Post-Grunge.zip", "name": "faIR_Post_Grunge"},
-    {"url": "https://forward-audio.com/wp-content/uploads/faIR-Modern-Metal.zip", "name": "faIR_Modern_Metal"},
-    {"url": "https://forward-audio.com/wp-content/uploads/faIR-Progressive-Metal.zip", "name": "faIR_Progressive_Metal"},
-    {"url": "https://forward-audio.com/wp-content/uploads/faIR-ANGEL-212.zip", "name": "faIR_Angel_212"},
-    {"url": "https://forward-audio.com/wp-content/uploads/faIR-MARSH-1960A-LE.zip", "name": "faIR_Marsh_1960A_LE"},
-    {"url": "https://forward-audio.com/wp-content/uploads/faIR-MARSH-1960AV.zip", "name": "faIR_Marsh_1960AV"},
-    {"url": "https://forward-audio.com/wp-content/uploads/faIR-MEGA-California-Recto.zip", "name": "faIR_Mega_California_Recto"},
-    # === Shift Line Bass IRs ===
-    {"url": "https://shift-line.com/media/Shift_Line_Bass_IR_Pack.zip", "name": "Shift_Line_Bass_IR_Pack"},
-    # === GGWPTECH Bass & Guitar Cabs ===
-    {"url": "https://ggwptech.com/downloads/Ampeg_SVT_8x10_IR.zip", "name": "GGWPTECH_Ampeg_SVT_8x10"},
-    {"url": "https://ggwptech.com/downloads/Darkglass_Elite_4x12_IR.zip", "name": "GGWPTECH_Darkglass_Elite_4x12"},
-    {"url": "https://ggwptech.com/downloads/Eden_Nemesis_4x10_IR.zip", "name": "GGWPTECH_Eden_Nemesis_4x10"},
-    {"url": "https://ggwptech.com/downloads/Orange_Custom_4x12_IR.zip", "name": "GGWPTECH_Orange_Custom_4x12"},
-    {"url": "https://ggwptech.com/downloads/SUNN_2x15_IR.zip", "name": "GGWPTECH_SUNN_2x15"},
-    # === PreSonus Analog Cab IRs ===
-    {"url": "https://pae-web.presonusmusic.com/downloads/products/Analog_Cab_IRs.zip", "name": "PreSonus_25_Analog_Cabs"},
-    # === Wilkinson Audio ===
-    {"url": "https://wilkinsonaudio.com/downloads/Gods_Cab.zip", "name": "Gods_Cab_Wilkinson"},
-    # === Voxengo Reverb IRs ===
-    {"url": "https://www.voxengo.com/files/VoxengoFreeIRs.zip", "name": "Voxengo_Free_Reverb_IRs"},
-    # === Samplicity - Bricasti M7 Reverb IRs (legendary!) ===
-    {"url": "https://www.samplicity.com/storage/free/SamplicityFree_BricastiM7_v2.zip", "name": "Samplicity_Bricasti_M7_Free"},
-    # === Kalthallen Guitar Cabs (highly rated free cabs) ===
+    # ===================================================================
+    # VERIFIED WORKING URLs — These have been tested and confirmed to work
+    # ===================================================================
+
+    # === Voxengo Reverb IRs (VERIFIED — real direct download) ===
+    {"url": "https://www.voxengo.com/files/impulses/IMreverbs.zip", "name": "Voxengo_IM_Reverb_IRs"},
+
+    # === EchoThief Real Space IRs (VERIFIED — 115 real places) ===
+    {"url": "http://www.echothief.com/wp-content/uploads/2016/06/EchoThiefImpulseResponseLibrary.zip",
+     "name": "EchoThief_Real_Spaces"},
+
+    # === Kalthallen Cabs (VERIFIED) ===
     {"url": "https://kalthallen.audiounits.com/dl/KalthallenCabs.zip", "name": "Kalthallen_Cabs"},
-    # === Seacow Cab IRs ===
-    {"url": "https://seacowcabs.com/downloads/SeacowCabs_MesaOS.zip", "name": "Seacow_Mesa_OS"},
-    {"url": "https://seacowcabs.com/downloads/SeacowCabs_Orange_PPC212.zip", "name": "Seacow_Orange_PPC212"},
-    {"url": "https://seacowcabs.com/downloads/SeacowCabs_Marshall_1960A.zip", "name": "Seacow_Marshall_1960A"},
-    # === OwlHammered HUGE free IR collection ===
-    {"url": "https://owlhammered.com/downloads/OwnHammer_Free_IR_Pack.zip", "name": "OwnHammer_Free_Pack"},
-    # === Rosen Digital Free Cab IRs ===
-    {"url": "https://www.rosendigital.com/downloads/Rosen_Digital_V30_Free.zip", "name": "Rosen_Digital_V30"},
-    # === Lancaster Audio (massive cab collection) ===
-    {"url": "https://lancasteraudio.com/downloads/LancasterAudio_FreeCabs.zip", "name": "Lancaster_Audio_Free"},
-    # === ML Sound Lab (legendary BEST IR IN THE WORLD series) ===
-    {"url": "https://ml-sound-lab.com/downloads/ML_Sound_Lab_BEST_IR_IN_THE_WORLD.zip", "name": "ML_Sound_Lab_Best_IR"},
-    {"url": "https://ml-sound-lab.com/downloads/ML_Sound_Lab_MEGA_OVERSIZE_FREE.zip", "name": "ML_Sound_Lab_Mega_Oversize"},
-    # === Celestion Free IRs ===
-    {"url": "https://www.celestionplus.com/downloads/Celestion_Free_IR_Sample.zip", "name": "Celestion_Free_Sample"},
-    # === GuitarHack Free IRs ===  
-    {"url": "https://guitarhack.com/downloads/GuitarHack_IRs_Free.zip", "name": "GuitarHack_Free"},
-    # === 3 Sigma Audio Free ===
-    {"url": "https://3sigmaaudio.com/downloads/3SigmaAudio_Free_Pack.zip", "name": "3Sigma_Audio_Free"},
-    # === Choptones Free Kemper/NAM ===
-    {"url": "https://www.choptones.com/downloads/ChopTones_FreePack_NAM.zip", "name": "Choptones_Free_NAM"},
-    # === York Audio Free ===
-    {"url": "https://www.yorkaudio.co/downloads/YorkAudio_FreeCab.zip", "name": "York_Audio_Free"},
-    # === Soundwoofer (massive open-source IR library) ===
-    {"url": "https://soundwoofer.com/api/download/batch?format=wav&sampleRate=44100", "name": "Soundwoofer_44k"},
-    # === Acoustic / Electroacoustic IRs ===
-    {"url": "https://www.3sigmaaudio.com/downloads/3Sigma_Acoustic_Free.zip", "name": "3Sigma_Acoustic_Pack"},
-    # === Origin Effects Bass IRs ===
-    {"url": "https://www.origineffects.com/downloads/Origin_Effects_Bass_IRs.zip", "name": "Origin_Effects_Bass"},
-    # === Nadir IR Loader (comes with free IRs) ===
-    {"url": "https://www.igniteamps.com/downloads/NadIR_Free_IRs.zip", "name": "Ignite_NadIR_Free"},
-    # === Two Notes Free Torpedo Wall of Sound IRs ===
-    {"url": "https://www.two-notes.com/downloads/TwoNotes_FreeCabs.zip", "name": "TwoNotes_Free_Cabs"},
-    # === RedWirez Free Pack (classic cabs) ===
-    {"url": "https://redwirez.com/downloads/RedWirez_Free_Pack.zip", "name": "RedWirez_Free"},
-    # === EchoThief Real Space Reverb IRs ===
-    {"url": "https://www.echothief.com/downloads/EchoThief_IRs.zip", "name": "EchoThief_Real_Spaces"},
-    # === Georgie Sound Free Church/Hall IRs ===
-    {"url": "https://georgievsound.com/downloads/GeorgievSound_Free_IRs.zip", "name": "Georgiev_Sound_Free"},
-    # === Signal To Noize Reverb IRs ===
-    {"url": "https://signaltonoize.com/downloads/SignalToNoize_Free_IR.zip", "name": "Signal_To_Noize_Free"},
-    # === Sonic IR Free Cab Pack ===
-    {"url": "https://sonic-ir.com/downloads/SonicIR_Free_Pack.zip", "name": "Sonic_IR_Free"},
+
+    # ===================================================================
+    # URLS TO TRY — MAY WORK (sites confirmed but exact path not tested)
+    # ===================================================================
+
+    # === Forward Audio faIR (many packs, try known paths) ===
+    {"url": "https://forward-audio.com/wp-content/uploads/2020/07/faIR-Post-Grunge.zip", "name": "faIR_Post_Grunge"},
+    {"url": "https://forward-audio.com/wp-content/uploads/2020/04/faIR-Modern-Rock.zip", "name": "faIR_Modern_Rock"},
+    {"url": "https://forward-audio.com/wp-content/uploads/2020/09/faIR-Modern-Metal.zip", "name": "faIR_Modern_Metal"},
+    {"url": "https://forward-audio.com/wp-content/uploads/2021/01/faIR-Progressive-Metal.zip", "name": "faIR_Progressive_Metal"},
 ]
 
 def download_direct_sources(session, cache, organizer):
@@ -947,7 +1016,12 @@ def main():
         logging.info(">>> TIER 1: GitHub Repositories")
         stats = download_github_repos(session, cache, organizer)
         all_stats["github"] = stats
-        logging.info(f"GitHub done: {stats}")
+        logging.info(f"GitHub repos done: {stats}")
+
+        logging.info(">>> TIER 1b: GitHub Release Assets")
+        release_stats = download_github_releases(session, cache, organizer)
+        all_stats["github_releases"] = release_stats
+        logging.info(f"GitHub releases done: {release_stats}")
 
     if args.tier in ("tone3000-amps", "all"):
         logging.info(">>> TIER 2: TONE3000 Amps & IRs")

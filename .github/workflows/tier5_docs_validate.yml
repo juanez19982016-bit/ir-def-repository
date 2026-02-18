@@ -1,4 +1,4 @@
-name: "Tier 5: Generate Docs & Final Validate"
+name: "Tier 5: Docs and Validate"
 
 on:
   workflow_dispatch:
@@ -29,123 +29,35 @@ jobs:
           RCLONE_TOKEN: ${{ secrets.RCLONE_DRIVE_TOKEN }}
         run: |
           mkdir -p ~/.config/rclone
-          printf "[gdrive_repo]
-type = drive
-scope = drive
-token = %s
-team_drive =
-" "$RCLONE_TOKEN" > ~/.config/rclone/rclone.conf
+          printf "[gdrive_repo]\ntype = drive\nscope = drive\ntoken = %s\nteam_drive =\n" "$RCLONE_TOKEN" > ~/.config/rclone/rclone.conf
 
-      - name: Download repository from Drive for doc generation
+      - name: Download repo content list
         run: |
           mkdir -p /tmp/ir_repository
-          # Only download the metadata cache and a file listing
-          rclone copy gdrive_repo:IR_DEF_REPOSITORY/.download_cache.json /tmp/ir_repository/ || true
-          rclone copy gdrive_repo:IR_DEF_REPOSITORY/.stats.json /tmp/ir_repository/ || true
-          # Get the full file listing for documentation
-          rclone lsf gdrive_repo:IR_DEF_REPOSITORY -R --files-only > /tmp/drive_files.txt || true
-          echo "Total files on Drive:"
-          wc -l < /tmp/drive_files.txt
+          rclone lsf gdrive_repo:IR_DEF_REPOSITORY -R --files-only > /tmp/ir_repository/.filelist.txt || true
+          wc -l < /tmp/ir_repository/.filelist.txt
 
-      - name: Generate documentation from Drive listing
+      - name: Generate documentation
         run: |
-          python3 << 'PYEOF'
-          import os
-          from pathlib import Path
-          from collections import defaultdict
-
-          base = Path("/tmp/ir_repository")
-          base.mkdir(parents=True, exist_ok=True)
-
-          # Read file listing from Drive
-          files = []
-          listing = Path("/tmp/drive_files.txt")
-          if listing.exists():
-              files = [l.strip() for l in listing.read_text().splitlines() if l.strip()]
-
-          # Filter only audio files
-          valid_ext = {".wav", ".nam", ".json", ".aidax", ".flac", ".aiff"}
-          audio_files = [f for f in files if Path(f).suffix.lower() in valid_ext]
-          total = len(audio_files)
-
-          # Categorize
-          categories = defaultdict(int)
-          brands = defaultdict(int)
-          for f in audio_files:
-              parts = f.replace("\\", "/").split("/")
-              if len(parts) >= 2:
-                  categories[f"{parts[0]}/{parts[1]}"] += 1
-              if len(parts) >= 3:
-                  brands[parts[2]] += 1
-
-          # README
-          readme = f"""# 🎸 IR DEF REPOSITORY — The Ultimate Free IR & NAM Collection
-
-          > **{total:,} archivos** de Impulse Responses y capturas Neural Amp Modeler
-          > Organizado por instrumento, tipo y marca — 100% gratuito y legal
-          > Compilado de 30+ fuentes verificadas de la comunidad
-
-          ---
-
-          ## 📊 Estadísticas
-
-          | Categoría | Archivos |
-          |-----------|----------|
-          """
-          for cat in sorted(categories):
-              readme += f"| {cat} | {categories[cat]:,} |\n"
-          readme += f"| **TOTAL** | **{total:,}** |\n"
-
-          readme += """
-          ---
-
-          ## 📂 Estructura
-
-          ```
-          ├── GUITARRA/          — IRs y capturas NAM de guitarra
-          │   ├── IRs/           — Impulse Responses (WAV) por marca
-          │   └── NAM_Capturas/  — Modelos NAM (Amps/Pedals/Full_Rigs) por marca
-          ├── BAJO/              — IRs y capturas NAM para bajo
-          ├── ELECTROACUSTICA/   — IRs piezo y simulación acústica
-          └── UTILIDADES/        — Reverbs, emulaciones de mic, favoritos
-          ```
-
-          ## 🚀 Quick Start → [QUICK_START.md](QUICK_START.md)
-          ## 📋 Fuentes → [SOURCES.md](SOURCES.md)
-
-          ---
-          *Repositorio auto-generado — Todas las fuentes son gratuitas y legítimas*
-          """
-          import textwrap
-          readme = textwrap.dedent(readme)
-          (base / "README.md").write_text(readme, encoding="utf-8")
-          print(f"README generated for {total:,} files")
-
-          PYEOF
-
-      - name: Copy static docs
-        run: |
-          # Generate QUICK_START and SOURCES via the script
           python scripts/download_and_organize.py \
             --tier docs \
-            --output-dir /tmp/ir_repository || true
+            --output-dir /tmp/ir_repository
 
       - name: Upload docs to Drive
+        if: always()
         run: |
           rclone copy /tmp/ir_repository/README.md gdrive_repo:IR_DEF_REPOSITORY/ || true
           rclone copy /tmp/ir_repository/QUICK_START.md gdrive_repo:IR_DEF_REPOSITORY/ || true
           rclone copy /tmp/ir_repository/SOURCES.md gdrive_repo:IR_DEF_REPOSITORY/ || true
 
       - name: Final Report
+        if: always()
         run: |
-          echo "============================================"
-          echo "   IR DEF REPOSITORY — FINAL REPORT"
-          echo "============================================"
-          rclone size gdrive_repo:IR_DEF_REPOSITORY 2>/dev/null || echo "Size check pending"
-          echo ""
-          echo "=== Top-level folders ==="
-          rclone lsd gdrive_repo:IR_DEF_REPOSITORY/ 2>/dev/null || true
-          echo ""
-          echo "============================================"
-          echo "   DONE! Repository is ready to share."
-          echo "============================================"
+          echo "=========================================="
+          echo "IR DEF REPOSITORY - FINAL REPORT"
+          echo "=========================================="
+          rclone size gdrive_repo:IR_DEF_REPOSITORY || true
+          echo "=========================================="
+          rclone lsd gdrive_repo:IR_DEF_REPOSITORY || true
+          echo "=========================================="
+          echo "DONE!"

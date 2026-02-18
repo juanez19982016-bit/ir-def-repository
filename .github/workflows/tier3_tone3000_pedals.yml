@@ -1,4 +1,4 @@
-name: "Tier 3: TONE3000 Pedals & Rigs"
+name: "Tier 3: TONE3000 Pedals and Rigs"
 
 on:
   workflow_dispatch:
@@ -29,18 +29,13 @@ jobs:
           RCLONE_TOKEN: ${{ secrets.RCLONE_DRIVE_TOKEN }}
         run: |
           mkdir -p ~/.config/rclone
-          printf "[gdrive_repo]
-type = drive
-scope = drive
-token = %s
-team_drive =
-" "$RCLONE_TOKEN" > ~/.config/rclone/rclone.conf
+          printf "[gdrive_repo]\ntype = drive\nscope = drive\ntoken = %s\nteam_drive =\n" "$RCLONE_TOKEN" > ~/.config/rclone/rclone.conf
 
       - name: Download existing cache from Drive
         run: |
           rclone copy gdrive_repo:IR_DEF_REPOSITORY/.download_cache.json /tmp/ir_repository/ || true
 
-      - name: Download TONE3000 Pedals, Full Rigs & Outboard
+      - name: Download TONE3000 Pedals and Rigs
         env:
           TONE3000_API_KEY: ${{ secrets.TONE3000_API_KEY }}
         run: |
@@ -49,6 +44,7 @@ team_drive =
             --output-dir /tmp/ir_repository
 
       - name: Show stats
+        if: always()
         run: |
           echo "=== File counts ==="
           find /tmp/ir_repository -type f -not -name '.*' | wc -l
@@ -56,6 +52,7 @@ team_drive =
           du -sh /tmp/ir_repository/ 2>/dev/null || true
 
       - name: Upload to Google Drive
+        if: always()
         run: |
           rclone copy /tmp/ir_repository gdrive_repo:IR_DEF_REPOSITORY \
             --transfers 8 \
@@ -63,8 +60,10 @@ team_drive =
             --drive-chunk-size 64M \
             --fast-list \
             --stats 30s \
-            --log-level INFO
+            --log-level INFO \
+            --stats-one-line
 
       - name: Verify
+        if: always()
         run: |
           rclone size gdrive_repo:IR_DEF_REPOSITORY || true

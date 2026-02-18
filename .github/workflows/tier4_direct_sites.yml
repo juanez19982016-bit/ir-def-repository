@@ -29,12 +29,7 @@ jobs:
           RCLONE_TOKEN: ${{ secrets.RCLONE_DRIVE_TOKEN }}
         run: |
           mkdir -p ~/.config/rclone
-          printf "[gdrive_repo]
-type = drive
-scope = drive
-token = %s
-team_drive =
-" "$RCLONE_TOKEN" > ~/.config/rclone/rclone.conf
+          printf "[gdrive_repo]\ntype = drive\nscope = drive\ntoken = %s\nteam_drive =\n" "$RCLONE_TOKEN" > ~/.config/rclone/rclone.conf
 
       - name: Download existing cache from Drive
         run: |
@@ -47,19 +42,15 @@ team_drive =
             --output-dir /tmp/ir_repository
 
       - name: Show stats
+        if: always()
         run: |
           echo "=== File counts ==="
           find /tmp/ir_repository -type f -not -name '.*' | wc -l
           echo "=== Disk usage ==="
           du -sh /tmp/ir_repository/ 2>/dev/null || true
-          echo "=== Category breakdown ==="
-          for d in /tmp/ir_repository/*/; do
-            if [ -d "$d" ]; then
-              echo "$(basename $d): $(find $d -type f | wc -l) files"
-            fi
-          done
 
       - name: Upload to Google Drive
+        if: always()
         run: |
           rclone copy /tmp/ir_repository gdrive_repo:IR_DEF_REPOSITORY \
             --transfers 8 \
@@ -67,8 +58,10 @@ team_drive =
             --drive-chunk-size 64M \
             --fast-list \
             --stats 30s \
-            --log-level INFO
+            --log-level INFO \
+            --stats-one-line
 
       - name: Verify
+        if: always()
         run: |
           rclone size gdrive_repo:IR_DEF_REPOSITORY || true

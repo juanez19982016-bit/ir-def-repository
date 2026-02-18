@@ -1,0 +1,38 @@
+name: "🚀 Run All Tiers"
+
+on:
+  workflow_dispatch:
+    inputs:
+      start_tier:
+        description: "Start from tier (1-5)"
+        required: false
+        default: "1"
+
+jobs:
+  tier1:
+    if: ${{ github.event.inputs.start_tier <= '1' }}
+    uses: ./.github/workflows/tier1_github_repos.yml
+    secrets: inherit
+
+  tier2:
+    if: ${{ github.event.inputs.start_tier <= '2' }}
+    needs: [tier1]
+    uses: ./.github/workflows/tier2_tone3000_amps.yml
+    secrets: inherit
+
+  tier3:
+    if: ${{ github.event.inputs.start_tier <= '3' }}
+    needs: [tier2]
+    uses: ./.github/workflows/tier3_tone3000_pedals.yml
+    secrets: inherit
+
+  tier4:
+    if: ${{ github.event.inputs.start_tier <= '4' }}
+    needs: [tier3]
+    uses: ./.github/workflows/tier4_direct_sites.yml
+    secrets: inherit
+
+  tier5:
+    needs: [tier4]
+    uses: ./.github/workflows/tier5_docs_validate.yml
+    secrets: inherit

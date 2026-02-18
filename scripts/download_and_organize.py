@@ -307,28 +307,30 @@ class FileOrganizer:
 # GitHub ZIP Downloader
 # ---------------------------------------------------------------------------
 GITHUB_REPOS = [
-    {
-        "url": "https://github.com/pelennor2170/NAM_models",
-        "desc": "Massive NAM model collection",
-    },
-    {
-        "url": "https://github.com/GuitarML/ToneLibrary",
-        "desc": "GuitarML Tone Library models",
-    },
-    {
-        "url": "https://github.com/orodamaral/Speaker-Cabinets-IRs",
-        "desc": "Speaker Cabinet IRs",
-    },
-    {
-        "url": "https://github.com/sdatkinson/neural-amp-modeler",
-        "desc": "NAM official examples",
-        "subdir": "models",  # Only extract this subdirectory
-    },
-    {
-        "url": "https://github.com/GuitarML/Proteus",
-        "desc": "Proteus tone models",
-        "subdir": "models",
-    },
+    # === MASSIVE NAM MODEL COLLECTIONS ===
+    {"url": "https://github.com/pelennor2170/NAM_models", "desc": "Massive NAM model collection"},
+    {"url": "https://github.com/GuitarML/ToneLibrary", "desc": "GuitarML Tone Library models"},
+    {"url": "https://github.com/GuitarML/Proteus", "desc": "Proteus tone models"},
+    {"url": "https://github.com/sdatkinson/neural-amp-modeler", "desc": "NAM official examples"},
+    # === SPEAKER CABINET IRs ===
+    {"url": "https://github.com/orodamaral/Speaker-Cabinets-IRs", "desc": "Speaker Cabinet IRs"},
+    {"url": "https://github.com/itsmusician/IR-Library", "desc": "IR Library collection"},
+    # === ML/AI AMP MODELS ===
+    {"url": "https://github.com/Alec-Wright/Automated-GuitarAmpModelling", "desc": "ML guitar amp models"},
+    {"url": "https://github.com/GuitarML/SmartGuitarAmp", "desc": "SmartGuitarAmp models"},
+    {"url": "https://github.com/GuitarML/SmartGuitarPedal", "desc": "SmartGuitarPedal models"},
+    {"url": "https://github.com/GuitarML/SmartAmpPro", "desc": "SmartAmpPro models"},
+    {"url": "https://github.com/GuitarML/GuitarLSTM", "desc": "GuitarLSTM trained models"},
+    # === AIDA-X MODELS ===
+    {"url": "https://github.com/AidaDSP/AIDA-X", "desc": "AIDA-X amp modeler models"},
+    {"url": "https://github.com/AidaDSP/AIDA-X-Models", "desc": "AIDA-X community models"},
+    # === REVERB & UTILITY IRs ===
+    {"url": "https://github.com/voxengo/impulse-responses", "desc": "Voxengo reverb impulses"},
+    {"url": "https://github.com/eedeidk/PulseAudio-IRSs", "desc": "Publicly available IRs"},
+    # === ADDITIONAL COLLECTIONS ===
+    {"url": "https://github.com/GuitarML/TS-M1N3", "desc": "TS-M1N3 overdrive models"},
+    {"url": "https://github.com/mikeoliphant/NeuralAmpModels", "desc": "Neural amp model collection"},
+    {"url": "https://github.com/keyth72/AxeFxImpulseResponses", "desc": "Axe-Fx Impulse Responses"},
 ]
 
 def download_github_repos(session, cache, organizer):
@@ -429,7 +431,7 @@ def download_github_repos(session, cache, organizer):
 # ---------------------------------------------------------------------------
 # TONE3000 API Downloader
 # ---------------------------------------------------------------------------
-def download_tone3000(session, cache, organizer, gear_filter=None, max_pages=500):
+def download_tone3000(session, cache, organizer, gear_filter=None, max_pages=2000):
     """Download from TONE3000 API with pagination."""
     stats = {"downloaded": 0, "skipped": 0, "errors": 0, "organized": 0}
 
@@ -574,7 +576,7 @@ def download_tone3000(session, cache, organizer, gear_filter=None, max_pages=500
 # Direct Site Downloader
 # ---------------------------------------------------------------------------
 DIRECT_SOURCES = [
-    # Forward Audio faIR series
+    # === Forward Audio faIR series (Guitar Cab IRs) ===
     {"url": "https://forward-audio.com/wp-content/uploads/faIR-Modern-Rock.zip", "name": "faIR_Modern_Rock"},
     {"url": "https://forward-audio.com/wp-content/uploads/faIR-Post-Grunge.zip", "name": "faIR_Post_Grunge"},
     {"url": "https://forward-audio.com/wp-content/uploads/faIR-Modern-Metal.zip", "name": "faIR_Modern_Metal"},
@@ -583,18 +585,67 @@ DIRECT_SOURCES = [
     {"url": "https://forward-audio.com/wp-content/uploads/faIR-MARSH-1960A-LE.zip", "name": "faIR_Marsh_1960A_LE"},
     {"url": "https://forward-audio.com/wp-content/uploads/faIR-MARSH-1960AV.zip", "name": "faIR_Marsh_1960AV"},
     {"url": "https://forward-audio.com/wp-content/uploads/faIR-MEGA-California-Recto.zip", "name": "faIR_Mega_California_Recto"},
-    # Shift Line Bass IRs
+    # === Shift Line Bass IRs ===
     {"url": "https://shift-line.com/media/Shift_Line_Bass_IR_Pack.zip", "name": "Shift_Line_Bass_IR_Pack"},
-    # GGWPTECH Bass Cabs
+    # === GGWPTECH Bass & Guitar Cabs ===
     {"url": "https://ggwptech.com/downloads/Ampeg_SVT_8x10_IR.zip", "name": "GGWPTECH_Ampeg_SVT_8x10"},
     {"url": "https://ggwptech.com/downloads/Darkglass_Elite_4x12_IR.zip", "name": "GGWPTECH_Darkglass_Elite_4x12"},
     {"url": "https://ggwptech.com/downloads/Eden_Nemesis_4x10_IR.zip", "name": "GGWPTECH_Eden_Nemesis_4x10"},
     {"url": "https://ggwptech.com/downloads/Orange_Custom_4x12_IR.zip", "name": "GGWPTECH_Orange_Custom_4x12"},
     {"url": "https://ggwptech.com/downloads/SUNN_2x15_IR.zip", "name": "GGWPTECH_SUNN_2x15"},
-    # PreSonus 25 Analog Cab IRs
+    # === PreSonus Analog Cab IRs ===
     {"url": "https://pae-web.presonusmusic.com/downloads/products/Analog_Cab_IRs.zip", "name": "PreSonus_25_Analog_Cabs"},
-    # God's Cab by Wilkinson Audio  
+    # === Wilkinson Audio ===
     {"url": "https://wilkinsonaudio.com/downloads/Gods_Cab.zip", "name": "Gods_Cab_Wilkinson"},
+    # === Voxengo Reverb IRs ===
+    {"url": "https://www.voxengo.com/files/VoxengoFreeIRs.zip", "name": "Voxengo_Free_Reverb_IRs"},
+    # === Samplicity - Bricasti M7 Reverb IRs (legendary!) ===
+    {"url": "https://www.samplicity.com/storage/free/SamplicityFree_BricastiM7_v2.zip", "name": "Samplicity_Bricasti_M7_Free"},
+    # === Kalthallen Guitar Cabs (highly rated free cabs) ===
+    {"url": "https://kalthallen.audiounits.com/dl/KalthallenCabs.zip", "name": "Kalthallen_Cabs"},
+    # === Seacow Cab IRs ===
+    {"url": "https://seacowcabs.com/downloads/SeacowCabs_MesaOS.zip", "name": "Seacow_Mesa_OS"},
+    {"url": "https://seacowcabs.com/downloads/SeacowCabs_Orange_PPC212.zip", "name": "Seacow_Orange_PPC212"},
+    {"url": "https://seacowcabs.com/downloads/SeacowCabs_Marshall_1960A.zip", "name": "Seacow_Marshall_1960A"},
+    # === OwlHammered HUGE free IR collection ===
+    {"url": "https://owlhammered.com/downloads/OwnHammer_Free_IR_Pack.zip", "name": "OwnHammer_Free_Pack"},
+    # === Rosen Digital Free Cab IRs ===
+    {"url": "https://www.rosendigital.com/downloads/Rosen_Digital_V30_Free.zip", "name": "Rosen_Digital_V30"},
+    # === Lancaster Audio (massive cab collection) ===
+    {"url": "https://lancasteraudio.com/downloads/LancasterAudio_FreeCabs.zip", "name": "Lancaster_Audio_Free"},
+    # === ML Sound Lab (legendary BEST IR IN THE WORLD series) ===
+    {"url": "https://ml-sound-lab.com/downloads/ML_Sound_Lab_BEST_IR_IN_THE_WORLD.zip", "name": "ML_Sound_Lab_Best_IR"},
+    {"url": "https://ml-sound-lab.com/downloads/ML_Sound_Lab_MEGA_OVERSIZE_FREE.zip", "name": "ML_Sound_Lab_Mega_Oversize"},
+    # === Celestion Free IRs ===
+    {"url": "https://www.celestionplus.com/downloads/Celestion_Free_IR_Sample.zip", "name": "Celestion_Free_Sample"},
+    # === GuitarHack Free IRs ===  
+    {"url": "https://guitarhack.com/downloads/GuitarHack_IRs_Free.zip", "name": "GuitarHack_Free"},
+    # === 3 Sigma Audio Free ===
+    {"url": "https://3sigmaaudio.com/downloads/3SigmaAudio_Free_Pack.zip", "name": "3Sigma_Audio_Free"},
+    # === Choptones Free Kemper/NAM ===
+    {"url": "https://www.choptones.com/downloads/ChopTones_FreePack_NAM.zip", "name": "Choptones_Free_NAM"},
+    # === York Audio Free ===
+    {"url": "https://www.yorkaudio.co/downloads/YorkAudio_FreeCab.zip", "name": "York_Audio_Free"},
+    # === Soundwoofer (massive open-source IR library) ===
+    {"url": "https://soundwoofer.com/api/download/batch?format=wav&sampleRate=44100", "name": "Soundwoofer_44k"},
+    # === Acoustic / Electroacoustic IRs ===
+    {"url": "https://www.3sigmaaudio.com/downloads/3Sigma_Acoustic_Free.zip", "name": "3Sigma_Acoustic_Pack"},
+    # === Origin Effects Bass IRs ===
+    {"url": "https://www.origineffects.com/downloads/Origin_Effects_Bass_IRs.zip", "name": "Origin_Effects_Bass"},
+    # === Nadir IR Loader (comes with free IRs) ===
+    {"url": "https://www.igniteamps.com/downloads/NadIR_Free_IRs.zip", "name": "Ignite_NadIR_Free"},
+    # === Two Notes Free Torpedo Wall of Sound IRs ===
+    {"url": "https://www.two-notes.com/downloads/TwoNotes_FreeCabs.zip", "name": "TwoNotes_Free_Cabs"},
+    # === RedWirez Free Pack (classic cabs) ===
+    {"url": "https://redwirez.com/downloads/RedWirez_Free_Pack.zip", "name": "RedWirez_Free"},
+    # === EchoThief Real Space Reverb IRs ===
+    {"url": "https://www.echothief.com/downloads/EchoThief_IRs.zip", "name": "EchoThief_Real_Spaces"},
+    # === Georgie Sound Free Church/Hall IRs ===
+    {"url": "https://georgievsound.com/downloads/GeorgievSound_Free_IRs.zip", "name": "Georgiev_Sound_Free"},
+    # === Signal To Noize Reverb IRs ===
+    {"url": "https://signaltonoize.com/downloads/SignalToNoize_Free_IR.zip", "name": "Signal_To_Noize_Free"},
+    # === Sonic IR Free Cab Pack ===
+    {"url": "https://sonic-ir.com/downloads/SonicIR_Free_Pack.zip", "name": "Sonic_IR_Free"},
 ]
 
 def download_direct_sources(session, cache, organizer):

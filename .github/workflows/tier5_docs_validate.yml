@@ -26,10 +26,11 @@ jobs:
 
       - name: Configure rclone
         env:
-          RCLONE_TOKEN: ${{ secrets.RCLONE_DRIVE_TOKEN }}
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
         run: |
           mkdir -p ~/.config/rclone
-          printf "[gdrive_repo]\ntype = drive\nscope = drive\ntoken = %s\nteam_drive =\n" "$RCLONE_TOKEN" > ~/.config/rclone/rclone.conf
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+          rclone listremotes
 
       - name: Download repo content list
         run: |

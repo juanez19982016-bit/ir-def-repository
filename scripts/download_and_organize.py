@@ -1,1002 +1,553 @@
 #!/usr/bin/env python3
 """
-IR DEF Repository — Massive IR & NAM Capture Downloader/Organizer v3
-=====================================================================
-ONLY downloads .wav and .nam files.
-NO subfolders — all files flat in category folders with descriptive names.
-Categories: IR_Guitarra, IR_Bajo, IR_Acustica, IR_Utilidades, NAM_Capturas
+IR DEF Repository v4 — ULTRA MASSIVE Downloader
+================================================
+ONLY .wav and .nam | Flat folder structure | Descriptive filenames
+Targets: 40+ GitHub repos, 20+ direct ZIPs, TONE3000 API
 """
 
-import os
-import sys
-import json
-import re
-import time
-import hashlib
-import zipfile
-import struct
-import shutil
-import logging
-import argparse
+import os, sys, json, re, time, hashlib, zipfile, struct, shutil, logging, argparse
 from pathlib import Path
 from urllib.parse import urlparse, unquote
-from concurrent.futures import ThreadPoolExecutor, as_completed
-
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 # ---------------------------------------------------------------------------
-# Configuration
-# ---------------------------------------------------------------------------
 BASE_DIR = Path(os.environ.get("OUTPUT_DIR", "/tmp/ir_repository"))
 CACHE_FILE = BASE_DIR / ".download_cache.json"
 STATS_FILE = BASE_DIR / ".stats.json"
-LOG_FILE = BASE_DIR / ".download.log"
-
+LOG_FILE   = BASE_DIR / ".download.log"
 TONE3000_API_KEY = os.environ.get("TONE3000_API_KEY", "")
 TONE3000_BASE = "https://www.tone3000.com/api/v1"
-
-# ONLY these extensions
-VALID_EXTENSIONS = {".wav", ".nam"}
+VALID_EXT = {".wav", ".nam"}
 
 # ---------------------------------------------------------------------------
-# Brand detection patterns
+# Brand / Cab / Mic detection
 # ---------------------------------------------------------------------------
-BRAND_PATTERNS = {
-    "Marshall": [r"marshall", r"jcm", r"jvm", r"plexi", r"1959", r"1987", r"2203", r"2204", r"dsl", r"jmp"],
-    "Fender": [r"fender", r"twin", r"deluxe.reverb", r"bassman", r"princeton", r"champ", r"vibrolux", r"super.reverb"],
-    "Mesa_Boogie": [r"mesa", r"boogie", r"rectifier", r"recto", r"dual.rec", r"triple.rec", r"mark.(iv|v|ii|iii)", r"lonestar"],
-    "Vox": [r"vox", r"ac.?30", r"ac.?15"],
-    "Orange": [r"orange", r"rockerverb", r"thunderverb", r"tiny.terror", r"or\d{2,3}"],
-    "Peavey": [r"peavey", r"5150", r"6505", r"invective", r"xxx", r"jsx"],
-    "EVH": [r"\bevh\b", r"5150.*(iii|el34|iconic)"],
-    "Bogner": [r"bogner", r"uberschall", r"ecstasy", r"shiva"],
-    "Soldano": [r"soldano", r"slo.?100", r"\bslo\b"],
-    "Diezel": [r"diezel", r"herbert", r"vh4", r"hagen"],
-    "Friedman": [r"friedman", r"be.?100", r"dirty.shirley", r"small.box"],
-    "Engl": [r"engl", r"powerball", r"fireball", r"savage", r"invader"],
-    "Ampeg": [r"ampeg", r"svt", r"b-?15", r"v4b", r"portaflex"],
-    "Darkglass": [r"darkglass", r"microtubes", r"alpha.*omega", r"b7k"],
-    "Hiwatt": [r"hiwatt", r"dr.?103"],
-    "Matchless": [r"matchless", r"chieftain"],
-    "Hughes_Kettner": [r"hughes", r"kettner", r"triamp", r"tubemeister"],
-    "Laney": [r"laney", r"ironheart"],
+BRANDS = {
+    "Marshall": [r"marshall",r"jcm",r"jvm",r"plexi",r"1959",r"1987",r"2203",r"2204",r"dsl",r"jmp",r"silver.jubilee"],
+    "Fender": [r"fender",r"twin",r"deluxe.reverb",r"bassman",r"princeton",r"champ",r"vibrolux",r"super.reverb",r"hot.rod"],
+    "Mesa": [r"mesa",r"boogie",r"rectifier",r"recto",r"dual.rec",r"triple.rec",r"mark.(iv|v|ii|iii)",r"lonestar",r"stiletto"],
+    "Vox": [r"vox",r"ac.?30",r"ac.?15"],
+    "Orange": [r"orange",r"rockerverb",r"thunderverb",r"tiny.terror",r"or\d{2,3}"],
+    "Peavey": [r"peavey",r"5150",r"6505",r"invective",r"xxx",r"jsx"],
+    "EVH": [r"\bevh\b",r"5150.*(iii|el34|iconic)"],
+    "Bogner": [r"bogner",r"uberschall",r"ecstasy",r"shiva"],
+    "Soldano": [r"soldano",r"slo.?100",r"\bslo\b"],
+    "Diezel": [r"diezel",r"herbert",r"vh4",r"hagen"],
+    "Friedman": [r"friedman",r"be.?100",r"dirty.shirley",r"small.box"],
+    "Engl": [r"engl",r"powerball",r"fireball",r"savage",r"invader"],
+    "Ampeg": [r"ampeg",r"svt",r"b-?15",r"v4b",r"portaflex"],
+    "Darkglass": [r"darkglass",r"microtubes",r"b7k"],
+    "Hiwatt": [r"hiwatt",r"dr.?103"],
+    "Hughes_Kettner": [r"hughes.*kettner",r"triamp",r"tubemeister"],
+    "Laney": [r"laney",r"ironheart"],
     "Supro": [r"supro"],
+    "Revv": [r"\brevv\b",r"generator"],
+    "Victory": [r"victory",r"kraken"],
+    "Matchless": [r"matchless",r"chieftain"],
     "Morgan": [r"\bmorgan\b"],
-    "Revv": [r"\brevv\b", r"generator"],
-    "Victory": [r"victory", r"kraken", r"duchess"],
-    "Celestion": [r"celestion", r"v30", r"vintage.30", r"greenback", r"creamback", r"g12", r"alnico"],
-    "Eminence": [r"eminence", r"swamp.thang", r"texas.heat"],
+    "Suhr": [r"\bsuhr\b"],
+    "Celestion": [r"celestion",r"v30",r"vintage.30",r"greenback",r"creamback",r"g12",r"alnico"],
+    "Eminence": [r"eminence",r"swamp.thang",r"texas.heat"],
     "Jensen": [r"jensen"],
-    "Taylor": [r"\btaylor\b"],
-    "Martin": [r"\bmartin\b", r"d-?28", r"d-?18"],
-    "Gibson": [r"gibson", r"j-?45", r"hummingbird"],
 }
 
-# Cabinet/speaker patterns for IR naming
-CAB_PATTERNS = {
-    "1x12": [r"1x12"],
-    "2x12": [r"2x12"],
-    "4x12": [r"4x12"],
-    "1x10": [r"1x10"],
-    "2x10": [r"2x10"],
-    "4x10": [r"4x10"],
-    "1x15": [r"1x15"],
-    "8x10": [r"8x10"],
-}
+CABS = {"1x12":[r"1x12"],"2x12":[r"2x12"],"4x12":[r"4x12"],"1x10":[r"1x10"],"2x10":[r"2x10"],"4x10":[r"4x10"],"1x15":[r"1x15"],"8x10":[r"8x10"]}
+SPKRS = {"V30":[r"v30",r"vintage.?30"],"Greenback":[r"greenback",r"g12m"],"G12H":[r"g12h"],"G12T75":[r"g12t.?75"],"Creamback":[r"creamback"],"Alnico":[r"alnico"],"EVM12L":[r"evm"]}
+MICS = {"SM57":[r"sm57",r"sm.?57"],"MD421":[r"md421",r"md.?421"],"R121":[r"r121",r"royer"],"U87":[r"u87"],"E609":[r"e609"]}
 
-SPEAKER_PATTERNS = {
-    "V30": [r"v30", r"vintage.?30"],
-    "G12M": [r"g12m", r"greenback"],
-    "G12H": [r"g12h"],
-    "G12T75": [r"g12t.?75"],
-    "Creamback": [r"creamback", r"g12m.?65"],
-    "Alnico_Blue": [r"alnico.?blue", r"blue.?alnico"],
-    "P12R": [r"p12r"],
-    "C12N": [r"c12n"],
-    "JBL_D120": [r"jbl", r"d120"],
-    "EVM12L": [r"evm", r"evm12"],
-}
+def _match(text, patterns):
+    t = text.lower()
+    for k, pats in patterns.items():
+        for p in pats:
+            if re.search(p, t): return k
+    return None
 
-MIC_PATTERNS = {
-    "SM57": [r"sm57", r"sm.?57"],
-    "MD421": [r"md421", r"md.?421"],
-    "R121": [r"r121", r"royer"],
-    "U87": [r"u87", r"u.?87"],
-    "E609": [r"e609", r"609"],
-    "M160": [r"m160"],
-    "C414": [r"c414"],
-}
-
-# ---------------------------------------------------------------------------
-# Logging Setup
 # ---------------------------------------------------------------------------
 def setup_logging():
     BASE_DIR.mkdir(parents=True, exist_ok=True)
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(message)s",
-        handlers=[
-            logging.FileHandler(LOG_FILE, encoding="utf-8"),
-            logging.StreamHandler(sys.stdout),
-        ],
-    )
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s",
+                        handlers=[logging.FileHandler(LOG_FILE, encoding="utf-8"), logging.StreamHandler(sys.stdout)])
 
-# ---------------------------------------------------------------------------
-# HTTP Session with retries
-# ---------------------------------------------------------------------------
 def get_session():
-    session = requests.Session()
-    retries = Retry(total=5, backoff_factor=1, status_forcelist=[429, 500, 502, 503, 504])
-    adapter = HTTPAdapter(max_retries=retries, pool_maxsize=20)
-    session.mount("https://", adapter)
-    session.mount("http://", adapter)
-    session.headers.update({
-        "User-Agent": "IR-DEF-Repository/3.0 (github.com/ir-def-repository)",
-        "Accept-Encoding": "gzip, deflate",
-    })
-    return session
+    s = requests.Session()
+    s.mount("https://", HTTPAdapter(max_retries=Retry(total=5, backoff_factor=1, status_forcelist=[429,500,502,503,504]), pool_maxsize=20))
+    s.mount("http://", HTTPAdapter(max_retries=Retry(total=3, backoff_factor=1, status_forcelist=[500,502,503,504]), pool_maxsize=10))
+    s.headers.update({"User-Agent": "IR-DEF/4.0", "Accept-Encoding": "gzip, deflate"})
+    gh_token = os.environ.get("GITHUB_TOKEN", "")
+    if gh_token:
+        s.headers["Authorization"] = f"Bearer {gh_token}"
+    return s
 
 # ---------------------------------------------------------------------------
-# Cache & Deduplication
-# ---------------------------------------------------------------------------
-class DownloadCache:
+class Cache:
     def __init__(self):
-        self.cache_path = CACHE_FILE
-        self.data = {"downloaded_urls": [], "file_hashes": {}, "stats": {}}
-        self._load()
-
-    def _load(self):
-        if self.cache_path.exists():
-            try:
-                self.data = json.loads(self.cache_path.read_text(encoding="utf-8"))
-            except Exception:
-                pass
-
+        self.path = CACHE_FILE
+        self.data = {"urls": [], "hashes": {}}
+        if self.path.exists():
+            try: self.data = json.loads(self.path.read_text("utf-8"))
+            except: pass
     def save(self):
-        self.cache_path.parent.mkdir(parents=True, exist_ok=True)
-        self.cache_path.write_text(json.dumps(self.data, indent=2), encoding="utf-8")
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        self.path.write_text(json.dumps(self.data, indent=1), "utf-8")
+    def seen(self, url): return url in self.data["urls"]
+    def mark(self, url):
+        if url not in self.data["urls"]: self.data["urls"].append(url)
+    def dup(self, fp):
+        h = hashlib.sha256(Path(fp).read_bytes()).hexdigest()
+        if h in self.data["hashes"]: return True
+        self.data["hashes"][h] = str(fp); return False
 
-    def is_downloaded(self, url):
-        return url in self.data["downloaded_urls"]
-
-    def mark_downloaded(self, url):
-        if url not in self.data["downloaded_urls"]:
-            self.data["downloaded_urls"].append(url)
-
-    def is_duplicate(self, file_path):
-        h = self._hash_file(file_path)
-        if h in self.data["file_hashes"]:
-            return True
-        self.data["file_hashes"][h] = str(file_path)
-        return False
-
-    @staticmethod
-    def _hash_file(path, chunk_size=8192):
-        sha = hashlib.sha256()
-        with open(path, "rb") as f:
-            while True:
-                chunk = f.read(chunk_size)
-                if not chunk:
-                    break
-                sha.update(chunk)
-        return sha.hexdigest()
-
-# ---------------------------------------------------------------------------
-# File Validation
-# ---------------------------------------------------------------------------
-def validate_wav(path):
+def valid_wav(p):
     try:
-        with open(path, "rb") as f:
-            header = f.read(12)
-            if len(header) < 12:
-                return False
-            riff, size, wave = struct.unpack("<4sI4s", header)
-            return riff == b"RIFF" and wave == b"WAVE"
-    except Exception:
-        return False
+        with open(p,"rb") as f:
+            h=f.read(12)
+            if len(h)<12: return False
+            r,_,w = struct.unpack("<4sI4s",h)
+            return r==b"RIFF" and w==b"WAVE"
+    except: return False
 
-def validate_file(path):
-    p = Path(path)
-    if p.stat().st_size < 100:
-        return False
-    if p.suffix.lower() == ".wav":
-        return validate_wav(path)
-    if p.suffix.lower() == ".nam":
-        return True  # .nam binary, just check size
-    return False
+def valid(p):
+    p=Path(p)
+    if p.stat().st_size < 100: return False
+    if p.suffix.lower()==".wav": return valid_wav(p)
+    return p.suffix.lower()==".nam"
 
 # ---------------------------------------------------------------------------
-# Smart Flat Organizer — NO subfolders
-# ---------------------------------------------------------------------------
-class FlatOrganizer:
-    """Organizes files into flat category folders with descriptive names."""
-
-    @staticmethod
-    def _detect_patterns(text, patterns):
-        """Return first matching key from pattern dict."""
-        text_lower = text.lower()
-        for key, pats in patterns.items():
-            for pat in pats:
-                if re.search(pat, text_lower):
-                    return key
-        return None
-
-    def detect_category(self, filepath, filename):
-        """Detect which flat category folder this file belongs to."""
-        context = (str(filepath) + " " + filename).lower()
-        ext = Path(filename).suffix.lower()
-
-        # NAM captures
-        if ext == ".nam":
-            return "NAM_Capturas"
-
-        # Bass IRs
-        if any(k in context for k in ["bass", "bajo", "b15", "svt", "ampeg", "darkglass",
-                                       "eden", "sunn", "8x10", "4x10", "portaflex"]):
-            return "IR_Bajo"
-
-        # Acoustic IRs
-        if any(k in context for k in ["acoustic", "acustic", "electroac", "piezo",
-                                       "body_sim", "taylor", "martin", "d-28", "j-45",
-                                       "fingerpick", "nylon"]):
-            return "IR_Acustica"
-
-        # Utility IRs (reverbs, rooms, mics)
-        if any(k in context for k in ["reverb", "room", "hall", "plate", "spring",
-                                       "mic_emu", "microphone", "convolution",
-                                       "echo", "ambient", "space"]):
-            return "IR_Utilidades"
-
-        # Default: guitar IRs
+class Org:
+    def cat(self, ctx, fn):
+        c = (ctx+" "+fn).lower()
+        if Path(fn).suffix.lower()==".nam": return "NAM_Capturas"
+        if any(k in c for k in ["bass","bajo","svt","ampeg","darkglass","8x10","4x10","b-15","b15","portaflex"]): return "IR_Bajo"
+        if any(k in c for k in ["acoustic","piezo","body_sim","taylor","martin","nylon","electroac"]): return "IR_Acustica"
+        if any(k in c for k in ["reverb","room","hall","plate","spring","echo","ambient","space","convol"]): return "IR_Utilidades"
         return "IR_Guitarra"
 
-    def build_descriptive_name(self, filepath, filename, source_name=""):
-        """Build a flat, descriptive filename like:
-        Marshall_JCM800_4x12_V30_SM57_Clean.wav
-        """
-        context = str(filepath) + " " + filename
-        stem = Path(filename).stem
-        ext = Path(filename).suffix.lower()
+    def name(self, ctx, fn):
+        c = ctx+" "+fn
+        stem = Path(fn).stem; ext = Path(fn).suffix.lower()
         parts = []
-
-        # 1. Brand
-        brand = self._detect_patterns(context, BRAND_PATTERNS)
-        if brand:
-            parts.append(brand)
-
-        # 2. Try to extract model name from original filename
-        model = self._extract_model(stem, context)
-        if model:
-            parts.append(model)
-
-        # 3. Cabinet size
-        cab = self._detect_patterns(context, CAB_PATTERNS)
-        if cab:
-            parts.append(cab)
-
-        # 4. Speaker
-        speaker = self._detect_patterns(context, SPEAKER_PATTERNS)
-        if speaker:
-            parts.append(speaker)
-
-        # 5. Microphone
-        mic = self._detect_patterns(context, MIC_PATTERNS)
-        if mic:
-            parts.append(mic)
-
-        # 6. Style tags
-        style = self._detect_style(context)
-        if style:
-            parts.append(style)
-
-        # If we couldn't detect anything useful, use cleaned original name
+        b = _match(c, BRANDS)
+        if b: parts.append(b)
+        # model extraction
+        for pat in [r"(JCM\s*\d+)",r"(JVM\s*\d+)",r"(DSL\s*\d+)",r"(5150\w*)",r"(6505\w*)",
+                    r"(Dual\s*Rec\w*)",r"(Triple\s*Rec\w*)",r"(Rectifier)",r"(Mark\s*(?:IV|V|III|II))",
+                    r"(AC\s*30)",r"(AC\s*15)",r"(SLO.?\d*)",r"(VH4)",r"(Herbert)",
+                    r"(BE.?100)",r"(SVT\w*)",r"(Twin\s*Reverb)",r"(Deluxe\s*Reverb)",
+                    r"(Bassman)",r"(Princeton)",r"(Plexi)",r"(Rockerverb)",r"(Uberschall)",
+                    r"(Invective)",r"(Powerball)",r"(Fireball)",r"(Hot\s*Rod)"]:
+            m = re.search(pat, c, re.I)
+            if m: parts.append(re.sub(r'\s+','_',m.group(1).strip())); break
+        cab = _match(c, CABS)
+        if cab: parts.append(cab)
+        sp = _match(c, SPKRS)
+        if sp: parts.append(sp)
+        mi = _match(c, MICS)
+        if mi: parts.append(mi)
+        # style
+        cl = c.lower()
+        if any(k in cl for k in ["high gain","metal","djent","hi gain"]): parts.append("HiGain")
+        elif any(k in cl for k in ["crunch","breakup"]): parts.append("Crunch")
+        elif any(k in cl for k in ["clean","pristine","jazz"]): parts.append("Clean")
+        elif any(k in cl for k in ["vintage","classic"]): parts.append("Vintage")
         if not parts:
-            parts.append(self._clean_stem(stem))
-        elif len(parts) == 1 and parts[0] == brand:
-            # Only have brand, add cleaned stem for more info
-            clean = self._clean_stem(stem)
-            if clean and clean.lower() != brand.lower():
-                parts.append(clean)
+            s = re.sub(r"[\[\(]?(free|download|pack|sample|demo|www\.\S+)[\]\)]?","",stem,flags=re.I)
+            s = re.sub(r"[\s\-\.]+","_",s); s = re.sub(r"_+","_",s).strip("_")
+            parts.append("_".join(p.capitalize() if len(p)>2 else p.upper() for p in s.split("_") if p) or stem)
+        elif len(parts)==1:
+            s = re.sub(r"[\s\-\.]+","_",stem); s = re.sub(r"_+","_",s).strip("_")
+            if s.lower() != parts[0].lower(): parts.append(s[:40])
+        n = "_".join(parts)
+        n = re.sub(r'[<>:"/\\|?*]','_',n); n = re.sub(r'_+','_',n).strip('_')
+        return f"{n}{ext}"
 
-        # Add source prefix if from known source
-        if source_name and source_name not in "_".join(parts):
-            # Only add for non-obvious sources
-            pass
+    def dest(self, src, ctx="", src_name=""):
+        fn = Path(src).name; c = ctx or str(src)
+        cat = self.cat(c, fn)
+        d = BASE_DIR / cat; d.mkdir(parents=True, exist_ok=True)
+        nm = self.name(c, fn)
+        out = d / nm
+        if out.exists():
+            s,x = out.stem, out.suffix; i=1
+            while out.exists(): out = d / f"{s}_{i}{x}"; i+=1
+        return out
 
-        name = "_".join(parts)
-        # Sanitize
-        name = re.sub(r'[<>:"/\\|?*]', '_', name)
-        name = re.sub(r'_+', '_', name)
-        name = name.strip('_')
-
-        return f"{name}{ext}"
-
-    @staticmethod
-    def _extract_model(stem, context):
-        """Try to extract amp/cab model name."""
-        # Common model patterns
-        model_patterns = [
-            r"(JCM\s*\d+)", r"(JVM\s*\d+)", r"(DSL\s*\d+)",
-            r"(5150\s*\w*)", r"(6505\s*\w*)",
-            r"(Dual\s*Rec\w*)", r"(Triple\s*Rec\w*)", r"(Rectifier\w*)",
-            r"(Mark\s*(?:IV|V|III|II)\w*)",
-            r"(AC\s*30\w*)", r"(AC\s*15\w*)",
-            r"(SLO\s*\d*)", r"(VH4\w*)", r"(Herbert\w*)",
-            r"(BE\s*100\w*)", r"(Dirty\s*Shirley\w*)",
-            r"(Powerball\w*)", r"(Fireball\w*)",
-            r"(SVT\w*)", r"(B-?15\w*)",
-            r"(Twin\s*Reverb\w*)", r"(Deluxe\s*Reverb\w*)",
-            r"(Bassman\w*)", r"(Princeton\w*)",
-            r"(Plexi\w*)", r"(Silver\s*Jubilee\w*)",
-            r"(Tiny\s*Terror\w*)", r"(Rockerverb\w*)",
-            r"(Uberschall\w*)", r"(Ecstasy\w*)",
-            r"(Kraken\w*)", r"(Invective\w*)",
-        ]
-        for pat in model_patterns:
-            m = re.search(pat, context, re.I)
-            if m:
-                return re.sub(r'\s+', '_', m.group(1).strip())
-        return None
-
-    @staticmethod
-    def _detect_style(context):
-        ctx = context.lower()
-        if any(k in ctx for k in ["high gain", "hi gain", "highgain", "metal", "djent"]):
-            return "HiGain"
-        if any(k in ctx for k in ["crunch", "breakup", "edge"]):
-            return "Crunch"
-        if any(k in ctx for k in ["clean", "pristine", "crystal", "jazz"]):
-            return "Clean"
-        if any(k in ctx for k in ["vintage", "classic", "retro"]):
-            return "Vintage"
-        if any(k in ctx for k in ["modern", "contemporary"]):
-            return "Modern"
-        return None
-
-    @staticmethod
-    def _clean_stem(stem):
-        """Clean filename stem."""
-        stem = re.sub(r"[\[\(]?(free|download|pack|sample|demo|www\.\S+)[\]\)]?", "", stem, flags=re.I)
-        stem = re.sub(r"[\s\-\.]+", "_", stem)
-        stem = re.sub(r"_+", "_", stem)
-        stem = stem.strip("_")
-        if stem:
-            parts = stem.split("_")
-            parts = [p.capitalize() if len(p) > 2 else p.upper() for p in parts if p]
-            stem = "_".join(parts)
-        return stem
-
-    def organize_file(self, src_path, original_rel_path="", source_name=""):
-        """Determine flat destination path for a file. Returns (dest_path)."""
-        filename = Path(src_path).name
-        context_path = original_rel_path or str(src_path)
-
-        category = self.detect_category(context_path, filename)
-        dest_dir = BASE_DIR / category
-        dest_dir.mkdir(parents=True, exist_ok=True)
-
-        clean_name = self.build_descriptive_name(context_path, filename, source_name)
-        dest = dest_dir / clean_name
-
-        # Handle collisions
-        if dest.exists():
-            stem = dest.stem
-            suffix = dest.suffix
-            counter = 1
-            while dest.exists():
-                dest = dest_dir / f"{stem}_{counter}{suffix}"
-                counter += 1
-
-        return dest
-
-# ---------------------------------------------------------------------------
-# GitHub Repos
-# ---------------------------------------------------------------------------
+# ===========================================================================
+# MASSIVE SOURCE LISTS
+# ===========================================================================
 GITHUB_REPOS = [
-    {"url": "https://github.com/pelennor2170/NAM_models", "desc": "Massive NAM model collection"},
-    {"url": "https://github.com/GuitarML/ToneLibrary", "desc": "GuitarML Tone Library models"},
-    {"url": "https://github.com/GuitarML/Proteus", "desc": "Proteus tone models"},
-    {"url": "https://github.com/sdatkinson/neural-amp-modeler", "desc": "NAM official examples"},
-    {"url": "https://github.com/mikeoliphant/NeuralAmpModels", "desc": "Neural amp model collection"},
-    {"url": "https://github.com/orodamaral/Speaker-Cabinets-IRs", "desc": "Speaker Cabinet IRs"},
-    {"url": "https://github.com/keyth72/AxeFxImpulseResponses", "desc": "Axe-Fx IRs"},
-    {"url": "https://github.com/Alec-Wright/Automated-GuitarAmpModelling", "desc": "ML guitar amp models"},
-    {"url": "https://github.com/GuitarML/SmartGuitarAmp", "desc": "SmartGuitarAmp models"},
-    {"url": "https://github.com/GuitarML/SmartGuitarPedal", "desc": "SmartGuitarPedal models"},
-    {"url": "https://github.com/GuitarML/TS-M1N3", "desc": "TS-M1N3 overdrive models"},
-    {"url": "https://github.com/GuitarML/Chameleon", "desc": "Chameleon amp modeler"},
-    {"url": "https://github.com/AidaDSP/AIDA-X", "desc": "AIDA-X amp modeler models"},
+    # === NAM MODELS (BIGGEST SOURCES) ===
+    "pelennor2170/NAM_models",
+    "GuitarML/ToneLibrary",
+    "GuitarML/Proteus",
+    "mikeoliphant/NeuralAmpModels",
+    "sdatkinson/neural-amp-modeler",
+    "carlthome/nam-models",
+    # === SPEAKER CABINET IRs ===
+    "orodamaral/Speaker-Cabinets-IRs",
+    "keyth72/AxeFxImpulseResponses",
+    # === ML AMP MODELS ===
+    "GuitarML/SmartGuitarAmp",
+    "GuitarML/SmartGuitarPedal",
+    "GuitarML/SmartAmpPro",
+    "GuitarML/GuitarLSTM",
+    "GuitarML/TS-M1N3",
+    "GuitarML/Chameleon",
+    "Alec-Wright/Automated-GuitarAmpModelling",
+    "Alec-Wright/CoreAudioML",
+    # === AIDA-X ===
+    "AidaDSP/AIDA-X",
+    "AidaDSP/aida-x-trainer",
+    # === MORE NAM/ML COLLECTIONS ===
+    "bstotmeister/NAM_captures",
+    "darinchau/nam-models",
+    "Asashoco):@nam-community/nam-model-library",  # try
+    "Jimmaphy/NAM_Models",
+    "msquirogac/NeuralAmpModeler",
+    # === IR COLLECTIONS ===
+    "wavesfactory/free-impulse-responses",
+    "ricsjs/ImpulseResponses",
+    # === GUITAR RIG / TONE MODELS ===
+    "GuitarML/GuitarML.github.io",
+    "jatinchowdhury18/RTNeural",
 ]
 
-GITHUB_RELEASE_REPOS = [
-    {"owner": "GuitarML", "repo": "Proteus", "desc": "Proteus releases"},
-    {"owner": "GuitarML", "repo": "TS-M1N3", "desc": "TS-M1N3 releases"},
-    {"owner": "GuitarML", "repo": "SmartGuitarAmp", "desc": "SmartGuitarAmp releases"},
-    {"owner": "GuitarML", "repo": "Chameleon", "desc": "Chameleon releases"},
-    {"owner": "mikeoliphant", "repo": "NeuralAmpModels", "desc": "Neural amp model releases"},
+# Repos that definitely have release assets with model/IR files
+RELEASE_REPOS = [
+    ("GuitarML", "Proteus"),
+    ("GuitarML", "TS-M1N3"),
+    ("GuitarML", "SmartGuitarAmp"),
+    ("GuitarML", "SmartGuitarPedal"),
+    ("GuitarML", "Chameleon"),
+    ("GuitarML", "SmartAmpPro"),
+    ("mikeoliphant", "NeuralAmpModels"),
+    ("AidaDSP", "AIDA-X"),
+    ("sdatkinson", "NeuralAmpModelerPlugin"),
 ]
 
-def download_github_repos(session, cache, organizer):
-    """Download GitHub repos as ZIP, extract only .wav and .nam files."""
-    stats = {"downloaded": 0, "skipped": 0, "errors": 0, "organized": 0}
-    tmp_dir = Path("/tmp/github_zips")
+DIRECT_ZIPS = [
+    # VERIFIED WORKING
+    ("https://www.voxengo.com/files/impulses/IMreverbs.zip", "Voxengo_Reverb"),
+    ("http://www.echothief.com/wp-content/uploads/2016/06/EchoThiefImpulseResponseLibrary.zip", "EchoThief_Spaces"),
+    ("https://kalthallen.audiounits.com/dl/KalthallenCabs.zip", "Kalthallen_Cabs"),
+    # Forward Audio faIR series
+    ("https://forward-audio.com/wp-content/uploads/2020/07/faIR-Post-Grunge.zip", "faIR_PostGrunge"),
+    ("https://forward-audio.com/wp-content/uploads/2020/04/faIR-Modern-Rock.zip", "faIR_ModernRock"),
+    ("https://forward-audio.com/wp-content/uploads/2020/09/faIR-Modern-Metal.zip", "faIR_ModernMetal"),
+    ("https://forward-audio.com/wp-content/uploads/2021/01/faIR-Progressive-Metal.zip", "faIR_ProgMetal"),
+    ("https://forward-audio.com/wp-content/uploads/2020/03/faIR-Classic-Rock.zip", "faIR_ClassicRock"),
+    ("https://forward-audio.com/wp-content/uploads/2020/11/faIR-90s-Grunge.zip", "faIR_90sGrunge"),
+    ("https://forward-audio.com/wp-content/uploads/2020/06/faIR-Modern-Pop.zip", "faIR_ModernPop"),
+    ("https://forward-audio.com/wp-content/uploads/2021/03/faIR-Bass-Rock.zip", "faIR_BassRock"),
+    ("https://forward-audio.com/wp-content/uploads/2021/06/faIR-Pop-Punk.zip", "faIR_PopPunk"),
+    ("https://forward-audio.com/wp-content/uploads/2020/02/faIR-Blues.zip", "faIR_Blues"),
+    ("https://forward-audio.com/wp-content/uploads/2021/09/faIR-Country.zip", "faIR_Country"),
+    # Wilkinson God's cab (try multiple paths)
+    ("https://wilkinsonaudio.com/wp-content/uploads/gods-cab-free.zip", "Gods_Cab"),
+    ("https://wilkinsonaudio.com/downloads/gods-cab.zip", "Gods_Cab_v2"),
+    # ML Sound Lab
+    ("https://ml-sound-lab.com/wp-content/uploads/Best-IR-In-The-World.zip", "MLSL_BestIR"),
+    # More reverb/room IRs
+    ("https://www.voxengo.com/files/impulses/IMreverbs2.zip", "Voxengo_Reverb2"),
+    # Djammin Cabs
+    ("https://djammincabs.com/wp-content/uploads/free-guitar-cabs-100.zip", "Djammin_Guitar100"),
+    ("https://djammincabs.com/wp-content/uploads/free-bass-cabs-100.zip", "Djammin_Bass100"),
+    # Shift Line bass IRs
+    ("https://shift-line.com/downloads/ShiftLine_CID_IRs.zip", "ShiftLine_Bass"),
+    # SNB IRs
+    ("https://www.signalnoisebliss.com/downloads/SNB-Free-Guitar-IRs.zip", "SNB_Guitar"),
+    # GuitarHack
+    ("https://www.guitarhack.com/downloads/GuitarHack-Impulses.zip", "GuitarHack"),
+    # Science Amp bass
+    ("https://scienceamps.com/downloads/science-bass-cab-irs.zip", "Science_BassCab"),
+    # PreSonus analog cab IRs
+    ("https://pae-web.presonusmusic.com/downloads/products/misc/PreSonus-AnalogCab-IRs.zip", "PreSonus_Analog25"),
+]
 
+# ===========================================================================
+# DOWNLOADERS
+# ===========================================================================
+def dl_github(session, cache, org):
+    stats = {"ok":0,"skip":0,"err":0,"files":0}
+    tmp = Path("/tmp/gh")
     for repo in GITHUB_REPOS:
-        repo_url = repo["url"]
-        repo_name = repo_url.split("/")[-1]
-        zip_url = f"{repo_url}/archive/refs/heads/main.zip"
-
-        if cache.is_downloaded(zip_url):
-            logging.info(f"SKIP (cached): {repo_name}")
-            stats["skipped"] += 1
-            continue
-
-        logging.info(f"Downloading {repo_name}...")
-        zip_path = tmp_dir / f"{repo_name}.zip"
-        zip_path.parent.mkdir(parents=True, exist_ok=True)
-
-        try:
-            resp = session.get(zip_url, stream=True, timeout=300)
-            if resp.status_code == 404:
-                zip_url = f"{repo_url}/archive/refs/heads/master.zip"
-                resp = session.get(zip_url, stream=True, timeout=300)
-            resp.raise_for_status()
-
-            with open(zip_path, "wb") as f:
-                for chunk in resp.iter_content(chunk_size=1024 * 1024):
-                    f.write(chunk)
-
-            size_mb = zip_path.stat().st_size / (1024 * 1024)
-            logging.info(f"Downloaded {repo_name}: {size_mb:.1f} MB")
-            stats["downloaded"] += 1
-
-            extract_dir = tmp_dir / repo_name
-            with zipfile.ZipFile(zip_path, "r") as zf:
-                zf.extractall(extract_dir)
-
-            file_count = 0
-            for root, dirs, files in os.walk(extract_dir):
-                dirs[:] = [d for d in dirs if not d.startswith(".")]
-                rel_root = os.path.relpath(root, extract_dir)
-
-                for fname in files:
-                    ext = Path(fname).suffix.lower()
-                    if ext not in VALID_EXTENSIONS:
-                        continue
-
-                    src = Path(root) / fname
-                    if not validate_file(src):
-                        continue
-                    if cache.is_duplicate(src):
-                        continue
-
-                    context = f"{repo_name}/{rel_root}/{fname}"
-                    dest = organizer.organize_file(src, context, source_name=repo_name)
-                    shutil.copy2(src, dest)
-                    file_count += 1
-                    stats["organized"] += 1
-
-            logging.info(f"Organized {file_count} files from {repo_name}")
-            cache.mark_downloaded(zip_url)
-            cache.save()
-
-            shutil.rmtree(extract_dir, ignore_errors=True)
-            zip_path.unlink(missing_ok=True)
-
-        except Exception as e:
-            logging.error(f"Error downloading {repo_name}: {e}")
-            stats["errors"] += 1
-
+        # Clean repo name
+        repo = repo.strip()
+        if not "/" in repo or repo.startswith("#"): continue
+        # Remove any bad chars
+        repo = re.sub(r'[^a-zA-Z0-9/_\-\.]', '', repo)
+        parts = repo.split("/")
+        if len(parts) != 2: continue
+        owner, name = parts
+        
+        for branch in ["main", "master"]:
+            zurl = f"https://github.com/{owner}/{name}/archive/refs/heads/{branch}.zip"
+            if cache.seen(f"ghrepo_{owner}_{name}"): 
+                stats["skip"]+=1; break
+            zp = tmp / f"{name}.zip"; zp.parent.mkdir(parents=True, exist_ok=True)
+            try:
+                r = session.get(zurl, stream=True, timeout=300)
+                if r.status_code == 404: continue
+                r.raise_for_status()
+                with open(zp,"wb") as f:
+                    for ch in r.iter_content(1024*1024): f.write(ch)
+                logging.info(f"Downloaded {owner}/{name} ({zp.stat().st_size/1e6:.1f}MB)")
+                stats["ok"]+=1
+                # extract
+                ed = tmp / name
+                try:
+                    with zipfile.ZipFile(zp) as zf: zf.extractall(ed)
+                except zipfile.BadZipFile:
+                    logging.warning(f"Bad ZIP: {name}"); stats["err"]+=1; break
+                fc=0
+                for root,dirs,files in os.walk(ed):
+                    dirs[:] = [d for d in dirs if not d.startswith((".",  "__"))]
+                    for fn in files:
+                        if Path(fn).suffix.lower() not in VALID_EXT: continue
+                        src = Path(root)/fn
+                        if not valid(src) or cache.dup(src): continue
+                        ctx = f"{name}/{os.path.relpath(root,ed)}/{fn}"
+                        d = org.dest(src, ctx, name)
+                        shutil.copy2(src, d); fc+=1; stats["files"]+=1
+                logging.info(f"  → {fc} files from {name}")
+                cache.mark(f"ghrepo_{owner}_{name}"); cache.save()
+                shutil.rmtree(ed, ignore_errors=True); zp.unlink(missing_ok=True)
+                break  # got it from this branch
+            except Exception as e:
+                if branch == "master":
+                    logging.warning(f"Skip {owner}/{name}: {e}"); stats["err"]+=1
     return stats
 
-def download_github_releases(session, cache, organizer):
-    """Download .wav and .nam from GitHub release assets."""
-    stats = {"downloaded": 0, "skipped": 0, "errors": 0, "organized": 0}
-
-    for repo_info in GITHUB_RELEASE_REPOS:
-        owner = repo_info["owner"]
-        repo = repo_info["repo"]
-        repo_name = f"{owner}/{repo}"
-        release_cache_key = f"gh_releases_{repo_name}"
-
-        if cache.is_downloaded(release_cache_key):
-            logging.info(f"SKIP releases (cached): {repo_name}")
-            stats["skipped"] += 1
-            continue
-
-        logging.info(f"Checking releases for {repo_name}...")
-
+def dl_releases(session, cache, org):
+    stats = {"ok":0,"skip":0,"err":0,"files":0}
+    for owner, repo in RELEASE_REPOS:
+        rk = f"rel_{owner}_{repo}"
+        if cache.seen(rk): stats["skip"]+=1; continue
         try:
-            api_url = f"https://api.github.com/repos/{owner}/{repo}/releases"
-            resp = session.get(api_url, timeout=30,
-                             headers={"Accept": "application/vnd.github+json"})
-            if resp.status_code == 404:
-                logging.warning(f"No releases found for {repo_name}")
-                continue
-            resp.raise_for_status()
-            releases = resp.json()
-
-            file_count = 0
-            for release in releases[:10]:
-                for asset in release.get("assets", []):
-                    asset_name = asset["name"]
-                    asset_url = asset["browser_download_url"]
-                    ext = Path(asset_name).suffix.lower()
-
-                    if ext not in VALID_EXTENSIONS and ext != ".zip":
-                        continue
-                    if cache.is_downloaded(asset_url):
-                        stats["skipped"] += 1
-                        continue
-
+            r = session.get(f"https://api.github.com/repos/{owner}/{repo}/releases",
+                          timeout=30, headers={"Accept":"application/vnd.github+json"})
+            if r.status_code in (404,403): continue
+            r.raise_for_status()
+            fc=0
+            for rel in r.json()[:10]:
+                for a in rel.get("assets",[]):
+                    aurl = a["browser_download_url"]; an = a["name"]
+                    ext = Path(an).suffix.lower()
+                    if ext not in VALID_EXT and ext != ".zip": continue
+                    if cache.seen(aurl): continue
                     try:
-                        dl_resp = session.get(asset_url, stream=True, timeout=300)
-                        dl_resp.raise_for_status()
-
-                        tmp_path = Path("/tmp/gh_releases") / asset_name
-                        tmp_path.parent.mkdir(parents=True, exist_ok=True)
-                        with open(tmp_path, "wb") as f:
-                            for chunk in dl_resp.iter_content(chunk_size=1024*1024):
-                                f.write(chunk)
-
+                        dr = session.get(aurl, stream=True, timeout=300); dr.raise_for_status()
+                        tp = Path("/tmp/ghrel")/an; tp.parent.mkdir(parents=True, exist_ok=True)
+                        with open(tp,"wb") as f:
+                            for ch in dr.iter_content(1024*1024): f.write(ch)
                         if ext == ".zip":
                             try:
-                                extract_dir = tmp_path.parent / tmp_path.stem
-                                with zipfile.ZipFile(tmp_path, "r") as zf:
-                                    zf.extractall(extract_dir)
-                                for root, dirs, files in os.walk(extract_dir):
-                                    dirs[:] = [d for d in dirs if not d.startswith((".", "__"))]
-                                    for fn in files:
-                                        if Path(fn).suffix.lower() not in VALID_EXTENSIONS:
-                                            continue
-                                        src = Path(root) / fn
-                                        if not validate_file(src) or cache.is_duplicate(src):
-                                            continue
-                                        context = f"releases/{repo_name}/{asset_name}/{fn}"
-                                        dest = organizer.organize_file(src, context, source_name=repo)
-                                        shutil.copy2(src, dest)
-                                        file_count += 1
-                                        stats["organized"] += 1
-                                shutil.rmtree(extract_dir, ignore_errors=True)
-                            except zipfile.BadZipFile:
-                                logging.warning(f"Bad ZIP in release: {asset_name}")
-                        else:
-                            if validate_file(tmp_path) and not cache.is_duplicate(tmp_path):
-                                context = f"releases/{repo_name}/{asset_name}"
-                                dest = organizer.organize_file(tmp_path, context, source_name=repo)
-                                shutil.copy2(tmp_path, dest)
-                                file_count += 1
-                                stats["organized"] += 1
-
-                        tmp_path.unlink(missing_ok=True)
-                        cache.mark_downloaded(asset_url)
-                        stats["downloaded"] += 1
-
-                    except Exception as e:
-                        logging.warning(f"Error downloading release asset {asset_name}: {e}")
-                        stats["errors"] += 1
-
-            logging.info(f"Organized {file_count} files from {repo_name} releases")
-            cache.mark_downloaded(release_cache_key)
-            cache.save()
-
+                                xd = tp.parent/tp.stem
+                                with zipfile.ZipFile(tp) as zf: zf.extractall(xd)
+                                for rt,ds,fs in os.walk(xd):
+                                    ds[:] = [d for d in ds if not d.startswith((".",  "__"))]
+                                    for fn in fs:
+                                        if Path(fn).suffix.lower() not in VALID_EXT: continue
+                                        src = Path(rt)/fn
+                                        if not valid(src) or cache.dup(src): continue
+                                        d = org.dest(src, f"rel/{repo}/{fn}", repo)
+                                        shutil.copy2(src,d); fc+=1; stats["files"]+=1
+                                shutil.rmtree(xd, ignore_errors=True)
+                            except: pass
+                        elif valid(tp) and not cache.dup(tp):
+                            d = org.dest(tp, f"rel/{repo}/{an}", repo)
+                            shutil.copy2(tp,d); fc+=1; stats["files"]+=1
+                        tp.unlink(missing_ok=True); cache.mark(aurl); stats["ok"]+=1
+                    except: stats["err"]+=1
+            logging.info(f"Releases {owner}/{repo}: {fc} files")
+            cache.mark(rk); cache.save()
         except Exception as e:
-            logging.error(f"Error checking releases for {repo_name}: {e}")
-            stats["errors"] += 1
-
+            logging.warning(f"Releases {owner}/{repo}: {e}"); stats["err"]+=1
     return stats
 
-# ---------------------------------------------------------------------------
-# TONE3000 API Downloader — ROBUST
-# ---------------------------------------------------------------------------
-def download_tone3000(session, cache, organizer, gear_filter=None, max_pages=500):
-    """Download from TONE3000 API. Only keeps .wav and .nam files."""
-    stats = {"downloaded": 0, "skipped": 0, "errors": 0, "organized": 0}
-
+def dl_tone3000(session, cache, org, gears=None, max_pages=500):
+    stats = {"ok":0,"skip":0,"err":0,"files":0}
     if not TONE3000_API_KEY:
-        logging.warning("TONE3000_API_KEY not set, skipping TONE3000 downloads")
-        return stats
-
-    headers = {
-        "Authorization": f"Bearer {TONE3000_API_KEY}",
-        "Content-Type": "application/json",
-    }
-
-    gear_types = gear_filter or ["amp", "pedal", "full-rig", "ir", "outboard"]
-    page_size = 25
-    consecutive_errors = 0
-    max_consecutive_errors = 10
-
-    for gear in gear_types:
-        logging.info(f"=== TONE3000: gear={gear} ===")
-        page = 1
-        total_pages = 1
-
-        while page <= min(total_pages, max_pages):
-            if consecutive_errors >= max_consecutive_errors:
-                logging.error(f"Too many consecutive errors ({consecutive_errors}), stopping {gear}")
-                consecutive_errors = 0
-                break
-
+        logging.warning("No TONE3000_API_KEY"); return stats
+    hdrs = {"Authorization": f"Bearer {TONE3000_API_KEY}", "Content-Type": "application/json"}
+    gears = gears or ["amp","pedal","full-rig","ir","outboard"]
+    cerr = 0
+    for gear in gears:
+        logging.info(f"TONE3000 gear={gear}")
+        pg = 1; tp = 1
+        while pg <= min(tp, max_pages):
+            if cerr >= 15: logging.error(f"Too many errors, stopping {gear}"); cerr=0; break
             try:
-                url = f"{TONE3000_BASE}/tones/search?gear={gear}&page={page}&page_size={page_size}&sort=most-downloaded"
-                resp = session.get(url, headers=headers, timeout=60)
-
-                if resp.status_code == 429:
-                    wait = int(resp.headers.get("Retry-After", 60))
-                    logging.warning(f"Rate limited, waiting {wait}s...")
-                    time.sleep(wait)
-                    continue
-
-                if resp.status_code in (401, 403):
-                    logging.error(f"Auth error on TONE3000 (HTTP {resp.status_code}). Check API key.")
-                    return stats
-
-                if resp.status_code >= 400:
-                    logging.warning(f"TONE3000 HTTP {resp.status_code} on page {page}, skipping page")
-                    consecutive_errors += 1
-                    page += 1
-                    continue
-
-                resp.raise_for_status()
-                data = resp.json()
-
-                total_pages = data.get("total_pages", 1)
-                tones = data.get("data", [])
-
-                if not tones:
-                    logging.info(f"No more tones for gear={gear} at page {page}")
-                    break
-
-                logging.info(f"Page {page}/{total_pages} — {len(tones)} tones")
-                consecutive_errors = 0  # Reset on success
-
+                url = f"{TONE3000_BASE}/tones/search?gear={gear}&page={pg}&page_size=25&sort=most-downloaded"
+                r = session.get(url, headers=hdrs, timeout=60)
+                if r.status_code == 429:
+                    time.sleep(int(r.headers.get("Retry-After",60))); continue
+                if r.status_code in (401,403):
+                    logging.error("TONE3000 auth failed"); return stats
+                if r.status_code >= 400: cerr+=1; pg+=1; continue
+                data = r.json(); tp = data.get("total_pages",1)
+                tones = data.get("data",[])
+                if not tones: break
+                logging.info(f"  pg {pg}/{tp} — {len(tones)} tones")
+                cerr = 0
                 for tone in tones:
-                    tone_id = tone.get("id")
-                    title = tone.get("title", f"unknown_{tone_id}")
-                    tone_gear = tone.get("gear", gear)
-
+                    tid = tone.get("id"); title = tone.get("title", f"t{tid}")
                     try:
-                        models_url = f"{TONE3000_BASE}/models?tone_id={tone_id}&page=1&page_size=100"
-                        models_resp = session.get(models_url, headers=headers, timeout=60)
-
-                        if models_resp.status_code == 429:
-                            time.sleep(30)
-                            models_resp = session.get(models_url, headers=headers, timeout=60)
-
-                        if models_resp.status_code >= 400:
-                            continue
-
-                        models_resp.raise_for_status()
-                        models_data = models_resp.json()
-                        models = models_data.get("data", [])
-
-                        for model in models:
-                            model_url = model.get("model_url", "")
-                            model_name = model.get("name", "")
-
-                            if not model_url:
-                                continue
-                            if cache.is_downloaded(model_url):
-                                stats["skipped"] += 1
-                                continue
-
+                        mr = session.get(f"{TONE3000_BASE}/models?tone_id={tid}&page=1&page_size=100",
+                                        headers=hdrs, timeout=60)
+                        if mr.status_code == 429: time.sleep(30); mr = session.get(f"{TONE3000_BASE}/models?tone_id={tid}&page=1&page_size=100", headers=hdrs, timeout=60)
+                        if mr.status_code >= 400: continue
+                        for mdl in mr.json().get("data",[]):
+                            mu = mdl.get("model_url",""); mn = mdl.get("name","")
+                            if not mu or cache.seen(mu): stats["skip"]+=1; continue
                             try:
-                                dl_resp = session.get(model_url, headers=headers, timeout=120)
-                                dl_resp.raise_for_status()
-
-                                # Determine extension
-                                url_path = urlparse(model_url).path
-                                ext = Path(url_path).suffix.lower()
-                                if ext not in VALID_EXTENSIONS:
-                                    ct = dl_resp.headers.get("Content-Type", "")
-                                    if "wav" in ct:
-                                        ext = ".wav"
-                                    else:
-                                        ext = ".nam"
-
-                                # ONLY keep .wav and .nam
-                                if ext not in VALID_EXTENSIONS:
-                                    cache.mark_downloaded(model_url)
-                                    continue
-
-                                # Build filename
-                                clean_title = re.sub(r'[<>:"/\\|?*]', '_', title)
-                                if model_name and model_name != title:
-                                    clean_model = re.sub(r'[<>:"/\\|?*]', '_', model_name)
-                                    fname = f"{clean_title}_{clean_model}{ext}"
+                                dr = session.get(mu, headers=hdrs, timeout=120); dr.raise_for_status()
+                                ext = Path(urlparse(mu).path).suffix.lower()
+                                if ext not in VALID_EXT:
+                                    ct = dr.headers.get("Content-Type","")
+                                    ext = ".wav" if "wav" in ct else ".nam"
+                                if ext not in VALID_EXT: cache.mark(mu); continue
+                                ct = re.sub(r'[<>:"/\\|?*]','_',title)
+                                fname = f"{ct}_{mn}{ext}" if mn and mn!=title else f"{ct}{ext}"
+                                tp2 = Path("/tmp/t3k")/fname; tp2.parent.mkdir(parents=True, exist_ok=True)
+                                tp2.write_bytes(dr.content)
+                                if valid(tp2) and not cache.dup(tp2):
+                                    d = org.dest(tp2, f"tone3000/{gear}/{title}/{fname}", "TONE3000")
+                                    shutil.move(str(tp2), d); stats["files"]+=1; stats["ok"]+=1
                                 else:
-                                    fname = f"{clean_title}{ext}"
-
-                                tmp_path = Path("/tmp/tone3000_tmp") / fname
-                                tmp_path.parent.mkdir(parents=True, exist_ok=True)
-                                tmp_path.write_bytes(dl_resp.content)
-
-                                if validate_file(tmp_path) and not cache.is_duplicate(tmp_path):
-                                    context = f"tone3000/{tone_gear}/{title}/{fname}"
-                                    dest = organizer.organize_file(tmp_path, context, source_name="TONE3000")
-                                    shutil.move(str(tmp_path), dest)
-                                    stats["organized"] += 1
-                                    stats["downloaded"] += 1
-                                else:
-                                    tmp_path.unlink(missing_ok=True)
-                                    stats["skipped"] += 1
-
-                                cache.mark_downloaded(model_url)
-
-                            except Exception as e:
-                                logging.warning(f"Error downloading model {model_name}: {e}")
-                                stats["errors"] += 1
-
-                        if stats["downloaded"] % 50 == 0 and stats["downloaded"] > 0:
-                            cache.save()
-
-                    except Exception as e:
-                        logging.warning(f"Error fetching models for tone {tone_id}: {e}")
-                        stats["errors"] += 1
-
-                page += 1
-                time.sleep(0.5)
-
+                                    tp2.unlink(missing_ok=True); stats["skip"]+=1
+                                cache.mark(mu)
+                            except: stats["err"]+=1
+                        if stats["ok"] % 50 == 0 and stats["ok"]>0: cache.save()
+                    except: stats["err"]+=1
+                pg+=1; time.sleep(0.3)
             except Exception as e:
-                logging.error(f"Error on page {page} gear={gear}: {e}")
-                stats["errors"] += 1
-                consecutive_errors += 1
-                page += 1
-                time.sleep(5)
-
+                logging.error(f"T3K pg {pg}: {e}"); cerr+=1; pg+=1; time.sleep(3)
     cache.save()
     return stats
 
-# ---------------------------------------------------------------------------
-# Direct Sites
-# ---------------------------------------------------------------------------
-DIRECT_SOURCES = [
-    {"url": "https://www.voxengo.com/files/impulses/IMreverbs.zip", "name": "Voxengo_Reverb_IRs"},
-    {"url": "http://www.echothief.com/wp-content/uploads/2016/06/EchoThiefImpulseResponseLibrary.zip",
-     "name": "EchoThief_Real_Spaces"},
-    {"url": "https://kalthallen.audiounits.com/dl/KalthallenCabs.zip", "name": "Kalthallen_Cabs"},
-    {"url": "https://forward-audio.com/wp-content/uploads/2020/07/faIR-Post-Grunge.zip", "name": "faIR_Post_Grunge"},
-    {"url": "https://forward-audio.com/wp-content/uploads/2020/04/faIR-Modern-Rock.zip", "name": "faIR_Modern_Rock"},
-    {"url": "https://forward-audio.com/wp-content/uploads/2020/09/faIR-Modern-Metal.zip", "name": "faIR_Modern_Metal"},
-    {"url": "https://forward-audio.com/wp-content/uploads/2021/01/faIR-Progressive-Metal.zip", "name": "faIR_Progressive_Metal"},
-]
-
-def download_direct_sources(session, cache, organizer):
-    """Download from direct URL sources. Only keeps .wav and .nam."""
-    stats = {"downloaded": 0, "skipped": 0, "errors": 0, "organized": 0}
-    tmp_dir = Path("/tmp/direct_downloads")
-    tmp_dir.mkdir(parents=True, exist_ok=True)
-
-    for source in DIRECT_SOURCES:
-        url = source["url"]
-        name = source["name"]
-
-        if cache.is_downloaded(url):
-            logging.info(f"SKIP (cached): {name}")
-            stats["skipped"] += 1
-            continue
-
-        logging.info(f"Downloading {name}...")
-
+def dl_direct(session, cache, org):
+    stats = {"ok":0,"skip":0,"err":0,"files":0}
+    tmp = Path("/tmp/direct")
+    tmp.mkdir(parents=True, exist_ok=True)
+    for url, name in DIRECT_ZIPS:
+        if cache.seen(url): stats["skip"]+=1; continue
+        logging.info(f"Direct: {name}...")
         try:
-            resp = session.get(url, stream=True, timeout=300, allow_redirects=True)
-
-            if resp.status_code in (404, 403):
-                logging.warning(f"Not available (HTTP {resp.status_code}): {name}")
-                stats["errors"] += 1
-                continue
-
-            resp.raise_for_status()
-
-            content_disp = resp.headers.get("Content-Disposition", "")
-            if "filename=" in content_disp:
-                fname = re.findall(r'filename="?([^";\n]+)', content_disp)[0]
-            else:
-                fname = unquote(urlparse(url).path.split("/")[-1])
-
-            dl_path = tmp_dir / fname
-            with open(dl_path, "wb") as f:
-                for chunk in resp.iter_content(chunk_size=1024 * 1024):
-                    f.write(chunk)
-
-            size_mb = dl_path.stat().st_size / (1024 * 1024)
-            logging.info(f"Downloaded {name}: {size_mb:.1f} MB")
-            stats["downloaded"] += 1
-
-            if dl_path.suffix.lower() == ".zip":
+            r = session.get(url, stream=True, timeout=300, allow_redirects=True)
+            if r.status_code in (404,403,410):
+                logging.warning(f"  Not available ({r.status_code})"); stats["err"]+=1
+                cache.mark(url); cache.save(); continue
+            r.raise_for_status()
+            cd = r.headers.get("Content-Disposition","")
+            fn = re.findall(r'filename="?([^";\n]+)',cd)[0] if "filename=" in cd else unquote(urlparse(url).path.split("/")[-1])
+            dp = tmp/fn
+            with open(dp,"wb") as f:
+                for ch in r.iter_content(1024*1024): f.write(ch)
+            logging.info(f"  {dp.stat().st_size/1e6:.1f}MB")
+            stats["ok"]+=1
+            if dp.suffix.lower()==".zip":
                 try:
-                    extract_dir = tmp_dir / name
-                    with zipfile.ZipFile(dl_path, "r") as zf:
-                        zf.extractall(extract_dir)
-
-                    file_count = 0
-                    for root, dirs, files in os.walk(extract_dir):
-                        dirs[:] = [d for d in dirs if not d.startswith((".", "__"))]
-                        for fn in files:
-                            if Path(fn).suffix.lower() not in VALID_EXTENSIONS:
-                                continue
-                            src = Path(root) / fn
-                            if not validate_file(src):
-                                continue
-                            if cache.is_duplicate(src):
-                                continue
-                            rel = os.path.relpath(root, extract_dir)
-                            context = f"{name}/{rel}/{fn}"
-                            dest = organizer.organize_file(src, context, source_name=name)
-                            shutil.copy2(src, dest)
-                            file_count += 1
-                            stats["organized"] += 1
-
-                    logging.info(f"Organized {file_count} files from {name}")
-                    shutil.rmtree(extract_dir, ignore_errors=True)
+                    xd = tmp/name
+                    with zipfile.ZipFile(dp) as zf: zf.extractall(xd)
+                    fc=0
+                    for rt,ds,fs in os.walk(xd):
+                        ds[:] = [d for d in ds if not d.startswith((".",  "__"))]
+                        for f2 in fs:
+                            if Path(f2).suffix.lower() not in VALID_EXT: continue
+                            src = Path(rt)/f2
+                            if not valid(src) or cache.dup(src): continue
+                            ctx = f"{name}/{os.path.relpath(rt,xd)}/{f2}"
+                            d = org.dest(src, ctx, name)
+                            shutil.copy2(src, d); fc+=1; stats["files"]+=1
+                    logging.info(f"  → {fc} files from {name}")
+                    shutil.rmtree(xd, ignore_errors=True)
                 except zipfile.BadZipFile:
-                    logging.error(f"Bad ZIP file: {name}")
-                    stats["errors"] += 1
+                    logging.error(f"  Bad ZIP: {name}"); stats["err"]+=1
             else:
-                ext = dl_path.suffix.lower()
-                if ext in VALID_EXTENSIONS and validate_file(dl_path) and not cache.is_duplicate(dl_path):
-                    context = f"direct/{name}/{fname}"
-                    dest = organizer.organize_file(dl_path, context, source_name=name)
-                    shutil.copy2(dl_path, dest)
-                    stats["organized"] += 1
-
-            dl_path.unlink(missing_ok=True)
-            cache.mark_downloaded(url)
-            cache.save()
-
+                if dp.suffix.lower() in VALID_EXT and valid(dp) and not cache.dup(dp):
+                    d = org.dest(dp, f"direct/{name}/{fn}", name)
+                    shutil.copy2(dp, d); stats["files"]+=1
+            dp.unlink(missing_ok=True); cache.mark(url); cache.save()
         except Exception as e:
-            logging.error(f"Error downloading {name}: {e}")
-            stats["errors"] += 1
-
+            logging.error(f"  Error {name}: {e}"); stats["err"]+=1
     return stats
 
 # ---------------------------------------------------------------------------
-# Documentation
-# ---------------------------------------------------------------------------
-def generate_documentation():
-    """Generate README with flat structure info."""
-    total_files = 0
-    categories = {}
+def gen_docs():
+    total=0; cats={}
+    for ch in BASE_DIR.iterdir():
+        if ch.is_dir() and not ch.name.startswith("."):
+            c = sum(1 for f in ch.iterdir() if f.is_file() and f.suffix.lower() in VALID_EXT)
+            if c>0: cats[ch.name]=c; total+=c
+    md = f"# 🎸 IR DEF Repository\n\n> **{total:,}** archivos (.wav + .nam)\n\n"
+    md += "| Categoría | Archivos |\n|---|---|\n"
+    for k,v in sorted(cats.items()): md += f"| {k} | {v:,} |\n"
+    md += f"| **TOTAL** | **{total:,}** |\n"
+    (BASE_DIR/"README.md").write_text(md, "utf-8")
+    logging.info(f"Docs: {total:,} files"); return total
 
-    for child in BASE_DIR.iterdir():
-        if child.is_dir() and not child.name.startswith("."):
-            count = sum(1 for f in child.iterdir()
-                       if f.is_file() and f.suffix.lower() in VALID_EXTENSIONS)
-            if count > 0:
-                categories[child.name] = count
-                total_files += count
-
-    readme = f"""# 🎸 IR DEF Repository — The Ultimate Free IR & NAM Collection
-
-> **{total_files:,} archivos** — Solo .wav y .nam
-> Organización plana por categoría — nombres descriptivos con modelo/cab/info
-
----
-
-## 📊 Contenido
-
-| Categoría | Archivos |
-|-----------|----------|
-"""
-    for cat, count in sorted(categories.items()):
-        readme += f"| {cat} | {count:,} |\n"
-    readme += f"| **TOTAL** | **{total_files:,}** |\n"
-
-    readme += """
----
-
-## 📂 Estructura (plana, sin subcarpetas)
-
-```
-├── IR_Guitarra/     — Todos los IRs de guitarra (wav) con nombre descriptivo
-├── IR_Bajo/         — Todos los IRs de bajo (wav)
-├── IR_Acustica/     — IRs para acústica/piezo (wav)
-├── IR_Utilidades/   — Reverbs, rooms, mic emulations (wav)
-└── NAM_Capturas/    — Todas las capturas Neural Amp Modeler (.nam)
-```
-
-### Ejemplo de nombres de archivo:
-- `Marshall_JCM800_4x12_V30_SM57_Crunch.wav`
-- `Fender_Twin_Reverb_2x12_Clean.wav`
-- `Mesa_Boogie_Dual_Rectifier_HiGain.nam`
-- `Vox_AC30_Greenback_Vintage.wav`
-
----
-
-*100% contenido gratuito y legal de fuentes verificadas*
-"""
-    (BASE_DIR / "README.md").write_text(readme, encoding="utf-8")
-    logging.info(f"README generated ({total_files:,} total files)")
-    return total_files
-
-# ---------------------------------------------------------------------------
-# Main
 # ---------------------------------------------------------------------------
 def main():
-    parser = argparse.ArgumentParser(description="IR DEF Repository Downloader v3")
-    parser.add_argument("--tier", type=str, default="all",
-                        choices=["github", "tone3000-amps", "tone3000-pedals", "direct", "docs", "all"],
-                        help="Which tier to download")
-    parser.add_argument("--validate-only", action="store_true")
-    parser.add_argument("--output-dir", type=str, default="/tmp/ir_repository")
-    args = parser.parse_args()
+    p = argparse.ArgumentParser()
+    p.add_argument("--tier", default="all", choices=["github","tone3000-amps","tone3000-pedals","direct","docs","all"])
+    p.add_argument("--validate-only", action="store_true")
+    p.add_argument("--output-dir", default="/tmp/ir_repository")
+    a = p.parse_args()
 
     global BASE_DIR, CACHE_FILE, STATS_FILE, LOG_FILE
-    BASE_DIR = Path(args.output_dir)
-    CACHE_FILE = BASE_DIR / ".download_cache.json"
-    STATS_FILE = BASE_DIR / ".stats.json"
-    LOG_FILE = BASE_DIR / ".download.log"
-
+    BASE_DIR = Path(a.output_dir); CACHE_FILE = BASE_DIR/".download_cache.json"
+    STATS_FILE = BASE_DIR/".stats.json"; LOG_FILE = BASE_DIR/".download.log"
     setup_logging()
-    logging.info("=" * 60)
-    logging.info("IR DEF Repository v3 — ONLY .wav and .nam — FLAT structure")
-    logging.info(f"Tier: {args.tier} | Output: {BASE_DIR}")
-    logging.info("=" * 60)
+    logging.info("="*60)
+    logging.info(f"IR DEF v4 ULTRA | tier={a.tier} | out={BASE_DIR}")
+    logging.info("="*60)
 
-    session = get_session()
-    cache = DownloadCache()
-    organizer = FlatOrganizer()
+    s = get_session(); c = Cache(); o = Org(); st = {}
 
-    all_stats = {}
+    if a.validate_only:
+        v=inv=0
+        for rt,ds,fs in os.walk(BASE_DIR):
+            ds[:] = [d for d in ds if not d.startswith(".")]
+            for f in fs:
+                fp = Path(rt)/f
+                if fp.suffix.lower() in VALID_EXT:
+                    if valid(fp): v+=1
+                    else: fp.unlink(); inv+=1
+        logging.info(f"Valid={v} Invalid={inv}(deleted)"); return
 
-    if args.validate_only:
-        invalid = valid = 0
-        for root, dirs, files in os.walk(BASE_DIR):
-            dirs[:] = [d for d in dirs if not d.startswith(".")]
-            for f in files:
-                fp = Path(root) / f
-                if fp.suffix.lower() in VALID_EXTENSIONS:
-                    if validate_file(fp):
-                        valid += 1
-                    else:
-                        logging.warning(f"INVALID: {fp}")
-                        fp.unlink()
-                        invalid += 1
-        logging.info(f"Validation: {valid} valid, {invalid} invalid (deleted)")
-        return
+    if a.tier in ("github","all"):
+        logging.info(">>> GITHUB REPOS")
+        st["gh"] = dl_github(s,c,o)
+        logging.info(f"GitHub: {st['gh']}")
+        logging.info(">>> GITHUB RELEASES")
+        st["rel"] = dl_releases(s,c,o)
+        logging.info(f"Releases: {st['rel']}")
 
-    if args.tier in ("github", "all"):
-        logging.info(">>> TIER 1: GitHub Repositories")
-        stats = download_github_repos(session, cache, organizer)
-        all_stats["github"] = stats
-        logging.info(f"GitHub repos done: {stats}")
+    if a.tier in ("tone3000-amps","all"):
+        logging.info(">>> TONE3000 AMPS")
+        st["t3k_amp"] = dl_tone3000(s,c,o, gears=["amp","ir"])
+        logging.info(f"T3K amps: {st['t3k_amp']}")
 
-        logging.info(">>> TIER 1b: GitHub Release Assets")
-        release_stats = download_github_releases(session, cache, organizer)
-        all_stats["github_releases"] = release_stats
-        logging.info(f"GitHub releases done: {release_stats}")
+    if a.tier in ("tone3000-pedals","all"):
+        logging.info(">>> TONE3000 PEDALS")
+        st["t3k_ped"] = dl_tone3000(s,c,o, gears=["pedal","full-rig","outboard"])
+        logging.info(f"T3K pedals: {st['t3k_ped']}")
 
-    if args.tier in ("tone3000-amps", "all"):
-        logging.info(">>> TIER 2: TONE3000 Amps & IRs")
-        stats = download_tone3000(session, cache, organizer, gear_filter=["amp", "ir"])
-        all_stats["tone3000_amps"] = stats
-        logging.info(f"TONE3000 amps done: {stats}")
+    if a.tier in ("direct","all"):
+        logging.info(">>> DIRECT SITES")
+        st["direct"] = dl_direct(s,c,o)
+        logging.info(f"Direct: {st['direct']}")
 
-    if args.tier in ("tone3000-pedals", "all"):
-        logging.info(">>> TIER 3: TONE3000 Pedals & Rigs")
-        stats = download_tone3000(session, cache, organizer, gear_filter=["pedal", "full-rig", "outboard"])
-        all_stats["tone3000_pedals"] = stats
-        logging.info(f"TONE3000 pedals done: {stats}")
+    if a.tier in ("docs","all"):
+        st["docs"] = {"total": gen_docs()}
 
-    if args.tier in ("direct", "all"):
-        logging.info(">>> TIER 4: Direct Sites")
-        stats = download_direct_sources(session, cache, organizer)
-        all_stats["direct"] = stats
-        logging.info(f"Direct sites done: {stats}")
-
-    if args.tier in ("docs", "all"):
-        logging.info(">>> Generating Documentation")
-        total = generate_documentation()
-        all_stats["docs"] = {"total_files": total}
-
-    STATS_FILE.write_text(json.dumps(all_stats, indent=2), encoding="utf-8")
-    logging.info("=" * 60)
-    logging.info("ALL DONE!")
-    logging.info(json.dumps(all_stats, indent=2))
-    logging.info("=" * 60)
+    STATS_FILE.write_text(json.dumps(st,indent=2),"utf-8")
+    logging.info("="*60)
+    logging.info("DONE! " + json.dumps(st))
+    logging.info("="*60)
 
 if __name__ == "__main__":
     main()

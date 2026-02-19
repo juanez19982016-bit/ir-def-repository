@@ -200,47 +200,90 @@ def categorize(context, filename):
     return "IR_Guitarra"
 
 def clean_filename(context, filename):
-    c = context + " " + filename
+    """
+    Genera un nombre estandarizado: Marca_Modelo_Cabina_Mic_Info.
+    Si no detecta info relevante, usa el nombre del Pack/Repo como prefijo.
+    """
     stem = Path(filename).stem
-    ext = Path(filename).suffix.lower()
+    suffix = Path(filename).suffix.lower()
+    
+    # Pre-limpieza del stem
+    stem = re.sub(r"[\(\)\[\]]", "", stem) # Quitar parentesis/corchetes
+    stem = stem.replace(" ", "_").replace("-", "_").replace(".", "_")
+    
+    # Contexto completo para busqueda (nombre archivo + carpeta padre + nombre repo)
+    full_context = (context + "_" + stem).lower()
+    
     parts = []
-    brand = _match(c, BRANDS)
+
+    # 1. DETECTAR MARCA (Prioridad Alta)
+    brand = _match(full_context, BRANDS)
     if brand:
         parts.append(brand)
-    for pat in [r"(JCM\s*\d+)", r"(JVM\s*\d+)", r"(DSL\s*\d+)", r"(5150\w*)", r"(6505\w*)",
-                r"(Dual\s*Rec\w*)", r"(Rectifier)", r"(Mark\s*(?:IV|V|III|II))",
-                r"(AC\s*30)", r"(AC\s*15)", r"(SLO.?\d*)", r"(VH4)", r"(SVT\w*)",
-                r"(Twin\s*Reverb)", r"(Deluxe\s*Reverb)", r"(Bassman)", r"(Princeton)", r"(Plexi)"]:
-        m = re.search(pat, c, re.I)
-        if m:
-            parts.append(re.sub(r'\s+', '_', m.group(1).strip()))
+    
+    # 2. DETECTAR MODELO (Agresivo)
+    # Buscamos patrones comunes de amplis/pedales
+    model_patterns = [
+        (r"(JCM\s*?800|JCM\s*?900|JCM\s*?2000)", "JCM"),
+        (r"(Dual\s*?Rect|Triple\s*?Rect|Recto)", "Rectifier"),
+        (r"(5150|6505)", "5150"),
+        (r"(AC\s*?30|AC\s*?15)", "VoxAC"),
+        (r"(Twin|Deluxe|Princeton|Bassman)", "Fender"),
+        (r"(SVT|B15)", "Ampeg"),
+        (r"(Plexi|1959|1987)", "Plexi"),
+        (r"(Uberschall|Ecstasy)", "Bogner"),
+        (r"(VH4|Herbert)", "Diezel"),
+        (r"(BE\s*?100|HBE)", "FriedmanBE"),
+        (r"(Satan|Thrasher)", "Randall"),
+    ]
+    
+    for pat, label in model_patterns:
+        if re.search(pat, full_context, re.I):
+            if label not in parts and (not brand or brand not in label): 
+                parts.append(label)
             break
-    cab = _match(c, CABS)
+
+    # 3. CABINA (1x12, 4x12, etc)
+    cab = _match(full_context, CABS)
     if cab:
         parts.append(cab)
-    mic = _match(c, MICS)
+
+    # 4. MICROFONO
+    mic = _match(full_context, MICS)
     if mic:
         parts.append(mic)
-    cl = c.lower()
-    if any(k in cl for k in ["high gain", "metal", "djent", "hi gain"]):
+
+    # 5. TONO / CANAL
+    if re.search(r"(high|hi).?gain|metal|lead|dist|ch3|red", full_context):
         parts.append("HiGain")
-    elif any(k in cl for k in ["crunch", "breakup"]):
+    elif re.search(r"crunch|drive|breakup|ch2|orange", full_context):
         parts.append("Crunch")
-    elif any(k in cl for k in ["clean", "pristine", "jazz"]):
+    elif re.search(r"clean|jazz|ch1|green", full_context):
         parts.append("Clean")
-    if not parts:
-        s = re.sub(r"[\s\-\.]+", "_", stem)
-        s = re.sub(r"_+", "_", s).strip("_")
-        parts.append(s[:60] or stem)
-    elif len(parts) == 1:
-        s = re.sub(r"[\s\-\.]+", "_", stem)
-        s = re.sub(r"_+", "_", s).strip("_")
-        if s.lower() != parts[0].lower():
-            parts.append(s[:40])
-    name = "_".join(parts)
-    name = re.sub(r'[<>:"/\\|?*]', '_', name)
-    name = re.sub(r'_+', '_', name).strip('_')
-    return f"{name}{ext}"
+
+    # 6. INSTANCIA DE RESPALDO (Si no hay mucha info)
+    # Si tenemos muy pocas partes, usamos limpiamente el nombre original o el de la carpeta
+    if len(parts) < 2:
+        # Extraer palabras clave del nombre original que no sean basura
+        clean_stem = re.sub(r"(ir|demo|test|v[0-9]|final|mix|wav|nam|capture|profile|rig)", "", stem, flags=re.I)
+        clean_stem = re.sub(r"_+", "_", clean_stem).strip("_")
+        
+        # Si el nombre quedo muy corto (ej: "01"), traemos el nombre de la carpeta padre
+        if len(clean_stem) < 3:
+            parent = Path(context).parent.name if "/" in context else context
+            parent = re.sub(r"[^a-zA-Z0-9]", "", parent)
+            clean_stem = f"{parent}_{clean_stem}"
+            
+        parts.append(clean_stem[:40]) # Limite de caracteres para evitar nombres kilometricos
+
+    # Ensamblar y limpiar final
+    final_name = "_".join(parts)
+    final_name = re.sub(r"_+", "_", final_name).strip("_")
+    
+    # Capitalizar estilo Titulo (Marshall_Jcm800...)
+    final_name = "_".join([p.capitalize() for p in final_name.split("_")])
+
+    return f"{final_name}{suffix}"
 
 def organize_file(src_path, context=""):
     fn = Path(src_path).name

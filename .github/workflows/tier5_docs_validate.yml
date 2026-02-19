@@ -21,8 +21,7 @@ jobs:
         run: pip install requests
 
       - name: Install rclone
-        run: |
-          curl -fsSL https://rclone.org/install.sh | sudo bash
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
 
       - name: Configure rclone
         env:
@@ -32,11 +31,21 @@ jobs:
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
           rclone listremotes
 
-      - name: Download repo content list
+      - name: Download all content to validate and count
         run: |
           mkdir -p /tmp/ir_repository
-          rclone lsf gdrive_repo:IR_DEF_REPOSITORY -R --files-only > /tmp/ir_repository/.filelist.txt || true
-          wc -l < /tmp/ir_repository/.filelist.txt
+          rclone copy gdrive_repo:IR_DEF_REPOSITORY /tmp/ir_repository/ \
+            --include "*.wav" --include "*.nam" \
+            --transfers 16 \
+            --fast-list || true
+          echo "=== Downloaded for validation ==="
+          find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) | wc -l
+
+      - name: Validate files
+        run: |
+          python scripts/download_and_organize.py \
+            --validate-only \
+            --output-dir /tmp/ir_repository
 
       - name: Generate documentation
         run: |
@@ -48,8 +57,6 @@ jobs:
         if: always()
         run: |
           rclone copy /tmp/ir_repository/README.md gdrive_repo:IR_DEF_REPOSITORY/ || true
-          rclone copy /tmp/ir_repository/QUICK_START.md gdrive_repo:IR_DEF_REPOSITORY/ || true
-          rclone copy /tmp/ir_repository/SOURCES.md gdrive_repo:IR_DEF_REPOSITORY/ || true
 
       - name: Final Report
         if: always()

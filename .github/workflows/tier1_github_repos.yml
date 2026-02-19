@@ -21,8 +21,7 @@ jobs:
         run: pip install requests
 
       - name: Install rclone
-        run: |
-          curl -fsSL https://rclone.org/install.sh | sudo bash
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
 
       - name: Configure rclone
         env:
@@ -30,7 +29,7 @@ jobs:
         run: |
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
-          echo "rclone config check:"
+          echo "Configured remotes:"
           rclone listremotes
 
       - name: Download & Organize GitHub Repos
@@ -42,11 +41,13 @@ jobs:
       - name: Show stats
         if: always()
         run: |
-          echo "=== File counts ==="
-          find /tmp/ir_repository -type f | wc -l
-          echo "=== Disk usage ==="
-          du -sh /tmp/ir_repository/*/ 2>/dev/null || true
+          echo "=== Files by category ==="
+          for d in /tmp/ir_repository/*/; do
+            [ -d "$d" ] && echo "$(basename $d): $(find $d -type f \( -name '*.wav' -o -name '*.nam' \) | wc -l) files"
+          done
           echo "=== Total ==="
+          find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) | wc -l
+          echo "=== Disk ==="
           du -sh /tmp/ir_repository/
 
       - name: Upload to Google Drive
@@ -63,6 +64,4 @@ jobs:
 
       - name: Verify upload
         if: always()
-        run: |
-          echo "=== Drive size ==="
-          rclone size gdrive_repo:IR_DEF_REPOSITORY || echo "Check failed (may need time to sync)"
+        run: rclone size gdrive_repo:IR_DEF_REPOSITORY || echo "Check failed"

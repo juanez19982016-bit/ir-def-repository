@@ -1,0 +1,73 @@
+name: "Maintenance: Rename & Cleanup"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  rename-all:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+          rclone listremotes
+
+      - name: "📥 Download Current Repository from Drive"
+        run: |
+          echo "Downloading current files..."
+          mkdir -p /tmp/ir_source
+          # Descargamos todo recursivamente
+          rclone copy gdrive2:IR_DEF_REPOSITORY /tmp/ir_source --transfers 16 --checkers 32 --fast-list
+          echo "Download complete."
+          ls -R /tmp/ir_source | head -n 20
+
+      - name: "♻️ Run Cleanup & Rename Logic"
+        env:
+          SOURCE_DIR: "/tmp/ir_source"
+          OUTPUT_DIR: "/tmp/ir_repository"
+        run: |
+          mkdir -p /tmp/ir_repository
+          python scripts/mega_download.py --tier rename --output-dir /tmp/ir_repository
+          
+          echo "Renaming done. Sample of new structure:"
+          find /tmp/ir_repository -type f | head -n 20
+
+      - name: "📤 Upload Clean Repository"
+        run: |
+          echo "Uploading clean structure to a NEW folder first (safety check)..."
+          # Primero subimos a una carpeta temporal para no perder nada si falla
+          rclone copy /tmp/ir_repository gdrive2:IR_DEF_REPOSITORY_CLEAN --transfers 16 --checkers 32 --drive-chunk-size 64M
+
+      - name: "🔥 Switch to New Version"
+        if: success()
+        run: |
+          echo "Swapping old repository with new clean version..."
+          # Mover la carpeta vieja a _OLD por seguridad
+          rclone moveto gdrive2:IR_DEF_REPOSITORY gdrive2:IR_DEF_REPOSITORY_OLD --ignore-errors || true
+          
+          # Mover la limpia a la ubicación oficial
+          rclone moveto gdrive2:IR_DEF_REPOSITORY_CLEAN gdrive2:IR_DEF_REPOSITORY
+          
+          # Generar reporte final
+          python scripts/mega_download.py --tier docs --output-dir /tmp/ir_repository
+          rclone copy /tmp/ir_repository/README.md gdrive2:IR_DEF_REPOSITORY/
+          
+          echo "Done! Old version is in IR_DEF_REPOSITORY_OLD (you can delete it manually later)."

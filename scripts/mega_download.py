@@ -876,7 +876,7 @@ def generate_docs():
 def main():
     parser = argparse.ArgumentParser(description="MEGA Downloader v3 — Clean + Expand")
     parser.add_argument("--tier", default="all",
-                        choices=["cleanup", "github", "releases", "direct", "search", "docs", "validate", "all"])
+                        choices=["cleanup", "github", "releases", "direct", "search", "docs", "validate", "rename", "all"])
     parser.add_argument("--output-dir", default="/tmp/ir_repository")
     parser.add_argument("--rclone-remote", default="")
     parser.add_argument("--fresh", action="store_true", help="Reset URL cache to re-download everything")
@@ -916,6 +916,44 @@ def main():
     if args.tier == "validate":
         stats["cleanup_local"] = cleanup_local()
         (BASE_DIR / ".stats.json").write_text(json.dumps(stats, indent=2), "utf-8")
+        return
+
+    # ---- RENAME / REORGANIZE EXISTING ----
+    if args.tier == "rename":
+        logging.info("━" * 60)
+        logging.info("♻️  REORGANIZE / RENAME EXISTING FILES")
+        logging.info("━" * 60)
+        
+        # Source directory where we downloaded the current Drive content
+        # We assume the workflow puts it in /tmp/ir_source or similar
+        source_dir = Path(os.environ.get("SOURCE_DIR", "/tmp/ir_source"))
+        
+        renamed_count = 0
+        if not source_dir.exists():
+            logging.error(f"Source directory {source_dir} does not exist!")
+            return
+
+        for root, dirs, files in os.walk(source_dir):
+            for fn in files:
+                if Path(fn).suffix.lower() not in VALID_EXT:
+                    continue
+                
+                src = Path(root) / fn
+                
+                # Context is the relative path from source root
+                # e.g. "IR_Guitarra/Marshall/Pack_1/cabinets/file.wav"
+                rel_path = os.path.relpath(root, source_dir)
+                context = f"{rel_path}"
+                
+                # Use the new robust logic
+                organize_file(src, context)
+                renamed_count += 1
+                
+                if renamed_count % 1000 == 0:
+                    logging.info(f"  Processed {renamed_count} files...")
+
+        stats["rename"] = renamed_count
+        logging.info(f"✅ Reorganized {renamed_count} files into clean structure")
         return
 
     # ---- GITHUB REPOS ----

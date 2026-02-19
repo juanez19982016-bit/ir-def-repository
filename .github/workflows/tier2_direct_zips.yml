@@ -1,4 +1,4 @@
-name: "Tier 2: Direct ZIP Downloads"
+name: "Tier 2: Direct ZIPs (50+ sources)"
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
 jobs:
   download-direct:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
 
     steps:
       - uses: actions/checkout@v4
@@ -29,20 +29,14 @@ jobs:
         run: |
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
-          echo "=== Available remotes ==="
           rclone listremotes
 
-      - name: Download cache from Drive
+      - name: Download cache
         run: |
           mkdir -p /tmp/ir_repository
           rclone copy gdrive2:IR_DEF_REPOSITORY/.download_cache.json /tmp/ir_repository/ 2>/dev/null || true
-          if [ -f /tmp/ir_repository/.download_cache.json ]; then
-            echo "Cache loaded: $(wc -c < /tmp/ir_repository/.download_cache.json) bytes"
-          else
-            echo "No cache found, starting fresh"
-          fi
 
-      - name: Download Direct ZIPs (Voxengo, Kalthallen, EchoThief, OpenAIR...)
+      - name: "📦 Download 50+ direct ZIPs"
         run: |
           python scripts/mega_download.py \
             --tier direct \
@@ -58,20 +52,16 @@ jobs:
           echo "=== TOTAL ==="
           find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l
 
-      - name: Upload to Google Drive (second account)
+      - name: "📤 Upload to Drive (gdrive2)"
         if: always()
         run: |
-          echo "Uploading to gdrive2..."
           rclone copy /tmp/ir_repository gdrive2:IR_DEF_REPOSITORY \
             --transfers 8 --checkers 16 --drive-chunk-size 64M \
             --fast-list --stats 30s --log-level INFO --stats-one-line \
-            --exclude ".download.log"
-          echo "Upload complete!"
+            --exclude ".*" --exclude "*.log" --exclude "*.json" --exclude "*.md"
 
-      - name: Verify Drive contents
+      - name: Verify
         if: always()
         run: |
-          echo "=== Drive size ==="
           rclone size gdrive2:IR_DEF_REPOSITORY || true
-          echo "=== Drive folders ==="
           rclone lsd gdrive2:IR_DEF_REPOSITORY || true

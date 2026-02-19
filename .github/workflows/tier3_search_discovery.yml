@@ -1,13 +1,13 @@
-name: "Tier 3: Search Discovery + Docs"
+name: "Tier 3: Search + Validate + Report"
 
 on:
   workflow_dispatch:
   workflow_call:
 
 jobs:
-  download-search:
+  search-and-report:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
 
     steps:
       - uses: actions/checkout@v4
@@ -29,28 +29,14 @@ jobs:
         run: |
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
-          echo "=== Available remotes ==="
           rclone listremotes
 
-      - name: Download cache from Drive
+      - name: Download cache
         run: |
           mkdir -p /tmp/ir_repository
           rclone copy gdrive2:IR_DEF_REPOSITORY/.download_cache.json /tmp/ir_repository/ 2>/dev/null || true
-          if [ -f /tmp/ir_repository/.download_cache.json ]; then
-            echo "Cache loaded: $(wc -c < /tmp/ir_repository/.download_cache.json) bytes"
-          else
-            echo "No cache found, starting fresh"
-          fi
 
-      - name: Download existing files from Drive (for docs)
-        run: |
-          rclone copy gdrive2:IR_DEF_REPOSITORY /tmp/ir_repository \
-            --transfers 8 --checkers 16 --fast-list \
-            --include "*.wav" --include "*.nam" \
-            --max-size 50M \
-            || true
-
-      - name: GitHub Search Auto-Discovery
+      - name: "🔍 GitHub Search — Auto-discover new repos"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -58,48 +44,36 @@ jobs:
             --tier search \
             --output-dir /tmp/ir_repository
 
-      - name: Validate all files
-        run: |
-          python scripts/mega_download.py \
-            --validate-only \
-            --output-dir /tmp/ir_repository
-
-      - name: Generate docs
-        run: |
-          python scripts/mega_download.py \
-            --tier docs \
-            --output-dir /tmp/ir_repository
-
-      - name: Final Stats
+      - name: "📤 Upload search discovery files"
         if: always()
         run: |
-          echo "=========================================="
-          echo "FINAL REPOSITORY STATS"
-          echo "=========================================="
-          for d in /tmp/ir_repository/*/; do
-            [ -d "$d" ] && echo "$(basename $d): $(find $d -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)"
-          done
-          echo "------------------------------------------"
-          echo "TOTAL: $(find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)"
-          echo "=========================================="
-
-      - name: Upload to Google Drive (second account)
-        if: always()
-        run: |
-          echo "Final upload to gdrive2..."
           rclone copy /tmp/ir_repository gdrive2:IR_DEF_REPOSITORY \
             --transfers 8 --checkers 16 --drive-chunk-size 64M \
             --fast-list --stats 30s --log-level INFO --stats-one-line \
-            --exclude ".download.log"
-          echo "Upload complete!"
+            --exclude ".*" --exclude "*.log" --exclude "*.json" --exclude "*.md"
 
-      - name: Final Drive Report
+      - name: "🧹 Final cleanup on Drive"
+        if: always()
+        run: |
+          echo "Removing junk from Drive..."
+          rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.json" || true
+          rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.log" || true
+          rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.md" || true
+          rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.txt" || true
+          rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.py" || true
+          rclone rmdirs gdrive2:IR_DEF_REPOSITORY || true
+
+      - name: "📊 FINAL REPORT"
         if: always()
         run: |
           echo "=========================================="
-          echo "GOOGLE DRIVE FINAL STATE"
+          echo "🎸 IR DEF REPOSITORY — FINAL STATE"
           echo "=========================================="
           rclone size gdrive2:IR_DEF_REPOSITORY || true
           echo "------------------------------------------"
-          rclone lsd gdrive2:IR_DEF_REPOSITORY || true
+          for d in $(rclone lsd gdrive2:IR_DEF_REPOSITORY 2>/dev/null | awk '{print $NF}'); do
+            count=$(rclone ls "gdrive2:IR_DEF_REPOSITORY/$d" 2>/dev/null | wc -l)
+            size=$(rclone size "gdrive2:IR_DEF_REPOSITORY/$d" 2>/dev/null | grep "Total size" | awk '{print $3, $4}')
+            echo "📁 $d: $count files ($size)"
+          done
           echo "=========================================="

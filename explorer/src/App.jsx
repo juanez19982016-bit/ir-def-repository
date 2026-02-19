@@ -10,15 +10,28 @@ const App = () => {
     const [copied, setCopied] = useState(null);
 
     useEffect(() => {
-        fetch('./data/catalog.json')
-            .then(res => res.json())
+        const baseUrl = import.meta.env.BASE_URL;
+        // Ensure base url ends with slash and remove double slashes
+        const cleanBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+        const jsonPath = `${cleanBase}data/catalog.json`;
+
+        console.log("Fetching catalog from:", jsonPath);
+
+        fetch(jsonPath)
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+                return res.json();
+            })
             .then(d => {
+                if (!d || !d.items) throw new Error("Invalid catalog data");
                 setData(d);
                 setLoading(false);
             })
             .catch(e => {
-                console.error("Failed to load catalog", e);
+                console.error("Failed to load catalog:", e);
                 setLoading(false);
+                // Set error state to show in UI
+                setData({ error: e.message });
             });
     }, []);
 
@@ -55,8 +68,25 @@ const App = () => {
         setTimeout(() => setCopied(null), 2000);
     };
 
-    if (loading) return <div className="h-screen flex items-center justify-center text-emerald-400 text-xl font-mono animate-pulse">Initializing Tone Explorer...</div>;
-    if (!data) return <div className="h-screen flex items-center justify-center text-red-500 font-mono">Error: Catalog not found. Run workflow first.</div>;
+    if (loading) return (
+        <div className="h-screen w-full flex flex-col items-center justify-center bg-gray-950 text-emerald-400 font-mono gap-4">
+            <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="animate-pulse">Loading Tone Explorer catalog...</p>
+        </div>
+    );
+
+    if (!data || data.error) return (
+        <div className="h-screen w-full flex flex-col items-center justify-center bg-gray-950 text-red-500 font-mono p-8 text-center">
+            <AlertCircle className="w-12 h-12 mb-4 opacity-80" />
+            <h2 className="text-xl font-bold mb-2">Failed to load catalog</h2>
+            <p className="text-sm opacity-70 max-w-md bg-red-900/10 p-4 rounded border border-red-900/30">
+                {data?.error ? data.error : "Unknown error. Check console for details."}
+            </p>
+            <button onClick={() => window.location.reload()} className="mt-8 px-6 py-2 bg-gray-800 hover:bg-gray-700 rounded text-gray-300 text-sm transition-colors">
+                Retry
+            </button>
+        </div>
+    );
 
     return (
         <div className="min-h-screen bg-gray-950 text-gray-200 font-sans selection:bg-emerald-900 selection:text-white pb-20">

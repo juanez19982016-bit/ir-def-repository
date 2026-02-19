@@ -17,11 +17,11 @@ jobs:
   tier2:
     if: ${{ always() && github.event.inputs.start_tier <= '2' }}
     needs: [tier1]
-    uses: ./.github/workflows/tier2_tone3000_amps.yml
+    uses: ./.github/workflows/tier2_direct_zips.yml
     secrets: inherit
 
   tier3:
     if: ${{ always() }}
     needs: [tier2]
-    uses: ./.github/workflows/tier3_tone3000_pedals.yml
+    uses: ./.github/workflows/tier3_search_discovery.yml
     secrets: inherit

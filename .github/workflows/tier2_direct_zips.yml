@@ -1,13 +1,13 @@
-name: "Tier 1: GitHub Repos + Releases"
+name: "Tier 2: Direct ZIP Downloads"
 
 on:
   workflow_dispatch:
   workflow_call:
 
 jobs:
-  download-github:
+  download-direct:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 120
 
     steps:
       - uses: actions/checkout@v4
@@ -42,20 +42,10 @@ jobs:
             echo "No cache found, starting fresh"
           fi
 
-      - name: Download GitHub repos
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Download Direct ZIPs (Voxengo, Kalthallen, EchoThief, OpenAIR...)
         run: |
           python scripts/mega_download.py \
-            --tier github \
-            --output-dir /tmp/ir_repository
-
-      - name: Download GitHub releases
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python scripts/mega_download.py \
-            --tier releases \
+            --tier direct \
             --output-dir /tmp/ir_repository
 
       - name: Stats

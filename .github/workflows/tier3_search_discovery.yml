@@ -1,13 +1,13 @@
-name: "Tier 1: GitHub Repos + Releases"
+name: "Tier 3: Search Discovery + Docs"
 
 on:
   workflow_dispatch:
   workflow_call:
 
 jobs:
-  download-github:
+  download-search:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 120
 
     steps:
       - uses: actions/checkout@v4
@@ -42,46 +42,64 @@ jobs:
             echo "No cache found, starting fresh"
           fi
 
-      - name: Download GitHub repos
+      - name: Download existing files from Drive (for docs)
+        run: |
+          rclone copy gdrive2:IR_DEF_REPOSITORY /tmp/ir_repository \
+            --transfers 8 --checkers 16 --fast-list \
+            --include "*.wav" --include "*.nam" \
+            --max-size 50M \
+            || true
+
+      - name: GitHub Search Auto-Discovery
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python scripts/mega_download.py \
-            --tier github \
+            --tier search \
             --output-dir /tmp/ir_repository
 
-      - name: Download GitHub releases
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Validate all files
         run: |
           python scripts/mega_download.py \
-            --tier releases \
+            --validate-only \
             --output-dir /tmp/ir_repository
 
-      - name: Stats
+      - name: Generate docs
+        run: |
+          python scripts/mega_download.py \
+            --tier docs \
+            --output-dir /tmp/ir_repository
+
+      - name: Final Stats
         if: always()
         run: |
-          echo "=== File count by category ==="
+          echo "=========================================="
+          echo "FINAL REPOSITORY STATS"
+          echo "=========================================="
           for d in /tmp/ir_repository/*/; do
             [ -d "$d" ] && echo "$(basename $d): $(find $d -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)"
           done
-          echo "=== TOTAL ==="
-          find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l
+          echo "------------------------------------------"
+          echo "TOTAL: $(find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)"
+          echo "=========================================="
 
       - name: Upload to Google Drive (second account)
         if: always()
         run: |
-          echo "Uploading to gdrive2..."
+          echo "Final upload to gdrive2..."
           rclone copy /tmp/ir_repository gdrive2:IR_DEF_REPOSITORY \
             --transfers 8 --checkers 16 --drive-chunk-size 64M \
             --fast-list --stats 30s --log-level INFO --stats-one-line \
             --exclude ".download.log"
           echo "Upload complete!"
 
-      - name: Verify Drive contents
+      - name: Final Drive Report
         if: always()
         run: |
-          echo "=== Drive size ==="
+          echo "=========================================="
+          echo "GOOGLE DRIVE FINAL STATE"
+          echo "=========================================="
           rclone size gdrive2:IR_DEF_REPOSITORY || true
-          echo "=== Drive folders ==="
+          echo "------------------------------------------"
           rclone lsd gdrive2:IR_DEF_REPOSITORY || true
+          echo "=========================================="

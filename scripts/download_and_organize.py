@@ -637,8 +637,12 @@ def main():
         st["rel"]=dl_releases(s,ca,o)
         logging.info(f"Releases: {st['rel']}")
         logging.info(">>> GITHUB SEARCH (auto-discovery)")
-        st["ghs"]=dl_github_search(s,ca,o)
-        logging.info(f"GitHub search: {st['ghs']}")
+        try:
+            st["ghs"]=dl_github_search(s,ca,o)
+            logging.info(f"GitHub search: {st['ghs']}")
+        except Exception as e:
+            logging.error(f"GitHub search failed: {e}")
+            st["ghs"]={"ok":0,"err":1,"files":0}
 
     if a.tier in ("soundwoofer","all"):
         logging.info(">>> SOUNDWOOFER (1200+ free cab IRs)")

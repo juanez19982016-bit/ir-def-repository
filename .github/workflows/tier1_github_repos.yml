@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install deps
         run: pip install requests
 
       - name: Install rclone
@@ -29,39 +29,38 @@ jobs:
         run: |
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
-          echo "Configured remotes:"
           rclone listremotes
 
-      - name: Download & Organize GitHub Repos
+      - name: Download cache
+        run: |
+          mkdir -p /tmp/ir_repository
+          rclone copy gdrive_repo:IR_DEF_REPOSITORY/.download_cache.json /tmp/ir_repository/ 2>/dev/null || true
+
+      - name: Download GitHub repos + releases + search
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python scripts/download_and_organize.py \
             --tier github \
             --output-dir /tmp/ir_repository
 
-      - name: Show stats
+      - name: Stats
         if: always()
         run: |
-          echo "=== Files by category ==="
-          for d in /tmp/ir_repository/*/; do
-            [ -d "$d" ] && echo "$(basename $d): $(find $d -type f \( -name '*.wav' -o -name '*.nam' \) | wc -l) files"
-          done
-          echo "=== Total ==="
+          echo "=== Files ==="
           find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) | wc -l
-          echo "=== Disk ==="
-          du -sh /tmp/ir_repository/
+          echo "=== By category ==="
+          for d in /tmp/ir_repository/*/; do
+            [ -d "$d" ] && echo "$(basename $d): $(find $d -type f \( -name '*.wav' -o -name '*.nam' \) | wc -l)"
+          done
 
-      - name: Upload to Google Drive
+      - name: Upload
         if: always()
         run: |
           rclone copy /tmp/ir_repository gdrive_repo:IR_DEF_REPOSITORY \
-            --transfers 8 \
-            --checkers 16 \
-            --drive-chunk-size 64M \
-            --fast-list \
-            --stats 30s \
-            --log-level INFO \
-            --stats-one-line
+            --transfers 8 --checkers 16 --drive-chunk-size 64M \
+            --fast-list --stats 30s --log-level INFO --stats-one-line
 
-      - name: Verify upload
+      - name: Verify
         if: always()
-        run: rclone size gdrive_repo:IR_DEF_REPOSITORY || echo "Check failed"
+        run: rclone size gdrive_repo:IR_DEF_REPOSITORY || true

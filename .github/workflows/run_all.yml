@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       start_tier:
-        description: "Start from tier (1-5)"
+        description: "Start from tier (1-3)"
         required: false
         default: "1"
 
@@ -21,19 +21,7 @@ jobs:
     secrets: inherit
 
   tier3:
-    if: ${{ always() && github.event.inputs.start_tier <= '3' }}
+    if: ${{ always() }}
     needs: [tier2]
     uses: ./.github/workflows/tier3_tone3000_pedals.yml
-    secrets: inherit
-
-  tier4:
-    if: ${{ always() && github.event.inputs.start_tier <= '4' }}
-    needs: [tier3]
-    uses: ./.github/workflows/tier4_direct_sites.yml
-    secrets: inherit
-
-  tier5:
-    if: ${{ always() }}
-    needs: [tier4]
-    uses: ./.github/workflows/tier5_docs_validate.yml
     secrets: inherit

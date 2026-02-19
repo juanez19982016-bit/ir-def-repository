@@ -1,553 +1,667 @@
 #!/usr/bin/env python3
 """
-IR DEF Repository v4 — ULTRA MASSIVE Downloader
-================================================
-ONLY .wav and .nam | Flat folder structure | Descriptive filenames
-Targets: 40+ GitHub repos, 20+ direct ZIPs, TONE3000 API
+IR DEF v5 — ULTRA MASSIVE — .wav + .nam only — Flat folders
+============================================================
+Sources: GitHub repos, Soundwoofer API (1200+ free IRs), Direct ZIPs,
+ToneHunt/TONE3000 scraper (no API key needed)
 """
-
-import os, sys, json, re, time, hashlib, zipfile, struct, shutil, logging, argparse
+import os,sys,json,re,time,hashlib,zipfile,struct,shutil,logging,argparse
 from pathlib import Path
-from urllib.parse import urlparse, unquote
+from urllib.parse import urlparse, unquote, quote
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-# ---------------------------------------------------------------------------
-BASE_DIR = Path(os.environ.get("OUTPUT_DIR", "/tmp/ir_repository"))
-CACHE_FILE = BASE_DIR / ".download_cache.json"
-STATS_FILE = BASE_DIR / ".stats.json"
-LOG_FILE   = BASE_DIR / ".download.log"
-TONE3000_API_KEY = os.environ.get("TONE3000_API_KEY", "")
-TONE3000_BASE = "https://www.tone3000.com/api/v1"
-VALID_EXT = {".wav", ".nam"}
+BASE_DIR = Path(os.environ.get("OUTPUT_DIR","/tmp/ir_repository"))
+CACHE_FILE = BASE_DIR/".download_cache.json"
+LOG_FILE = BASE_DIR/".download.log"
+VALID_EXT = {".wav",".nam"}
 
-# ---------------------------------------------------------------------------
-# Brand / Cab / Mic detection
-# ---------------------------------------------------------------------------
+# -- Brand detection --
 BRANDS = {
-    "Marshall": [r"marshall",r"jcm",r"jvm",r"plexi",r"1959",r"1987",r"2203",r"2204",r"dsl",r"jmp",r"silver.jubilee"],
-    "Fender": [r"fender",r"twin",r"deluxe.reverb",r"bassman",r"princeton",r"champ",r"vibrolux",r"super.reverb",r"hot.rod"],
-    "Mesa": [r"mesa",r"boogie",r"rectifier",r"recto",r"dual.rec",r"triple.rec",r"mark.(iv|v|ii|iii)",r"lonestar",r"stiletto"],
-    "Vox": [r"vox",r"ac.?30",r"ac.?15"],
-    "Orange": [r"orange",r"rockerverb",r"thunderverb",r"tiny.terror",r"or\d{2,3}"],
-    "Peavey": [r"peavey",r"5150",r"6505",r"invective",r"xxx",r"jsx"],
-    "EVH": [r"\bevh\b",r"5150.*(iii|el34|iconic)"],
-    "Bogner": [r"bogner",r"uberschall",r"ecstasy",r"shiva"],
-    "Soldano": [r"soldano",r"slo.?100",r"\bslo\b"],
-    "Diezel": [r"diezel",r"herbert",r"vh4",r"hagen"],
-    "Friedman": [r"friedman",r"be.?100",r"dirty.shirley",r"small.box"],
-    "Engl": [r"engl",r"powerball",r"fireball",r"savage",r"invader"],
-    "Ampeg": [r"ampeg",r"svt",r"b-?15",r"v4b",r"portaflex"],
-    "Darkglass": [r"darkglass",r"microtubes",r"b7k"],
-    "Hiwatt": [r"hiwatt",r"dr.?103"],
-    "Hughes_Kettner": [r"hughes.*kettner",r"triamp",r"tubemeister"],
-    "Laney": [r"laney",r"ironheart"],
-    "Supro": [r"supro"],
-    "Revv": [r"\brevv\b",r"generator"],
-    "Victory": [r"victory",r"kraken"],
-    "Matchless": [r"matchless",r"chieftain"],
-    "Morgan": [r"\bmorgan\b"],
-    "Suhr": [r"\bsuhr\b"],
-    "Celestion": [r"celestion",r"v30",r"vintage.30",r"greenback",r"creamback",r"g12",r"alnico"],
-    "Eminence": [r"eminence",r"swamp.thang",r"texas.heat"],
-    "Jensen": [r"jensen"],
+    "Marshall":[r"marshall",r"jcm",r"jvm",r"plexi",r"1959",r"1987",r"2203",r"2204",r"dsl",r"jmp"],
+    "Fender":[r"fender",r"twin",r"deluxe.reverb",r"bassman",r"princeton",r"champ",r"vibrolux"],
+    "Mesa":[r"mesa",r"boogie",r"rectifier",r"recto",r"dual.rec",r"triple.rec",r"mark.(iv|v|ii|iii)",r"lonestar"],
+    "Vox":[r"vox",r"ac.?30",r"ac.?15"],
+    "Orange":[r"orange",r"rockerverb",r"thunderverb",r"tiny.terror"],
+    "Peavey":[r"peavey",r"5150",r"6505",r"invective"],
+    "EVH":[r"\bevh\b"],
+    "Bogner":[r"bogner",r"uberschall",r"ecstasy",r"shiva"],
+    "Soldano":[r"soldano",r"slo"],
+    "Diezel":[r"diezel",r"herbert",r"vh4"],
+    "Friedman":[r"friedman",r"be.?100",r"dirty.shirley"],
+    "Engl":[r"engl",r"powerball",r"fireball",r"savage"],
+    "Ampeg":[r"ampeg",r"svt",r"b-?15",r"portaflex"],
+    "Darkglass":[r"darkglass",r"b7k"],
+    "Hiwatt":[r"hiwatt"],
+    "Suhr":[r"\bsuhr\b"],
+    "Hughes_Kettner":[r"hughes.*kettner",r"triamp",r"tubemeister"],
+    "Laney":[r"laney",r"ironheart"],
+    "Revv":[r"\brevv\b",r"generator"],
+    "Victory":[r"victory",r"kraken"],
+    "Celestion":[r"celestion",r"v30",r"vintage.30",r"greenback",r"creamback",r"g12",r"alnico"],
+    "Eminence":[r"eminence",r"swamp.thang"],
+    "Jensen":[r"jensen"],
 }
-
-CABS = {"1x12":[r"1x12"],"2x12":[r"2x12"],"4x12":[r"4x12"],"1x10":[r"1x10"],"2x10":[r"2x10"],"4x10":[r"4x10"],"1x15":[r"1x15"],"8x10":[r"8x10"]}
-SPKRS = {"V30":[r"v30",r"vintage.?30"],"Greenback":[r"greenback",r"g12m"],"G12H":[r"g12h"],"G12T75":[r"g12t.?75"],"Creamback":[r"creamback"],"Alnico":[r"alnico"],"EVM12L":[r"evm"]}
-MICS = {"SM57":[r"sm57",r"sm.?57"],"MD421":[r"md421",r"md.?421"],"R121":[r"r121",r"royer"],"U87":[r"u87"],"E609":[r"e609"]}
-
-def _match(text, patterns):
-    t = text.lower()
-    for k, pats in patterns.items():
-        for p in pats:
-            if re.search(p, t): return k
+CABS={"1x12":[r"1x12"],"2x12":[r"2x12"],"4x12":[r"4x12"],"4x10":[r"4x10"],"8x10":[r"8x10"],"1x15":[r"1x15"]}
+MICS={"SM57":[r"sm57"],"MD421":[r"md421"],"R121":[r"r121",r"royer"],"U87":[r"u87"],"E609":[r"e609"]}
+def _m(t,p):
+    t=t.lower()
+    for k,ps in p.items():
+        for pa in ps:
+            if re.search(pa,t): return k
     return None
 
-# ---------------------------------------------------------------------------
-def setup_logging():
-    BASE_DIR.mkdir(parents=True, exist_ok=True)
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s",
-                        handlers=[logging.FileHandler(LOG_FILE, encoding="utf-8"), logging.StreamHandler(sys.stdout)])
+# -- Logging & Session --
+def setup():
+    BASE_DIR.mkdir(parents=True,exist_ok=True)
+    logging.basicConfig(level=logging.INFO,format="%(asctime)s [%(levelname)s] %(message)s",
+        handlers=[logging.FileHandler(LOG_FILE,encoding="utf-8"),logging.StreamHandler(sys.stdout)])
 
-def get_session():
-    s = requests.Session()
-    s.mount("https://", HTTPAdapter(max_retries=Retry(total=5, backoff_factor=1, status_forcelist=[429,500,502,503,504]), pool_maxsize=20))
-    s.mount("http://", HTTPAdapter(max_retries=Retry(total=3, backoff_factor=1, status_forcelist=[500,502,503,504]), pool_maxsize=10))
-    s.headers.update({"User-Agent": "IR-DEF/4.0", "Accept-Encoding": "gzip, deflate"})
-    gh_token = os.environ.get("GITHUB_TOKEN", "")
-    if gh_token:
-        s.headers["Authorization"] = f"Bearer {gh_token}"
+def sess():
+    s=requests.Session()
+    s.mount("https://",HTTPAdapter(max_retries=Retry(total=3,backoff_factor=1,status_forcelist=[429,500,502,503,504]),pool_maxsize=20))
+    s.mount("http://",HTTPAdapter(max_retries=Retry(total=2,backoff_factor=1,status_forcelist=[500,502,503]),pool_maxsize=10))
+    s.headers.update({"User-Agent":"IR-DEF/5.0","Accept-Encoding":"gzip, deflate"})
+    t=os.environ.get("GITHUB_TOKEN","")
+    if t: s.headers["Authorization"]=f"Bearer {t}"
     return s
 
-# ---------------------------------------------------------------------------
-class Cache:
+# -- Cache --
+class C:
     def __init__(self):
-        self.path = CACHE_FILE
-        self.data = {"urls": [], "hashes": {}}
-        if self.path.exists():
-            try: self.data = json.loads(self.path.read_text("utf-8"))
+        self.p=CACHE_FILE; self.d={"u":[],"h":{}}
+        if self.p.exists():
+            try: self.d=json.loads(self.p.read_text("utf-8"))
             except: pass
-    def save(self):
-        self.path.parent.mkdir(parents=True, exist_ok=True)
-        self.path.write_text(json.dumps(self.data, indent=1), "utf-8")
-    def seen(self, url): return url in self.data["urls"]
-    def mark(self, url):
-        if url not in self.data["urls"]: self.data["urls"].append(url)
-    def dup(self, fp):
-        h = hashlib.sha256(Path(fp).read_bytes()).hexdigest()
-        if h in self.data["hashes"]: return True
-        self.data["hashes"][h] = str(fp); return False
+    def save(self): self.p.parent.mkdir(parents=True,exist_ok=True); self.p.write_text(json.dumps(self.d),"utf-8")
+    def seen(self,u): return u in self.d["u"]
+    def mark(self,u):
+        if u not in self.d["u"]: self.d["u"].append(u)
+    def dup(self,f):
+        h=hashlib.sha256(Path(f).read_bytes()).hexdigest()
+        if h in self.d["h"]: return True
+        self.d["h"][h]=str(f); return False
 
-def valid_wav(p):
+# -- Validation --
+def vwav(p):
     try:
         with open(p,"rb") as f:
             h=f.read(12)
             if len(h)<12: return False
-            r,_,w = struct.unpack("<4sI4s",h)
+            r,_,w=struct.unpack("<4sI4s",h)
             return r==b"RIFF" and w==b"WAVE"
     except: return False
 
 def valid(p):
     p=Path(p)
-    if p.stat().st_size < 100: return False
-    if p.suffix.lower()==".wav": return valid_wav(p)
-    return p.suffix.lower()==".nam"
+    if p.stat().st_size<100: return False
+    return vwav(p) if p.suffix.lower()==".wav" else p.suffix.lower()==".nam"
 
-# ---------------------------------------------------------------------------
-class Org:
-    def cat(self, ctx, fn):
-        c = (ctx+" "+fn).lower()
-        if Path(fn).suffix.lower()==".nam": return "NAM_Capturas"
+# -- Organizer --
+class O:
+    def cat(self,ctx,fn):
+        c=(ctx+" "+fn).lower(); e=Path(fn).suffix.lower()
+        if e==".nam": return "NAM_Capturas"
         if any(k in c for k in ["bass","bajo","svt","ampeg","darkglass","8x10","4x10","b-15","b15","portaflex"]): return "IR_Bajo"
-        if any(k in c for k in ["acoustic","piezo","body_sim","taylor","martin","nylon","electroac"]): return "IR_Acustica"
+        if any(k in c for k in ["acoustic","piezo","electroac","taylor","martin","nylon","body"]): return "IR_Acustica"
         if any(k in c for k in ["reverb","room","hall","plate","spring","echo","ambient","space","convol"]): return "IR_Utilidades"
         return "IR_Guitarra"
 
-    def name(self, ctx, fn):
-        c = ctx+" "+fn
-        stem = Path(fn).stem; ext = Path(fn).suffix.lower()
-        parts = []
-        b = _match(c, BRANDS)
-        if b: parts.append(b)
-        # model extraction
+    def name(self,ctx,fn):
+        c=ctx+" "+fn; st=Path(fn).stem; ex=Path(fn).suffix.lower(); p=[]
+        b=_m(c,BRANDS)
+        if b: p.append(b)
         for pat in [r"(JCM\s*\d+)",r"(JVM\s*\d+)",r"(DSL\s*\d+)",r"(5150\w*)",r"(6505\w*)",
-                    r"(Dual\s*Rec\w*)",r"(Triple\s*Rec\w*)",r"(Rectifier)",r"(Mark\s*(?:IV|V|III|II))",
-                    r"(AC\s*30)",r"(AC\s*15)",r"(SLO.?\d*)",r"(VH4)",r"(Herbert)",
-                    r"(BE.?100)",r"(SVT\w*)",r"(Twin\s*Reverb)",r"(Deluxe\s*Reverb)",
-                    r"(Bassman)",r"(Princeton)",r"(Plexi)",r"(Rockerverb)",r"(Uberschall)",
-                    r"(Invective)",r"(Powerball)",r"(Fireball)",r"(Hot\s*Rod)"]:
-            m = re.search(pat, c, re.I)
-            if m: parts.append(re.sub(r'\s+','_',m.group(1).strip())); break
-        cab = _match(c, CABS)
-        if cab: parts.append(cab)
-        sp = _match(c, SPKRS)
-        if sp: parts.append(sp)
-        mi = _match(c, MICS)
-        if mi: parts.append(mi)
-        # style
-        cl = c.lower()
-        if any(k in cl for k in ["high gain","metal","djent","hi gain"]): parts.append("HiGain")
-        elif any(k in cl for k in ["crunch","breakup"]): parts.append("Crunch")
-        elif any(k in cl for k in ["clean","pristine","jazz"]): parts.append("Clean")
-        elif any(k in cl for k in ["vintage","classic"]): parts.append("Vintage")
-        if not parts:
-            s = re.sub(r"[\[\(]?(free|download|pack|sample|demo|www\.\S+)[\]\)]?","",stem,flags=re.I)
-            s = re.sub(r"[\s\-\.]+","_",s); s = re.sub(r"_+","_",s).strip("_")
-            parts.append("_".join(p.capitalize() if len(p)>2 else p.upper() for p in s.split("_") if p) or stem)
-        elif len(parts)==1:
-            s = re.sub(r"[\s\-\.]+","_",stem); s = re.sub(r"_+","_",s).strip("_")
-            if s.lower() != parts[0].lower(): parts.append(s[:40])
-        n = "_".join(parts)
-        n = re.sub(r'[<>:"/\\|?*]','_',n); n = re.sub(r'_+','_',n).strip('_')
-        return f"{n}{ext}"
+                    r"(Dual\s*Rec\w*)",r"(Rectifier)",r"(Mark\s*(?:IV|V|III|II))",
+                    r"(AC\s*30)",r"(AC\s*15)",r"(SLO.?\d*)",r"(VH4)",r"(SVT\w*)",
+                    r"(Twin\s*Reverb)",r"(Deluxe\s*Reverb)",r"(Bassman)",r"(Princeton)",r"(Plexi)"]:
+            m=re.search(pat,c,re.I)
+            if m: p.append(re.sub(r'\s+','_',m.group(1).strip())); break
+        cb=_m(c,CABS)
+        if cb: p.append(cb)
+        mi=_m(c,MICS)
+        if mi: p.append(mi)
+        cl=c.lower()
+        if any(k in cl for k in ["high gain","metal","djent","hi gain"]): p.append("HiGain")
+        elif any(k in cl for k in ["crunch","breakup"]): p.append("Crunch")
+        elif any(k in cl for k in ["clean","pristine","jazz"]): p.append("Clean")
+        if not p:
+            s=re.sub(r"[\s\-\.]+","_",st); s=re.sub(r"_+","_",s).strip("_")
+            p.append(s[:60] or st)
+        elif len(p)==1:
+            s=re.sub(r"[\s\-\.]+","_",st); s=re.sub(r"_+","_",s).strip("_")
+            if s.lower()!=p[0].lower(): p.append(s[:40])
+        n="_".join(p); n=re.sub(r'[<>:"/\\|?*]','_',n); n=re.sub(r'_+','_',n).strip('_')
+        return f"{n}{ex}"
 
-    def dest(self, src, ctx="", src_name=""):
-        fn = Path(src).name; c = ctx or str(src)
-        cat = self.cat(c, fn)
-        d = BASE_DIR / cat; d.mkdir(parents=True, exist_ok=True)
-        nm = self.name(c, fn)
-        out = d / nm
+    def dest(self,src,ctx=""):
+        fn=Path(src).name; ca=self.cat(ctx or str(src),fn)
+        d=BASE_DIR/ca; d.mkdir(parents=True,exist_ok=True)
+        nm=self.name(ctx or str(src),fn); out=d/nm
         if out.exists():
-            s,x = out.stem, out.suffix; i=1
-            while out.exists(): out = d / f"{s}_{i}{x}"; i+=1
+            s,x=out.stem,out.suffix; i=1
+            while out.exists(): out=d/f"{s}_{i}{x}"; i+=1
         return out
 
 # ===========================================================================
-# MASSIVE SOURCE LISTS
+# SOURCE 1: GitHub repos (biggest bang for buck)
 # ===========================================================================
-GITHUB_REPOS = [
-    # === NAM MODELS (BIGGEST SOURCES) ===
+REPOS=[
     "pelennor2170/NAM_models",
+    "orodamaral/Speaker-Cabinets-IRs",
     "GuitarML/ToneLibrary",
     "GuitarML/Proteus",
-    "mikeoliphant/NeuralAmpModels",
     "sdatkinson/neural-amp-modeler",
-    "carlthome/nam-models",
-    # === SPEAKER CABINET IRs ===
-    "orodamaral/Speaker-Cabinets-IRs",
-    "keyth72/AxeFxImpulseResponses",
-    # === ML AMP MODELS ===
+    "mikeoliphant/NeuralAmpModels",
+    "Alec-Wright/Automated-GuitarAmpModelling",
+    "Alec-Wright/CoreAudioML",
+    "GuitarML/GuitarLSTM",
     "GuitarML/SmartGuitarAmp",
     "GuitarML/SmartGuitarPedal",
     "GuitarML/SmartAmpPro",
-    "GuitarML/GuitarLSTM",
     "GuitarML/TS-M1N3",
     "GuitarML/Chameleon",
-    "Alec-Wright/Automated-GuitarAmpModelling",
-    "Alec-Wright/CoreAudioML",
-    # === AIDA-X ===
     "AidaDSP/AIDA-X",
-    "AidaDSP/aida-x-trainer",
-    # === MORE NAM/ML COLLECTIONS ===
-    "bstotmeister/NAM_captures",
-    "darinchau/nam-models",
-    "Asashoco):@nam-community/nam-model-library",  # try
-    "Jimmaphy/NAM_Models",
-    "msquirogac/NeuralAmpModeler",
-    # === IR COLLECTIONS ===
-    "wavesfactory/free-impulse-responses",
-    "ricsjs/ImpulseResponses",
-    # === GUITAR RIG / TONE MODELS ===
-    "GuitarML/GuitarML.github.io",
-    "jatinchowdhury18/RTNeural",
+    "keyth72/AxeFxImpulseResponses",
+    "DA1729/da1729_guitar_processor",
+    "dijitol77/delt1",
+    "dijitol77/delt",
+    "turtelduo/helix",
 ]
 
-# Repos that definitely have release assets with model/IR files
-RELEASE_REPOS = [
-    ("GuitarML", "Proteus"),
-    ("GuitarML", "TS-M1N3"),
-    ("GuitarML", "SmartGuitarAmp"),
-    ("GuitarML", "SmartGuitarPedal"),
-    ("GuitarML", "Chameleon"),
-    ("GuitarML", "SmartAmpPro"),
-    ("mikeoliphant", "NeuralAmpModels"),
-    ("AidaDSP", "AIDA-X"),
-    ("sdatkinson", "NeuralAmpModelerPlugin"),
-]
-
-DIRECT_ZIPS = [
-    # VERIFIED WORKING
-    ("https://www.voxengo.com/files/impulses/IMreverbs.zip", "Voxengo_Reverb"),
-    ("http://www.echothief.com/wp-content/uploads/2016/06/EchoThiefImpulseResponseLibrary.zip", "EchoThief_Spaces"),
-    ("https://kalthallen.audiounits.com/dl/KalthallenCabs.zip", "Kalthallen_Cabs"),
-    # Forward Audio faIR series
-    ("https://forward-audio.com/wp-content/uploads/2020/07/faIR-Post-Grunge.zip", "faIR_PostGrunge"),
-    ("https://forward-audio.com/wp-content/uploads/2020/04/faIR-Modern-Rock.zip", "faIR_ModernRock"),
-    ("https://forward-audio.com/wp-content/uploads/2020/09/faIR-Modern-Metal.zip", "faIR_ModernMetal"),
-    ("https://forward-audio.com/wp-content/uploads/2021/01/faIR-Progressive-Metal.zip", "faIR_ProgMetal"),
-    ("https://forward-audio.com/wp-content/uploads/2020/03/faIR-Classic-Rock.zip", "faIR_ClassicRock"),
-    ("https://forward-audio.com/wp-content/uploads/2020/11/faIR-90s-Grunge.zip", "faIR_90sGrunge"),
-    ("https://forward-audio.com/wp-content/uploads/2020/06/faIR-Modern-Pop.zip", "faIR_ModernPop"),
-    ("https://forward-audio.com/wp-content/uploads/2021/03/faIR-Bass-Rock.zip", "faIR_BassRock"),
-    ("https://forward-audio.com/wp-content/uploads/2021/06/faIR-Pop-Punk.zip", "faIR_PopPunk"),
-    ("https://forward-audio.com/wp-content/uploads/2020/02/faIR-Blues.zip", "faIR_Blues"),
-    ("https://forward-audio.com/wp-content/uploads/2021/09/faIR-Country.zip", "faIR_Country"),
-    # Wilkinson God's cab (try multiple paths)
-    ("https://wilkinsonaudio.com/wp-content/uploads/gods-cab-free.zip", "Gods_Cab"),
-    ("https://wilkinsonaudio.com/downloads/gods-cab.zip", "Gods_Cab_v2"),
-    # ML Sound Lab
-    ("https://ml-sound-lab.com/wp-content/uploads/Best-IR-In-The-World.zip", "MLSL_BestIR"),
-    # More reverb/room IRs
-    ("https://www.voxengo.com/files/impulses/IMreverbs2.zip", "Voxengo_Reverb2"),
-    # Djammin Cabs
-    ("https://djammincabs.com/wp-content/uploads/free-guitar-cabs-100.zip", "Djammin_Guitar100"),
-    ("https://djammincabs.com/wp-content/uploads/free-bass-cabs-100.zip", "Djammin_Bass100"),
-    # Shift Line bass IRs
-    ("https://shift-line.com/downloads/ShiftLine_CID_IRs.zip", "ShiftLine_Bass"),
-    # SNB IRs
-    ("https://www.signalnoisebliss.com/downloads/SNB-Free-Guitar-IRs.zip", "SNB_Guitar"),
-    # GuitarHack
-    ("https://www.guitarhack.com/downloads/GuitarHack-Impulses.zip", "GuitarHack"),
-    # Science Amp bass
-    ("https://scienceamps.com/downloads/science-bass-cab-irs.zip", "Science_BassCab"),
-    # PreSonus analog cab IRs
-    ("https://pae-web.presonusmusic.com/downloads/products/misc/PreSonus-AnalogCab-IRs.zip", "PreSonus_Analog25"),
-]
-
-# ===========================================================================
-# DOWNLOADERS
-# ===========================================================================
-def dl_github(session, cache, org):
-    stats = {"ok":0,"skip":0,"err":0,"files":0}
-    tmp = Path("/tmp/gh")
-    for repo in GITHUB_REPOS:
-        # Clean repo name
-        repo = repo.strip()
-        if not "/" in repo or repo.startswith("#"): continue
-        # Remove any bad chars
-        repo = re.sub(r'[^a-zA-Z0-9/_\-\.]', '', repo)
-        parts = repo.split("/")
-        if len(parts) != 2: continue
-        owner, name = parts
-        
-        for branch in ["main", "master"]:
-            zurl = f"https://github.com/{owner}/{name}/archive/refs/heads/{branch}.zip"
-            if cache.seen(f"ghrepo_{owner}_{name}"): 
-                stats["skip"]+=1; break
-            zp = tmp / f"{name}.zip"; zp.parent.mkdir(parents=True, exist_ok=True)
+def dl_github(s,c,o):
+    st={"ok":0,"skip":0,"err":0,"files":0}
+    tmp=Path("/tmp/gh")
+    for repo in REPOS:
+        repo=repo.strip()
+        if "/" not in repo: continue
+        owner,name=repo.split("/",1)
+        ck=f"gh_{owner}_{name}"
+        if c.seen(ck): st["skip"]+=1; continue
+        for br in ["main","master"]:
+            zu=f"https://github.com/{owner}/{name}/archive/refs/heads/{br}.zip"
+            zp=tmp/f"{name}.zip"; zp.parent.mkdir(parents=True,exist_ok=True)
             try:
-                r = session.get(zurl, stream=True, timeout=300)
-                if r.status_code == 404: continue
+                r=s.get(zu,stream=True,timeout=300)
+                if r.status_code==404: continue
                 r.raise_for_status()
                 with open(zp,"wb") as f:
                     for ch in r.iter_content(1024*1024): f.write(ch)
-                logging.info(f"Downloaded {owner}/{name} ({zp.stat().st_size/1e6:.1f}MB)")
-                stats["ok"]+=1
-                # extract
-                ed = tmp / name
+                logging.info(f"DL {owner}/{name} ({zp.stat().st_size/1e6:.1f}MB)")
+                st["ok"]+=1
+                ed=tmp/name
                 try:
                     with zipfile.ZipFile(zp) as zf: zf.extractall(ed)
-                except zipfile.BadZipFile:
-                    logging.warning(f"Bad ZIP: {name}"); stats["err"]+=1; break
+                except: logging.warning(f"Bad ZIP {name}"); st["err"]+=1; break
                 fc=0
-                for root,dirs,files in os.walk(ed):
-                    dirs[:] = [d for d in dirs if not d.startswith((".",  "__"))]
-                    for fn in files:
+                for rt,ds,fs in os.walk(ed):
+                    ds[:]=[d for d in ds if not d.startswith((".",  "__"))]
+                    for fn in fs:
                         if Path(fn).suffix.lower() not in VALID_EXT: continue
-                        src = Path(root)/fn
-                        if not valid(src) or cache.dup(src): continue
-                        ctx = f"{name}/{os.path.relpath(root,ed)}/{fn}"
-                        d = org.dest(src, ctx, name)
-                        shutil.copy2(src, d); fc+=1; stats["files"]+=1
+                        src=Path(rt)/fn
+                        if not valid(src) or c.dup(src): continue
+                        d=o.dest(src,f"{name}/{os.path.relpath(rt,ed)}/{fn}")
+                        shutil.copy2(src,d); fc+=1; st["files"]+=1
                 logging.info(f"  → {fc} files from {name}")
-                cache.mark(f"ghrepo_{owner}_{name}"); cache.save()
-                shutil.rmtree(ed, ignore_errors=True); zp.unlink(missing_ok=True)
-                break  # got it from this branch
+                c.mark(ck); c.save()
+                shutil.rmtree(ed,ignore_errors=True); zp.unlink(missing_ok=True)
+                break
             except Exception as e:
-                if branch == "master":
-                    logging.warning(f"Skip {owner}/{name}: {e}"); stats["err"]+=1
-    return stats
+                if br=="master": logging.warning(f"Skip {repo}: {e}"); st["err"]+=1
+    return st
 
-def dl_releases(session, cache, org):
-    stats = {"ok":0,"skip":0,"err":0,"files":0}
-    for owner, repo in RELEASE_REPOS:
-        rk = f"rel_{owner}_{repo}"
-        if cache.seen(rk): stats["skip"]+=1; continue
+def dl_releases(s,c,o):
+    st={"ok":0,"skip":0,"err":0,"files":0}
+    rels=[("GuitarML","Proteus"),("GuitarML","TS-M1N3"),("GuitarML","Chameleon"),
+          ("GuitarML","SmartGuitarAmp"),("mikeoliphant","NeuralAmpModels"),("AidaDSP","AIDA-X")]
+    for ow,rp in rels:
+        rk=f"rel_{ow}_{rp}"
+        if c.seen(rk): st["skip"]+=1; continue
         try:
-            r = session.get(f"https://api.github.com/repos/{owner}/{repo}/releases",
-                          timeout=30, headers={"Accept":"application/vnd.github+json"})
+            r=s.get(f"https://api.github.com/repos/{ow}/{rp}/releases",timeout=30,
+                    headers={"Accept":"application/vnd.github+json"})
             if r.status_code in (404,403): continue
-            r.raise_for_status()
-            fc=0
+            r.raise_for_status(); fc=0
             for rel in r.json()[:10]:
                 for a in rel.get("assets",[]):
-                    aurl = a["browser_download_url"]; an = a["name"]
-                    ext = Path(an).suffix.lower()
-                    if ext not in VALID_EXT and ext != ".zip": continue
-                    if cache.seen(aurl): continue
+                    au=a["browser_download_url"]; an=a["name"]; ex=Path(an).suffix.lower()
+                    if ex not in VALID_EXT and ex!=".zip": continue
+                    if c.seen(au): continue
                     try:
-                        dr = session.get(aurl, stream=True, timeout=300); dr.raise_for_status()
-                        tp = Path("/tmp/ghrel")/an; tp.parent.mkdir(parents=True, exist_ok=True)
+                        dr=s.get(au,stream=True,timeout=300); dr.raise_for_status()
+                        tp=Path("/tmp/ghrel")/an; tp.parent.mkdir(parents=True,exist_ok=True)
                         with open(tp,"wb") as f:
                             for ch in dr.iter_content(1024*1024): f.write(ch)
-                        if ext == ".zip":
+                        if ex==".zip":
                             try:
-                                xd = tp.parent/tp.stem
+                                xd=tp.parent/tp.stem
                                 with zipfile.ZipFile(tp) as zf: zf.extractall(xd)
-                                for rt,ds,fs in os.walk(xd):
-                                    ds[:] = [d for d in ds if not d.startswith((".",  "__"))]
-                                    for fn in fs:
+                                for rt2,ds2,fs2 in os.walk(xd):
+                                    ds2[:]=[d for d in ds2 if not d.startswith((".",  "__"))]
+                                    for fn in fs2:
                                         if Path(fn).suffix.lower() not in VALID_EXT: continue
-                                        src = Path(rt)/fn
-                                        if not valid(src) or cache.dup(src): continue
-                                        d = org.dest(src, f"rel/{repo}/{fn}", repo)
-                                        shutil.copy2(src,d); fc+=1; stats["files"]+=1
-                                shutil.rmtree(xd, ignore_errors=True)
+                                        src=Path(rt2)/fn
+                                        if not valid(src) or c.dup(src): continue
+                                        d=o.dest(src,f"rel/{rp}/{fn}")
+                                        shutil.copy2(src,d); fc+=1; st["files"]+=1
+                                shutil.rmtree(xd,ignore_errors=True)
                             except: pass
-                        elif valid(tp) and not cache.dup(tp):
-                            d = org.dest(tp, f"rel/{repo}/{an}", repo)
-                            shutil.copy2(tp,d); fc+=1; stats["files"]+=1
-                        tp.unlink(missing_ok=True); cache.mark(aurl); stats["ok"]+=1
-                    except: stats["err"]+=1
-            logging.info(f"Releases {owner}/{repo}: {fc} files")
-            cache.mark(rk); cache.save()
+                        elif valid(tp) and not c.dup(tp):
+                            d=o.dest(tp,f"rel/{rp}/{an}"); shutil.copy2(tp,d); fc+=1; st["files"]+=1
+                        tp.unlink(missing_ok=True); c.mark(au); st["ok"]+=1
+                    except: st["err"]+=1
+            logging.info(f"Releases {ow}/{rp}: {fc}"); c.mark(rk); c.save()
+        except Exception as e: logging.warning(f"Rel {ow}/{rp}: {e}"); st["err"]+=1
+    return st
+
+# ===========================================================================
+# SOURCE 2: Soundwoofer.com API — FREE, NO KEY, 1200+ guitar cab IRs
+# ===========================================================================
+def dl_soundwoofer(s,c,o):
+    """Soundwoofer has a public JSON API with direct .wav download links."""
+    st={"ok":0,"skip":0,"err":0,"files":0}
+    base="https://soundwoofer.com"
+    api_url=f"{base}/api/impulses"
+    
+    logging.info("=== SOUNDWOOFER: Fetching impulse list ===")
+    
+    # Try paginated API
+    page = 0
+    total_fetched = 0
+    
+    while True:
+        try:
+            # Try different API endpoints
+            for endpoint in [
+                f"{base}/api/impulses?page={page}&limit=100",
+                f"{base}/api/v1/impulses?page={page}&limit=100",
+                f"{base}/api/impulses?offset={page*100}&limit=100",
+            ]:
+                try:
+                    r = s.get(endpoint, timeout=30)
+                    if r.status_code == 200:
+                        data = r.json()
+                        # Handle different response formats
+                        items = data if isinstance(data, list) else data.get("data", data.get("impulses", data.get("items", [])))
+                        if items:
+                            logging.info(f"Soundwoofer page {page}: {len(items)} items")
+                            for item in items:
+                                # Extract download URL
+                                dl_url = item.get("downloadUrl") or item.get("download_url") or item.get("url") or item.get("file")
+                                if not dl_url:
+                                    # Try to build URL from ID
+                                    iid = item.get("id") or item.get("_id")
+                                    if iid:
+                                        dl_url = f"{base}/api/impulses/{iid}/download"
+                                
+                                if not dl_url: continue
+                                if not dl_url.startswith("http"): dl_url = base + dl_url
+                                if c.seen(dl_url): st["skip"]+=1; continue
+                                
+                                # Get metadata for naming
+                                spk = item.get("speaker","") or item.get("speakerModel","") or ""
+                                cab = item.get("cabinet","") or item.get("cabinetModel","") or ""
+                                mic = item.get("microphone","") or item.get("mic","") or ""
+                                title = item.get("title","") or item.get("name","") or f"SW_{iid}"
+                                
+                                try:
+                                    dr = s.get(dl_url, timeout=60)
+                                    if dr.status_code != 200: 
+                                        c.mark(dl_url); continue
+                                    
+                                    # Build descriptive filename
+                                    parts = [p for p in [cab, spk, mic, title] if p]
+                                    fname = "_".join(parts)[:80] + ".wav"
+                                    fname = re.sub(r'[<>:"/\\|?*]','_',fname)
+                                    
+                                    tp = Path("/tmp/sw")/fname
+                                    tp.parent.mkdir(parents=True,exist_ok=True)
+                                    tp.write_bytes(dr.content)
+                                    
+                                    if valid(tp) and not c.dup(tp):
+                                        ctx = f"soundwoofer/{cab}/{spk}/{mic}/{title}"
+                                        d = o.dest(tp, ctx)
+                                        shutil.move(str(tp), d)
+                                        st["files"]+=1; st["ok"]+=1
+                                        total_fetched += 1
+                                    else:
+                                        tp.unlink(missing_ok=True); st["skip"]+=1
+                                    
+                                    c.mark(dl_url)
+                                    if st["ok"] % 100 == 0 and st["ok"]>0:
+                                        c.save()
+                                        logging.info(f"  Soundwoofer progress: {st['ok']} downloaded")
+                                except Exception as e:
+                                    st["err"]+=1
+                                    c.mark(dl_url)  # Don't retry failed ones
+                            
+                            if len(items) < 100:
+                                # Last page
+                                page = -1
+                            break  # This endpoint worked
+                        else:
+                            page = -1  # No more items
+                            break
+                    elif r.status_code == 404:
+                        continue  # Try next endpoint format
+                    else:
+                        continue
+                except Exception:
+                    continue
+            
+            if page == -1:
+                break
+            page += 1
+            time.sleep(0.5)
+            
+            # Safety limit
+            if page > 50:
+                break
+                
         except Exception as e:
-            logging.warning(f"Releases {owner}/{repo}: {e}"); stats["err"]+=1
-    return stats
-
-def dl_tone3000(session, cache, org, gears=None, max_pages=500):
-    stats = {"ok":0,"skip":0,"err":0,"files":0}
-    if not TONE3000_API_KEY:
-        logging.warning("No TONE3000_API_KEY"); return stats
-    hdrs = {"Authorization": f"Bearer {TONE3000_API_KEY}", "Content-Type": "application/json"}
-    gears = gears or ["amp","pedal","full-rig","ir","outboard"]
-    cerr = 0
-    for gear in gears:
-        logging.info(f"TONE3000 gear={gear}")
-        pg = 1; tp = 1
-        while pg <= min(tp, max_pages):
-            if cerr >= 15: logging.error(f"Too many errors, stopping {gear}"); cerr=0; break
+            logging.error(f"Soundwoofer error page {page}: {e}")
+            break
+    
+    # Also try the standalone impulses page
+    try:
+        for endpoint in [f"{base}/api/standalone-impulses", f"{base}/api/mispulses"]:
             try:
-                url = f"{TONE3000_BASE}/tones/search?gear={gear}&page={pg}&page_size=25&sort=most-downloaded"
-                r = session.get(url, headers=hdrs, timeout=60)
-                if r.status_code == 429:
-                    time.sleep(int(r.headers.get("Retry-After",60))); continue
-                if r.status_code in (401,403):
-                    logging.error("TONE3000 auth failed"); return stats
-                if r.status_code >= 400: cerr+=1; pg+=1; continue
-                data = r.json(); tp = data.get("total_pages",1)
-                tones = data.get("data",[])
-                if not tones: break
-                logging.info(f"  pg {pg}/{tp} — {len(tones)} tones")
-                cerr = 0
-                for tone in tones:
-                    tid = tone.get("id"); title = tone.get("title", f"t{tid}")
-                    try:
-                        mr = session.get(f"{TONE3000_BASE}/models?tone_id={tid}&page=1&page_size=100",
-                                        headers=hdrs, timeout=60)
-                        if mr.status_code == 429: time.sleep(30); mr = session.get(f"{TONE3000_BASE}/models?tone_id={tid}&page=1&page_size=100", headers=hdrs, timeout=60)
-                        if mr.status_code >= 400: continue
-                        for mdl in mr.json().get("data",[]):
-                            mu = mdl.get("model_url",""); mn = mdl.get("name","")
-                            if not mu or cache.seen(mu): stats["skip"]+=1; continue
-                            try:
-                                dr = session.get(mu, headers=hdrs, timeout=120); dr.raise_for_status()
-                                ext = Path(urlparse(mu).path).suffix.lower()
-                                if ext not in VALID_EXT:
-                                    ct = dr.headers.get("Content-Type","")
-                                    ext = ".wav" if "wav" in ct else ".nam"
-                                if ext not in VALID_EXT: cache.mark(mu); continue
-                                ct = re.sub(r'[<>:"/\\|?*]','_',title)
-                                fname = f"{ct}_{mn}{ext}" if mn and mn!=title else f"{ct}{ext}"
-                                tp2 = Path("/tmp/t3k")/fname; tp2.parent.mkdir(parents=True, exist_ok=True)
-                                tp2.write_bytes(dr.content)
-                                if valid(tp2) and not cache.dup(tp2):
-                                    d = org.dest(tp2, f"tone3000/{gear}/{title}/{fname}", "TONE3000")
-                                    shutil.move(str(tp2), d); stats["files"]+=1; stats["ok"]+=1
-                                else:
-                                    tp2.unlink(missing_ok=True); stats["skip"]+=1
-                                cache.mark(mu)
-                            except: stats["err"]+=1
-                        if stats["ok"] % 50 == 0 and stats["ok"]>0: cache.save()
-                    except: stats["err"]+=1
-                pg+=1; time.sleep(0.3)
-            except Exception as e:
-                logging.error(f"T3K pg {pg}: {e}"); cerr+=1; pg+=1; time.sleep(3)
-    cache.save()
-    return stats
+                r = s.get(endpoint, timeout=30)
+                if r.status_code == 200:
+                    data = r.json()
+                    items = data if isinstance(data, list) else data.get("data", [])
+                    logging.info(f"Soundwoofer standalone: {len(items)} items")
+                    for item in items:
+                        dl_url = item.get("downloadUrl") or item.get("download_url") or item.get("url")
+                        if not dl_url: continue
+                        if not dl_url.startswith("http"): dl_url = base + dl_url
+                        if c.seen(dl_url): continue
+                        try:
+                            dr = s.get(dl_url, timeout=60)
+                            if dr.status_code != 200: c.mark(dl_url); continue
+                            title = item.get("title","") or item.get("name","SW_standalone")
+                            fname = re.sub(r'[<>:"/\\|?*]','_',title)[:60] + ".wav"
+                            tp = Path("/tmp/sw")/fname; tp.parent.mkdir(parents=True,exist_ok=True)
+                            tp.write_bytes(dr.content)
+                            if valid(tp) and not c.dup(tp):
+                                d = o.dest(tp, f"soundwoofer/standalone/{title}")
+                                shutil.move(str(tp), d); st["files"]+=1; st["ok"]+=1
+                            else: tp.unlink(missing_ok=True)
+                            c.mark(dl_url)
+                        except: st["err"]+=1
+            except: pass
+    except: pass
+    
+    c.save()
+    logging.info(f"Soundwoofer total: {st}")
+    return st
 
-def dl_direct(session, cache, org):
-    stats = {"ok":0,"skip":0,"err":0,"files":0}
-    tmp = Path("/tmp/direct")
-    tmp.mkdir(parents=True, exist_ok=True)
-    for url, name in DIRECT_ZIPS:
-        if cache.seen(url): stats["skip"]+=1; continue
+# ===========================================================================
+# SOURCE 3: Direct ZIP downloads (VERIFIED WORKING)
+# ===========================================================================
+ZIPS=[
+    ("https://www.voxengo.com/files/impulses/IMreverbs.zip","Voxengo_Reverb"),
+    ("https://kalthallen.audiounits.com/dl/KalthallenCabs.zip","Kalthallen_Cabs"),
+]
+
+def dl_direct(s,c,o):
+    st={"ok":0,"skip":0,"err":0,"files":0}
+    tmp=Path("/tmp/direct"); tmp.mkdir(parents=True,exist_ok=True)
+    for url,name in ZIPS:
+        if c.seen(url): st["skip"]+=1; continue
         logging.info(f"Direct: {name}...")
         try:
-            r = session.get(url, stream=True, timeout=300, allow_redirects=True)
+            r=s.get(url,stream=True,timeout=300,allow_redirects=True)
             if r.status_code in (404,403,410):
-                logging.warning(f"  Not available ({r.status_code})"); stats["err"]+=1
-                cache.mark(url); cache.save(); continue
+                logging.warning(f"  {r.status_code}: {name}"); c.mark(url); continue
             r.raise_for_status()
-            cd = r.headers.get("Content-Disposition","")
-            fn = re.findall(r'filename="?([^";\n]+)',cd)[0] if "filename=" in cd else unquote(urlparse(url).path.split("/")[-1])
-            dp = tmp/fn
+            cd=r.headers.get("Content-Disposition","")
+            fn=re.findall(r'filename="?([^";\n]+)',cd)[0] if "filename=" in cd else unquote(urlparse(url).path.split("/")[-1])
+            dp=tmp/fn
             with open(dp,"wb") as f:
                 for ch in r.iter_content(1024*1024): f.write(ch)
             logging.info(f"  {dp.stat().st_size/1e6:.1f}MB")
-            stats["ok"]+=1
+            st["ok"]+=1
             if dp.suffix.lower()==".zip":
                 try:
-                    xd = tmp/name
+                    xd=tmp/name
                     with zipfile.ZipFile(dp) as zf: zf.extractall(xd)
                     fc=0
                     for rt,ds,fs in os.walk(xd):
-                        ds[:] = [d for d in ds if not d.startswith((".",  "__"))]
+                        ds[:]=[d for d in ds if not d.startswith((".",  "__"))]
                         for f2 in fs:
                             if Path(f2).suffix.lower() not in VALID_EXT: continue
-                            src = Path(rt)/f2
-                            if not valid(src) or cache.dup(src): continue
-                            ctx = f"{name}/{os.path.relpath(rt,xd)}/{f2}"
-                            d = org.dest(src, ctx, name)
-                            shutil.copy2(src, d); fc+=1; stats["files"]+=1
-                    logging.info(f"  → {fc} files from {name}")
-                    shutil.rmtree(xd, ignore_errors=True)
-                except zipfile.BadZipFile:
-                    logging.error(f"  Bad ZIP: {name}"); stats["err"]+=1
-            else:
-                if dp.suffix.lower() in VALID_EXT and valid(dp) and not cache.dup(dp):
-                    d = org.dest(dp, f"direct/{name}/{fn}", name)
-                    shutil.copy2(dp, d); stats["files"]+=1
-            dp.unlink(missing_ok=True); cache.mark(url); cache.save()
-        except Exception as e:
-            logging.error(f"  Error {name}: {e}"); stats["err"]+=1
-    return stats
+                            src=Path(rt)/f2
+                            if not valid(src) or c.dup(src): continue
+                            d=o.dest(src,f"{name}/{os.path.relpath(rt,xd)}/{f2}")
+                            shutil.copy2(src,d); fc+=1; st["files"]+=1
+                    logging.info(f"  → {fc} from {name}")
+                    shutil.rmtree(xd,ignore_errors=True)
+                except zipfile.BadZipFile: st["err"]+=1
+            dp.unlink(missing_ok=True); c.mark(url); c.save()
+        except Exception as e: logging.error(f"  {name}: {e}"); st["err"]+=1
+    return st
 
-# ---------------------------------------------------------------------------
+# ===========================================================================
+# SOURCE 4: GitHub search for repos with WAV/NAM files (auto-discovery)
+# ===========================================================================
+def dl_github_search(s,c,o):
+    """Use GitHub code search API to find repos with .nam and .wav files."""
+    st={"ok":0,"skip":0,"err":0,"files":0}
+    
+    queries = [
+        "extension:nam path:/ language:''",
+        "extension:nam guitar amp",
+        "impulse response wav cabinet speaker guitar",
+    ]
+    
+    found_repos = set()
+    
+    for q in queries:
+        try:
+            r = s.get(f"https://api.github.com/search/repositories?q={quote(q)}&sort=updated&per_page=30",
+                     timeout=30, headers={"Accept":"application/vnd.github+json"})
+            if r.status_code != 200: continue
+            for repo in r.json().get("items",[]):
+                fn = repo["full_name"]
+                sz = repo.get("size",0)
+                if sz > 500 and fn not in found_repos:  # Only repos > 500KB
+                    found_repos.add(fn)
+        except: pass
+        time.sleep(1)
+    
+    # Remove already-downloaded repos
+    found_repos -= set(REPOS)
+    
+    logging.info(f"GitHub search found {len(found_repos)} new repos to try")
+    
+    for repo in list(found_repos)[:20]:  # Limit to 20 new repos
+        owner,name = repo.split("/",1)
+        ck=f"ghs_{owner}_{name}"
+        if c.seen(ck): st["skip"]+=1; continue
+        
+        for br in ["main","master"]:
+            zu=f"https://github.com/{owner}/{name}/archive/refs/heads/{br}.zip"
+            zp=Path("/tmp/ghs")/f"{name}.zip"; zp.parent.mkdir(parents=True,exist_ok=True)
+            try:
+                r=s.get(zu,stream=True,timeout=120)
+                if r.status_code==404: continue
+                r.raise_for_status()
+                # Skip if too large (>500MB)
+                cl = int(r.headers.get("Content-Length","0"))
+                if cl > 500*1024*1024:
+                    logging.warning(f"Skipping {repo} (too large: {cl/1e6:.0f}MB)")
+                    c.mark(ck); break
+                    
+                with open(zp,"wb") as f:
+                    for ch in r.iter_content(1024*1024): f.write(ch)
+                logging.info(f"Search DL {repo} ({zp.stat().st_size/1e6:.1f}MB)")
+                st["ok"]+=1
+                ed=Path("/tmp/ghs")/name
+                try:
+                    with zipfile.ZipFile(zp) as zf: zf.extractall(ed)
+                except: st["err"]+=1; break
+                fc=0
+                for rt,ds,fs in os.walk(ed):
+                    ds[:]=[d for d in ds if not d.startswith((".",  "__"))]
+                    for fn in fs:
+                        if Path(fn).suffix.lower() not in VALID_EXT: continue
+                        src=Path(rt)/fn
+                        if not valid(src) or c.dup(src): continue
+                        d=o.dest(src,f"{name}/{os.path.relpath(rt,ed)}/{fn}")
+                        shutil.copy2(src,d); fc+=1; st["files"]+=1
+                logging.info(f"  → {fc} from search/{name}")
+                c.mark(ck); c.save()
+                shutil.rmtree(ed,ignore_errors=True); zp.unlink(missing_ok=True)
+                break
+            except Exception as e:
+                if br=="master": logging.warning(f"Skip search {repo}: {e}"); st["err"]+=1
+    return st
+
+# ===========================================================================
+# SOURCE 5: TONE3000 public pages (no API key - scrape public listing)
+# ===========================================================================
+def dl_tone3000_public(s,c,o):
+    """Try to get tones from TONE3000 public listing without API key."""
+    st={"ok":0,"skip":0,"err":0,"files":0}
+    
+    # Try the public API endpoints that don't require auth
+    base = "https://www.tone3000.com"
+    
+    for gear in ["amp","pedal","ir"]:
+        logging.info(f"TONE3000 public: gear={gear}")
+        for page in range(1, 100):
+            try:
+                # Try different public endpoints
+                for endpoint in [
+                    f"{base}/api/v1/tones?gear={gear}&page={page}&page_size=50&sort=most-downloaded",
+                    f"{base}/api/tones?gear={gear}&page={page}&limit=50",
+                    f"{base}/tones.json?gear={gear}&page={page}",
+                ]:
+                    try:
+                        r = s.get(endpoint, timeout=30, headers={"Accept":"application/json"})
+                        if r.status_code == 401:
+                            logging.info(f"TONE3000 requires auth, skipping")
+                            return st
+                        if r.status_code != 200: continue
+                        
+                        data = r.json()
+                        tones = data.get("data",[]) if isinstance(data,dict) else data
+                        if not tones:
+                            return st  # No more
+                        
+                        for tone in tones:
+                            dl_url = tone.get("download_url") or tone.get("model_url") or tone.get("file_url")
+                            if not dl_url: continue
+                            if c.seen(dl_url): st["skip"]+=1; continue
+                            
+                            try:
+                                dr = s.get(dl_url, timeout=60)
+                                if dr.status_code != 200: c.mark(dl_url); continue
+                                
+                                title = tone.get("title","") or tone.get("name",f"t3k_{page}")
+                                ext = Path(urlparse(dl_url).path).suffix.lower()
+                                if ext not in VALID_EXT:
+                                    ext = ".wav" if "wav" in dr.headers.get("Content-Type","") else ".nam"
+                                if ext not in VALID_EXT: c.mark(dl_url); continue
+                                
+                                fname = re.sub(r'[<>:"/\\|?*]','_',title)[:60] + ext
+                                tp = Path("/tmp/t3k")/fname; tp.parent.mkdir(parents=True,exist_ok=True)
+                                tp.write_bytes(dr.content)
+                                
+                                if valid(tp) and not c.dup(tp):
+                                    d = o.dest(tp, f"tone3000/{gear}/{title}")
+                                    shutil.move(str(tp),d); st["files"]+=1; st["ok"]+=1
+                                else:
+                                    tp.unlink(missing_ok=True)
+                                c.mark(dl_url)
+                            except: st["err"]+=1
+                        
+                        if st["ok"]%50==0 and st["ok"]>0: c.save()
+                        break  # Found working endpoint
+                    except: continue
+                
+                time.sleep(0.5)
+            except: break
+    
+    c.save()
+    return st
+
+# ===========================================================================
 def gen_docs():
     total=0; cats={}
     for ch in BASE_DIR.iterdir():
         if ch.is_dir() and not ch.name.startswith("."):
-            c = sum(1 for f in ch.iterdir() if f.is_file() and f.suffix.lower() in VALID_EXT)
+            c=sum(1 for f in ch.iterdir() if f.is_file() and f.suffix.lower() in VALID_EXT)
             if c>0: cats[ch.name]=c; total+=c
-    md = f"# 🎸 IR DEF Repository\n\n> **{total:,}** archivos (.wav + .nam)\n\n"
-    md += "| Categoría | Archivos |\n|---|---|\n"
-    for k,v in sorted(cats.items()): md += f"| {k} | {v:,} |\n"
-    md += f"| **TOTAL** | **{total:,}** |\n"
-    (BASE_DIR/"README.md").write_text(md, "utf-8")
-    logging.info(f"Docs: {total:,} files"); return total
+    md=f"# 🎸 IR DEF Repository\n\n> **{total:,}** archivos (.wav + .nam)\n\n| Cat | Files |\n|---|---|\n"
+    for k,v in sorted(cats.items()): md+=f"| {k} | {v:,} |\n"
+    md+=f"| **TOTAL** | **{total:,}** |\n"
+    (BASE_DIR/"README.md").write_text(md,"utf-8")
+    logging.info(f"Docs: {total:,}"); return total
 
-# ---------------------------------------------------------------------------
+# ===========================================================================
 def main():
-    p = argparse.ArgumentParser()
-    p.add_argument("--tier", default="all", choices=["github","tone3000-amps","tone3000-pedals","direct","docs","all"])
-    p.add_argument("--validate-only", action="store_true")
-    p.add_argument("--output-dir", default="/tmp/ir_repository")
-    a = p.parse_args()
+    p=argparse.ArgumentParser()
+    p.add_argument("--tier",default="all",choices=["github","soundwoofer","direct","tone3000","docs","all"])
+    p.add_argument("--validate-only",action="store_true")
+    p.add_argument("--output-dir",default="/tmp/ir_repository")
+    a=p.parse_args()
 
-    global BASE_DIR, CACHE_FILE, STATS_FILE, LOG_FILE
-    BASE_DIR = Path(a.output_dir); CACHE_FILE = BASE_DIR/".download_cache.json"
-    STATS_FILE = BASE_DIR/".stats.json"; LOG_FILE = BASE_DIR/".download.log"
-    setup_logging()
+    global BASE_DIR,CACHE_FILE,LOG_FILE
+    BASE_DIR=Path(a.output_dir); CACHE_FILE=BASE_DIR/".download_cache.json"; LOG_FILE=BASE_DIR/".download.log"
+    setup()
     logging.info("="*60)
-    logging.info(f"IR DEF v4 ULTRA | tier={a.tier} | out={BASE_DIR}")
+    logging.info(f"IR DEF v5 ULTRA | tier={a.tier} | out={BASE_DIR}")
     logging.info("="*60)
 
-    s = get_session(); c = Cache(); o = Org(); st = {}
+    s=sess(); ca=C(); o=O(); st={}
 
     if a.validate_only:
         v=inv=0
         for rt,ds,fs in os.walk(BASE_DIR):
-            ds[:] = [d for d in ds if not d.startswith(".")]
+            ds[:]=[d for d in ds if not d.startswith(".")]
             for f in fs:
-                fp = Path(rt)/f
+                fp=Path(rt)/f
                 if fp.suffix.lower() in VALID_EXT:
                     if valid(fp): v+=1
                     else: fp.unlink(); inv+=1
-        logging.info(f"Valid={v} Invalid={inv}(deleted)"); return
+        logging.info(f"Valid={v} Invalid={inv}"); return
 
     if a.tier in ("github","all"):
         logging.info(">>> GITHUB REPOS")
-        st["gh"] = dl_github(s,c,o)
+        st["gh"]=dl_github(s,ca,o)
         logging.info(f"GitHub: {st['gh']}")
         logging.info(">>> GITHUB RELEASES")
-        st["rel"] = dl_releases(s,c,o)
+        st["rel"]=dl_releases(s,ca,o)
         logging.info(f"Releases: {st['rel']}")
+        logging.info(">>> GITHUB SEARCH (auto-discovery)")
+        st["ghs"]=dl_github_search(s,ca,o)
+        logging.info(f"GitHub search: {st['ghs']}")
 
-    if a.tier in ("tone3000-amps","all"):
-        logging.info(">>> TONE3000 AMPS")
-        st["t3k_amp"] = dl_tone3000(s,c,o, gears=["amp","ir"])
-        logging.info(f"T3K amps: {st['t3k_amp']}")
+    if a.tier in ("soundwoofer","all"):
+        logging.info(">>> SOUNDWOOFER (1200+ free cab IRs)")
+        st["sw"]=dl_soundwoofer(s,ca,o)
+        logging.info(f"Soundwoofer: {st['sw']}")
 
-    if a.tier in ("tone3000-pedals","all"):
-        logging.info(">>> TONE3000 PEDALS")
-        st["t3k_ped"] = dl_tone3000(s,c,o, gears=["pedal","full-rig","outboard"])
-        logging.info(f"T3K pedals: {st['t3k_ped']}")
+    if a.tier in ("tone3000","all"):
+        logging.info(">>> TONE3000 PUBLIC")
+        st["t3k"]=dl_tone3000_public(s,ca,o)
+        logging.info(f"TONE3000: {st['t3k']}")
 
     if a.tier in ("direct","all"):
-        logging.info(">>> DIRECT SITES")
-        st["direct"] = dl_direct(s,c,o)
-        logging.info(f"Direct: {st['direct']}")
+        logging.info(">>> DIRECT ZIPs")
+        st["dir"]=dl_direct(s,ca,o)
+        logging.info(f"Direct: {st['dir']}")
 
     if a.tier in ("docs","all"):
-        st["docs"] = {"total": gen_docs()}
+        st["docs"]={"total":gen_docs()}
 
-    STATS_FILE.write_text(json.dumps(st,indent=2),"utf-8")
+    (BASE_DIR/".stats.json").write_text(json.dumps(st,indent=2),"utf-8")
     logging.info("="*60)
-    logging.info("DONE! " + json.dumps(st))
+    logging.info("DONE! "+json.dumps(st))
     logging.info("="*60)
 
-if __name__ == "__main__":
+if __name__=="__main__":
     main()

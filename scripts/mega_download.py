@@ -896,7 +896,7 @@ def generate_catalog():
     stats = {"brands": {}, "types": {}, "tags": {}}
     
     for item in params:
-        if item["OutputDir"]: continue # Skip directories
+        if item.get("IsDir", False): continue # Skip directories
         
         path = item["Path"]
         name = item["Name"]

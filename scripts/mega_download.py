@@ -852,6 +852,7 @@ def github_search_discover(session, cache):
     return list(found)[:50]
 
 def generate_docs():
+    """Existing simple README generator - kept for legacy or simple views"""
     total = 0
     cats = {}
     for ch in BASE_DIR.iterdir():
@@ -870,13 +871,100 @@ def generate_docs():
     logging.info(f"Docs generated: {total:,} files")
     return total
 
+def generate_catalog():
+    """
+    Generates a rich JSON catalog for the Web Explorer by scanning Remote Drive directly.
+    """
+    logging.info("📊 GENERATING WEB CATALOG (Remote Scan)...")
+    
+    # Run rclone lsjson to get ALL metadata fast without downloading
+    cmd = ["rclone", "lsjson", "-R", "--hash", "--no-mimetype", RCLONE_REMOTE]
+    logging.info(f"  Running: {' '.join(cmd)}")
+    
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+        if result.returncode != 0:
+            logging.error(f"Rclone lsjson failed: {result.stderr}")
+            return 0
+            
+        params = json.loads(result.stdout)
+    except Exception as e:
+        logging.error(f"Failed to parse rclone output: {e}")
+        return 0
+
+    catalog = []
+    stats = {"brands": {}, "types": {}, "tags": {}}
+    
+    for item in params:
+        if item["OutputDir"]: continue # Skip directories
+        
+        path = item["Path"]
+        name = item["Name"]
+        size = item["Size"]
+        # ModTime is usually in item["ModTime"]
+        
+        ext = Path(name).suffix.lower()
+        if ext not in VALID_EXT:
+            continue
+            
+        # Enrich metadata
+        # We simulate the context tags based on the path
+        context = path.replace("/", " ").replace("_", " ")
+        full_text = (context + " " + name).lower()
+        
+        # Detect Brand
+        brand = _match(full_text, BRANDS) or "Other"
+        stats["brands"][brand] = stats["brands"].get(brand, 0) + 1
+        
+        # Detect Type
+        ftype = "NAM" if ext == ".nam" else "IR"
+        if "bass" in full_text or "bajo" in full_text: ftype = "Bass IR"
+        elif "acoust" in full_text: ftype = "Acoustic IR"
+        stats["types"][ftype] = stats["types"].get(ftype, 0) + 1
+        
+        # Detect Tags
+        tags = []
+        if "clean" in full_text: tags.append("Clean")
+        if "crunch" in full_text: tags.append("Crunch")
+        if "high gain" in full_text or "metal" in full_text or "dist" in full_text: tags.append("High Gain")
+        if "fuzz" in full_text: tags.append("Fuzz")
+        if "cab" in full_text: tags.append("Cab")
+        if "pedal" in full_text: tags.append("Pedal")
+        
+        entry = {
+            "id": hashlib.md5(path.encode("utf-8")).hexdigest()[:8],
+            "n": name,                # Name (shortened key for JSON size)
+            "p": path,                # Path
+            "b": brand,               # Brand
+            "t": ftype,               # Type
+            "s": size,                # Size bytes
+            "tag": tags               # Tags
+        }
+        catalog.append(entry)
+
+    # Save to explorer/public/data/catalog.json
+    # We assume the script runs in the root or we use an arg, but let's try to find the web dir
+    web_data_dir = Path("explorer/public/data") 
+    # If we are running in a CI environment, we might need to create this structure
+    web_data_dir.mkdir(parents=True, exist_ok=True)
+    
+    out_file = web_data_dir / "catalog.json"
+    out_file.write_text(json.dumps({
+        "updated": time.strftime('%Y-%m-%d %H:%M UTC'),
+        "stats": stats,
+        "items": catalog
+    }, indent=None), "utf-8") # Minified for network speed
+    
+    logging.info(f"✅ Catalog generated: {len(catalog)} items. Saved to {out_file}")
+    return len(catalog)
+
 # ============================================================
 # MAIN
 # ============================================================
 def main():
     parser = argparse.ArgumentParser(description="MEGA Downloader v3 — Clean + Expand")
     parser.add_argument("--tier", default="all",
-                        choices=["cleanup", "github", "releases", "direct", "search", "docs", "validate", "rename", "all"])
+                        choices=["cleanup", "github", "releases", "direct", "search", "docs", "validate", "rename", "catalog", "all"])
     parser.add_argument("--output-dir", default="/tmp/ir_repository")
     parser.add_argument("--rclone-remote", default="")
     parser.add_argument("--fresh", action="store_true", help="Reset URL cache to re-download everything")
@@ -1055,6 +1143,11 @@ def main():
     # ---- DOCS ----
     if args.tier in ("docs", "all"):
         stats["docs"] = generate_docs()
+
+    # ---- CATALOG (WEB INDEX) ----
+    if args.tier == "catalog":
+        stats["catalog"] = generate_catalog()
+        return
 
     # ---- FINAL CLEANUP ----
     if args.tier == "all":

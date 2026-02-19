@@ -1,0 +1,64 @@
+name: "Tone Explorer: Build & Deploy"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Auto-update daily
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 1. GENERATE CATALOG (Python Backend)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python deps
+        run: pip install requests
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+
+      - name: 📊 Generate Catalog JSON
+        run: |
+          # The script saves it to explorer/public/data/catalog.json
+          python scripts/mega_download.py --tier catalog --output-dir explorer/public/data
+
+      # 2. BUILD REACT APP (Frontend)
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install NPM Deps
+        working-directory: ./explorer
+        run: npm ci || npm install # fallback if package-lock is missing
+
+      - name: Build Web App
+        working-directory: ./explorer
+        run: npm run build
+        # Vite builds to explorer/dist
+
+      # 3. DEPLOY TO GITHUB PAGES
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./explorer/dist
+          force_orphan: true

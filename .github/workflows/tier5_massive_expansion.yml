@@ -1,0 +1,70 @@
+name: "Tier 5: Massive Expansion (Packs + ToneHunt)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      fresh:
+        description: "Run with --fresh to reset URL cache"
+        required: false
+        type: boolean
+        default: true
+  workflow_call:
+
+jobs:
+  expansion-download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360 # 6 hours max limit
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+          rclone listremotes
+
+      - name: Download existing cache
+        run: |
+          mkdir -p /tmp/ir_repository
+          rclone copy gdrive2:IR_DEF_REPOSITORY/.download_cache.json /tmp/ir_repository/ 2>/dev/null || true
+
+      - name: "🚀 MASSIVE EXPANSION: Download ToneHunt + Massive Dumps"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ inputs.fresh }}" = "true" ]; then
+            FRESH_FLAG="--fresh"
+          else
+            FRESH_FLAG=""
+          fi
+          
+          python scripts/mega_download.py \
+            --tier tier3 $FRESH_FLAG \
+            --output-dir /tmp/ir_repository
+
+      - name: "📤 Upload new expansion files to Drive"
+        if: always()
+        run: |
+          rclone copy /tmp/ir_repository gdrive2:IR_DEF_REPOSITORY \
+            --transfers 8 --checkers 16 --drive-chunk-size 64M \
+            --fast-list --stats 30s --log-level INFO --stats-one-line \
+            --exclude ".*" --exclude "*.log" --exclude "*.json" --exclude "*.md"
+
+      - name: Verify
+        if: always()
+        run: |
+          rclone size gdrive2:IR_DEF_REPOSITORY || true

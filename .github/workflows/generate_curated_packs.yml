@@ -1,20 +1,31 @@
-name: "ToneHub Pro: Generate Curated Rigs"
+name: "ToneHub Pro: Enhance Drive Repository"
 
 on:
   workflow_dispatch:
     inputs:
-      force_rerun:
-        description: 'Force re-generation of all packs'
+      run_packs:
+        description: 'Generate Curated Rig Packs'
         required: false
         type: boolean
-        default: false
+        default: true
+      run_catalogs:
+        description: 'Generate Brand Catalogs'
+        required: false
+        type: boolean
+        default: true
+      run_readme:
+        description: 'Generate Premium Drive README'
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: write
 
 jobs:
-  generate-packs:
+  enhance-drive:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
 
     steps:
       - name: Checkout
@@ -34,7 +45,25 @@ jobs:
         run: |
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+          echo "Available remotes:"
+          rclone listremotes
 
-      - name: Generate Curated Packs
+      - name: 📦 Generate Curated Rig Packs
+        if: ${{ inputs.run_packs }}
+        run: python scripts/generate_curated_packs.py
+
+      - name: 📄 Generate Brand Catalogs
+        if: ${{ inputs.run_catalogs }}
+        run: python scripts/generate_brand_catalogs.py
+
+      - name: 📋 Generate Premium Drive README
+        if: ${{ inputs.run_readme }}
+        run: python scripts/generate_drive_readme.py
+
+      - name: 📊 Final Drive Summary
         run: |
-          python scripts/generate_curated_packs.py
+          echo "=== Final Drive Size ==="
+          rclone size gdrive2:IR_DEF_REPOSITORY || true
+          echo ""
+          echo "=== Top-Level Folders ==="
+          rclone lsd gdrive2:IR_DEF_REPOSITORY || true

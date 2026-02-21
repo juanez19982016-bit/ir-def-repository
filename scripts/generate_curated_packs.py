@@ -1,120 +1,142 @@
-import os
-import sys
-import json
-import shutil
-import subprocess
+"""
+ToneHub Pro - Curated Rig Pack Generator
+=========================================
+Scans the entire Drive repository, identifies tone files by keyword,
+and uploads curated ZIP packs to _CURATED_RIGS/ on Drive.
+"""
+import os, sys, json, shutil, subprocess, random
 from pathlib import Path
 
-# Config
-RCLONE_REMOTE = "GoogleDrive:IR_DEF_REPO"
+RCLONE_REMOTE = "gdrive2:IR_DEF_REPOSITORY"
 PACKS_REMOTE = f"{RCLONE_REMOTE}/_CURATED_RIGS"
-TEMP_DIR = Path("temp_packs")
-MAX_FILES_PER_PACK = 150 # Max files per pack to keep it curated
+TEMP_DIR = Path("/tmp/curated_packs")
+MAX_FILES_PER_PACK = 120
 
-# Curated Packs Definitions
 PACKS = {
-    "01_Modern_Metal_Starter_Pack": ["5150", "evh", "rectifier", "mesa", "engl", "diesel", "v30", "ts9", "precision drive", "fortin"],
-    "02_Classic_Rock_Legends": ["marshall", "plexi", "jcm800", "greenback", "creamback", "ac30", "vox"],
-    "03_Pristine_Clean_Ambient": ["fender", "twin reverb", "deluxe reverb", "jc120", "roland", "matchless", "lonestar"],
-    "04_Bass_Foundations": ["ampeg", "svt", "darkglass", "b7k", "sansamp", "gallien", "bass", "trace elliot"]
+    "01_Modern_Metal_Starter_Pack": {
+        "keywords": ["5150", "evh", "rectifier", "mesa", "engl", "diezel", "v30", "ts9", "fortin", "revv", "peavey"],
+        "desc": "High-gain monsters: 5150s, Rectifiers, ENGLs, Diezels, and their matching cabs."
+    },
+    "02_Classic_Rock_Legends": {
+        "keywords": ["marshall", "plexi", "jcm800", "jcm900", "greenback", "creamback", "ac30", "vox", "superlead", "jtm"],
+        "desc": "The British Invasion: Marshall stacks, Vox chimney, and vintage crunch."
+    },
+    "03_Pristine_Clean_Ambient": {
+        "keywords": ["fender", "twin reverb", "deluxe reverb", "jc120", "roland", "matchless", "lonestar", "princeton", "jazz chorus"],
+        "desc": "Crystal-clean platforms for ambient, worship, and studio recording."
+    },
+    "04_Bass_Foundations": {
+        "keywords": ["ampeg", "svt", "darkglass", "b7k", "sansamp", "gallien", "bass", "trace elliot", "b15"],
+        "desc": "Thunderous bass tones: Ampeg SVTs, Darkglass crunch, and vintage warmth."
+    },
+    "05_Boutique_Premium_Collection": {
+        "keywords": ["bogner", "friedman", "soldano", "two rock", "dumble", "matchless", "divided", "suhr", "morgan", "tone king"],
+        "desc": "Ultra-premium boutique captures: Friedman, Bogner, Soldano, and more."
+    },
+    "06_Pedals_and_Overdrives": {
+        "keywords": ["pedal", "overdrive", "distortion", "fuzz", "boost", "screamer", "klon", "rat", "muff", "drive", "stomp"],
+        "desc": "Every iconic pedal captured: Tube Screamers, Klon, RAT, Big Muff, and beyond."
+    },
 }
 
-def run_rclone(cmd, capture=False):
-    # Quiet execution for bulk downloads to prevent huge logs
-    if not capture and "copyto" in cmd:
-        cmd = cmd + ["-q"]
-        
+def rclone(args, capture=False):
+    cmd = ["rclone"] + args
     if capture:
-        result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
-        if result.returncode != 0:
-            print(f"Error: {result.stderr}")
-        return result.stdout
+        r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
+        return r.stdout, r.returncode
     else:
-        subprocess.run(cmd, check=True)
+        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def get_all_files():
-    print("Fetching all files from Drive (This may take a minute)...")
-    output = run_rclone(["rclone", "lsjson", RCLONE_REMOTE, "-R", "--files-only"], capture=True)
+    print("📡 Scanning entire Drive repository...")
+    out, rc = rclone(["lsjson", RCLONE_REMOTE, "-R", "--files-only", "--no-modtime", "--no-mimetype"], capture=True)
+    if rc != 0 or not out.strip():
+        print(f"❌ Failed to list files (rc={rc}). Check rclone config.")
+        return []
     try:
-        data = json.loads(output)
-        return [f["Path"] for f in data if ("NAM" in f["Path"] or "IR" in f["Path"] or f["Path"].endswith((".wav", ".nam")))]
+        data = json.loads(out)
+        files = [f["Path"] for f in data if f["Path"].lower().endswith((".wav", ".nam"))]
+        print(f"✅ Found {len(files)} tone files (.wav/.nam)")
+        return files
     except Exception as e:
-        print(f"Error parsing rclone output: {e}")
+        print(f"❌ JSON parse error: {e}")
         return []
 
 def create_packs():
     files = get_all_files()
     if not files:
-        print("No files discovered. Exiting.")
         return
 
-    print(f"Discovered {len(files)} potential tone files.")
-    
     if TEMP_DIR.exists():
         shutil.rmtree(TEMP_DIR)
-    TEMP_DIR.mkdir()
+    TEMP_DIR.mkdir(parents=True)
 
-    for pack_name, keywords in PACKS.items():
-        print(f"\n--- Generating Pack: {pack_name} ---")
+    for pack_name, info in PACKS.items():
+        keywords = info["keywords"]
+        desc = info["desc"]
+        print(f"\n{'='*60}")
+        print(f"📦 Generating: {pack_name}")
+        print(f"   {desc}")
+        print(f"{'='*60}")
+
         pack_dir = TEMP_DIR / pack_name
         pack_dir.mkdir()
-        
-        # Filter files
-        matched_files = []
-        for file_path in files:
-            # Skip existing curated rigs
-            if "_CURATED_RIGS" in file_path:
+
+        # Match files by keyword
+        matched = []
+        for fp in files:
+            if "_CURATED_RIGS" in fp:
                 continue
-            
-            lower_path = file_path.lower()
-            if any(k.lower() in lower_path for k in keywords):
-                matched_files.append(file_path)
-                
-        # Limit to max files for curation
-        import random
-        random.seed(42) # Deterministic selection
-        if len(matched_files) > MAX_FILES_PER_PACK:
-            matched_files = random.sample(matched_files, MAX_FILES_PER_PACK)
-            
-        print(f"Selected {len(matched_files)} files for {pack_name}.")
-        
-        # Download files
-        for i, file_path in enumerate(matched_files):
-            # Print occasionally to show progress without filling terminal
-            if i % 10 == 0 or i == len(matched_files)-1:
-                print(f"[{i+1}/{len(matched_files)}] Syncing to {pack_name}...")
-                
-            remote_path = f"{RCLONE_REMOTE}/{file_path}"
-            # Evitar colisiones de nombres
-            filename = Path(file_path).name
-            local_path = pack_dir / f"{i:03d}_{filename}"
-            run_rclone(["rclone", "copyto", remote_path, str(local_path)])
-            
-        # Create Readme
-        readme_path = pack_dir / "README_TONEHUB_PRO.txt"
-        with open(readme_path, "w", encoding="utf-8") as f:
-            f.write(f"ToneHub Pro - {pack_name.replace('_', ' ')}\n")
-            f.write("="*50 + "\n")
-            f.write("A curated selection of premium Impulse Responses and NAM captures.\n")
-            f.write("Perfect for instant playing without digging through 35,000 files.\n\n")
-            f.write("Contents focus:\n")
-            for k in keywords:
-                f.write(f"- {k.title()}\n")
-            f.write("\nEnjoy your tone!\n- ToneHub Pro\n")
-            
-        # Zip
-        zip_path = TEMP_DIR / f"{pack_name}.zip"
-        print(f"Zipping {pack_name}...")
-        shutil.make_archive(str(zip_path.with_suffix('')), 'zip', pack_dir)
-        
+            low = fp.lower()
+            if any(k.lower() in low for k in keywords):
+                matched.append(fp)
+
+        random.seed(42)
+        if len(matched) > MAX_FILES_PER_PACK:
+            matched = random.sample(matched, MAX_FILES_PER_PACK)
+
+        print(f"   Selected {len(matched)} files")
+
+        if not matched:
+            print(f"   ⚠️  No matches found, skipping.")
+            continue
+
+        # Download matched files
+        for i, fp in enumerate(matched):
+            if i % 20 == 0:
+                print(f"   ⬇️  [{i+1}/{len(matched)}] downloading...")
+            fname = Path(fp).name
+            local = pack_dir / f"{i:03d}_{fname}"
+            rclone(["copyto", f"{RCLONE_REMOTE}/{fp}", str(local), "-q"])
+
+        # Write README
+        readme = pack_dir / "README.txt"
+        with open(readme, "w", encoding="utf-8") as f:
+            f.write(f"ToneHub Pro — {pack_name.replace('_', ' ')}\n")
+            f.write("=" * 55 + "\n\n")
+            f.write(f"{desc}\n\n")
+            f.write(f"Contains {len(matched)} curated files.\n")
+            f.write("Keywords: " + ", ".join(keywords) + "\n\n")
+            f.write("Part of the ToneHub Pro 35,000+ Tone Collection.\n")
+
+        # Create ZIP
+        zip_base = TEMP_DIR / pack_name
+        print(f"   📁 Zipping...")
+        shutil.make_archive(str(zip_base), "zip", pack_dir)
+
         # Upload
-        print(f"Uploading {pack_name}.zip to Drive...")
-        run_rclone(["rclone", "copy", str(zip_path), PACKS_REMOTE])
-        print(f"Pack {pack_name} uploaded successfully!")
-        
-    print("\nCleaning up temp files...")
+        zip_file = f"{zip_base}.zip"
+        print(f"   ☁️  Uploading to Drive...")
+        rclone(["copy", zip_file, PACKS_REMOTE])
+        print(f"   ✅ {pack_name}.zip uploaded!")
+
+    # Also upload individual pack folders (unzipped) for browsing
+    print("\n☁️  Uploading unzipped folders for direct browsing...")
+    rclone(["copy", str(TEMP_DIR), PACKS_REMOTE, "--exclude", "*.zip"])
+
+    print("\n🧹 Cleaning up...")
     shutil.rmtree(TEMP_DIR)
-    print("All Premium Curated Packs generated and uploaded!")
+    print("\n🎉 All Curated Rig Packs generated and uploaded to _CURATED_RIGS!")
 
 if __name__ == "__main__":
     create_packs()

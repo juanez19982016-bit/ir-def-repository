@@ -266,11 +266,15 @@ const App = () => {
                             </div>
                         ) : (
                             <>
+                                <div className="animate-pulse bg-red-500/20 text-red-500 border border-red-500/50 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mr-2 flex items-center gap-1">
+                                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    Promo Limitada
+                                </div>
                                 <button onClick={() => setAuthModalOpen(true)} className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 text-xs font-bold uppercase tracking-wider hover:bg-slate-700 transition-colors border border-slate-700">
                                     <Key className="w-4 h-4 text-cyan-400" /> Tengo Clave
                                 </button>
                                 <button onClick={() => { setAuthModalOpen(true); setShowPaypal(true); }} className="flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 text-xs font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-emerald-500/25 transition-all hover:scale-105">
-                                    <Crown className="w-4 h-4" /> Comprar Acceso
+                                    <Crown className="w-4 h-4" /> Comprar Acceso ($10.99)
                                 </button>
                             </>
                         )}
@@ -396,8 +400,21 @@ const App = () => {
                             </div>
 
                             <h3 className="text-3xl font-black text-white mb-2 tracking-tight">ToneHub <span className="text-gradient">Pro</span></h3>
+
+                            {/* Banderola de Promoción */}
+                            <div className="mb-6 bg-red-500/10 border border-red-500/30 rounded-xl p-3 transform transition-all hover:scale-105">
+                                <div className="text-xs text-red-400 font-bold uppercase tracking-widest mb-1 flex items-center justify-center gap-1">
+                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    Oferta de Lanzamiento Limitada
+                                </div>
+                                <div className="flex items-center justify-center gap-3">
+                                    <span className="text-slate-500 line-through text-lg font-bold">$49.00</span>
+                                    <span className="text-emerald-400 text-3xl font-black">$10.99 <span className="text-sm font-normal text-emerald-500/70">USD</span></span>
+                                </div>
+                            </div>
+
                             <p className="text-slate-400 text-sm mb-6 leading-relaxed">
-                                Este es un archivo exclusivo. Adquiere acceso de por vida para poder descargar los 35,000+ recursos de la bóveda premium.
+                                Adquiere acceso de por vida a un costo ínfimo antes de que vuelva a su precio original. Podrás descargar los 35,000+ recursos de grabación sin límites.
                             </p>
 
                             <div className="space-y-4 pt-2">
@@ -456,10 +473,10 @@ const PayPalCheckoutButton = ({ onSuccess }) => {
                 createOrder: (data, actions) => {
                     return actions.order.create({
                         purchase_units: [{
-                            description: "ToneHub Pro - Acceso Vitalicio (35,000+ Tones)",
+                            description: "ToneHub Pro - Oferta de Lanzamiento Vitalicia (35,000+ Tones)",
                             amount: {
                                 currency_code: "USD",
-                                value: "49.00" // <- VALOR DEL PRODUCTO (Ajustarlo a necesidad)
+                                value: "10.99" // <- PRECIO DE PROMOCION OFICIAL
                             }
                         }]
                     });

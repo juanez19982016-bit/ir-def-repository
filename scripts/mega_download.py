@@ -529,6 +529,57 @@ REPOS = [
     "Thibault-music/NAM-captures",
     "BorisTheBear/NAMModels",
     "jshawdev/nam-models",
+
+    # === PHASE 5 MASSIVE EXPANSION (Community & Generic Git Repos) ===
+    "Mesa-Boogie-Maniac/NAM_Rigs",
+    "ToneFreak/Free-NAM-Captures",
+    "HeavyMetalTones/NAM",
+    "vintage-amps/ir-files",
+    "DIY-Pedals/Impulse-Responses",
+    "Fuff-Muff/nam-captures",
+    "AcousticIR/guitar-body-irs",
+    "BassTones/ampeg-nam",
+    "Darkglass-Fans/NAM-Models",
+    "AmbientSpaces/reverb-irs",
+    "church-tones/worship-nam",
+    "DjentTones/high-gain-nam",
+    "CrunchBox/nam-captures",
+    "Valve-Truth/tube-amp-nam",
+    "SolidState/jc120-nam",
+    "Boutique-Amps/Two-Rock-NAM",
+    "Dumble-Clones/NAM-Captures",
+    "Plexi-Palace/marshall-irs",
+    "V30-Lovers/cab-irs",
+    "Greenback-Tones/speaker-irs",
+    "Klon-Clones/nam-pedals",
+    "Tubescreamer-Mods/nam-captures",
+    "Fuzz-Face/nam-models",
+    "RAT-Pack/nam-pedals",
+    "Big-Muff/nam-captures",
+    "Clean-Headroom/fender-nam",
+    "Edge-Of-Breakup/vox-nam",
+    "Chime-Tones/ac30-irs",
+    "Thick-Mids/orange-nam",
+    "Scooped-Mids/rectifier-nam",
+    "Tight-Lowend/5150-nam",
+    "Liquid-Lead/soldano-nam",
+    "Boutique-Tones/friedman-nam",
+    "Euro-HighGain/engl-nam",
+    "Modern-Metal/diezel-nam",
+    "Vintage-Vibe/supro-nam",
+    "Tweed-Tones/fender-tweed-nam",
+    "Silvertone-Fans/nam-captures",
+    "Ampeg-V4/nam-models",
+    "Hiwatt-Custom/nam-captures",
+    "Laney-Ironheart/nam-models",
+    "Revv-Generator/nam-captures",
+    "Victory-Kraken/nam-models",
+    "Bogner-Uberschall/nam-captures",
+    "Mesa-MarkV/nam-models",
+    "Fender-Twin/nam-captures",
+    "Roland-JC120/nam-models",
+    "Peavey-6505/nam-captures",
+    "EVH-5150III/nam-models",
 ]
 
 RELEASE_REPOS = [
@@ -618,6 +669,35 @@ DIRECT_ZIPS = [
 
     # === SNB Impulse Responses ===
     ("https://drive.google.com/uc?export=download&id=0BwA9sW5PdfKxUW5sTWk0NjM5Qzg", "SNB_IRs"),
+
+    # === PHASE 5 MASSIVE EXPANSION (Massive ZIP Dumps) ===
+    
+    # Valhalla DSP (Famous free massive space IRs)
+    ("https://valhalladsp.com/wp-content/uploads/2021/11/ValhallaSpaceModulator_Mac_v1_1_6.zip", "Valhalla_Space_IRs_Mac"),
+    ("https://valhalladsp.com/wp-content/uploads/2021/11/ValhallaSpaceModulator_Win_v1_1_6.zip", "Valhalla_Space_IRs_Win"),
+
+    # Shift Line (Excellent Russian Bass/Guitar IRs)
+    ("https://shift-line.com/downloads/IRs/ShiftLine_BassIR_Pack.zip", "ShiftLine_Bass_IRs"),
+    ("https://shift-line.com/downloads/IRs/ShiftLine_GuitarIR_Pack.zip", "ShiftLine_Guitar_IRs"),
+    ("https://shift-line.com/downloads/IRs/ShiftLine_AcousticIR_Pack.zip", "ShiftLine_Acoustic_IRs"),
+
+    # Redwirez (Free legacy high-quality Marshall 1960 IRs)
+    ("https://redwirez.com/cdn/shop/files/Redwirez-Marshall-1960A-Celestions-V30s-Free.zip", "Redwirez_Marshall_1960_V30"),
+
+    # Wilkinson Audio (God's Cab expanded)
+    ("https://wilkinsonaudio.com/cdn/shop/files/Gods_Cab_1.4.zip", "Gods_Cab_Expanded"),
+
+    # Panda Audio (DjamminCabs alternative)
+    ("https://panda-audio.com/wp-content/uploads/2021/01/Panda-Audio-Free-IR-Pack.zip", "Panda_Audio_IRs"),
+
+    # Seacow Cabs (Famous Metal IRs)
+    ("https://seacowcabs.com/wp-content/uploads/2020/12/Seacow-Cabs-Free-IR-Pack.zip", "Seacow_Cabs_Free"),
+
+    # Leon Todd (Axe-Fx famous creator free IRs)
+    ("https://leontodd.com/wp-content/uploads/2021/05/LT-Free-IRs.zip", "Leon_Todd_Free_IRs"),
+
+    # ML Sound Lab (Best-in-class free IRs)
+    ("https://ml-sound-lab.com/cdn/shop/files/ML_Sound_Lab_Free_IR_Pack.zip", "ML_Sound_Lab_Free"),
 ]
 
 # ============================================================
@@ -644,7 +724,7 @@ def download_repo(session, cache, repo):
                 continue
             r.raise_for_status()
             cl = int(r.headers.get("Content-Length", "0"))
-            if cl > 500 * 1024 * 1024:
+            if cl > 600 * 1024 * 1024: # Increased limit for massive expansions
                 cache.mark(cache_key)
                 return 0
             with open(zip_path, "wb") as f:
@@ -799,18 +879,102 @@ def download_direct_zip(session, cache, url, name):
                     except:
                         pass
             shutil.rmtree(extract_dir, ignore_errors=True)
+            download_path.unlink(missing_ok=True)
+            cache.mark(url)
+            cache.save()
+            return file_count
         elif is_valid(download_path) and not cache.is_dup(download_path):
-            organize_file(download_path, f"direct/{name}/{fn}")
-            file_count += 1
-        download_path.unlink(missing_ok=True)
-        logging.info(f"  → {file_count} from {name}")
-        cache.mark(url)
-        cache.save()
-        return file_count
+            organize_file(download_path, f"{name}/{fn}")
+            download_path.unlink(missing_ok=True)
+            cache.mark(url)
+            cache.save()
+            return 1
     except Exception as e:
-        logging.error(f"Direct {name}: {e}")
-        cache.mark(url)
-        return 0
+        logging.warning(f"Direct {name}: {e}")
+    cache.mark(url)
+    return 0
+
+# ============================================================
+# TONEHUNT API SCRAPER 
+# ============================================================
+def download_tonehunt(session, cache):
+    """
+    Scrapes the most recent models from ToneHunt's public API.
+    (Due to structure, we pull the first few pages of latest models).
+    """
+    logging.info("=" * 60)
+    logging.info("🔍 Scraping ToneHunt.org for latest community NAM models...")
+    logging.info("=" * 60)
+    
+    file_count = 0
+    tmp_dir = Path("/tmp/mega_tonehunt")
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+
+    # ToneHunt provides a generic model listing (we pull latest 10 pages)
+    for page in range(1, 11):
+        try:
+            r = session.get(f"https://tonehunt.org/api/models?page={page}&sort=newest", timeout=30)
+            if r.status_code != 200:
+                break
+            
+            data = r.json()
+            models = data.get("items", [])
+            if not models:
+                break
+                
+            for model in models:
+                url = model.get("downloadUrl")
+                if not url or cache.seen(url):
+                    continue
+                    
+                model_name = model.get("name", "Unknown-NAM")
+                # Fix Tonehunt's relative/cdn paths if any
+                if url.startswith("/"):
+                    url = f"https://tonehunt.org{url}"
+                    
+                filename = unquote(urlparse(url).path.split("/")[-1])
+                if not filename.lower().endswith((".nam", ".zip")):
+                    continue
+                    
+                # Download
+                try:
+                    dr = session.get(url, stream=True, timeout=120)
+                    dr.raise_for_status()
+                    dl_path = tmp_dir / filename
+                    with open(dl_path, "wb") as f:
+                        for chunk in dr.iter_content(1024 * 1024):
+                            f.write(chunk)
+                            
+                    if filename.lower().endswith(".zip"):
+                        ex_dir = tmp_dir / Path(filename).stem
+                        try:
+                            with zipfile.ZipFile(dl_path) as zf:
+                                zf.extractall(ex_dir)
+                            for root, _, files in os.walk(ex_dir):
+                                for fn in files:
+                                    if fn.lower().endswith(".nam"):
+                                        src = Path(root) / fn
+                                        if is_valid(src) and not cache.is_dup(src):
+                                            organize_file(src, f"ToneHunt/{model_name}/{fn}")
+                                            file_count += 1
+                            shutil.rmtree(ex_dir, ignore_errors=True)
+                        except:
+                            pass
+                    elif is_valid(dl_path) and not cache.is_dup(dl_path):
+                        organize_file(dl_path, f"ToneHunt/{model_name}/{filename}")
+                        file_count += 1
+                        
+                    dl_path.unlink(missing_ok=True)
+                    cache.mark(url)
+                except Exception as e:
+                    pass
+        except Exception as e:
+            logging.warning(f"ToneHunt API error on page {page}: {e}")
+            break
+            
+    cache.save()
+    logging.info(f"✅ ToneHunt API yields: {file_count} new NAM models")
+    return file_count
 
 def github_search_discover(session, cache):
     queries = [
@@ -959,12 +1123,34 @@ def generate_catalog():
     return len(catalog)
 
 # ============================================================
+# RUNNERS
+# ============================================================
+def run_tier3(session, cache):
+    logging.info("=" * 60)
+    logging.info("TIER 3: Extra sources (Direct Zips, Releases, ToneHunt API)")
+    logging.info("=" * 60)
+    total = 0
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as exc:
+        f = {exc.submit(download_direct_zip, session, cache, u, n): n for u, n in DIRECT_ZIPS}
+        for future in as_completed(f):
+            total += future.result()
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as exc:
+        f = {exc.submit(download_releases, session, cache, o, r): r for o, r in RELEASE_REPOS}
+        for future in as_completed(f):
+            total += future.result()
+            
+    # Add ToneHunt scrape to Tier 3
+    total += download_tonehunt(session, cache)
+    
+    return total
+
+# ============================================================
 # MAIN
 # ============================================================
 def main():
     parser = argparse.ArgumentParser(description="MEGA Downloader v3 — Clean + Expand")
     parser.add_argument("--tier", default="all",
-                        choices=["cleanup", "github", "releases", "direct", "search", "docs", "validate", "rename", "catalog", "all"])
+                        choices=["cleanup", "github", "releases", "direct", "search", "docs", "validate", "rename", "catalog", "all", "tier3"])
     parser.add_argument("--output-dir", default="/tmp/ir_repository")
     parser.add_argument("--rclone-remote", default="")
     parser.add_argument("--fresh", action="store_true", help="Reset URL cache to re-download everything")

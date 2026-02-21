@@ -2,23 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom scrollbar for dark mode */
+@layer base {
+  body {
+    @apply bg-brand-dark text-slate-200 antialiased min-h-screen font-sans;
+    background-image:
+      radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+
+  /* Premium UI Elements */
+  .glass-panel {
+    @apply bg-brand-card/60 backdrop-blur-xl border border-white/5 shadow-2xl;
+  }
+
+  .tone-card {
+    @apply bg-gradient-to-b from-slate-900/80 to-slate-950/80 backdrop-blur-md border border-slate-800/60 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-emerald-500/10 hover:border-emerald-500/30 group relative;
+  }
+
+  /* Text Effects */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400;
+  }
+
+  /* Forms */
+  .search-input {
+    @apply w-full bg-slate-900/50 backdrop-blur-md border border-slate-700/50 rounded-full pl-12 pr-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/30 transition-all shadow-inner;
+  }
+
+  .filter-pill {
+    @apply px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 border border-transparent cursor-pointer whitespace-nowrap;
+  }
+
+  .filter-pill-active {
+    @apply bg-emerald-500/20 text-emerald-400 border-emerald-500/30 shadow-[0_0_15px_rgba(16, 185, 129, 0.1)];
+  }
+
+  .filter-pill-inactive {
+    @apply bg-slate-800/80 text-slate-400 hover:bg-slate-700 hover:text-white border-slate-700/50;
+  }
+}
+
+/* Custom Webkit Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #111827; 
-}
-::-webkit-scrollbar-thumb {
-  background: #374151; 
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #4b5563; 
+  background: rgba(3, 7, 18, 0.8);
 }
 
-body {
-    background-color: #030712; /* gray-950 */
-    color: #e5e7eb; /* gray-200 */
+::-webkit-scrollbar-thumb {
+  background: rgba(51, 65, 85, 0.8);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 85, 105, 1);
+}
+
+/* Hide scrollbar for layout containers but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -8,22 +8,22 @@ const getBrandImage = (brand) => {
     if (!brand) return 'https://images.unsplash.com/photo-1610444648792-7103ba12db63?w=500&q=80';
     const b = brand.toLowerCase();
 
-    if (b.includes('marshall')) return 'https://images.unsplash.com/photo-1588032768007-82782b67eb54?w=500&q=80'; // Marshall Stack
-    if (b.includes('fender')) return 'https://images.unsplash.com/photo-1511215443422-79f90680fd74?w=500&q=80'; // Fender Combo
-    if (b.includes('orange')) return 'https://images.unsplash.com/photo-1601662998634-118cf9451996?w=500&q=80'; // Orange Amp
-    if (b.includes('vox')) return 'https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?w=500&q=80'; // Vox Amp
-    if (b.includes('mesa') || b.includes('boogie')) return 'https://images.unsplash.com/photo-1543884879-c5c7ce1a55f6?w=500&q=80'; // High Gain Amp
-    if (b.includes('ampeg') || b.includes('bass')) return 'https://images.unsplash.com/photo-1520606412150-13f5fb470bc6?w=500&q=80'; // Bass Rack
-    if (b.includes('pedal') || b.includes('boss') || b.includes('stomp')) return 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=500&q=80'; // Pedals
-    if (b.includes('peavey') || b.includes('5150') || b.includes('evh')) return 'https://images.unsplash.com/photo-1563216178-005ca7732dc4?w=500&q=80'; // Metal Amp
-    if (b.includes('engl') || b.includes('bogner') || b.includes('diezel')) return 'https://images.unsplash.com/photo-1574229550215-6bd399d863cc?w=500&q=80'; // Boutique Amp
+    if (b.includes('marshall')) return 'https://images.unsplash.com/photo-1588032768007-82782b67eb54?w=400&q=50&auto=format'; // Marshall Stack
+    if (b.includes('fender')) return 'https://images.unsplash.com/photo-1511215443422-79f90680fd74?w=400&q=50&auto=format'; // Fender Combo
+    if (b.includes('orange')) return 'https://images.unsplash.com/photo-1601662998634-118cf9451996?w=400&q=50&auto=format'; // Orange Amp
+    if (b.includes('vox')) return 'https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?w=400&q=50&auto=format'; // Vox Amp
+    if (b.includes('mesa') || b.includes('boogie')) return 'https://images.unsplash.com/photo-1543884879-c5c7ce1a55f6?w=400&q=50&auto=format'; // High Gain Amp
+    if (b.includes('ampeg') || b.includes('bass')) return 'https://images.unsplash.com/photo-1520606412150-13f5fb470bc6?w=400&q=50&auto=format'; // Bass Rack
+    if (b.includes('pedal') || b.includes('boss') || b.includes('stomp')) return 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&q=50&auto=format'; // Pedals
+    if (b.includes('peavey') || b.includes('5150') || b.includes('evh')) return 'https://images.unsplash.com/photo-1563216178-005ca7732dc4?w=400&q=50&auto=format'; // Metal Amp
+    if (b.includes('engl') || b.includes('bogner') || b.includes('diezel')) return 'https://images.unsplash.com/photo-1574229550215-6bd399d863cc?w=400&q=50&auto=format'; // Boutique Amp
 
     // Fallbacks genéricos basados en la longitud del texto
     const fallbacks = [
-        'https://images.unsplash.com/photo-1610444648792-7103ba12db63?w=500&q=80', // Dark Amp
-        'https://images.unsplash.com/photo-1534068590799-09895a701e3e?w=500&q=80', // Tubes / Válvulas
-        'https://images.unsplash.com/photo-1582662057917-80fb05f27806?w=500&q=80', // Studio gear
-        'https://images.unsplash.com/photo-1606557680650-6a3a7f8087ab?w=500&q=80', // Textura Amp
+        'https://images.unsplash.com/photo-1610444648792-7103ba12db63?w=400&q=50&auto=format', // Dark Amp
+        'https://images.unsplash.com/photo-1534068590799-09895a701e3e?w=400&q=50&auto=format', // Tubes / Válvulas
+        'https://images.unsplash.com/photo-1582662057917-80fb05f27806?w=400&q=50&auto=format', // Studio gear
+        'https://images.unsplash.com/photo-1606557680650-6a3a7f8087ab?w=400&q=50&auto=format', // Textura Amp
     ];
     return fallbacks[b.length % fallbacks.length];
 };
@@ -106,9 +106,10 @@ const App = () => {
         } else {
             // ENLACE REAL A GOOGLE DRIVE:
             // Dado que gestionas los permisos agregándolos a Drive manualmente, ellos ya tienen acceso a tu carpeta.
-            // Esta función "truco" abre su Google Drive realizando una búsqueda exacta por el nombre del archivo.
-            // Así, el archivo aparecerá en pantalla instantáneamente listo para ser descargado de su propio Drive autorizado.
-            const driveSearchUrl = `https://drive.google.com/drive/u/0/search?q=${encodeURIComponent('"' + item.n + '"')}`;
+            // Esta función "truco" abre su Google Drive realizando una búsqueda amplia por el nombre del archivo.
+            // Para asegurar coincidencias, quitamos comillas estrictas y extensiones que a veces Google Drive ignora.
+            const baseName = item.n.replace(/\.[^/.]+$/, ""); // Quitar .nam o .wav
+            const driveSearchUrl = `https://drive.google.com/drive/u/0/search?q=${encodeURIComponent(baseName)}`;
             window.open(driveSearchUrl, '_blank');
         }
     };
@@ -339,9 +340,9 @@ const ToneCard = ({ item, onDownload, isAuthenticated }) => {
         <div className="tone-card flex flex-col h-full bg-brand-card">
 
             <div className="h-32 p-4 relative flex flex-col justify-between overflow-hidden">
-                {/* Imagen Real del Equipo (Fondo Integrado) */}
-                <img src={bgImage} alt={item.b} className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 group-hover:opacity-75 transition-opacity duration-500 mix-blend-screen" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1120] via-[#0b1120]/60 to-transparent z-0"></div>
+                {/* Imagen Real del Equipo (Fondo Integrado con lazy load) */}
+                <img src={bgImage} loading="lazy" alt={item.b} className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1120] via-[#0b1120]/70 to-transparent z-0"></div>
 
                 <div className="flex justify-between items-start relative z-10">
                     <span className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border backdrop-blur-md ${accentColor}`}>

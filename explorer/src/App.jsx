@@ -15,7 +15,6 @@ const App = () => {
     const [isAuthModalOpen, setAuthModalOpen] = useState(false);
     const [licenseInput, setLicenseInput] = useState("");
     const [authError, setAuthError] = useState("");
-    const [showPaypal, setShowPaypal] = useState(false); // Toggle to show PayPal buttons
 
     // Audio Engine State
     const [previewing, setPreviewing] = useState(null); // ID
@@ -198,8 +197,7 @@ const App = () => {
 
     const verifyLicense = (e) => {
         e.preventDefault();
-        // Lógica de validador real. Para evitar hardcoding total, 
-        // normalmente aquí harías POST a tu API o validarías con Gumroad Ping API.
+        // Lógica de validador
         if (licenseInput.trim().toUpperCase() === LICENSE_KEY_SECRET) {
             setIsAuthenticated(true);
             localStorage.setItem('toneHub_pro_access', 'true');
@@ -208,14 +206,6 @@ const App = () => {
         } else {
             setAuthError("Licencia o código de acceso inválido.");
         }
-    };
-
-    const handlePurchaseSuccess = (details) => {
-        // Callback que ejecuta PayPal al completar el pago exitosamente
-        setIsAuthenticated(true);
-        localStorage.setItem('toneHub_pro_access', 'true');
-        setAuthModalOpen(false);
-        alert(`¡Pago Completado! Gracias, ${details.payer.name.given_name}. Tu cuenta ToneHub Pro ha sido activada de por vida.`);
     };
 
     if (loading) return (
@@ -265,18 +255,9 @@ const App = () => {
                                 <Check className="w-4 h-4" /> Acceso Pro Desbloqueado
                             </div>
                         ) : (
-                            <>
-                                <div className="animate-pulse bg-red-500/20 text-red-500 border border-red-500/50 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase mr-2 flex items-center gap-1">
-                                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                    Promo Limitada
-                                </div>
-                                <button onClick={() => setAuthModalOpen(true)} className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 text-xs font-bold uppercase tracking-wider hover:bg-slate-700 transition-colors border border-slate-700">
-                                    <Key className="w-4 h-4 text-cyan-400" /> Tengo Clave
-                                </button>
-                                <button onClick={() => { setAuthModalOpen(true); setShowPaypal(true); }} className="flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 text-xs font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-emerald-500/25 transition-all hover:scale-105">
-                                    <Crown className="w-4 h-4" /> Comprar Acceso ($10.99)
-                                </button>
-                            </>
+                            <button onClick={() => setAuthModalOpen(true)} className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 text-xs font-bold uppercase tracking-wider hover:bg-slate-700 transition-colors border border-slate-700">
+                                <Key className="w-4 h-4 text-cyan-400" /> Tengo Clave de Acceso
+                            </button>
                         )}
                     </div>
                 </div>
@@ -401,41 +382,11 @@ const App = () => {
 
                             <h3 className="text-3xl font-black text-white mb-2 tracking-tight">ToneHub <span className="text-gradient">Pro</span></h3>
 
-                            {/* Banderola de Promoción */}
-                            <div className="mb-6 bg-red-500/10 border border-red-500/30 rounded-xl p-3 transform transition-all hover:scale-105">
-                                <div className="text-xs text-red-400 font-bold uppercase tracking-widest mb-1 flex items-center justify-center gap-1">
-                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                    Oferta de Lanzamiento Limitada
-                                </div>
-                                <div className="flex items-center justify-center gap-3">
-                                    <span className="text-slate-500 line-through text-lg font-bold">$49.00</span>
-                                    <span className="text-emerald-400 text-3xl font-black">$10.99 <span className="text-sm font-normal text-emerald-500/70">USD</span></span>
-                                </div>
-                            </div>
-
                             <p className="text-slate-400 text-sm mb-6 leading-relaxed">
-                                Adquiere acceso de por vida a un costo ínfimo antes de que vuelva a su precio original. Podrás descargar los 35,000+ recursos de grabación sin límites.
+                                Este catálogo es privado. Debes ingresar la clave de acceso proporcionada al momento de habilitarte en Google Drive para poder ver y descargar los más de 35,000 recursos.
                             </p>
 
                             <div className="space-y-4 pt-2">
-                                {/* Integración Oficial de PayPal */}
-                                {showPaypal ? (
-                                    <PayPalCheckoutButton onSuccess={handlePurchaseSuccess} />
-                                ) : (
-                                    <button
-                                        onClick={() => setShowPaypal(true)}
-                                        className="w-full py-4 px-4 bg-[#FFC439] hover:bg-[#F4BB33] text-black rounded-lg font-bold flex items-center justify-center gap-2 transition-all shadow-lg"
-                                    >
-                                        <svg viewBox="0 0 124 33" className="h-5" xmlns="http://www.w3.org/2000/svg"><path d="M46.211 6.749h-6.839a.95.95 0 0 0-.939.802l-2.766 17.537a.57.57 0 0 0 .564.658h3.265a.95.95 0 0 0 .939-.803l.746-4.73a.95.95 0 0 1 .938-.803h2.165c4.505 0 7.105-2.18 7.784-6.5.306-1.89.013-3.375-.872-4.415-1.132-1.326-3.113-1.746-4.985-1.746zM47 13.154c-.374 2.454-2.249 2.454-4.062 2.454h-1.032l.724-4.582h1.309c1.425 0 2.63.14 3.093 1.05.25.5.25.9-.032 1.078zm29.982 7.358A1.91 1.91 0 0 1 75.11 22.4H71.94c-.452 0-.847-.321-.926-.767l-2.768-17.53A.57.57 0 0 1 68.809 3.44H73.08a.95.95 0 0 1 .939.802l1.393 8.84 5.957-8.91C81.652 3.738 82 3.44 82.5 3.44h4.15l-6.85 9.778.016.023 3.52 7.766q.17.38-.284.502h-4.07A1.85 1.85 0 0 1 76.98 20.5zM31.259 4.887H23.51a.95.95 0 0 0-.939.803L19.492 25.26a.57.57 0 0 0 .564.658h3.39c.504 0 .93-.38 1.002-.88l1.455-9.227a.95.95 0 0 1 .939-.803h2.165c4.505 0 7.105-2.18 7.784-6.5.306-1.89.013-3.375-.872-4.415-1.132-1.326-3.113-1.746-4.985-1.746zM32.048 11.29c-.374 2.454-2.249 2.454-4.062 2.454h-1.032l.724-4.582h1.309c1.425 0 2.63.14 3.093 1.05.25.5.25.9-.032 1.078zm87.319-3.79c-.31-1.637-1.161-2.905-2.452-3.664-1.29-.758-3.08-1-5.161-1H105a.95.95 0 0 0-.939.803l-2.766 17.537a.57.57 0 0 0 .564.658h3.39c.504 0 .93-.38 1.002-.88l1.41-8.943a.95.95 0 0 1 .938-.802h2.247c4.662 0 7.351-2.256 8.054-6.726zm-7.653 4.845c-.4 2.544-2.4 2.544-4.331 2.544h-1.042l.738-4.674h1.326c1.451 0 2.678.14 3.148 1.05v.001A1.19 1.19 0 0 1 111.714 12.344zm-22.38 8.047l-.372 2.361a.57.57 0 0 1-.564.481h-3.09a.57.57 0 0 1-.564-.664l2.87-18.17a.95.95 0 0 1 .939-.804h5.684c3.27 0 5.4 1.378 5.4 4.54a4.11 4.11 0 0 1-1.602 3.328c-.802.618-1.922.981-3.262 1.056l3.35 6.463c.2.39-.086.84-.52.84h-3.41c-.344 0-.649-.19-.79-.496zM96.096 7.636h-2.126l-.683 4.321h2.215c1.47 0 2.122-.72 2.308-1.905.105-.67.065-1.284-.285-1.745-.353-.46-1.066-.67-2.13-.67z M123.63 2.05h1.16v1.163c0 .12 0 .222-.047.306a.54.54 0 0 1-.225.215.82.82 0 0 1-.371.077h-1.636v-3.791h1.53c.184 0 .341.037.473.111a.69.69 0 0 1 .31.3.93.93 0 0 1 .108.455c0 .26-.067.46-.201.604a.65.65 0 0 1-.417.228.32.32 0 0 1 .157.064c.05.04.1.096.155.168zM123.165 1.15H122.56v1.442h.744c.075 0 .15-.01.226-.03A.44.44 0 0 0 123.702 2.4a.5.5 0 0 0 .045-.229c0-.13-.04-.236-.12-.317s-.2-.122-.363-.122h-.1zM123.674 2.66c0-.07-.02-.126-.06-.168a.33.33 0 0 0-.156-.06v1.272c.075-.018.136-.056.182-.114s.069-.136.069-.234zM122.378 0h3v4h-3z" fill="#003087" /></svg>
-                                        Pagar Fijo Seguro
-                                    </button>
-                                )}
-
-                                <div className="my-6 relative">
-                                    <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-700/50"></div></div>
-                                    <div className="relative flex justify-center text-xs"><span className="px-2 bg-slate-900 text-slate-500 font-semibold uppercase tracking-wider">Ya soy Cliente Oficial</span></div>
-                                </div>
-
                                 <form onSubmit={verifyLicense} className="space-y-3">
                                     <div className="relative">
                                         <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -462,44 +413,6 @@ const App = () => {
     );
 };
 
-// Componente oficial del SDK de PayPal
-const PayPalCheckoutButton = ({ onSuccess }) => {
-    const paypalRef = useRef();
-
-    useEffect(() => {
-        // Asegurarse de que el Smart Button se inicializa de forma asíncrona
-        if (window.paypal) {
-            window.paypal.Buttons({
-                createOrder: (data, actions) => {
-                    return actions.order.create({
-                        purchase_units: [{
-                            description: "ToneHub Pro - Oferta de Lanzamiento Vitalicia (35,000+ Tones)",
-                            amount: {
-                                currency_code: "USD",
-                                value: "10.99" // <- PRECIO DE PROMOCION OFICIAL
-                            }
-                        }]
-                    });
-                },
-                onApprove: async (data, actions) => {
-                    const details = await actions.order.capture();
-                    onSuccess(details); // El pago fue aprobado y capturado
-                },
-                onError: (err) => {
-                    console.error("PayPal Error:", err);
-                    alert("No se pudo procesar el pago. Por favor intenta de nuevo.");
-                }
-            }).render(paypalRef.current);
-        }
-    }, []);
-
-    return (
-        <div className="relative isolate z-50">
-            <div ref={paypalRef} className="min-h-[150px]"></div>
-            <p className="text-[10px] text-slate-500 italic mt-2 text-center">Pago procesado 100% seguro y encriptado por PayPal.</p>
-        </div>
-    );
-};
 
 const StatBox = ({ icon, value, label }) => (
     <div className="glass-panel p-5 rounded-2xl flex flex-col justify-center relative overflow-hidden group">

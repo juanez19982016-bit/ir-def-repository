@@ -39,7 +39,7 @@
   }
 
   .filter-pill-active {
-    @apply bg-emerald-500/20 text-emerald-400 border-emerald-500/30 shadow-[0_0_15px_rgba(16, 185, 129, 0.1)];
+    @apply bg-emerald-500/20 text-emerald-400 border-emerald-500/30 shadow-lg shadow-emerald-500/10;
   }
 
   .filter-pill-inactive {

@@ -34,6 +34,7 @@ const App = () => {
     const [query, setQuery] = useState('');
     const [filterType, setFilterType] = useState('All');
     const [filterBrand, setFilterBrand] = useState('All');
+    const [displayLimit, setDisplayLimit] = useState(100);
 
     // Auth State
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -87,12 +88,26 @@ const App = () => {
             items = items.filter(i =>
                 i.n.toLowerCase().includes(q) ||
                 i.p.toLowerCase().includes(q) ||
+                (i.b && i.b.toLowerCase().includes(q)) ||
                 (i.tag && i.tag.some(t => t.toLowerCase().includes(q)))
             );
         }
 
-        return items.slice(0, 100);
+        return items;
     }, [data, query, filterType, filterBrand]);
+
+    // Reset pagination when search or filters change
+    useEffect(() => {
+        setDisplayLimit(100);
+    }, [query, filterType, filterBrand]);
+
+    const visibleItems = useMemo(() => {
+        return filteredItems.slice(0, displayLimit);
+    }, [filteredItems, displayLimit]);
+
+    const loadMore = () => {
+        setDisplayLimit(prev => prev + 50);
+    };
 
     const handleDownloadRequest = (item) => {
         if (!isAuthenticated) {
@@ -104,12 +119,11 @@ const App = () => {
         if (item.p.startsWith('http')) {
             window.open(item.p, '_blank');
         } else {
-            // ENLACE REAL A GOOGLE DRIVE:
-            // Dado que gestionas los permisos agregándolos a Drive manualmente, ellos ya tienen acceso a tu carpeta.
-            // Esta función "truco" abre su Google Drive realizando una búsqueda amplia por el nombre del archivo.
-            // Para asegurar coincidencias, quitamos comillas estrictas y extensiones que a veces Google Drive ignora.
-            const baseName = item.n.replace(/\.[^/.]+$/, ""); // Quitar .nam o .wav
-            const driveSearchUrl = `https://drive.google.com/drive/u/0/search?q=${encodeURIComponent(baseName)}`;
+            // ENLACE REAL A GOOGLE DRIVE (100% Preciso):
+            // Extraer el nombre real del archivo desde la ruta (item.p) para evitar fallos de búsqueda
+            // Ejemplo: Extraemos "2001_MESA_Recto.wav" de "IR/Metal/2001_MESA_Recto.wav"
+            const trueFilename = item.p.split('/').pop();
+            const driveSearchUrl = `https://drive.google.com/drive/u/0/search?q=${encodeURIComponent('title:"' + trueFilename + '"')}`;
             window.open(driveSearchUrl, '_blank');
         }
     };
@@ -246,15 +260,15 @@ const App = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-                    {filteredItems.length === 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 mb-12">
+                    {visibleItems.length === 0 ? (
                         <div className="col-span-full py-20 text-center glass-panel rounded-2xl">
                             <AlertCircle className="w-12 h-12 mx-auto mb-4 text-slate-500" />
                             <h3 className="text-xl font-bold text-white mb-2">Sin resultados</h3>
                             <p className="text-slate-400">Intenta con otros filtros.</p>
                         </div>
                     ) : (
-                        filteredItems.map(item => (
+                        visibleItems.map(item => (
                             <ToneCard
                                 key={item.id}
                                 item={item}
@@ -264,6 +278,17 @@ const App = () => {
                         ))
                     )}
                 </div>
+
+                {visibleItems.length < filteredItems.length && (
+                    <div className="flex justify-center pb-12">
+                        <button
+                            onClick={loadMore}
+                            className="px-8 py-3 rounded-full bg-slate-800/80 border border-slate-700/50 text-slate-300 font-bold tracking-widest uppercase hover:bg-slate-700 hover:text-white transition-all shadow-lg flex items-center gap-2"
+                        >
+                            Cargar Más Resultados ({filteredItems.length - visibleItems.length} restantes)
+                        </button>
+                    </div>
+                )}
             </main>
 
             {/* MODAL PARA CLAVE DE ACCESO PRIVADA */}

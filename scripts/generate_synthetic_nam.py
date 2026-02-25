@@ -506,9 +506,9 @@ def create_minimal_nam(input_wav, output_wav, model_output_dir, name):
         class TinyWaveNet(nn.Module):
             def __init__(self, channels=8, kernel_size=3, num_layers=4):
                 super().__init__()
-                self.input_conv = nn.Conv1d(1, channels, kernel_size, padding=kernel_size//2)
+                self.input_conv = nn.Conv1d(1, channels, kernel_size, padding='same')
                 self.layers = nn.ModuleList([
-                    nn.Conv1d(channels, channels, kernel_size, padding=kernel_size//2, dilation=2**i)
+                    nn.Conv1d(channels, channels, kernel_size, padding='same', dilation=2**i)
                     for i in range(num_layers)
                 ])
                 self.output_conv = nn.Conv1d(channels, 1, 1)
@@ -541,7 +541,9 @@ def create_minimal_nam(input_wav, output_wav, model_output_dir, name):
             y_batch = y_data[idx]
             
             pred = model(x_batch)
-            loss = loss_fn(pred, y_batch)
+            # Safety: crop target to match prediction length if they differ
+            min_t = min(pred.shape[2], y_batch.shape[2])
+            loss = loss_fn(pred[:, :, :min_t], y_batch[:, :, :min_t])
             
             optimizer.zero_grad()
             loss.backward()

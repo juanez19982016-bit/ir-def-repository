@@ -1,0 +1,60 @@
+name: "🎸 Generate Synthetic NAM Guitar Captures"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-guitar-nam:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install numpy scipy tqdm
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+          rclone listremotes
+
+      - name: "🎸 Generate 10 Synthetic NAM Guitar Captures"
+        env:
+          RCLONE_REMOTE: gdrive2:IR_DEF_REPOSITORY
+          OUTPUT_DIR: /tmp/synthetic_nam_guitar
+          PYTHONIOENCODING: utf-8
+        run: python scripts/generate_synthetic_nam_guitar.py
+
+      - name: "📊 Results"
+        if: always()
+        run: |
+          echo "=== Generated Guitar NAM files ==="
+          find /tmp/synthetic_nam_guitar/final_nams -name "*.nam" -type f 2>/dev/null | while read f; do
+            echo "📦 $(basename $f) — $(stat --printf='%s' $f | numfmt --to=iec) bytes"
+          done
+          echo ""
+          echo "=== Total Guitar NAMs ==="
+          find /tmp/synthetic_nam_guitar/final_nams -name "*.nam" -type f 2>/dev/null | wc -l
+
+      - name: "☁️ Verify upload"
+        if: always()
+        run: |
+          echo "=== Synthetic Guitar Pro folder ==="
+          rclone ls gdrive2:IR_DEF_REPOSITORY/NAM_Capturas/Synthetic_Guitar_Pro || echo "Syncing..."
+          echo ""
+          echo "=== Total repository size ==="
+          rclone size gdrive2:IR_DEF_REPOSITORY || true

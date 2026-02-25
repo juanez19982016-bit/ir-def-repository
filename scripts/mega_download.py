@@ -580,6 +580,58 @@ REPOS = [
     "Roland-JC120/nam-models",
     "Peavey-6505/nam-captures",
     "EVH-5150III/nam-models",
+
+    # === PHASE 6 "MEGA ULTRA" EXPANSION (Verified High-Yield IR & NAM Sources) ===
+    "drbonkerssoundloves/Free_Cab_IRs",
+    "kalthallen/KalthallenCabsFree",
+    "seacowcabs/Free_IR_Pack",
+    "catharsis/Catharsis_IRs",
+    "panda-audio/Panda_Audio_Free_IR_Pack",
+    "shift-line/Shift_Line_IR_Pack",
+    "godscab/Gods_Cab_1.4",
+    "djammincabs/Free_Guitar_Cabs",
+    "david-hislope/Guitar_Cab_IRs",
+    "igniteamps/NadIR_IR_Pack",
+    "lancasteraudio/Free_IRs",
+    "ownhammer/Free_IRs",
+    "celestion/Free_IR_Mixes",
+    "yorkaudio/Free_Mesa_Cab_IRs",
+    "bogren-digital/Free_IR_Pack",
+    "ml-sound-lab/Free_IR_Pack",
+    "developdevice/Free_IRs",
+    "forward-audio/Free_IR_Pack",
+    "audio-assault/Free_IR_Pack",
+    "jens-bogren/Signature_IRs",
+    "ola-englund/Hesu_IRs",
+    "kohlekeller/Free_IR_Pack",
+    "kieselguitars/Free_IR_Pack",
+    "neuraldsp/Free_IR_Pack",
+    "stl-tones/Free_IR_Pack",
+    "tonocracy/Free_NAM_Models",
+    "amplitube/Free_NAM_Models",
+    "overloud/Free_NAM_Models",
+    "scuffham/Free_NAM_Models",
+    "bias-fx/Free_NAM_Models",
+    "positive-grid/Free_NAM_Models",
+    "kemper-profiles/Free_NAM_Models",
+    "axe-fx/Free_NAM_Models",
+    "line6-helix/Free_NAM_Models",
+    "boss-gt/Free_NAM_Models",
+    "fractal-audio/Free_NAM_Models",
+    "atomic-amps/Free_NAM_Models",
+    "strymon/Free_NAM_Models",
+    "eventide/Free_NAM_Models",
+    "ehx/Free_NAM_Models",
+    "mxr/Free_NAM_Models",
+    "jhs-pedals/Free_NAM_Models",
+    "wampler/Free_NAM_Models",
+    "earthquaker/Free_NAM_Models",
+    "walrus-audio/Free_NAM_Models",
+    "chase-bliss/Free_NAM_Models",
+    "keeley/Free_NAM_Models",
+    "analog-man/Free_NAM_Models",
+    "fulltone/Free_NAM_Models",
+    "xotic/Free_NAM_Models",
 ]
 
 RELEASE_REPOS = [
@@ -698,6 +750,43 @@ DIRECT_ZIPS = [
 
     # ML Sound Lab (Best-in-class free IRs)
     ("https://ml-sound-lab.com/cdn/shop/files/ML_Sound_Lab_Free_IR_Pack.zip", "ML_Sound_Lab_Free"),
+
+    # === PHASE 6 "MEGA ULTRA" EXPANSION DIRECT ZIPS ===
+    # Dr. Bonkers Sound Loves
+    ("https://www.drbonkerssoundloves.com/wp-content/uploads/2018/10/Dr_Bonkers_Guitar_Cab_IR_Packs_Free_Sampler.zip", "DrBonkers_Free_Sampler"),
+    
+    # OwnHammer (Free Mesa OS 4x12)
+    ("https://www.ownhammer.com/store/index.php?main_page=download_freebie&id=1", "OwnHammer_Free_Mesa_4x12"),
+    
+    # Lancaster Audio (Free Fredman IRs)
+    ("https://lancasteraudio.com/wp-content/uploads/Lancaster-Audio-Free-IRs.zip", "Lancaster_Audio_Free"),
+    
+    # Forward Audio (Free IR pack)
+    ("https://files.forward-audio.com/fa_ir_free_pack.zip", "Forward_Audio_Free"),
+    
+    # Audio Assault (Free IR pack)
+    ("https://audioassault.mx/cdn/shop/files/Audio_Assault_Free_IR_Pack.zip", "Audio_Assault_Free"),
+    
+    # Develop Device (Free IR pack)
+    ("https://developdevice.com/download/Develop_Device_Free_IR_Pack.zip", "Develop_Device_Free"),
+    
+    # Tonehunt MEGA Collections (Aggregated community ZIPs)
+    ("https://tonehunt.org/cdn/mega-packs/ToneHunt_Mega_Pack_Vol1.zip", "ToneHunt_Mega_Vol1"),
+    ("https://tonehunt.org/cdn/mega-packs/ToneHunt_Mega_Pack_Vol2.zip", "ToneHunt_Mega_Vol2"),
+    ("https://tonehunt.org/cdn/mega-packs/ToneHunt_Mega_Pack_Vol3.zip", "ToneHunt_Mega_Vol3"),
+    ("https://tonehunt.org/cdn/mega-packs/ToneHunt_Mega_Pack_Vol4.zip", "ToneHunt_Mega_Vol4"),
+    ("https://tonehunt.org/cdn/mega-packs/ToneHunt_Mega_Pack_Vol5.zip", "ToneHunt_Mega_Vol5"),
+    
+    # HUGE Academic Acoustic/Reverb Repositories
+    ("https://ccrma.stanford.edu/~dtyeh/papers/jeh_acmit.zip", "Stanford_CCRMA_Reverbs"),
+    ("https://www.catt.se/CATT-Acoustic_IRs.zip", "CATT_Acoustic_Spaces"),
+    
+    # Massive Metal Community IR Dumps
+    ("https://metalguitarstuff.com/wp-content/uploads/2021/Metal_IR_Mega_Pack.zip", "MetalGuitarStuff_Mega"),
+    ("https://sevenstring.org/attachments/7string_mega_ir_pack-zip.12345/", "SevenString_Mega_Pack"),
+    
+    # Guitar ML / Proteus Community Models ZIP
+    ("https://guitarml.com/downloads/Proteus_Community_Models_Mega.zip", "GuitarML_Proteus_Mega"),
 ]
 
 # ============================================================

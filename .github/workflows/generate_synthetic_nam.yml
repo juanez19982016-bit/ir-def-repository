@@ -18,8 +18,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install numpy scipy torch --index-url https://download.pytorch.org/whl/cpu
-          pip install tqdm
+          pip install numpy scipy tqdm
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
           # Try to install NAM trainer (may not be available)
           pip install neural-amp-modeler 2>/dev/null || echo "NAM package not available, will use custom trainer"
 

@@ -1,0 +1,67 @@
+name: "🧠 Generate Synthetic NAM Bass Captures"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-nam:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install numpy scipy torch --index-url https://download.pytorch.org/whl/cpu
+          pip install tqdm
+          # Try to install NAM trainer (may not be available)
+          pip install neural-amp-modeler 2>/dev/null || echo "NAM package not available, will use custom trainer"
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+          echo "=== Available remotes ==="
+          rclone listremotes
+
+      - name: "🧠 Generate 10 Synthetic NAM Bass Captures"
+        env:
+          RCLONE_REMOTE: gdrive2:IR_DEF_REPOSITORY
+          OUTPUT_DIR: /tmp/synthetic_nam
+          PYTHONIOENCODING: utf-8
+        run: |
+          python scripts/generate_synthetic_nam.py
+
+      - name: "📊 Results"
+        if: always()
+        run: |
+          echo "=== Generated NAM files ==="
+          find /tmp/synthetic_nam/final_nams -name "*.nam" -type f 2>/dev/null | while read f; do
+            echo "📦 $(basename $f) — $(stat --printf='%s' $f | numfmt --to=iec) bytes"
+          done
+          echo ""
+          echo "=== Total NAMs generated ==="
+          find /tmp/synthetic_nam/final_nams -name "*.nam" -type f 2>/dev/null | wc -l
+
+      - name: "☁️ Verify upload to Drive"
+        if: always()
+        run: |
+          echo "=== Drive NAM_Capturas folder ==="
+          rclone lsd gdrive2:IR_DEF_REPOSITORY/NAM_Capturas || true
+          echo ""
+          echo "=== Synthetic Bass Pro folder ==="
+          rclone ls gdrive2:IR_DEF_REPOSITORY/NAM_Capturas/Synthetic_Bass_Pro || echo "Folder may still be syncing..."
+          echo ""
+          echo "=== Total repository size ==="
+          rclone size gdrive2:IR_DEF_REPOSITORY || true

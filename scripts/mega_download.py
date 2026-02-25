@@ -12,6 +12,10 @@ import os, sys, json, re, time, hashlib, zipfile, struct, shutil, logging, argpa
 from pathlib import Path
 from urllib.parse import urlparse, unquote, quote
 from concurrent.futures import ThreadPoolExecutor, as_completed
+try:
+    from tqdm import tqdm
+except ImportError:
+    tqdm = lambda x, **kwargs: x  # Fallback if not installed
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -53,10 +57,27 @@ def setup():
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(message)s",
         handlers=[
-            logging.FileHandler(LOG_FILE, encoding="utf-8"),
-            logging.StreamHandler(sys.stdout)
+            logging.FileHandler(LOG_FILE, encoding="utf-8")
         ]
     )
+    # Redirect stdout if tqdm is used
+    try:
+        import tqdm
+        class TqdmLoggingHandler(logging.Handler):
+            def emit(self, record):
+                try:
+                    msg = self.format(record)
+                    tqdm.tqdm.write(msg)
+                    self.flush()
+                except Exception:
+                    self.handleError(record)
+        
+        logger = logging.getLogger()
+        log_handler = TqdmLoggingHandler()
+        log_handler.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
+        logger.addHandler(log_handler)
+    except:
+        logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 # ============ SESSION ============
 def make_session():
@@ -817,8 +838,10 @@ def download_repo(session, cache, repo):
                 cache.mark(cache_key)
                 return 0
             with open(zip_path, "wb") as f:
-                for chunk in r.iter_content(1024 * 1024):
-                    f.write(chunk)
+                with tqdm(total=cl, unit='iB', unit_scale=True, desc=f"Downloading {name}", leave=False) as t:
+                    for chunk in r.iter_content(1024 * 1024):
+                        f.write(chunk)
+                        t.update(len(chunk))
             logging.info(f"Downloaded {owner}/{name} ({zip_path.stat().st_size/1e6:.1f}MB)")
             extract_dir = tmp_dir / name
             try:
@@ -941,9 +964,12 @@ def download_direct_zip(session, cache, url, name):
         else:
             fn = unquote(urlparse(url).path.split("/")[-1]) or f"{name}.zip"
         download_path = tmp / fn
+        cl = int(r.headers.get("Content-Length", "0"))
         with open(download_path, "wb") as f:
-            for chunk in r.iter_content(1024 * 1024):
-                f.write(chunk)
+            with tqdm(total=cl, unit='iB', unit_scale=True, desc=f"Direct: {name}", leave=False) as t:
+                for chunk in r.iter_content(1024 * 1024):
+                    f.write(chunk)
+                    t.update(len(chunk))
         logging.info(f"Direct: {name} ({download_path.stat().st_size/1e6:.1f}MB)")
         file_count = 0
         if download_path.suffix.lower() == ".zip":
@@ -1029,10 +1055,13 @@ def download_tonehunt(session, cache):
                 try:
                     dr = session.get(url, stream=True, timeout=120)
                     dr.raise_for_status()
+                    cl = int(dr.headers.get("Content-Length", "0"))
                     dl_path = tmp_dir / filename
                     with open(dl_path, "wb") as f:
-                        for chunk in dr.iter_content(1024 * 1024):
-                            f.write(chunk)
+                        with tqdm(total=cl, unit='iB', unit_scale=True, desc=f"ToneHunt: {model_name[:15]}", leave=False) as t:
+                            for chunk in dr.iter_content(1024 * 1024):
+                                f.write(chunk)
+                                t.update(len(chunk))
                             
                     if filename.lower().endswith(".zip"):
                         ex_dir = tmp_dir / Path(filename).stem

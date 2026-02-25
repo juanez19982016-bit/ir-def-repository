@@ -1,0 +1,59 @@
+name: "🎧 Render NAM Audio Demos"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  render-demos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install numpy scipy
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+
+      - name: "🎧 Render Audio Demos"
+        env:
+          RCLONE_REMOTE: gdrive2:IR_DEF_REPOSITORY
+          OUTPUT_DIR: /tmp/nam_demos
+          PYTHONIOENCODING: utf-8
+        run: python scripts/render_nam_demos.py
+
+      - name: "📊 List Generated Demos"
+        if: always()
+        run: |
+          echo "=== Generated Audio Demos ==="
+          find /tmp/nam_demos/playable_demos -name "*.wav" -type f 2>/dev/null | sort | while read f; do
+            SIZE=$(stat --printf='%s' "$f" | numfmt --to=iec)
+            echo "🎵 $(basename $f) — $SIZE"
+          done
+          echo ""
+          echo "=== Total ==="
+          find /tmp/nam_demos/playable_demos -name "*.wav" -type f 2>/dev/null | wc -l
+
+      - name: "📎 Download demos as artifact"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nam-audio-demos
+          path: /tmp/nam_demos/playable_demos/
+          retention-days: 30

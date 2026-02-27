@@ -1,13 +1,13 @@
-name: "Ultra 15K Expansion (ALL tiers + fresh)"
+name: "Ultra 15K Expansion (ADD to existing)"
 
 on:
   workflow_dispatch:
     inputs:
       fresh:
-        description: "Reset cache to re-download everything"
+        description: "Reset URL cache (only if you want to re-download everything)"
         required: false
         type: boolean
-        default: true
+        default: false
 
 jobs:
   # ==== FASE 1: Cleanup + GitHub Repos + Releases ====
@@ -35,56 +35,88 @@ jobs:
         run: |
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+          echo "=== Remotes disponibles ==="
           rclone listremotes
+
+      - name: "ESTADO ACTUAL del Drive"
+        run: |
+          echo "============================================"
+          echo "  ESTADO ANTES DE EXPANSION"
+          echo "============================================"
+          rclone size gdrive2:IR_DEF_REPOSITORY || true
+          echo "--------------------------------------------"
+          for d in $(rclone lsd gdrive2:IR_DEF_REPOSITORY 2>/dev/null | awk '{print $NF}'); do
+            count=$(rclone ls "gdrive2:IR_DEF_REPOSITORY/$d" 2>/dev/null | wc -l)
+            echo "  $d: $count archivos"
+          done
+          echo "============================================"
 
       - name: Download cache from Drive
         run: |
           mkdir -p /tmp/ir_repository
           rclone copy gdrive2:IR_DEF_REPOSITORY/.download_cache.json /tmp/ir_repository/ 2>/dev/null || true
+          if [ -f /tmp/ir_repository/.download_cache.json ]; then
+            CACHED=$(python3 -c "import json; d=json.load(open('/tmp/ir_repository/.download_cache.json')); print(len(d.get('urls',[])))")
+            echo "URLs en cache: $CACHED (estas se saltan)"
+          else
+            echo "Sin cache previo - descargando TODO"
+          fi
 
       - name: "Cleanup: Remove junk from Drive"
         run: |
-          echo "=== BEFORE CLEANUP ==="
-          rclone size gdrive2:IR_DEF_REPOSITORY || true
           python scripts/mega_download.py --tier cleanup --output-dir /tmp/ir_repository
-          echo "=== AFTER CLEANUP ==="
-          rclone size gdrive2:IR_DEF_REPOSITORY || true
 
-      - name: "Download 100+ GitHub repos"
+      - name: "[1/4] Download 100+ GitHub repos"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          FRESH=""
-          if [ "${{ inputs.fresh }}" = "true" ]; then FRESH="--fresh"; fi
-          python scripts/mega_download.py --tier github --output-dir /tmp/ir_repository $FRESH
-
-      - name: "Download GitHub releases"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python scripts/mega_download.py --tier releases --output-dir /tmp/ir_repository
-
-      - name: Stats
-        if: always()
-        run: |
-          echo "=== File count by category ==="
-          for d in /tmp/ir_repository/*/; do
-            [ -d "$d" ] && echo "$(basename $d): $(find $d -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)"
-          done
-          echo "=== TOTAL ==="
+          echo "============================================"
+          echo "  FASE 1: GitHub Repos (100+ fuentes)"
+          echo "============================================"
+          FRESH_FLAG=""
+          if [ "${{ inputs.fresh }}" = "true" ]; then FRESH_FLAG="--fresh"; fi
+          python scripts/mega_download.py --tier github --output-dir /tmp/ir_repository $FRESH_FLAG
+          echo ""
+          echo "--- Progreso parcial ---"
           find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l
+          echo "archivos descargados hasta ahora"
 
-      - name: "Upload to Drive"
+      - name: "[2/4] Download GitHub releases"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "============================================"
+          echo "  FASE 2: GitHub Releases"
+          echo "============================================"
+          python scripts/mega_download.py --tier releases --output-dir /tmp/ir_repository
+          echo ""
+          echo "--- Progreso parcial ---"
+          find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l
+          echo "archivos descargados hasta ahora"
+
+      - name: "Progreso FASE 1 completa"
         if: always()
         run: |
+          echo "============================================"
+          echo "  RESUMEN FASE 1 (GitHub)"
+          echo "============================================"
+          for d in /tmp/ir_repository/*/; do
+            [ -d "$d" ] && echo "  $(basename $d): $(find $d -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l) archivos"
+          done
+          TOTAL=$(find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)
+          echo "  TOTAL NUEVOS: $TOTAL"
+          echo "============================================"
+
+      - name: "Upload FASE 1 al Drive"
+        if: always()
+        run: |
+          echo "Subiendo archivos de FASE 1..."
           rclone copy /tmp/ir_repository gdrive2:IR_DEF_REPOSITORY \
             --transfers 8 --checkers 16 --drive-chunk-size 64M \
-            --fast-list --stats 30s --log-level INFO --stats-one-line \
+            --fast-list --stats 15s --log-level INFO --stats-one-line \
             --exclude ".*" --exclude "*.log" --exclude "*.json" --exclude "*.md"
-
-      - name: Verify
-        if: always()
-        run: |
+          echo ""
+          echo "--- Estado del Drive tras FASE 1 ---"
           rclone size gdrive2:IR_DEF_REPOSITORY || true
 
   # ==== FASE 2: Direct ZIPs (50+ sources) ====
@@ -92,7 +124,7 @@ jobs:
     needs: [tier1-github]
     if: always()
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 240
 
     steps:
       - uses: actions/checkout@v4
@@ -120,24 +152,41 @@ jobs:
           mkdir -p /tmp/ir_repository
           rclone copy gdrive2:IR_DEF_REPOSITORY/.download_cache.json /tmp/ir_repository/ 2>/dev/null || true
 
-      - name: "Download 50+ direct ZIPs"
+      - name: "[3/4] Download 50+ direct ZIPs"
         run: |
+          echo "============================================"
+          echo "  FASE 3: Direct ZIPs (50+ fuentes)"
+          echo "============================================"
           python scripts/mega_download.py --tier direct --output-dir /tmp/ir_repository
+          echo ""
+          echo "--- Progreso parcial ---"
+          find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l
+          echo "archivos nuevos en esta fase"
 
-      - name: Stats
+      - name: "Progreso FASE 2 completa"
         if: always()
         run: |
-          find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l
+          echo "============================================"
+          echo "  RESUMEN FASE 2 (Direct ZIPs)"
+          echo "============================================"
+          for d in /tmp/ir_repository/*/; do
+            [ -d "$d" ] && echo "  $(basename $d): $(find $d -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l) archivos"
+          done
+          TOTAL=$(find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)
+          echo "  TOTAL NUEVOS ESTA FASE: $TOTAL"
+          echo "============================================"
 
-      - name: "Upload to Drive"
+      - name: "Upload FASE 2 al Drive"
         if: always()
         run: |
           rclone copy /tmp/ir_repository gdrive2:IR_DEF_REPOSITORY \
             --transfers 8 --checkers 16 --drive-chunk-size 64M \
-            --fast-list --stats 30s --log-level INFO --stats-one-line \
+            --fast-list --stats 15s --log-level INFO --stats-one-line \
             --exclude ".*" --exclude "*.log" --exclude "*.json" --exclude "*.md"
+          echo "--- Estado del Drive tras FASE 2 ---"
+          rclone size gdrive2:IR_DEF_REPOSITORY || true
 
-  # ==== FASE 3: Search Discovery + ToneHunt ====
+  # ==== FASE 3: Search Discovery + ToneHunt + Extra ====
   tier3-search:
     needs: [tier2-direct]
     if: always()
@@ -170,29 +219,28 @@ jobs:
           mkdir -p /tmp/ir_repository
           rclone copy gdrive2:IR_DEF_REPOSITORY/.download_cache.json /tmp/ir_repository/ 2>/dev/null || true
 
-      - name: "GitHub Search auto-discovery"
+      - name: "[4/4] Search discovery + ToneHunt + Packs"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python scripts/mega_download.py --tier search --output-dir /tmp/ir_repository
+          echo "============================================"
+          echo "  FASE 4: Search + ToneHunt + Packs"
+          echo "============================================"
+          python scripts/mega_download.py --tier search --output-dir /tmp/ir_repository || true
+          python scripts/mega_download.py --tier tier3 --output-dir /tmp/ir_repository || true
+          echo ""
+          echo "--- Archivos nuevos esta fase ---"
+          find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l
 
-      - name: "ToneHunt + Massive expansion packs"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          FRESH=""
-          if [ "${{ inputs.fresh }}" = "true" ]; then FRESH="--fresh"; fi
-          python scripts/mega_download.py --tier tier3 --output-dir /tmp/ir_repository $FRESH
-
-      - name: "Upload to Drive"
+      - name: "Upload FASE 3 al Drive"
         if: always()
         run: |
           rclone copy /tmp/ir_repository gdrive2:IR_DEF_REPOSITORY \
             --transfers 8 --checkers 16 --drive-chunk-size 64M \
-            --fast-list --stats 30s --log-level INFO --stats-one-line \
+            --fast-list --stats 15s --log-level INFO --stats-one-line \
             --exclude ".*" --exclude "*.log" --exclude "*.json" --exclude "*.md"
 
-      - name: "Final cleanup on Drive"
+      - name: "Cleanup final on Drive"
         if: always()
         run: |
           rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.json" || true
@@ -202,17 +250,22 @@ jobs:
           rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.md" || true
           rclone rmdirs gdrive2:IR_DEF_REPOSITORY || true
 
-      - name: "FINAL REPORT"
+      - name: "REPORTE FINAL COMPLETO"
         if: always()
         run: |
-          echo "=========================================="
-          echo "IR DEF REPOSITORY — FINAL STATE"
-          echo "=========================================="
+          echo ""
+          echo "============================================"
+          echo "  REPORTE FINAL - ULTRA EXPANSION"
+          echo "============================================"
           rclone size gdrive2:IR_DEF_REPOSITORY || true
-          echo "------------------------------------------"
+          echo "--------------------------------------------"
+          GRAND_TOTAL=0
           for d in $(rclone lsd gdrive2:IR_DEF_REPOSITORY 2>/dev/null | awk '{print $NF}'); do
             count=$(rclone ls "gdrive2:IR_DEF_REPOSITORY/$d" 2>/dev/null | wc -l)
             size=$(rclone size "gdrive2:IR_DEF_REPOSITORY/$d" 2>/dev/null | grep "Total size" | awk '{print $3, $4}')
-            echo "$d: $count files ($size)"
+            echo "  $d: $count archivos ($size)"
+            GRAND_TOTAL=$((GRAND_TOTAL + count))
           done
-          echo "=========================================="
+          echo "--------------------------------------------"
+          echo "  TOTAL ARCHIVOS EN DRIVE: $GRAND_TOTAL"
+          echo "============================================"

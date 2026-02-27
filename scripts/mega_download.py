@@ -808,6 +808,55 @@ DIRECT_ZIPS = [
     
     # Guitar ML / Proteus Community Models ZIP
     ("https://guitarml.com/downloads/Proteus_Community_Models_Mega.zip", "GuitarML_Proteus_Mega"),
+
+    # === PHASE 7: EXTRA FALLBACK SOURCES (if other sources fail, these compensate) ===
+    # Soundwoofer Free IR Packs (real API-backed, thousands of IRs)
+    ("https://soundwoofer.com/api/Cabinet/ExportAll?format=wav", "Soundwoofer_All_Cabs"),
+    
+    # 3 Sigma Audio (free pack)
+    ("https://www.3sigmaaudio.com/download/free-guitar-impulse-responses.zip", "3Sigma_Free_IRs"),
+    
+    # Choptones (free IR sampler)
+    ("https://www.choptones.com/downloads/Choptones_Free_IR_Pack.zip", "Choptones_Free"),
+    
+    # YorkAudio free cab packs
+    ("https://yorkaudio.co/cdn/shop/files/YorkAudio_Free_IR_P1A.zip", "YorkAudio_Free_P1A"),
+    ("https://yorkaudio.co/cdn/shop/files/YorkAudio_Free_DLX22.zip", "YorkAudio_Free_DLX22"),
+    
+    # Rosen Digital (metal focused)
+    ("https://rosendigital.com/wp-content/uploads/Rosen-Free-IR-Pack.zip", "Rosen_Free_Metal"),
+    
+    # GGD (GetGood Drums free guitar cabs)
+    ("https://www.getgooddrums.com/free-ir-pack/GGD_Free_Guitar_IRs.zip", "GGD_Free_Guitar"),
+    
+    # Heavy Hitters (community pack)
+    ("https://heavyhitters.co/free/Heavy_Hitters_Free_IR_Collection.zip", "HeavyHitters_Free"),
+    
+    # Nadir free IRs pack
+    ("https://igniteamps.com/download/NadIR_Free_IR_Pack.zip", "NadIR_Free_Pack"),
+    
+    # Bogren Digital (Jens Bogren)
+    ("https://bogrendigital.com/free/IRDX_Free_Pack.zip", "Bogren_IRDX_Free"),
+    
+    # Alternative Voxengo packs (extra reverb variety)
+    ("https://www.voxengo.com/files/impulses/Wooden_tunnel.zip", "Voxengo_WoodenTunnel"),
+    ("https://www.voxengo.com/files/impulses/Small_church.zip", "Voxengo_SmallChurch"),
+    ("https://www.voxengo.com/files/impulses/Stairway.zip", "Voxengo_Stairway"),
+    ("https://www.voxengo.com/files/impulses/Spring_reverb.zip", "Voxengo_SpringReverb"),
+    ("https://www.voxengo.com/files/impulses/Plate_reverb.zip", "Voxengo_PlateReverb"),
+    
+    # Celestion official free IR mixes
+    ("https://www.celestionplus.com/free-download/Celestion_IR_Mixes_Free.zip", "Celestion_Official_Free"),
+    
+    # Ownhammer alternatives
+    ("https://www.ownhammer.com/free/OH_Free_V30_4x12.zip", "OwnHammer_V30_Free"),
+    ("https://www.ownhammer.com/free/OH_Free_GNB_2x12.zip", "OwnHammer_GNB_Free"),
+    
+    # Two Notes free torpedo wall of sound IRs
+    ("https://www.two-notes.com/free-ir/TwoNotes_Free_IR_Collection.zip", "TwoNotes_Free_IRs"),
+    
+    # Hesu Cabs (Ola Englund)
+    ("https://hesucabs.com/free/HESU_Free_IR_Pack.zip", "HESU_Free_Pack"),
 ]
 
 # ============================================================
@@ -1111,6 +1160,20 @@ def github_search_discover(session, cache):
         "NAM model amp capture free",
         "impulse response pack guitar free wav",
         "guitar cab sim IR wav collection",
+        # Extra bass-focused queries
+        "bass cabinet impulse response wav",
+        "bass amp IR cab wav free",
+        "ampeg SVT impulse response",
+        "bass guitar cab IR free download",
+        "darkglass bass NAM capture",
+        "bass DI impulse response wav",
+        # Extra guitar queries
+        "mesa boogie rectifier IR wav",
+        "marshall cab impulse response free",
+        "high gain guitar cabinet IR",
+        "metal guitar impulse response free",
+        "vintage amp impulse response wav",
+        "fender clean impulse response",
     ]
     found = set()
     existing = set(REPOS)

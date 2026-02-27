@@ -1,0 +1,223 @@
+name: "Expand + Rename ALL (Download + Clean Names)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_download:
+        description: "Skip download phase (only rename existing files)"
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  # ==== FASE 1: Download new files ====
+  download-new:
+    if: ${{ inputs.skip_download != true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests tqdm
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+          echo "=== Remotes ==="
+          rclone listremotes
+
+      - name: "ESTADO ACTUAL"
+        run: |
+          echo "============================================"
+          echo "  ANTES DE EXPANSION"
+          echo "============================================"
+          rclone size gdrive2:IR_DEF_REPOSITORY || true
+          for d in $(rclone lsd gdrive2:IR_DEF_REPOSITORY 2>/dev/null | awk '{print $NF}'); do
+            count=$(rclone ls "gdrive2:IR_DEF_REPOSITORY/$d" 2>/dev/null | wc -l)
+            echo "  $d: $count archivos"
+          done
+
+      - name: Download cache
+        run: |
+          mkdir -p /tmp/ir_repository
+          rclone copy gdrive2:IR_DEF_REPOSITORY/.download_cache.json /tmp/ir_repository/ 2>/dev/null || true
+
+      - name: "[1/3] GitHub repos (100+)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== DESCARGANDO DE 100+ REPOS GITHUB ==="
+          python scripts/mega_download.py --tier github --output-dir /tmp/ir_repository || true
+          echo "Archivos parcial: $(find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)"
+
+      - name: "[2/3] GitHub releases"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/mega_download.py --tier releases --output-dir /tmp/ir_repository || true
+          echo "Archivos parcial: $(find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)"
+
+      - name: "[3/3] Direct ZIPs (70+)"
+        run: |
+          echo "=== DESCARGANDO DE 70+ ZIPS DIRECTOS ==="
+          python scripts/mega_download.py --tier direct --output-dir /tmp/ir_repository || true
+          echo "Archivos parcial: $(find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)"
+
+      - name: "Search discovery"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/mega_download.py --tier search --output-dir /tmp/ir_repository || true
+          python scripts/mega_download.py --tier tier3 --output-dir /tmp/ir_repository || true
+
+      - name: "Resumen descarga"
+        if: always()
+        run: |
+          echo "============================================"
+          echo "  NUEVOS ARCHIVOS DESCARGADOS"
+          echo "============================================"
+          for d in /tmp/ir_repository/*/; do
+            [ -d "$d" ] && echo "  $(basename $d): $(find $d -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)"
+          done
+          TOTAL=$(find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l)
+          echo "  TOTAL NUEVOS: $TOTAL"
+
+      - name: "Upload nuevos al Drive"
+        if: always()
+        run: |
+          rclone copy /tmp/ir_repository gdrive2:IR_DEF_REPOSITORY \
+            --transfers 8 --checkers 16 --drive-chunk-size 64M \
+            --fast-list --stats 15s --log-level INFO --stats-one-line \
+            --exclude ".*" --exclude "*.log" --exclude "*.json" --exclude "*.md"
+          echo "=== POST-UPLOAD ==="
+          rclone size gdrive2:IR_DEF_REPOSITORY || true
+
+  # ==== FASE 2: Download ALL from Drive, rename, re-upload ====
+  rename-all:
+    needs: [download-new]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests tqdm
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+
+      - name: "ESTADO ANTES DE RENAME"
+        run: |
+          echo "============================================"
+          rclone size gdrive2:IR_DEF_REPOSITORY || true
+          echo "============================================"
+
+      - name: "Descargar TODO del Drive"
+        run: |
+          mkdir -p /tmp/ir_source
+          rclone copy gdrive2:IR_DEF_REPOSITORY /tmp/ir_source \
+            --transfers 16 --checkers 32 --fast-list \
+            --include "*.wav" --include "*.nam"
+          echo "Descargados: $(find /tmp/ir_source -type f | wc -l) archivos"
+
+      - name: "MOSTRAR NOMBRES ACTUALES (antes del rename)"
+        run: |
+          echo "=== EJEMPLOS DE NOMBRES ACTUALES ==="
+          find /tmp/ir_source -type f \( -name '*.wav' -o -name '*.nam' \) | head -30
+          echo "..."
+          echo "Total archivos: $(find /tmp/ir_source -type f | wc -l)"
+
+      - name: "RENOMBRAR TODO con convencion estricta"
+        env:
+          SOURCE_DIR: "/tmp/ir_source"
+          OUTPUT_DIR: "/tmp/ir_clean"
+        run: |
+          mkdir -p /tmp/ir_clean
+          python scripts/mega_download.py --tier rename --output-dir /tmp/ir_clean
+          echo ""
+          echo "=== EJEMPLOS DE NOMBRES NUEVOS ==="
+          find /tmp/ir_clean -type f \( -name '*.wav' -o -name '*.nam' \) | head -30
+          echo "..."
+          echo "Total renombrados: $(find /tmp/ir_clean -type f | wc -l)"
+
+      - name: "Upload repo limpio a carpeta temporal"
+        run: |
+          echo "Subiendo archivos renombrados..."
+          rclone copy /tmp/ir_clean gdrive2:IR_DEF_REPOSITORY_CLEAN \
+            --transfers 16 --checkers 32 --drive-chunk-size 64M \
+            --fast-list --stats 15s --log-level INFO --stats-one-line
+          echo "=== Tamaño repo limpio ==="
+          rclone size gdrive2:IR_DEF_REPOSITORY_CLEAN || true
+
+      - name: "Swap: Reemplazar repo viejo con limpio"
+        if: success()
+        run: |
+          echo "Moviendo repo viejo a _OLD..."
+          rclone moveto gdrive2:IR_DEF_REPOSITORY gdrive2:IR_DEF_REPOSITORY_OLD --ignore-errors || true
+          echo "Moviendo repo limpio a ubicacion oficial..."
+          rclone moveto gdrive2:IR_DEF_REPOSITORY_CLEAN gdrive2:IR_DEF_REPOSITORY
+          echo "Listo!"
+
+      - name: "Cleanup final"
+        if: always()
+        run: |
+          rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.json" || true
+          rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.log" || true
+          rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.txt" || true
+          rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.py" || true
+          rclone delete gdrive2:IR_DEF_REPOSITORY --include "*.md" || true
+          rclone rmdirs gdrive2:IR_DEF_REPOSITORY || true
+
+      - name: "REPORTE FINAL"
+        if: always()
+        run: |
+          echo ""
+          echo "============================================"
+          echo "  REPORTE FINAL — EXPAND + RENAME"
+          echo "============================================"
+          rclone size gdrive2:IR_DEF_REPOSITORY || true
+          echo "--------------------------------------------"
+          GRAND_TOTAL=0
+          for d in $(rclone lsd gdrive2:IR_DEF_REPOSITORY 2>/dev/null | awk '{print $NF}'); do
+            count=$(rclone ls "gdrive2:IR_DEF_REPOSITORY/$d" 2>/dev/null | wc -l)
+            size=$(rclone size "gdrive2:IR_DEF_REPOSITORY/$d" 2>/dev/null | grep "Total size" | awk '{print $3, $4}')
+            echo "  $d: $count archivos ($size)"
+            GRAND_TOTAL=$((GRAND_TOTAL + count))
+          done
+          echo "--------------------------------------------"
+          echo "  TOTAL ARCHIVOS: $GRAND_TOTAL"
+          echo "  TODOS RENOMBRADOS: Marca_Modelo_Cab_Mic_Tono"
+          echo "============================================"
+          echo ""
+          echo "=== EJEMPLOS FINALES ==="
+          for d in $(rclone lsd gdrive2:IR_DEF_REPOSITORY 2>/dev/null | awk '{print $NF}'); do
+            echo "--- $d ---"
+            rclone ls "gdrive2:IR_DEF_REPOSITORY/$d" 2>/dev/null | head -5 | awk '{print "  " $NF}'
+          done

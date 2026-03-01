@@ -66,6 +66,18 @@ KNOWN_REPOS = [
     "markusaksli-nc/nam-models"
 ]
 
+DIRECT_ZIPS = [
+    ("https://github.com/justinnewbold/fractal-ai-builder/archive/refs/heads/master.zip", "Fractal_AI_Builder"),
+    ("https://github.com/ThibaultDucray/PatchOrganizer/archive/refs/heads/master.zip", "PatchOrganizer"),
+    ("https://github.com/JanosGit/smallKemperRemote/archive/refs/heads/main.zip", "SmallKemperRemote"),
+    ("https://github.com/Tonalize/HelixNativePresets/archive/refs/heads/main.zip", "HelixNativePresets"),
+    ("https://github.com/sj-williams/pod-go-patches/archive/refs/heads/main.zip", "Pod_Go_Williams"),
+    ("https://github.com/MrCitron/helaix/archive/refs/heads/main.zip", "Helaix"),
+    ("https://github.com/bbuehrig/AxeFx2000/archive/refs/heads/main.zip", "AxeFx2000"),
+    ("https://github.com/ray-su/Ampero-presets/archive/refs/heads/master.zip", "AmperoPresetsRaySu"),
+    ("https://github.com/engageintellect/pod-go-patches/archive/refs/heads/master.zip", "PodGoEngage")
+]
+
 class Cache:
     def __init__(self):
         self.data = {"urls": [], "hashes": {}}
@@ -232,70 +244,42 @@ def download_repo(session, repo, pbar_shared):
     pbar_shared.update(1)
     return ret_files
 
-def download_tonehunt(session, pbar_shared):
-    base_api = "https://tonehunt.org/api/v1"
+def download_direct_zips(session, pbar_shared):
     ret_files = 0
-    try:
-        if session.get(f"{base_api}/models?page=1&perPage=1", timeout=5).status_code != 200:
-            return 0
-    except: return 0
-
-    # Getting recent models
-    for page in tqdm(range(1, 120), desc="🎵 Scraping ToneHunt Presets", leave=False):
+    
+    for url, name in tqdm(DIRECT_ZIPS, desc="🎵 Fetching Huge Preset Archives", leave=False):
+        if cache.seen(url): continue
+        tmp_dir = Path(os.environ.get("TEMP", "/tmp")) / f"vault_zip_{name}"
+        tmp_dir.mkdir(parents=True, exist_ok=True)
+        zip_path = tmp_dir / f"{name}.zip"
+        
         try:
-            r = session.get(f"{base_api}/models?page={page}&perPage=100&sortBy=newest", timeout=10)
-            if r.status_code != 200: break
+            r = session.get(url, stream=True, timeout=120)
+            if r.status_code != 200: continue
             
-            data = r.json()
-            items = data.get("models", data)
-            if not isinstance(items, list) or not items: break
-            
-            for item in items:
-                mid = item.get("id")
-                if not mid: continue
-                dl_url = f"{base_api}/models/{mid}/download"
-                if cache.seen(dl_url): continue
+            with open(zip_path, "wb") as f:
+                for chunk in r.iter_content(1024 * 1024): f.write(chunk)
                 
-                try:
-                    dr = session.get(dl_url, timeout=10)
-                    if dr.status_code != 200:
-                        cache.mark(dl_url); continue
-                    
-                    fname = "ToneHunt_Model.zip"
-                    cdisp = dr.headers.get('content-disposition', '')
-                    if 'filename=' in cdisp:
-                        fname = re.findall("filename=(.+)", cdisp)[0].strip('"')
-                    
-                    ext = Path(fname).suffix.lower()
-                    tmp = Path(os.environ.get("TEMP", "/tmp")) / "vault_th"
-                    tmp.mkdir(parents=True, exist_ok=True)
-                    tp = tmp / fname
-                    tp.write_bytes(dr.content)
-                    
-                    if ext == ".zip":
-                        xd = tmp / fname.replace(".zip", "")
-                        try:
-                            with zipfile.ZipFile(tp) as zf: zf.extractall(xd)
-                            for root, dirs, files in os.walk(xd):
-                                for f in files:
-                                    if Path(f).suffix.lower() in VALID_EXT:
-                                        src = Path(root) / f
-                                        if is_valid_preset(src) and not cache.is_dup(src):
-                                            organize_file(src)
-                                            ret_files += 1
-                            shutil.rmtree(xd, ignore_errors=True)
-                        except: pass
-                    elif ext in VALID_EXT:
-                        if is_valid_preset(tp) and not cache.is_dup(tp):
-                            organize_file(tp)
-                            ret_files += 1
-                            
-                    tp.unlink(missing_ok=True)
-                    cache.mark(dl_url)
-                except:
-                    cache.mark(dl_url)
-            pbar_shared.set_postfix({"Saved": ret_files})
-        except: break
+            extract_dir = tmp_dir / name
+            try:
+                with zipfile.ZipFile(zip_path) as zf: zf.extractall(extract_dir)
+                for root, dirs, files in os.walk(extract_dir):
+                    for fn in files:
+                        if Path(fn).suffix.lower() in VALID_EXT:
+                            src = Path(root) / fn
+                            try:
+                                if is_valid_preset(src) and not cache.is_dup(src):
+                                    organize_file(src)
+                                    ret_files += 1
+                            except: pass
+            except: pass
+            
+            cache.mark(url)
+            shutil.rmtree(extract_dir, ignore_errors=True)
+            zip_path.unlink(missing_ok=True)
+        except Exception as e:
+            pass
+        pbar_shared.set_postfix({"Saved": ret_files})
         
     return ret_files
 
@@ -319,11 +303,10 @@ def main():
                 
     cache.save()
     
-    print("\n📦 PHASE 2: ToneHunt Models & Presets")
-    with tqdm(total=1, desc="📡 Fetching ToneHunt", unit="batch") as pbar:
-        try: total_files += download_tonehunt(session, pbar)
+    print("\n📦 PHASE 2: Huge Preset Archives (Direct ZIPs)")
+    with tqdm(total=len(DIRECT_ZIPS), desc="📡 Fetching Direct ZIPs", unit="zip") as pbar:
+        try: total_files += download_direct_zips(session, pbar)
         except: pass
-        pbar.update(1)
         
     cache.save()
     print("\n============================================================")

@@ -11,210 +11,184 @@ on:
   workflow_call:
 
 jobs:
-  # ════════════════════════════════════════════════════════════
-  # PHASE 0: Cleanup NAM/WAV/JSON from presets folder
-  # + PHASE 1: Seed Repos + Direct ZIPs
-  # ════════════════════════════════════════════════════════════
-  phase1-cleanup-and-seed:
+  # ═══════════════════════════════════════════════════════
+  # Job 1: Cleanup + Seed Repos + Direct ZIPs
+  # ═══════════════════════════════════════════════════════
+  job1-cleanup-seed:
     runs-on: ubuntu-latest
     timeout-minutes: 300
-
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: pip install requests
       - run: curl -fsSL https://rclone.org/install.sh | sudo bash
-      - name: Configure rclone
-        env:
-          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+      - name: rclone
+        env: { RCLONE_CONFIG_B64: "${{ secrets.RCLONE_CONFIG_B64 }}" }
         run: |
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
-          rclone listremotes
-
-      - name: "📊 Drive Status BEFORE"
-        run: |
-          echo "=== BEFORE ==="
-          rclone size gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS 2>/dev/null || echo "Empty"
-          rclone lsd gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS 2>/dev/null || true
-
-      - name: "🧹 Cleanup: Remove NAM/WAV/JSON from presets"
+      - name: "🧹 Cleanup NAM/WAV/JSON"
         run: python scripts/mega_preset_vault.py --tier cleanup --output-dir /tmp/vault
-
-      - name: Download cache
+      - name: Cache
         run: |
           mkdir -p /tmp/vault/03_PRESETS_AND_MODELERS
           rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.mega_presets_cache.json /tmp/vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || true
-
-      - name: "🌱 Phase 1: Seed Repos + Direct ZIPs"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "🌱 Seed Repos + ZIPs"
+        env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
         run: |
-          FRESH=""
-          if [ "${{ inputs.fresh }}" = "true" ]; then FRESH="--fresh"; fi
-          python scripts/mega_preset_vault.py --tier seed --output-dir /tmp/vault $FRESH
-
-      - name: "📊 Phase 1 Stats"
+          F=""; [ "${{ inputs.fresh }}" = "true" ] && F="--fresh"
+          python scripts/mega_preset_vault.py --tier seed --output-dir /tmp/vault $F
+      - name: Stats
         if: always()
         run: |
-          echo "=== Phase 1 Yield ==="
           for d in /tmp/vault/03_PRESETS_AND_MODELERS/*/; do
-            [ -d "$d" ] && echo "📁 $(basename "$d"): $(find "$d" -type f -not -name ".*" 2>/dev/null | wc -l)"
+            [ -d "$d" ] && echo "$(basename "$d"): $(find "$d" -type f -not -name ".*" | wc -l)"
           done
-          echo "TOTAL: $(find /tmp/vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" 2>/dev/null | wc -l)"
-
-      - name: "☁️ Upload Phase 1"
+          echo "TOTAL: $(find /tmp/vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" | wc -l)"
+      - name: "☁️ Upload"
         if: always()
-        run: |
-          rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS \
-            --transfers 12 --checkers 24 --drive-chunk-size 64M --fast-list --stats 30s --stats-one-line
+        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list --stats 30s --stats-one-line
 
-  # ════════════════════════════════════════════════════════════
-  # PHASE 2: GitHub Search Discovery
-  # ════════════════════════════════════════════════════════════
-  phase2-search:
-    needs: [phase1-cleanup-and-seed]
+  # ═══════════════════════════════════════════════════════
+  # Job 2: GitHub Search (200+ queries)
+  # ═══════════════════════════════════════════════════════
+  job2-search:
+    needs: [job1-cleanup-seed]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 300
-
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: pip install requests
       - run: curl -fsSL https://rclone.org/install.sh | sudo bash
-      - name: Configure rclone
-        env:
-          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+      - name: rclone
+        env: { RCLONE_CONFIG_B64: "${{ secrets.RCLONE_CONFIG_B64 }}" }
         run: |
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
-
-      - name: Download cache
+      - name: Cache
         run: |
           mkdir -p /tmp/vault/03_PRESETS_AND_MODELERS
           rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.mega_presets_cache.json /tmp/vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || true
-
-      - name: "🔍 Phase 2: GitHub Search (180+ queries)"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "🔍 GitHub Search"
+        env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
         run: python scripts/mega_preset_vault.py --tier search --output-dir /tmp/vault
-
-      - name: "📊 Phase 2 Stats"
+      - name: "☁️ Upload"
         if: always()
-        run: |
-          echo "=== Phase 2 Yield ==="
-          for d in /tmp/vault/03_PRESETS_AND_MODELERS/*/; do
-            [ -d "$d" ] && echo "📁 $(basename "$d"): $(find "$d" -type f -not -name ".*" 2>/dev/null | wc -l)"
-          done
-          echo "TOTAL: $(find /tmp/vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" 2>/dev/null | wc -l)"
+        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list --stats 30s --stats-one-line
 
-      - name: "☁️ Upload Phase 2"
-        if: always()
-        run: |
-          rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS \
-            --transfers 12 --checkers 24 --drive-chunk-size 64M --fast-list --stats 30s --stats-one-line
-
-  # ════════════════════════════════════════════════════════════
-  # PHASE 3: Releases
-  # ════════════════════════════════════════════════════════════
-  phase3-releases:
-    needs: [phase2-search]
+  # ═══════════════════════════════════════════════════════
+  # Job 3: GitHub Releases
+  # ═══════════════════════════════════════════════════════
+  job3-releases:
+    needs: [job2-search]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 180
-
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: pip install requests
       - run: curl -fsSL https://rclone.org/install.sh | sudo bash
-      - name: Configure rclone
-        env:
-          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+      - name: rclone
+        env: { RCLONE_CONFIG_B64: "${{ secrets.RCLONE_CONFIG_B64 }}" }
         run: |
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
-
-      - name: Download cache
+      - name: Cache
         run: |
           mkdir -p /tmp/vault/03_PRESETS_AND_MODELERS
           rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.mega_presets_cache.json /tmp/vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || true
-
-      - name: "📦 Phase 3: GitHub Releases"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "📦 Releases"
+        env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
         run: python scripts/mega_preset_vault.py --tier releases --output-dir /tmp/vault
-
-      - name: "☁️ Upload Phase 3"
+      - name: "☁️ Upload"
         if: always()
-        run: |
-          rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS \
-            --transfers 12 --checkers 24 --drive-chunk-size 64M --fast-list --stats 30s --stats-one-line
+        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list --stats 30s --stats-one-line
 
-  # ════════════════════════════════════════════════════════════
-  # PHASE 4: GuitarPatches.com Mega Scraper (40 devices)
-  # ════════════════════════════════════════════════════════════
-  phase4-guitarpatches:
-    needs: [phase3-releases]
+  # ═══════════════════════════════════════════════════════
+  # Job 4: GuitarPatches.com (80+ devices)
+  # ═══════════════════════════════════════════════════════
+  job4-guitarpatches:
+    needs: [job3-releases]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 360
-
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: pip install requests
       - run: curl -fsSL https://rclone.org/install.sh | sudo bash
-      - name: Configure rclone
-        env:
-          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+      - name: rclone
+        env: { RCLONE_CONFIG_B64: "${{ secrets.RCLONE_CONFIG_B64 }}" }
         run: |
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
-
-      - name: Download cache
+      - name: Cache
         run: |
           mkdir -p /tmp/vault/03_PRESETS_AND_MODELERS
           rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.mega_presets_cache.json /tmp/vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || true
-
-      - name: "🌐 Phase 4: GuitarPatches.com (40 devices)"
-        run: python scripts/mega_preset_vault.py --tier patches --output-dir /tmp/vault
-
-      - name: "📊 Phase 4 Stats"
+      - name: "🌐 GuitarPatches.com (80+ devices)"
+        run: python scripts/mega_preset_vault.py --tier guitarpatches --output-dir /tmp/vault
+      - name: Stats
         if: always()
         run: |
-          echo "=== Phase 4 GuitarPatches.com Yield ==="
           for d in /tmp/vault/03_PRESETS_AND_MODELERS/*/; do
-            [ -d "$d" ] && echo "📁 $(basename "$d"): $(find "$d" -type f -not -name ".*" 2>/dev/null | wc -l)"
+            [ -d "$d" ] && echo "$(basename "$d"): $(find "$d" -type f -not -name ".*" | wc -l)"
           done
-          echo "TOTAL: $(find /tmp/vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" 2>/dev/null | wc -l)"
+          echo "TOTAL: $(find /tmp/vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" | wc -l)"
+      - name: "☁️ Upload"
+        if: always()
+        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list --stats 30s --stats-one-line
 
-      - name: "☁️ Upload Phase 4"
+  # ═══════════════════════════════════════════════════════
+  # Job 5: PatchStorage.com API (16 platforms)
+  # ═══════════════════════════════════════════════════════
+  job5-patchstorage:
+    needs: [job4-guitarpatches]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install requests
+      - run: curl -fsSL https://rclone.org/install.sh | sudo bash
+      - name: rclone
+        env: { RCLONE_CONFIG_B64: "${{ secrets.RCLONE_CONFIG_B64 }}" }
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+      - name: Cache
+        run: |
+          mkdir -p /tmp/vault/03_PRESETS_AND_MODELERS
+          rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.mega_presets_cache.json /tmp/vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || true
+      - name: "📦 PatchStorage.com API"
+        run: python scripts/mega_preset_vault.py --tier patchstorage --output-dir /tmp/vault
+      - name: Stats
         if: always()
         run: |
-          rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS \
-            --transfers 12 --checkers 24 --drive-chunk-size 64M --fast-list --stats 30s --stats-one-line
-
-      - name: "🔥 FINAL REPORT"
+          for d in /tmp/vault/03_PRESETS_AND_MODELERS/*/; do
+            [ -d "$d" ] && echo "$(basename "$d"): $(find "$d" -type f -not -name ".*" | wc -l)"
+          done
+          echo "TOTAL: $(find /tmp/vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" | wc -l)"
+      - name: "☁️ Upload"
+        if: always()
+        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list --stats 30s --stats-one-line
+      - name: "🔥 FINAL"
         if: always()
         run: |
-          echo ""
-          echo "╔══════════════════════════════════════════════════════════╗"
-          echo "║   MEGA PRESET VAULT v2 — FINAL REPORT                   ║"
-          echo "╚══════════════════════════════════════════════════════════╝"
+          echo "╔═══════════════════════════════════════════╗"
+          echo "║  MEGA PRESET VAULT v3 — FINAL REPORT      ║"
+          echo "╚═══════════════════════════════════════════╝"
           rclone size gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS || true
-          echo ""
-          echo "─── By Platform ───"
-          GRAND=0
           for d in $(rclone lsd gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS 2>/dev/null | awk '{print $NF}'); do
-            count=$(rclone ls "gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/$d" 2>/dev/null | wc -l)
-            echo "  📁 $d: $count"
-            GRAND=$((GRAND + count))
+            c=$(rclone ls "gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/$d" 2>/dev/null | wc -l)
+            echo "  $d: $c"
           done
-          echo ""
-          echo "  🔥 GRAND TOTAL: $GRAND presets"

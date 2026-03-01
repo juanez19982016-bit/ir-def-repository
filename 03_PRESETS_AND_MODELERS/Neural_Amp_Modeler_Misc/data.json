@@ -1,0 +1,396 @@
+[
+  {
+    "id": "1",
+    "name": "Basic Clean",
+    "keywords": "Clean with a bit of reverb",
+    "timesUsed": 6,
+    "songs": [
+      "Silver Dagger - Charley Crockett",
+      "Grace Kelly - MIKA",
+      "Your Teeth in My Neck - Kali Uchis",
+      "The Romantics - Talking in Your Sleep",
+      "Sleep Token - Hypnosis",
+      "LiSA - Homura"
+    ],
+    "sound": "audio/preset_1.mp3"
+  },
+  {
+    "id": "6",
+    "name": "Basic Acoustic Sim",
+    "keywords": "Sound like a cowboy",
+    "timesUsed": 1,
+    "songs": [
+      "(I Don't Want to Be A) Billionaire - Theo Katzman"
+    ],
+    "sound": "audio/preset_6.mp3"
+  },
+  {
+    "id": "7",
+    "name": "Blues 1951",
+    "keywords": "Old-School Drive",
+    "timesUsed": 6,
+    "songs": [
+      "Bee Gees - Stayin' Alive",
+      "Electric Light Orchestra - Mr. Blue Sky",
+      "Chuck Berry - Johnny B. Goode",
+      "Bill Medley",
+      "Jennifer Warnes - (I've Had) The Time of My Life",
+      "Aerosmith - I Don't Want to Miss a Think"
+    ],
+    "sound": "audio/preset_7.mp3"
+  },
+  {
+    "id": "9",
+    "name": "Hell's Gate",
+    "keywords": "Heavy distortion with echo",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_9.mp3"
+  },
+  {
+    "id": "10",
+    "name": "Purple Rain",
+    "keywords": "Clean with FX",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_10.mp3"
+  },
+  {
+    "id": "14",
+    "name": "Basic IIC Clean",
+    "keywords": "Clean Mesa Boogie",
+    "timesUsed": 1,
+    "songs": [
+      "Electric Light Orchestra - Mr. Blue Sky"
+    ],
+    "sound": "audio/preset_14.mp3"
+  },
+  {
+    "id": "17",
+    "name": "Metal Rhythm",
+    "keywords": "Metal idk",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_17.mp3"
+  },
+  {
+    "id": "19",
+    "name": "Basic '65 Twin",
+    "keywords": "Clean Fender Amp (good for drive pedals)",
+    "timesUsed": 1,
+    "songs": [
+      "Give It Away - Red Hot Chili Peppers"
+    ],
+    "sound": "audio/preset_19.mp3"
+  },
+  {
+    "id": "20",
+    "name": "Basic '65 Princeton",
+    "keywords": "Slightly Less Clean",
+    "timesUsed": 1,
+    "songs": [
+      "La Muralla Verde - Los Enanitos Verdes"
+    ],
+    "sound": "audio/preset_20.mp3"
+  },
+  {
+    "id": "21",
+    "name": "Basic '65 Deluxe",
+    "keywords": "Slightly Less Clean",
+    "timesUsed": 1,
+    "songs": [
+      "White Room - Cream"
+    ],
+    "sound": "audio/preset_21.mp3"
+  },
+  {
+    "id": "22",
+    "name": "Basic '59 Bassman",
+    "keywords": "Slightly Less Clean",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_22.mp3"
+  },
+  {
+    "id": "23",
+    "name": "Basic '57 Deluxe",
+    "keywords": "Slightly Less Clean",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_23.mp3"
+  },
+  {
+    "id": "24",
+    "name": "Basic '57 Twin",
+    "keywords": "Slightly Less Clean",
+    "timesUsed": 1,
+    "songs": [
+      "Green Eyes - Uncle Chris"
+    ],
+    "sound": "audio/preset_24.mp3"
+  },
+  {
+    "id": "26",
+    "name": "Basic Bandmaster",
+    "keywords": "Slightly Less Clean",
+    "timesUsed": 1,
+    "songs": [
+      "That's What I Like - Bruno Mars"
+    ],
+    "sound": "audio/preset_26.mp3"
+  },
+  {
+    "id": "29",
+    "name": "Basic '66 GA-15",
+    "keywords": "Slightly Less Clean",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_29.mp3"
+  },
+  {
+    "id": "31",
+    "name": "Basic British Watts",
+    "keywords": "Clean British Amp",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_31.mp3"
+  },
+  {
+    "id": "32",
+    "name": "Basic British 60's",
+    "keywords": "Medium Gain Vox Amp",
+    "timesUsed": 8,
+    "songs": [
+      "Yellow - Coldplay",
+      "Yellow is the Color of Her Eyes - Soccer Mommy",
+      "White Room - Cream",
+      "Money - Pink Floyd",
+      "The Get Up Kids - Long Goodnight",
+      "Sløtface - Slumber",
+      "Creedence Clearwater Revival - Fortunate Son"
+    ],
+    "sound": "audio/preset_32.mp3"
+  },
+  {
+    "id": "33",
+    "name": "Basic British 70's",
+    "keywords": "High Gain Marshall Amp",
+    "timesUsed": 11,
+    "songs": [
+      "Purple Haze - Jimi Hendrix",
+      "Black Sabbath - Black Sabbath",
+      "Big Shot - Billy Joel",
+      "Rich Girl - Hall & Oates",
+      "David Bowie - Moonage Daydream",
+      "Wet Leg - Wet Dream",
+      "Led Zeppelin - Immigrant Song",
+      "David Bowie - Starman"
+    ],
+    "sound": "audio/preset_33.mp3"
+  },
+  {
+    "id": "34",
+    "name": "Basic British 80's",
+    "keywords": "High Gain Marshall Amp",
+    "timesUsed": 7,
+    "songs": [
+      "Rainbow in the Dark - Dio",
+      "Mr. Brownstone - Guns n' Roses",
+      "Gold and Bones - Friday Pilots Club",
+      "Linkin Park - What I've Done"
+    ],
+    "sound": "audio/preset_34.mp3"
+  },
+  {
+    "id": "35",
+    "name": "Basic Brit Color",
+    "keywords": "High Gain Marshall Amp",
+    "timesUsed": 4,
+    "songs": [
+      "Back to Black - Any Winehouse",
+      "Girl's Not Grey - AFI",
+      "Pink Pony Club - Chappell Roan",
+      "Counting Blue Cars - Dishwalla"
+    ],
+    "sound": "audio/preset_35.mp3"
+  },
+  {
+    "id": "36",
+    "name": "Basic Super-Sonic",
+    "keywords": "High Gain, High Treble (Will's Favorite)",
+    "timesUsed": 14,
+    "songs": [
+      "La Muralla Verde - Los Enanitos Verdes",
+      "Mr. Brownstone - Guns n' Roses",
+      "Company Man - Rival Sons",
+      "Gold and Bones - Friday Pilots Club",
+      "Pierce The Veil - One Hundred Sleepless Nights",
+      "Avenged Sevenfold - Nightmare",
+      "Porcupine Tree - Sleep Together",
+      "Turnover - Sleepless Nights",
+      "Evanescence - Bring Me To Life",
+      "Metallica - Master of Puppets",
+      "Bob Seger - Old Time Rock & Roll"
+    ],
+    "sound": "audio/preset_36.mp3"
+  },
+  {
+    "id": "37",
+    "name": "Basic 90's Stack",
+    "keywords": "High Gain Metal",
+    "timesUsed": 2,
+    "songs": [
+      "How Bad Can I Be - The Lorax",
+      "LiSA - Homura"
+    ],
+    "sound": "audio/preset_37.mp3"
+  },
+  {
+    "id": "38",
+    "name": "Basic Metal 2000",
+    "keywords": "High Gain Metal",
+    "timesUsed": 12,
+    "songs": [
+      "Head Like a Hole - Nine Inch Nails",
+      "Vampire Money - My Chemical Romance",
+      "Deftones - Romantic Dreams",
+      "Avenged Sevenfold - Nightmare",
+      "Sleep Token - Hypnosis",
+      "Turnover - Sleepless Nights",
+      "Evanescence - Bring Me To Life",
+      "Metallica - Master of Puppets",
+      "Linkin Park - What I've Done",
+      "Pixies - Where Is My Mind"
+    ],
+    "sound": "audio/preset_38.mp3"
+  },
+  {
+    "id": "41",
+    "name": "Bassbreaker 15",
+    "keywords": "High Gain Fender Bassbreaker Amp",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_41.mp3"
+  },
+  {
+    "id": "42",
+    "name": "Basic Studio Pre",
+    "keywords": "Super Clean w/ some reverb",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_42.mp3"
+  },
+  {
+    "id": "43",
+    "name": "Basic Chorus",
+    "keywords": "Clean w/ Chorus",
+    "timesUsed": 4,
+    "songs": [
+      "Goodbye Yellow Brick Road - Elton John",
+      "Red Barchetta - Rush",
+      "Yes - Roundabout",
+      "Creedence Clearwater Revival - Fortunate Son"
+    ],
+    "sound": "audio/preset_43.mp3"
+  },
+  {
+    "id": "50",
+    "name": "Dual Chorus",
+    "keywords": "Clean w/ Chorus",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_50.mp3"
+  },
+  {
+    "id": "62",
+    "name": "Ethereal",
+    "keywords": "Clean w/ Delay and Reverb",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_62.mp3"
+  },
+  {
+    "id": "87",
+    "name": "Black Hole Vibe",
+    "keywords": "Black Hole Sun Intro",
+    "timesUsed": 1,
+    "songs": [
+      "Black Hole Sun - Soundgarden"
+    ],
+    "sound": "audio/preset_87.mp3"
+  },
+  {
+    "id": "116",
+    "name": "Roots Funk",
+    "keywords": "Funky Compressed Clean (Alan's Favorite)",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_116.mp3"
+  },
+  {
+    "id": "164",
+    "name": "Taylor",
+    "keywords": "Taylor Swift Core",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_164.mp3"
+  },
+  {
+    "id": "165",
+    "name": "FOOS",
+    "keywords": "Foo Fighters Tone",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_165.mp3"
+  },
+  {
+    "id": "166",
+    "name": "DT",
+    "keywords": "Super-Sonic -1/2 half step",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_166.mp3"
+  },
+  {
+    "id": "167",
+    "name": "Root Evil",
+    "keywords": "The Root of All Evil Tone",
+    "timesUsed": 0,
+    "songs": null,
+    "sound": "audio/preset_167.mp3"
+  },
+  {
+    "id": "193",
+    "name": "Mr. Crowley 80's",
+    "keywords": "High Gain Marshall + Tape Delay",
+    "timesUsed": 1,
+    "songs": [
+      "Girl's Not Grey - AFI"
+    ],
+    "sound": "audio/preset_193.mp3"
+  },
+  {
+    "id": "199",
+    "name": "Basic Balanced",
+    "keywords": "For Acoustic-Electric Guitars",
+    "timesUsed": 16,
+    "songs": [
+      "Orange - Pinegrove",
+      "Red - Taylor Swift",
+      "Yellow - Coldplay",
+      "Grace Kelly - MIKA",
+      "The Rainbow Connection - Kermit the Frog",
+      "Bills Bills Bills - Destiny's Child",
+      "Fleetwood Mac - Dreams",
+      "Car Seat Headrest - I Want You to Know That I'm Awake",
+      "Kansas - Dust in the Wind",
+      "Nirvana - Something In The Way",
+      "Yes - Roundabout",
+      "David Bowie - Starman",
+      "Pixies - Where Is My Mind",
+      "Snow Patrol - Chasing Cars",
+      "Aerosmith - I Don't Want to Miss a Think"
+    ],
+    "sound": "audio/preset_199.mp3"
+  }
+]

@@ -1,0 +1,2652 @@
+[
+  {
+    "category": "Guitar amps",
+    "name": "Bogna Vishnu 20th Clean",
+    "basedOn": "Bogner® Shiva® 20th Anniversary"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Bogna Uber Clean",
+    "basedOn": "Bogner® Uberschall® Rev. Blue"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Bogna Uber Lead",
+    "basedOn": "Bogner® Uberschall® Rev. Blue"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit 2203",
+    "basedOn": "Marshall® JCM800®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit 900 Clean",
+    "basedOn": "Marshall® JCM900® 4100"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit 900 Lead",
+    "basedOn": "Marshall® JCM900® 4100"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit Plexi 100 Bright",
+    "basedOn": "Marshall® Super Lead 100®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit Plexi 100 Normal",
+    "basedOn": "Marshall® Super Lead 100®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit Plexi 100 Patch",
+    "basedOn": "Marshall® Super Lead 100®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit Plexi 50 Bright",
+    "basedOn": "Marshall® Lead 50®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit Plexi 50 Normal",
+    "basedOn": "Marshall® Lead 50®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit Plexi 50 Patch",
+    "basedOn": "Marshall® Lead 50®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit TM45 Bright",
+    "basedOn": "Marshall® JTM 45®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit TM45 Normal",
+    "basedOn": "Marshall® JTM 45®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit TM45 Patch",
+    "basedOn": "Marshall® JTM 45®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit UBL Lead",
+    "basedOn": "Marshall® Silver Jubilee®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Brit UBL Lead Clip",
+    "basedOn": "Marshall® Silver Jubilee®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA 1Star Clean 100W Normal",
+    "basedOn": "Mesa® Boogie® Lone Star®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA 1Star Clean 100W Tweed",
+    "basedOn": "Mesa® Boogie® Lone Star®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA 1Star Clean 50W Normal",
+    "basedOn": "Mesa® Boogie® Lone Star®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA 1Star Clean 50W Tweed",
+    "basedOn": "Mesa® Boogie® Lone Star®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA 1Star Drive 100W Normal",
+    "basedOn": "Mesa® Boogie® Lone Star®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA 1Star Drive 100W Tweed",
+    "basedOn": "Mesa® Boogie® Lone Star®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA 1Star Drive 50W Normal",
+    "basedOn": "Mesa® Boogie® Lone Star®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA 1Star Drive 50W Tweed",
+    "basedOn": "Mesa® Boogie® Lone Star®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Captain 50",
+    "basedOn": "Morgan® SW50®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA Duo Ch3 Modern",
+    "basedOn": "Mesa® Boogie® Dual Rectifier®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA Duo Ch3 Raw",
+    "basedOn": "Mesa® Boogie® Dual Rectifier®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA Duo Ch3 Vintage",
+    "basedOn": "Mesa® Boogie® Dual Rectifier®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA John’s 2C Ch1",
+    "basedOn": "Mesa® Boogie® JP2C®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA John’s 2C Ch2",
+    "basedOn": "Mesa® Boogie® JP2C®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA John’s 2C Ch3",
+    "basedOn": "Mesa® Boogie® JP2C®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA Tremo Orange",
+    "basedOn": "Mesa® Boogie® Trem-O-Verb®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "CA Tremo Red",
+    "basedOn": "Mesa® Boogie® Trem-O-Verb®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "D-Cell Hisbert Ch1",
+    "basedOn": "Diezel® Herbert®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "D-Cell Hisbert Ch2",
+    "basedOn": "Diezel® Herbert®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "D-Cell Hisbert Ch3",
+    "basedOn": "Diezel® Herbert®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "D-Cell H4 Ch1 Bright",
+    "basedOn": "Diezel® VH4®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "D-Cell H4 Ch1 Normal",
+    "basedOn": "Diezel® VH4®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "D-Cell H4 Ch2 Bright",
+    "basedOn": "Diezel® VH4®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "D-Cell H4 Ch2 Normal",
+    "basedOn": "Diezel® VH4®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "D-Cell H4 Ch3",
+    "basedOn": "Diezel® VH4®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "D-Cell H4 Ch4",
+    "basedOn": "Diezel® VH4®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "EV101IIIS Blue 6L6 100W",
+    "basedOn": "EVH® 5150 III® 100S® 6L6"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "EV101IIIS Blue EL34 100W",
+    "basedOn": "EVH® 5150 III®S EL34"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "EV101IIIS Red 6L6 100W",
+    "basedOn": "EVH® 5150 III® 100S® 6L6"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "EV101IIIS Red EL34 100W",
+    "basedOn": "EVH® 5150 III®S EL34"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Freeman 100 Clean",
+    "basedOn": "Friedman® HBE100®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Freeman 100 Lead",
+    "basedOn": "Friedman® HBE100®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Freeman 100 Rhythm",
+    "basedOn": "Friedman® HBE100®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Matchmore D30 Ch1",
+    "basedOn": "Matchless Amplifiers® DC30® Ch1"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Matchmore D30 Ch2",
+    "basedOn": "Matchless Amplifiers® DC30® Ch2"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Matchmore Jefe",
+    "basedOn": "Matchless Amplifiers® Chieftain®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "PV-505 Lead",
+    "basedOn": "Peavey® 6505®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "PV-505 Rhythm",
+    "basedOn": "Peavey® 6505®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Rols Jazz CH120",
+    "basedOn": "Roland® Jazz Chorus 120®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Solo 100 Crunch Bright",
+    "basedOn": "Soldano® SLO® 100®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Solo 100 Crunch Normal",
+    "basedOn": "Soldano® SLO® 100®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Solo 100 Lead",
+    "basedOn": "Soldano® SLO® 100®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "UK C15 Normal",
+    "basedOn": "Vox® AC15®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "UK C15 TopBoost",
+    "basedOn": "Vox® AC15®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "UK C30 Normal",
+    "basedOn": "Vox® AC30®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "UK C30 TopBoost",
+    "basedOn": "Vox® AC30®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US DLX 64 Vintage",
+    "basedOn": "Fender® Deluxe Reverb ‘64 Vintage®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US DLX 65 Reissue",
+    "basedOn": "Fender® Deluxe Reverb ‘65 Reissue®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US HP Tweed TWN Bright",
+    "basedOn": "Fender® High Power Tweed Twin 5F8-A®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US HP Tweed TWN Bright Patch",
+    "basedOn": "Fender® High Power Tweed Twin 5F8-A®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US HP Tweed TWN Normal",
+    "basedOn": "Fender® High Power Tweed Twin 5F8-A®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US HP Tweed TWN Normal Patch",
+    "basedOn": "Fender® High Power Tweed Twin 5F8-A®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US SPR Normal",
+    "basedOn": "Fender® Super Reverb® ‘65"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US SPR Vibrato",
+    "basedOn": "Fender® Super Reverb® ‘65"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US Prince",
+    "basedOn": "Fender® Blackface Princeton Reverb®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US TWN Normal",
+    "basedOn": "Fender® Twin Reverb®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US TWN Vibrato",
+    "basedOn": "Fender® Twin Reverb®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US Tweed Basslad Bright",
+    "basedOn": "Fender® Bassman® Tweed"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US Tweed Basslad Bright Patch",
+    "basedOn": "Fender® Bassman® Tweed"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US Tweed Basslad Normal",
+    "basedOn": "Fender® Bassman® Tweed"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "US Tweed Basslad Normal Patch",
+    "basedOn": "Fender® Bassman® Tweed"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Victor Squid Ch1",
+    "basedOn": "Victory Amps® Kraken® Ch1"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Victor Squid Ch2",
+    "basedOn": "Victory Amps® Kraken® Ch2"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Watt D103 Bright",
+    "basedOn": "Hiwatt® DR103®"
+  },
+  {
+    "category": "Guitar amps",
+    "name": "Watt D103 Normal",
+    "basedOn": "Hiwatt® DR103®"
+  },
+  {
+    "category": "Bass amps",
+    "name": "Amped Flip-Top 6464",
+    "basedOn": "Ampeg® Heritage® B15N®"
+  },
+  {
+    "category": "Bass amps",
+    "name": "Amped Flip-Top 6466",
+    "basedOn": "Ampeg® Heritage® B15N®"
+  },
+  {
+    "category": "Bass amps",
+    "name": "Amped Flip-Top 6664",
+    "basedOn": "Ampeg® Heritage® B15N®"
+  },
+  {
+    "category": "Bass amps",
+    "name": "Amped Flip-Top 6666",
+    "basedOn": "Ampeg® Heritage® B15N®"
+  },
+  {
+    "category": "Bass amps",
+    "name": "Amped Super Valve",
+    "basedOn": "Ampeg® Heritage® SVT-CL®"
+  },
+  {
+    "category": "Bass amps",
+    "name": "Brit Bass 50 Bright",
+    "basedOn": "Marshall® Super Bass® 50"
+  },
+  {
+    "category": "Bass amps",
+    "name": "Brit Bass 50 Normal",
+    "basedOn": "Marshall® Super Bass® 50"
+  },
+  {
+    "category": "Bass amps",
+    "name": "Brit Bass 50 Patch",
+    "basedOn": "Marshall® Super Bass® 50"
+  },
+  {
+    "category": "Bass amps",
+    "name": "CA 400+ Ch1",
+    "basedOn": "Mesa® Boogie® Bass 400+®"
+  },
+  {
+    "category": "Bass amps",
+    "name": "CA 400+ Ch2",
+    "basedOn": "Mesa® Boogie® Bass 400+®"
+  },
+  {
+    "category": "Bass amps",
+    "name": "G800K",
+    "basedOn": "Gallien Krueger® 800RB®"
+  },
+  {
+    "category": "Bass amps",
+    "name": "Watt Bass Mod Bright",
+    "basedOn": "Hiwatt® DR103® Mod"
+  },
+  {
+    "category": "Bass amps",
+    "name": "Watt Bass Mod Normal",
+    "basedOn": "Hiwatt® DR103® Mod"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "ABA MPre1",
+    "basedOn": "ADA® MP1® Preamp"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Aggi 700",
+    "basedOn": "Aguilar® AG700®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Aggi 751",
+    "basedOn": "Aguilar® DB751®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Aggi Hammer 500",
+    "basedOn": "Aguilar® ToneHammer 500®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Amped SV Classic",
+    "basedOn": "Ampeg® SVT Classic®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Amped V5B",
+    "basedOn": "Ampeg® V-4B®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Anima Fuzz",
+    "basedOn": "Human Gear® Animato®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "BBD SonicMax",
+    "basedOn": "BBE® Sonic Stomp Sonic Maximizer®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna Fish",
+    "basedOn": "Bogner® Fish®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna Fish+290",
+    "basedOn": "Bogner® Fish® + Mesa® Boogie® Stereo Simul-Class™ 2:Ninety™"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna Uber",
+    "basedOn": "Bogner® Überschall®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X Blue",
+    "basedOn": "Bogner® Ecstasy Blue®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B Ch1",
+    "basedOn": "Bogner® Ecstasy 100B® Ch1"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B Ch2",
+    "basedOn": "Bogner® Ecstasy 100B® Ch2"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B Ch3",
+    "basedOn": "Bogner® Ecstasy 100B® Ch3"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B PA NEW",
+    "basedOn": "Bogner® Ecstasy 100B® Power Amp EL34 New"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B PA NEW+VAR",
+    "basedOn": "Bogner® Ecstasy® 100B Power Amp EL34 New+Var"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B PA OLD",
+    "basedOn": "Bogner® Ecstasy 100B® Power Amp EL34 Old"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B PA OLD+VAR",
+    "basedOn": "Bogner® Ecstasy® 100B Power Amp EL34 Old+Var"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B Pre Ch1",
+    "basedOn": "Bogner® Ecstasy 100B® Preamp Ch1"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B Pre Ch2 Hi",
+    "basedOn": "Bogner® Ecstasy 100B® Preamp Ch2 High Gain"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B Pre Ch2 Lo",
+    "basedOn": "Bogner® Ecstasy 100B® Preamp Ch2 Low Gain"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B Pre Ch3 Lead",
+    "basedOn": "Bogner® Ecstasy 100B® Preamp Ch3 Lead"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Bogna X100B Pre Ch3 Plexi",
+    "basedOn": "Bogner® Ecstasy 100B® Preamp Ch3 Plexi"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Brit 2210",
+    "basedOn": "Marshall® JCM800® 2210"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Brit 2210 PA EL34",
+    "basedOn": "Marshall® 2210 Power Amp EL34"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Brit 2555 Clean",
+    "basedOn": "Marshall® Silver Jubilee® 2555 Clean"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Brit 2555 Lead",
+    "basedOn": "Marshall® Silver Jubilee® 2555 Lead"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Brit 2555 Rhy",
+    "basedOn": "Marshall® Silver Jubilee® 2555 Rhythm"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Brit PA-EL34",
+    "basedOn": "Marshall® Silver Jubilee 2555®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA 3Axe",
+    "basedOn": "Mesa® Boogie® Triaxis®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA 3Axe+290",
+    "basedOn": "Mesa® Boogie® Triaxis® + Mesa® Boogie® Stereo Simul-Class™ 2:Ninety™"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA BassWalk",
+    "basedOn": "Mesa® Boogie® Walkabout™"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA BigBrick750",
+    "basedOn": "Mesa® Boogie® Big Block 750®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA John's",
+    "basedOn": "Mesa Boogie® JP2C® Channels 1-3"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA John's Ch1",
+    "basedOn": "Mesa Boogie® JP2C® Ch1"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA John's Ch2",
+    "basedOn": "Mesa Boogie® JP2C® Ch2"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA John's Ch3",
+    "basedOn": "Mesa Boogie® JP2C® Ch3"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA M6Rifle",
+    "basedOn": "Mesa® Boogie® M6 Carbine®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA MixBass",
+    "basedOn": "Mesa® Boogie® M6 Carbine® & Big Block 750® Mixed"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA MkCC+",
+    "basedOn": "Mesa® Boogie® Mark IIC+®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA MkIIIRed",
+    "basedOn": "Mesa® Boogie® Mark III Red Stripe®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA PA-Sim290",
+    "basedOn": "Mesa® Boogie® Stereo Simul-Class™ 2:Ninety™"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA Quad+290",
+    "basedOn": "Mesa® Boogie® Quad Preamp® + Mesa® Boogie® Stereo Simul-Class™ 2:Ninety™"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA Studio+290",
+    "basedOn": "Mesa® Boogie® Studio Preamp® + Mesa® Boogie® Stereo Simul-Class™ 2:Ninety™"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA Tremo Blues",
+    "basedOn": "Mesa Boogie® Trem-O-Verb® Red Blues"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA Tremo Clean",
+    "basedOn": "Mesa Boogie® Trem-O-Verb® Orange Clean"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA Tremo Modern",
+    "basedOn": "Mesa Boogie® Trem-O-Verb® Red Modern"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "CA Tremo Vintage",
+    "basedOn": "Mesa Boogie® Trem-O-Verb® Orange Vintage"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Chief Bass Overdrive",
+    "basedOn": "Boss® ODB-3®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Comet 60",
+    "basedOn": "Komet® 60"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Corn Vixen",
+    "basedOn": "Cornford® Hellcat®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Crank Rev1",
+    "basedOn": "Krank® Rev1"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Cravin X100",
+    "basedOn": "Carvin® X100B® Series IV"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Custom 3SE",
+    "basedOn": "Custom Audio Amplifier® 3+SE®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Custom 3SE+290",
+    "basedOn": "Custom Audio Amplifier® 3+SE® + Mesa® Boogie® Stereo Simul-Class™ 2:Ninety™"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "D-Cell H4 Ch1",
+    "basedOn": "Diezel® VH4® Ch1"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "D-Cell H4 Ch2",
+    "basedOn": "Diezel® VH4® Ch2"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "D-Cell H4 Ch3",
+    "basedOn": "Diezel® VH4® Ch3"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "D-Cell H4 Ch4",
+    "basedOn": "Diezel® VH4® Ch4"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "D-Cell Herb",
+    "basedOn": "Diezel® Herbert®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "D-Cell PA-6550",
+    "basedOn": "Diezel® Herbert® 6550® Power Amp"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Darkglass AO900",
+    "basedOn": "Darkglass® Alpha·Omega 900®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Darkglass AOU",
+    "basedOn": "Darkglass® Alpha·Omega Ultra®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Darkglass B7K",
+    "basedOn": "Darkglass® B7K®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Darkglass MT900V2",
+    "basedOn": "Darkglass® Microtubes 900® V2"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Darkglass VMT",
+    "basedOn": "Darkglass® Vintage Microtubes®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Darkglass VMT+B7K",
+    "basedOn": "Darkglass® Vintage Microtubes® & B7K® Mixed"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Darkglass VU",
+    "basedOn": "Darkglass® Vintage Ultra®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "ENG Energy",
+    "basedOn": "ENGL® Powerball® Mark I"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "ENG Marty's",
+    "basedOn": "ENGL® Inferno® Marty Friedman Signature"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "ENG PA-930",
+    "basedOn": "ENGL® Tube Poweramp® 930/60"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "ENG Rainbow",
+    "basedOn": "ENGL® Ritchie Blackmore Signature 100®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Exotic BB",
+    "basedOn": "Xotic Effects® BB Preamp®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Exotic SL",
+    "basedOn": "Xotic Effects® SL Drive®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Fryed Sig10",
+    "basedOn": "Fryette® SigX®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Gametrader Magma",
+    "basedOn": "Gamechanger Audio® Plasma®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Iba Green",
+    "basedOn": "Ibanez® Tube Screamer 9®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Iba Sonic Dist 9",
+    "basedOn": "Ibanez® Sonic Distortion 9®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "MadPro Golden",
+    "basedOn": "Mad Professor® Golden Cello®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "MadPro SimpleOD",
+    "basedOn": "Mad Professor® Simple Overdrive®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "MetalX M1K Clean",
+    "basedOn": "Metaltronix® M1000® Clean"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "MetalX M1K Stage1",
+    "basedOn": "Metaltronix® M1000® HiGain Stage 1"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "MetalX M1K Stage2",
+    "basedOn": "Metaltronix® M1000® HiGain Stage 2"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "MX BassFuzzDLX",
+    "basedOn": "MXR® Bass Fuzz Deluxe®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "MX ClassicOD",
+    "basedOn": "MXR® Classic Distortion®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "NoMatch Chief",
+    "basedOn": "Matchless® Chieftain®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "OMG PA-KT66",
+    "basedOn": "Omega Ampworks® KT66® Poweramp"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Paul's MT16",
+    "basedOn": "Paul Reed Smith® MT15"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Pearce Billy",
+    "basedOn": "Pearce® BC1® Bass Preamp"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "PV 505Sig",
+    "basedOn": "Peavey® 5150® Signature"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Range AD200",
+    "basedOn": "Orange® AD200 Bass MK3®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Range Rock",
+    "basedOn": "Orange® Rocker® 30"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Range Rverb",
+    "basedOn": "Orange® Rockerverb® 100 MK3"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Range Stormverb",
+    "basedOn": "Orange® Thunderverb® 50"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Rodent+SV",
+    "basedOn": "ProCo® Rat® + Ampeg® SVT Classic®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Rodent+V5B",
+    "basedOn": "ProCo® Rat® + Ampeg® V-4B®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "SCity B120",
+    "basedOn": "Sound City® B120®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "TeaBird",
+    "basedOn": "Antti® T-Bird®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Tech41 BDDI",
+    "basedOn": "Tech21® Bass Driver DI®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Tech41 GED",
+    "basedOn": "Tech 21® SansAmp® Geddy Lee YYZ Preamp®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Tech41 PSA",
+    "basedOn": "Tech21® SansAmp® PSA®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Tech41 VTBassDLX",
+    "basedOn": "Tech21® VT Bass Deluxe®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "TuneRoyal MK2",
+    "basedOn": "Tone King® Imperial MKII®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "US HRDLX ChA",
+    "basedOn": "Fender® Hot Rod Deluxe® Channel A"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "US HRDLX ChB",
+    "basedOn": "Fender® Hot Rod Deluxe® Channel B"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "US HRDLX PA 6V6",
+    "basedOn": "Fender® Hot Rod Deluxe® Power Amp 6V6"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "US Prince 65",
+    "basedOn": "Fender® Princeton® 65"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "VHD PA-2502",
+    "basedOn": "VHT® Two/Fifty/Two®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Victor Marshal",
+    "basedOn": "Victory® Sheriff® 22"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Victor Mega Squid",
+    "basedOn": "Victory® Super Kraken®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Warwitch ProF5",
+    "basedOn": "Warwick® Pro Fet 5.1®"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Watt Custom 1959",
+    "basedOn": "Hermansson Hiwatt® Custom PA100® 1959 Channel"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Watt Custom Clean",
+    "basedOn": "Hermansson Hiwatt® Custom PA100® Clean Channel"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Watt Custom Jose",
+    "basedOn": "Hermansson Hiwatt® Custom PA100® Jose Channel"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Watt Custom LoMid1",
+    "basedOn": "Hermansson Hiwatt® Custom PA100® Power Amp EL34 with LoMid1 engaged"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Watt Custom LoMid2",
+    "basedOn": "Hermansson Hiwatt® Custom PA100® Power Amp EL34 with LoMid2 engaged"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Watt Custom LoMid3",
+    "basedOn": "Hermansson Hiwatt® Custom PA100® Power Amp EL34 with LoMid3 engaged"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Watt Custom Pre 1959",
+    "basedOn": "Hermansson Hiwatt® Custom PA100® Preamp 1959"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Watt Custom Pre Clean",
+    "basedOn": "Hermansson Hiwatt® Custom PA100® Preamp Clean"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Watt Custom Pre Jose",
+    "basedOn": "Hermansson Hiwatt® Custom PA100® Preamp Jose"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Watt Custom Pre VH",
+    "basedOn": "Hermansson Hiwatt® Custom PA100® Preamp VH"
+  },
+  {
+    "category": "Neural Captures",
+    "name": "Watt Custom VH",
+    "basedOn": "Hermansson Hiwatt® Custom PA100® VH Channel"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "110 US PRN C10R",
+    "basedOn": "Fender® Princeton® with Jensen® C10R drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "112 UK C15 Blue",
+    "basedOn": "Vox® AC15® with Celestion® Alnico Blue drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "410 US Basslad PR10",
+    "basedOn": "Fender® Bassman® Tweed with Jensen® P10R drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "Match D30 Sig A",
+    "basedOn": "Matchless Amplifiers® DC30® Sig A"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "Match D30 Sig B",
+    "basedOn": "Matchless Amplifiers® DC30® Sig B"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "Match Jefe Sig 02",
+    "basedOn": "Matchless Amplifiers® Chieftain® Sig 02"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "Match Jefe V30 02",
+    "basedOn": "Matchless Amplifiers® Chieftain® V30 02"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 CA Stand OS A V30 '03",
+    "basedOn": "Mesa® Oversize Angle 2003 with Celestion® UK Vintage 30"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "112 US DLX SC64",
+    "basedOn": "Fender® Deluxe® 1x12 Eminence® GA-SC64"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Brit 35B Alnico Cream",
+    "basedOn": "Marshall® 1935B® Alnico Cream"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 CA Recto Legend V12",
+    "basedOn": "Mesa® Rectifier® 2x12 Legend V12"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 Zila Fatboy V30 '02",
+    "basedOn": "Zilla® Fatboy 2x12 2002 with Celestion® UK Vintage 30"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 ENG Pro V30 18",
+    "basedOn": "ENGL® V30®"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Brit 60A GB75Hz ’89",
+    "basedOn": "Marshall® 1960A® with Celestion® G12M25 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Brit 60B V30 ’95",
+    "basedOn": "Marshall® 1960B® with Celestion® Marshall® Vintage 30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Brit TV GB75Hz ’69",
+    "basedOn": "Marshall® 1960TV® with Celestion® G12M25 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 CA Stand OS A V30 ’01",
+    "basedOn": "Mesa® Standard OS Angled with Celestion® Vintage 30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 CA Trad A V30 ’92",
+    "basedOn": "Mesa® Traditional Angled with Celestion® Vintage 30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 CA Trad S H30 ’15",
+    "basedOn": "Mesa® Traditional Straight with Celestion® G12H30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 CA Recto V30 ’98",
+    "basedOn": "Mesa® Rectifier® with Celestion® Vintage 30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Range PPC V30 ’02",
+    "basedOn": "Orange® PPC412 with Celestion® Vintage 30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 Rols Jazz ’87",
+    "basedOn": "Roland® JC-120®"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 UK C30 ’65",
+    "basedOn": "VOX® AC30® Top Boost with Celestion® Alnico “Silver Bell” drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "210 US TRMLX Oxf ’63",
+    "basedOn": "Fender® Tremolux® with Oxford® Alnico drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "112 US DLX Black C12K 00s",
+    "basedOn": "Fender® Deluxe® “Blackface” with Jensen® C12K drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "112 US DLX Tweed WGS-Q 10s",
+    "basedOn": "Fender® Deluxe® “Tweed” with WGS® G12Q drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "110 US PRN Brown FatJ 10s",
+    "basedOn": "Fender® Princeton® with FatJimmy® C1060 Drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 US TWN C12Q 00s",
+    "basedOn": "Fender® Twin Reverb® with Jensen® C12K-2 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 US TWN CK2",
+    "basedOn": "Fender® Twin Reverb® 2x12 Jensen C12K-2"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Watt S4123",
+    "basedOn": "Hiwatt® SE4123® 4x12"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Zila Cust V30 ’12 V2",
+    "basedOn": "Zilla® Custom with Celestion® Vintage 30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "112 Zila MiniMod RB ’17",
+    "basedOn": "Zilla® Mini Modern with Celestion® G12H150 Redback drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 Zila Open Gold ’19",
+    "basedOn": "Zilla® Open with Celestion® Alnico Gold drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 D-Cell Front V30 ’04",
+    "basedOn": "Diezel® Front Loaded with Celestion® Vintage 30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 EV Straight G12 00s",
+    "basedOn": "EVH® Straight with Celestion® G12EVH drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Brit Silver B 70w ’87",
+    "basedOn": "Marshall® 2551B® with Celestion® drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Brit 60B GB 90s",
+    "basedOn": "Marshall® 1960B® with Celestion® Greenback drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Brit 60B GB ’71",
+    "basedOn": "Marshall® 1960B® with Celestion® Pulsonic Greenback drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 CA Trad S UKV30 90s",
+    "basedOn": "Mesa® Traditional Straight with Celestion® Vintage 30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 CA Stand OS S V30 90s",
+    "basedOn": "Mesa® Standard OS Straight with Celestion® Vintage 30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Range PPC V30 ’03",
+    "basedOn": "Orange® PPC412 with Celestion® Vintage 30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 Sur V-type 10",
+    "basedOn": "Suhr® Cab with Celestion® V-Type drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Bogna Uber T75 00s",
+    "basedOn": "Bogner® Ubercab® with Celestion® T75 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "412 Bogna Uber V30 00s",
+    "basedOn": "Bogner® Ubercab® with Celestion® Vintage 30 drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 UK C30 GB ’69",
+    "basedOn": "VOX® AC30® with Celestion® Pre-Rola Greenback Pulsonic drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 US A-type 00s",
+    "basedOn": "Fender® Cab with Celestion® A-Type 12” drivers"
+  },
+  {
+    "category": "Guitar cabinets",
+    "name": "212 Zila CB ’16",
+    "basedOn": "Zilla® Cab with Celestion® Creamback G12H-75 drivers"
+  },
+  {
+    "category": "Bass cabinets",
+    "name": "410 US Basslad P10Q ’16",
+    "basedOn": "Fender® Bassman® with Jensen® P10Q drivers"
+  },
+  {
+    "category": "Bass cabinets",
+    "name": "115 Amped Modern",
+    "basedOn": "Ampeg® SVT® 115HE®"
+  },
+  {
+    "category": "Bass cabinets",
+    "name": "810 Amped VT Aln 70s",
+    "basedOn": "Ampeg® SVT® 810® with custom Eminence® ceramic drivers"
+  },
+  {
+    "category": "Bass cabinets",
+    "name": "210C Darkglass®",
+    "basedOn": "Darkglass® D210C® with custom Eminence® ceramic drivers"
+  },
+  {
+    "category": "Bass cabinets",
+    "name": "210 Darkglass® Neo",
+    "basedOn": "Darkglass® DG212N® with custom Eminence® neodymium drivers"
+  },
+  {
+    "category": "Bass cabinets",
+    "name": "412 Brit 35A GB55Hz ’75",
+    "basedOn": "Marshall® 1935A® with Celestion® G12M25 drivers"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Brit Blues",
+    "basedOn": "Marshall® BluesBreaker®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Brit Governor",
+    "basedOn": "Marshall® Guv’nor®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Chief BD2",
+    "basedOn": "BOSS® BD-2®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Chief DS1",
+    "basedOn": "BOSS® DS-1®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Chief MT",
+    "basedOn": "BOSS® MT-2®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Chief OD1",
+    "basedOn": "BOSS® OD-1®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Chief SD1",
+    "basedOn": "BOSS® SD-1®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Obsessive Drive",
+    "basedOn": "Fulltone® OCD®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Exotic",
+    "basedOn": "Xotic® BB Preamp®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Exotic Z Boost",
+    "basedOn": "Xotic® RC Booster®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Facial Fuzz",
+    "basedOn": "Dunlop® Fuzzface®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Freeman BOD",
+    "basedOn": "Friedman® BE-OD®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Fuzz Pi",
+    "basedOn": "Electro-Harmonix® Big Muff Pi®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Green 808",
+    "basedOn": "Ibanez® TS808®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "MK3 Silicon Fuzz",
+    "basedOn": "JHS® Bender® 1973 London®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Myth Drive",
+    "basedOn": "Klon® Centaur®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "No-Bell OD1",
+    "basedOn": "Nobels® ODR-1®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "OD250",
+    "basedOn": "DOD® Overdrive Preamp 250®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Rage Booster",
+    "basedOn": "Dallas® Rangemaster®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Red Drive",
+    "basedOn": "Keeley Electronics® Red Dirt®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Rodent Drive",
+    "basedOn": "ProCo® Rat®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Thunderpaw",
+    "basedOn": "Mr Black® Thunderclaw®"
+  },
+  {
+    "category": "Guitar overdrive",
+    "name": "Vemural Ray",
+    "basedOn": "Vemuram® Jan Ray®"
+  },
+  {
+    "category": "Bass overdrive",
+    "name": "BDDI",
+    "basedOn": "Tech 21® Bass Driver DI®"
+  },
+  {
+    "category": "Bass overdrive",
+    "name": "Exotic Bass Z Boost",
+    "basedOn": "Xotic® RC Bass Booster®"
+  },
+  {
+    "category": "Bass overdrive",
+    "name": "Microtubes B3K",
+    "basedOn": "Darkglass® Microtubes B3K®"
+  },
+  {
+    "category": "Bass overdrive",
+    "name": "Microtubes VMT",
+    "basedOn": "Darkglass® Vintage Microtubes®"
+  },
+  {
+    "category": "Bass overdrive",
+    "name": "Soviet Fuzz",
+    "basedOn": "Electro-Harmonix® Russian Big Muff®"
+  },
+  {
+    "category": "Delay",
+    "name": "Analog Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Delay",
+    "name": "Slapback Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Delay",
+    "name": "Digital Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Delay",
+    "name": "Dual Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Delay",
+    "name": "Dual Reverse Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Delay",
+    "name": "Simple Ping Pong Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Delay",
+    "name": "Reverse Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Delay",
+    "name": "Simple Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Delay",
+    "name": "Tape Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Delay",
+    "name": "Circular Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Ambience",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Cave",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Hall",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Mind Hall",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Modulated",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Plate",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Plate Lush",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Plate Tight",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Room",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Shimmer",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Spring (M)",
+    "basedOn": ""
+  },
+  {
+    "category": "Reverb",
+    "name": "Spring (ST)",
+    "basedOn": ""
+  },
+  {
+    "category": "Compressor",
+    "name": "Chief CS3",
+    "basedOn": "BOSS® CS-3® Compression Sustainer"
+  },
+  {
+    "category": "Compressor",
+    "name": "Jewel",
+    "basedOn": "Diamond® Compressor®"
+  },
+  {
+    "category": "Compressor",
+    "name": "Legendary 87",
+    "basedOn": "Universal Audio® 1176®"
+  },
+  {
+    "category": "Compressor",
+    "name": "Legendary 87 (ST)",
+    "basedOn": "Universal Audio® 1176®"
+  },
+  {
+    "category": "Compressor",
+    "name": "Legendary 87 (S/C)",
+    "basedOn": "Universal Audio® 1176®"
+  },
+  {
+    "category": "Compressor",
+    "name": "Opto Comp",
+    "basedOn": ""
+  },
+  {
+    "category": "Compressor",
+    "name": "Opto Comp (ST)",
+    "basedOn": ""
+  },
+  {
+    "category": "Compressor",
+    "name": "Opto Comp (S/C)",
+    "basedOn": ""
+  },
+  {
+    "category": "Compressor",
+    "name": "Solid State Comp",
+    "basedOn": "SSL® Bus"
+  },
+  {
+    "category": "Compressor",
+    "name": "Solid State Comp (ST)",
+    "basedOn": "SSL® Bus"
+  },
+  {
+    "category": "Compressor",
+    "name": "Solid State Comp (S/C)",
+    "basedOn": "SSL® Bus"
+  },
+  {
+    "category": "Compressor",
+    "name": "VCA Comp",
+    "basedOn": ""
+  },
+  {
+    "category": "Compressor",
+    "name": "VCA Comp (ST)",
+    "basedOn": ""
+  },
+  {
+    "category": "Compressor",
+    "name": "VCA Comp (S/C)",
+    "basedOn": ""
+  },
+  {
+    "category": "Pitch",
+    "name": "Minivoicer",
+    "basedOn": ""
+  },
+  {
+    "category": "Pitch",
+    "name": "Pitch Shifter",
+    "basedOn": ""
+  },
+  {
+    "category": "Pitch",
+    "name": "Poly Octaver",
+    "basedOn": "Electro-Harmonix® POG®"
+  },
+  {
+    "category": "Pitch",
+    "name": "Wham",
+    "basedOn": "Digitech® Whammy®"
+  },
+  {
+    "category": "Pitch",
+    "name": "Transpose",
+    "basedOn": ""
+  },
+  {
+    "category": "Pitch",
+    "name": "Pitch Correction",
+    "basedOn": ""
+  },
+  {
+    "category": "Pitch",
+    "name": "Chief OC2",
+    "basedOn": "BOSS® OC-2®"
+  },
+  {
+    "category": "Pitch",
+    "name": "Subharmonic Synth",
+    "basedOn": "Digitech® DOD® Meatbox SubSynth®"
+  },
+  {
+    "category": "Modulation",
+    "name": "Chief CE2W",
+    "basedOn": "BOSS® CE-2W®"
+  },
+  {
+    "category": "Modulation",
+    "name": "Chief CE2W (M)",
+    "basedOn": "BOSS® CE-2W®"
+  },
+  {
+    "category": "Modulation",
+    "name": "Chief DC2W",
+    "basedOn": "BOSS® DC-2W® Dimension"
+  },
+  {
+    "category": "Modulation",
+    "name": "Chief DC2W (M)",
+    "basedOn": "BOSS® DC-2W® Dimension"
+  },
+  {
+    "category": "Modulation",
+    "name": "Chorus 229T",
+    "basedOn": "TC Electronic® TC-2290®"
+  },
+  {
+    "category": "Modulation",
+    "name": "Chorus Engine",
+    "basedOn": ""
+  },
+  {
+    "category": "Modulation",
+    "name": "Digital Flanger",
+    "basedOn": ""
+  },
+  {
+    "category": "Modulation",
+    "name": "Dream Chorus",
+    "basedOn": "TC Electronic® Dreamscape®"
+  },
+  {
+    "category": "Modulation",
+    "name": "Dream Chorus (M)",
+    "basedOn": "TC Electronic® Dreamscape®"
+  },
+  {
+    "category": "Modulation",
+    "name": "Dual Chorus",
+    "basedOn": ""
+  },
+  {
+    "category": "Modulation",
+    "name": "Flanger Engine",
+    "basedOn": ""
+  },
+  {
+    "category": "Modulation",
+    "name": "Flangerish",
+    "basedOn": ""
+  },
+  {
+    "category": "Modulation",
+    "name": "MX Flanger",
+    "basedOn": "MXR® Flanger M117R®"
+  },
+  {
+    "category": "Modulation",
+    "name": "MX Phase 95",
+    "basedOn": "MXR® Phase 95®"
+  },
+  {
+    "category": "Modulation",
+    "name": "MX Vibes",
+    "basedOn": "MXR® UniVibe®"
+  },
+  {
+    "category": "Modulation",
+    "name": "Phaser",
+    "basedOn": ""
+  },
+  {
+    "category": "Modulation",
+    "name": "Rotary",
+    "basedOn": ""
+  },
+  {
+    "category": "Modulation",
+    "name": "Tremolo",
+    "basedOn": ""
+  },
+  {
+    "category": "Modulation",
+    "name": "Vibrato",
+    "basedOn": ""
+  },
+  {
+    "category": "Modulation",
+    "name": "Vintage Chorus",
+    "basedOn": ""
+  },
+  {
+    "category": "Modulation",
+    "name": "Harmonic Tremolo",
+    "basedOn": ""
+  },
+  {
+    "category": "Morph",
+    "name": "Freeze",
+    "basedOn": ""
+  },
+  {
+    "category": "Filter",
+    "name": "Env. Filter",
+    "basedOn": ""
+  },
+  {
+    "category": "Filter",
+    "name": "Env. filter (S/C)",
+    "basedOn": ""
+  },
+  {
+    "category": "Filter",
+    "name": "Foog",
+    "basedOn": "Moog® Moogerfooger® MF-101"
+  },
+  {
+    "category": "Filter",
+    "name": "Love Meat",
+    "basedOn": "Lovetone® Meatball®"
+  },
+  {
+    "category": "EQ",
+    "name": "Graphic-9",
+    "basedOn": ""
+  },
+  {
+    "category": "EQ",
+    "name": "Low-High Cut",
+    "basedOn": ""
+  },
+  {
+    "category": "EQ",
+    "name": "Parametric-3",
+    "basedOn": ""
+  },
+  {
+    "category": "EQ",
+    "name": "Parametric-8",
+    "basedOn": ""
+  },
+  {
+    "category": "EQ",
+    "name": "Plugin Graphic-9",
+    "basedOn": ""
+  },
+  {
+    "category": "IR loader",
+    "name": "Dual (M)",
+    "basedOn": "2.0.0"
+  },
+  {
+    "category": "IR loader",
+    "name": "Dual (M) Lite",
+    "basedOn": "2.1.0"
+  },
+  {
+    "category": "IR loader",
+    "name": "Dual (ST)",
+    "basedOn": "2.0.0"
+  },
+  {
+    "category": "IR loader",
+    "name": "Dual (ST) Lite",
+    "basedOn": "2.1.0"
+  },
+  {
+    "category": "IR loader",
+    "name": "Single (M)",
+    "basedOn": "2.0.0"
+  },
+  {
+    "category": "IR loader",
+    "name": "Single (M) Lite",
+    "basedOn": "2.1.0"
+  },
+  {
+    "category": "IR loader",
+    "name": "Single (ST)",
+    "basedOn": "2.0.0"
+  },
+  {
+    "category": "IR loader",
+    "name": "Single (ST) Lite",
+    "basedOn": "2.1.0"
+  },
+  {
+    "category": "Wah",
+    "name": "Bad Horse",
+    "basedOn": "Morley® Bad Horsie®"
+  },
+  {
+    "category": "Wah",
+    "name": "Bass Wah",
+    "basedOn": ""
+  },
+  {
+    "category": "Wah",
+    "name": "Bubba Wah",
+    "basedOn": "Dunlop® Budda Budwah®"
+  },
+  {
+    "category": "Wah",
+    "name": "Crying Clyde Wah",
+    "basedOn": "Dunlop® Cry Baby® Clyde McCoy®"
+  },
+  {
+    "category": "Wah",
+    "name": "Crying Wah",
+    "basedOn": "Dunlop® Cry Baby® GCB-95®"
+  },
+  {
+    "category": "Wah",
+    "name": "Crying Wah From Hell",
+    "basedOn": "Dunlop® Crybaby from Hell®"
+  },
+  {
+    "category": "Looper",
+    "name": "Looper X",
+    "basedOn": "1.3.0"
+  },
+  {
+    "category": "Utility",
+    "name": "Adaptive Gate",
+    "basedOn": "1.0.0"
+  },
+  {
+    "category": "Utility",
+    "name": "Adaptive Gate (S/C)",
+    "basedOn": "3.0.0"
+  },
+  {
+    "category": "Utility",
+    "name": "Gain",
+    "basedOn": "1.0.0"
+  },
+  {
+    "category": "Utility",
+    "name": "Simple Gate",
+    "basedOn": "1.0.0"
+  },
+  {
+    "category": "Utility",
+    "name": "Utility Gate",
+    "basedOn": "1.0.0"
+  },
+  {
+    "category": "Utility",
+    "name": "Volume",
+    "basedOn": "2.1.0"
+  },
+  {
+    "category": "Utility",
+    "name": "Plugin Gate",
+    "basedOn": "3.0.0"
+  },
+  {
+    "category": "Utility",
+    "name": "Doubler",
+    "basedOn": "3.0.0"
+  },
+  {
+    "category": "Utility",
+    "name": "Plugin Doubler",
+    "basedOn": "3.0.0"
+  },
+  {
+    "category": "Utility",
+    "name": "Plugin Blend",
+    "basedOn": "3.0.0"
+  },
+  {
+    "category": "Utility",
+    "name": "Transparent Blend",
+    "basedOn": "3.0.0"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Compressor",
+    "basedOn": "Plini Comp"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Pitch",
+    "basedOn": "Plini Octaver"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar overdrive",
+    "basedOn": "Plini Drive"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Delay",
+    "basedOn": "Plini Pre Delay (M)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Plini Clean"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Plini Crunch"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Plini Lead"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Plini Cab (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Modulation",
+    "basedOn": "Plini Chorus"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Delay",
+    "basedOn": "Plini Delay (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Reverb",
+    "basedOn": "Plini Reverb"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Pitch",
+    "basedOn": "Gojira WOW"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Pitch",
+    "basedOn": "Gojira OCT"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar overdrive",
+    "basedOn": "Gojira OD"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar overdrive",
+    "basedOn": "Gojira DRT"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Modulation",
+    "basedOn": "Gojira PHSR"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Modulation",
+    "basedOn": "Gojira CHR"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Gojira CLN"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Gojira RST"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Gojira HOT"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Gojira Cab 1 (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Gojira Cab 2 (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Gojira Cab 3 (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Delay",
+    "basedOn": "Gojira DLY (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Reverb",
+    "basedOn": "Gojira REV"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Reverb",
+    "basedOn": "Gojira REV Shimmer"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Compressor",
+    "basedOn": "SLO-100 Compressor"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar overdrive",
+    "basedOn": "SLO-100 Overdrive-1"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar overdrive",
+    "basedOn": "SLO-100 Overdrive-2"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Modulation",
+    "basedOn": "SLO-100 Chorus"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Soldano® SLO-100®"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "SLO-100 Cab (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Delay",
+    "basedOn": "SLO-100 Delay"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Reverb",
+    "basedOn": "SLO-100 Reverb"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Utility",
+    "basedOn": "Nameless Zuul"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar overdrive",
+    "basedOn": "Nameless Hexdrive"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar overdrive",
+    "basedOn": "Nameless Grind"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Fortin® Nameless"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Nameless Cab (M) & (S)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Delay",
+    "basedOn": "Nameless Delay"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Reverb",
+    "basedOn": "Nameless Reverb"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Wah",
+    "basedOn": "Cory Wong Wah"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Filter",
+    "basedOn": "Cory Wong The Postal Service"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Compressor",
+    "basedOn": "Cory Wong The 4th Position Compressor"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar overdrive",
+    "basedOn": "Cory Wong The Tuber"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar overdrive",
+    "basedOn": "Cory Wong The Big Rig Overdrive"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Cory Wong D.I. Funk Console"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Cory Wong The Clean Machine"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Cory Wong The Amp Snob"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Cory Wong Cab 1 (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Cory Wong Cab 2 (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Cory Wong Cab 3 (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Modulation",
+    "basedOn": "Cory Wong The 80s"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Delay",
+    "basedOn": "Cory Wong Delay-y-y"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Reverb",
+    "basedOn": "Cory Wong The Wash"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Reverb",
+    "basedOn": "Cory Wong The Wash Shimmer"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Compressor",
+    "basedOn": "Nolly Compressor"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar overdrive",
+    "basedOn": "Nolly Overdrive-1"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Delay",
+    "basedOn": "Nolly Delay-1 (M)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar overdrive",
+    "basedOn": "Nolly Overdrive-2"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Nolly Clean"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Nolly Crunch"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Nolly Rhythm"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar amps",
+    "basedOn": "Nolly Lead"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Nolly Cab 1 (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Nolly Cab 2 (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Nolly Cab 3 (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Guitar cabinets",
+    "basedOn": "Nolly Cab 4 (M) & (ST)"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "EQ",
+    "basedOn": "Nolly Graphic-9"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Delay",
+    "basedOn": "Nolly Delay-2"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Reverb",
+    "basedOn": "Nolly Reverb"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Bass amps",
+    "basedOn": "Parallax"
+  },
+  {
+    "category": "Plugin devices",
+    "name": "Bass cabinets",
+    "basedOn": "Parallax Cab (M) & (ST)"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Bass amps",
+    "basedOn": "Acoustic® 360"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Bass amps",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Bass amps",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Bass overdrive",
+    "basedOn": "Maestro® Brass Master®"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Compressor",
+    "basedOn": "MXR® Dynacomp®"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Compressor",
+    "basedOn": "Bogner® Harlow®"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Compressor",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Compressor",
+    "basedOn": "Darkglass® Super Symmetry®"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Delay",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "EQ",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "EQ",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Mesa® Boogie® Poweramp"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Fender® Blackface Super Reverb®"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Fender® Blackface Super Reverb®"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Marshall® Super Bass 100 Bright"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Marshall® Super Bass 100 Normal"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Marshall® Super Bass 100 Jumpered"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "EVH® 5150® III Green"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Engl® 530"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Sunn® Model T® – Channel One"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Sunn® Model T® – Channel Two"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Fender® Tweed Deluxe"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Bogner® Ecstasy"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar amps",
+    "basedOn": "Bogner® Ecstasy"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar overdrive",
+    "basedOn": "Octa Fuzz®"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar overdrive",
+    "basedOn": "Dallas Arbiter® Fuzz Face®"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Bass cabinets",
+    "basedOn": "Ampeg® SVT-410HE 4×10 bass cabinet"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Bass cabinets",
+    "basedOn": "Darkglass® D410C loaded with custom Eminence® ceramic drivers"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar cabinets",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar cabinets",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Guitar cabinets",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Modulation",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Modulation",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Neural Captures",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Neural Captures",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Neural Captures",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Other third party IRs",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Other third party IRs",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Other third party IRs",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Pitch",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Pitch",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Pitch",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Pitch",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Pitch",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Pitch",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Reverb",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Reverb",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Reverb",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Reverb",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Utility",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Wah",
+    "basedOn": "Vox® Wah"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Wah",
+    "basedOn": "Dunlop® Bass Wah"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Wah",
+    "basedOn": "Fulltone® Clyde"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Wah",
+    "basedOn": ""
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Wah",
+    "basedOn": "MXR® MC404 CAE"
+  },
+  {
+    "category": "Announced devices that have not yet been released",
+    "name": "Wah",
+    "basedOn": "Mu-Tron®"
+  }
+]

@@ -1,0 +1,104 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Valentine flow animations, final Yes celebration page, and transparent generated assets",
+  "requirements": [
+    {
+      "id": "REQ-7",
+      "summary": "Add consistent on-enter and cute per-page animations across the Valentine step pages without breaking the hearts-burst flow.",
+      "acceptanceCriteria": [
+        "Each step/page visibly animates in when it is shown (e.g., fade/scale/slide-in on the main card content).",
+        "Animations are consistent with the existing Valentine theme and do not block form inputs or navigation.",
+        "Existing slider-completion hearts burst animation still works and still auto-navigates to the main Valentine page."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add/extend global Valentine-themed animation utilities (e.g., a step on-enter animation for main card/content and a couple of cute accent animations) to be reused by the step pages."
+        },
+        {
+          "path": "frontend/src/pages/FirstNamePage.tsx",
+          "operation": "modify",
+          "description": "Apply the new on-enter transition class to the main Card/content wrapper and add a small page-specific cute accent animation while keeping inputs/buttons fully usable."
+        },
+        {
+          "path": "frontend/src/pages/LastNamePage.tsx",
+          "operation": "modify",
+          "description": "Apply the new on-enter transition class to the main Card/content wrapper and add a small page-specific cute accent animation while keeping inputs/buttons fully usable."
+        },
+        {
+          "path": "frontend/src/pages/LoveSliderPage.tsx",
+          "operation": "modify",
+          "description": "Apply the new on-enter transition class to the main Card/content wrapper while ensuring the existing HeartsBurstOverlay animation still triggers and completes navigation exactly as before."
+        },
+        {
+          "path": "frontend/src/pages/ValentineMainPage.tsx",
+          "operation": "modify",
+          "description": "Apply the new on-enter transition class to the main Card/content wrapper and add a small page-specific cute accent animation consistent with the Valentine theme."
+        },
+        {
+          "path": "frontend/src/pages/WrongAnswerPage.tsx",
+          "operation": "modify",
+          "description": "Apply the new on-enter transition class to the main Card/content wrapper and add a small page-specific cute accent animation while preserving the Go Back behavior."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Replace the Yes alert with navigation to a new final celebration page within the existing App.tsx step flow.",
+      "acceptanceCriteria": [
+        "Clicking the \"Yes\" button on the main Valentine page routes to a new final celebration page within the existing App.tsx step flow (no alert is shown).",
+        "The final page contains celebratory Valentine-themed UI and at least one clear action (e.g., restart/go back).",
+        "The existing \"No\" flow still navigates to the WrongAnswerPage and the Go Back button still returns to the main Valentine page."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/FinalYesPage.tsx",
+          "operation": "create",
+          "description": "Create a new final confirmation/celebration page with Valentine-themed UI and at least one clear action (e.g., Restart and/or Back to the main question), using the existing layout and read-only UI components."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Extend the local step-state flow to include a new final celebration step; wire navigation from the main page's Yes action to this new step; also wire actions from the final page to restart and/or return to the main step."
+        },
+        {
+          "path": "frontend/src/pages/ValentineMainPage.tsx",
+          "operation": "modify",
+          "description": "Remove the browser alert on Yes; accept an onYes callback prop from App.tsx and call it when the user presses \"Yes\"; keep the existing No flow intact."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Ensure all generated PNG assets used by the UI have transparent backgrounds, including the background pattern image if it is used.",
+      "acceptanceCriteria": [
+        "All PNG assets under /assets/generated used by the UI render without a visible non-transparent box/background around the illustrated elements (where applicable).",
+        "If the background image (valentine-bg.dim_1920x1080.png) is used, it has transparency so the existing gradient overlay can show through cleanly."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/valentine-bg.dim_1920x1080.png",
+          "operation": "modify",
+          "description": "Replace/update the generated asset to ensure it has a fully transparent background/alpha channel (no opaque box), while keeping the same filename and location for static serving."
+        },
+        {
+          "path": "frontend/public/assets/generated/heart-mascot.dim_512x512.png",
+          "operation": "modify",
+          "description": "Replace/update the generated asset to ensure it has a fully transparent background/alpha channel (no opaque box), while keeping the same filename and location for static serving."
+        },
+        {
+          "path": "frontend/public/assets/generated/mad-emoji.dim_256x256.png",
+          "operation": "modify",
+          "description": "Replace/update the generated asset to ensure it has a fully transparent background/alpha channel (no opaque box), while keeping the same filename and location for static serving."
+        },
+        {
+          "path": "frontend/src/components/ValentineLayout.tsx",
+          "operation": "modify",
+          "description": "Confirm the background image usage remains compatible with transparent PNGs (gradient overlay remains visible and readable) and keep using static assets under frontend/public/assets/generated."
+        }
+      ]
+    }
+  ]
+}

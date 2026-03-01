@@ -1,0 +1,23 @@
+{
+  "backend/main.mo": "Empty Motoko actor with no backend logic.",
+  "feature_evidence.json": "Metadata file listing app features, associated files, components, and confidence levels for the Valentine flow.",
+  "frontend-file-summaries.txt": "Prewritten summaries describing the purpose and animation features of all key frontend pages and components.",
+  "frontend/index.css": "Empty stylesheet placeholder at the frontend root.",
+  "frontend/index.html": "Basic HTML shell that mounts the React app and loads main.tsx.",
+  "frontend/src/App.tsx": "Main React component controlling step navigation and user name state throughout the Valentine flow.",
+  "frontend/src/components/HeartsBurstOverlay.tsx": "Full-screen 3‑second heart-burst animation overlay that triggers a completion callback.",
+  "frontend/src/components/ValentineLayout.tsx": "Shared layout adding themed background, gradients, floating hearts, and footer around page content.",
+  "frontend/src/hooks/useActor.ts": "Hook that creates and manages a backend actor using Internet Identity and react-query.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Context and hooks for managing Internet Identity login, state, and persistence.",
+  "frontend/src/hooks/useQueries.ts": "Intentional placeholder file noting that no backend queries are used.",
+  "frontend/src/index.css": "Global Tailwind-based stylesheet defining Valentine color tokens and many custom animation utilities.",
+  "frontend/src/main.tsx": "Entry point that sets up React rendering with QueryClientProvider and InternetIdentityProvider.",
+  "frontend/src/pages/FinalYesPage.tsx": "Displays the final celebration screen showing the user's name with animations and buttons to restart or return to the main question.",
+  "frontend/src/pages/FirstNamePage.tsx": "Collects the user's first name with validation and a continue button.",
+  "frontend/src/pages/LastNamePage.tsx": "Collects the user's last name with back and continue controls.",
+  "frontend/src/pages/LoveSliderPage.tsx": "Shows a love percentage slider that triggers an animation and completion event when reaching 100%.",
+  "frontend/src/pages/ValentineMainPage.tsx": "Asks the user if they will be the valentine, showing their name and Yes/No buttons.",
+  "frontend/src/pages/WrongAnswerPage.tsx": "Presents a wrong-answer screen with an angry emoji and a button to return.",
+  "frontend/tailwind.config.js": "Configures Tailwind theme extensions, colors, animations, and plugin usage for the project.",
+  "project_state.json": "Defines project metadata for a multi-step Valentine-themed website, including intro flow, slider gating, themed assets, and navigation logic. Also lists image requirements, existing features, and architectural notes."
+}

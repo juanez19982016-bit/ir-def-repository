@@ -1,0 +1,58 @@
+{
+    "meta": {
+        "id": "DAA8E88F-BA30-4527-A941-EA8AFF2B2DC9",
+        "description": "",
+        "name": "Rock"
+    },
+    "presets": [
+        {
+            "id": "BB40E550-77D0-40B1-B0D3-D15D3D0C19EE",
+            "description": "Description for Rock Preset 1",
+            "name": "Modern Stone",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "BFCFC107-6E80-4F26-8549-F44638856241",
+            "description": "1-Clean",
+            "name": "Crazy Crue",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "6AF9D829-CEA7-4189-AC80-B3364A563EB4",
+            "description": "1-Clean",
+            "name": "Dark Soul",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "7984DF4F-5885-4FE2-9786-F3F31E322E44",
+            "description": "Description for Pop Preset 1",
+            "name": "British Accent",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "8ebde192-7c9c-47f5-beb9-7f33ff5564a8",
+            "description": "",
+            "name": "Castles & Wings",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "cd4a3890-dccc-4e6d-b373-d6d1334ea5c0",
+            "description": "",
+            "name": "Castles & Wings",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "89deab09-dc98-48cc-9268-536a8a722401",
+            "description": "BASSMAN",
+            "name": "Born to run",
+            "version": "0.7",
+            "icon": "icon.png"
+        }
+    ]
+}

@@ -1,0 +1,4016 @@
+{
+  "hash_duplicates": {
+    "bce4de4bd5f043253f2bc4bfb7dadc7d": [
+      "IR_Acustica/Taylor_814_Dpa_4011.wav",
+      "IR_Acustica/Taylor_814_Dpa_4011_1.wav"
+    ],
+    "37ff9bfe511e908107bcbccd8eb5ea72": [
+      "IR_Acustica/Taylor_814_Neumann_Km84.wav",
+      "IR_Acustica/Taylor_814_Neumann_Km84_1.wav"
+    ],
+    "d79a7edb042d9111c3599fcdebc73cc6": [
+      "IR_Acustica/Taylor_314ce_Scheops_Cmc64g_1.wav",
+      "IR_Acustica/Taylor_314ce_Scheops_Cmc64g.wav"
+    ],
+    "9b578990d685ae13d353743e23f968cc": [
+      "IR_Acustica/Taylor_314ce_Earthworks_Qtc30_1.wav",
+      "IR_Acustica/Taylor_314ce_Earthworks_Qtc30.wav"
+    ],
+    "f941a820651596bfbb4087fa4be2a8a9": [
+      "IR_Acustica/Taylor_314ce_Dpa_4011_1.wav",
+      "IR_Acustica/Taylor_314ce_Dpa_4011.wav"
+    ],
+    "07fd7a8cb0f1a1a93118263c53772fb4": [
+      "IR_Bajo/Musicman_Hardtke_Mtg_1.wav",
+      "IR_Bajo/Musicman_Hardtke_Mtg.wav"
+    ],
+    "834bfc6547184d98599fc2b0dadf32d1": [
+      "IR_Bajo/Musicman_Hardtke_M69.wav",
+      "IR_Bajo/Musicman_Hardtke_M69_1.wav"
+    ],
+    "10a06930547218587a17a5d63ab1d144": [
+      "IR_Bajo/Ampeg_U87.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/000_Ampeg_U87.wav"
+    ],
+    "8d4c53bf2a73f59f8e2a90127e319b85": [
+      "IR_Bajo/Ampeg_Ampeg_Ampeg_B_Te_Sm7.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/001_Ampeg_Ampeg_Ampeg_B_Te_Sm7.wav"
+    ],
+    "40454524291bdd13ead323bedc52a336": [
+      "IR_Bajo/Marshall_4x12_1.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/026_Marshall_4x12_1.wav"
+    ],
+    "957a6de8742cf4ab59d85fe4e163242b": [
+      "IR_Bajo/Ampeg_Ampeg_Ampeg_B_Te_1.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/002_Ampeg_Ampeg_Ampeg_B_Te_1.wav"
+    ],
+    "cbc3f792ed1f8666b2f09727ced25921": [
+      "IR_Bajo/Marshall_4x12_6.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/095_Marshall_4x12_6.wav"
+    ],
+    "3c70259347a706f0a93efe818f3982d6": [
+      "IR_Bajo/Ampeg_4x12_5.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/003_Ampeg_4x12_5.wav"
+    ],
+    "1a9b17e6a18fed5fad2e805bfe4e74b9": [
+      "IR_Bajo/Marshall_4x12_2.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/044_Marshall_4x12_2.wav"
+    ],
+    "cfbadfc21ee05477fc513460b1313a59": [
+      "IR_Bajo/Marshall_4x12_5.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/002_Marshall_4x12_5.wav"
+    ],
+    "3fda651ecbd76eab6bec57750602ac5a": [
+      "IR_Bajo/Ampeg_4x12_4.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/004_Ampeg_4x12_4.wav"
+    ],
+    "3f64c870dfa93aea0846c17e114e2a0f": [
+      "IR_Bajo/Marshall_4x12_3.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/013_Marshall_4x12_3.wav"
+    ],
+    "ddd9150d8584f5f1a6945593c0cd621d": [
+      "IR_Bajo/Ampeg_4x12_U87_1.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/005_Ampeg_4x12_U87_1.wav"
+    ],
+    "c41b0a6fc930323b46b0c38e7131e005": [
+      "IR_Bajo/Ampeg_4x12_U87.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/006_Ampeg_4x12_U87.wav"
+    ],
+    "0b1b3f002c9a88831c7a3aac09a52d37": [
+      "IR_Bajo/Ampeg_4x12_3.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/007_Ampeg_4x12_3.wav"
+    ],
+    "47d23413217d6e7de481339f5ab3f685": [
+      "IR_Bajo/Ampeg_4x12_8.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/008_Ampeg_4x12_8.wav"
+    ],
+    "51ff7bdec61a6ddaeecf55490ebd758d": [
+      "IR_Bajo/Ampeg_4x12_1.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/009_Ampeg_4x12_1.wav"
+    ],
+    "743620e60deb96a44768e8881155ec10": [
+      "IR_Bajo/Ampeg_4x12_6.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/010_Ampeg_4x12_6.wav"
+    ],
+    "710824333e575874e837f96d5ed7edf0": [
+      "IR_Bajo/Ampeg_4x12_9.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/011_Ampeg_4x12_9.wav"
+    ],
+    "3ddd39156a49f8f454120080e452be92": [
+      "IR_Bajo/Ampeg_4x12_2.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/012_Ampeg_4x12_2.wav"
+    ],
+    "8f868b7f16c0295366aa2dbc06389f40": [
+      "IR_Bajo/Ampeg_4x12.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/013_Ampeg_4x12.wav"
+    ],
+    "db63119329753374605b07004c384e17": [
+      "IR_Bajo/Ampeg_4x12_7.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/014_Ampeg_4x12_7.wav"
+    ],
+    "58e72faad9dff950f475a73286dbdc34": [
+      "IR_Bajo/Ampeg_Ampeg_B15_Dtar_Blues_Res.wav",
+      "_CURATED_RIGS/04_Bass_Foundations/015_Ampeg_Ampeg_B15_Dtar_Blues_Res.wav"
+    ],
+    "6bbd330b58d8cea34e4e7ba6136ca107": [
+      "IR_Utilidades/Marshall_Marshall_08_Guitar_220415_1338_Glued_02.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/012_Marshall_Marshall_08_Guitar_220415_1338_Glued_02.wav"
+    ],
+    "dbfcbdaf83c36b3d9b56fdbed9cf00b1": [
+      "IR_Utilidades/Marshall_Marshall_08_Guitar_220415_1338_Glued_01.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/081_Marshall_Marshall_08_Guitar_220415_1338_Glued_01.wav"
+    ],
+    "5ab5d6b4d7c2cfba587497d3d91d6498": [
+      "IR_Utilidades/Marshall_Plexi.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/050_Marshall_Plexi.wav"
+    ],
+    "50eca5d6ff05921e68951996bb57937c": [
+      "IR_Utilidades/Mesa_Mesa_Nt5_Stereo_Live_Room_Pres_3_1.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/118_Mesa_Mesa_Nt5_Stereo_Live_Room_Pres_3_1.wav"
+    ],
+    "433746d28cad60ff44963bc2eb13d2a5": [
+      "IR_Utilidades/Mesa_Mesa_Nt5_Ts_Ht_Dead_Room_Pres_2_1.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/023_Mesa_Mesa_Nt5_Ts_Ht_Dead_Room_Pres_2_1.wav"
+    ],
+    "a2c938d8ba465ba4353dcb8b99b9430c": [
+      "IR_Utilidades/Mesa_Mesa_Nt5_Ht_Dead_Room_Pres_4_1.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/110_Mesa_Mesa_Nt5_Ht_Dead_Room_Pres_4_1.wav"
+    ],
+    "eaf7f88793c7de059d847c8bc1c003d7": [
+      "IR_Utilidades/Mesa_Mesa_Nt5_Ht_Live_Room_Pres_1_2.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/001_Mesa_Mesa_Nt5_Ht_Live_Room_Pres_1_2.wav"
+    ],
+    "bdf8ee35759cf30022b6b2f821b817aa": [
+      "IR_Utilidades/Mesa_Mesa_Nt5_Ht_Dead_Room_Pres_1_2.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/016_Mesa_Mesa_Nt5_Ht_Dead_Room_Pres_1_2.wav"
+    ],
+    "a7c70f4704a78afd790e0d37ea7d0f90": [
+      "IR_Utilidades/Mesa_Mesa_Nt5_Ts_Stereo_Live_Room_Pres_5.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/011_Mesa_Mesa_Nt5_Ts_Stereo_Live_Room_Pres_5.wav"
+    ],
+    "433d9b011bc8d5cccc9a1c4cdc66a692": [
+      "IR_Utilidades/Mesa_Mesa_Nt5_Stereo_Live_Room_Pres_2.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/010_Mesa_Mesa_Nt5_Stereo_Live_Room_Pres_2.wav"
+    ],
+    "bff9332ce1649dfbdf2f3f7e6b41b5c9": [
+      "IR_Utilidades/Mesa_Mesa_Nt5_Stereo_Live_Room_Pres_3.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/074_Mesa_Mesa_Nt5_Stereo_Live_Room_Pres_3.wav"
+    ],
+    "d836cbac4d07ccb83be481db1b6b94ff": [
+      "IR_Utilidades/Mesa_Mesa_Nt5_Left_Dead_Room_Pres_5.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/038_Mesa_Mesa_Nt5_Left_Dead_Room_Pres_5.wav"
+    ],
+    "a086f55c7ab35eae625fb7151b702641": [
+      "IR_Utilidades/Vox_Vox_Conic_Long_Echo_Hall.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/037_Vox_Vox_Conic_Long_Echo_Hall.wav"
+    ],
+    "698e04ffab6167704beb0f9403ce800e": [
+      "IR_Utilidades/Vox_Vox_Bottle_Hall.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/107_Vox_Vox_Bottle_Hall.wav"
+    ],
+    "47cb969b51c171b07baf8baf9983402f": [
+      "IR_Utilidades/Vox_Vox_Small_Drum_Room.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/048_Vox_Vox_Small_Drum_Room.wav"
+    ],
+    "5e8146d94ab199eb33bcf239c802ea55": [
+      "IR_Utilidades/Vox_Vox_Scala_Milan_Opera_Hall.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/114_Vox_Vox_Scala_Milan_Opera_Hall.wav"
+    ],
+    "8eacb0f1ba5069b4028a39ca989cbd18": [
+      "IR_Utilidades/Vox_Vox_Large_Wide_Echo_Hall.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/074_Vox_Vox_Large_Wide_Echo_Hall.wav"
+    ],
+    "1af412f19016bc4f5d80ea26295c2819": [
+      "IR_Utilidades/Vox_Vox_Large_Long_Echo_Hall.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/083_Vox_Vox_Large_Long_Echo_Hall.wav"
+    ],
+    "c1433a8b9fb9d4b125219f3ed20899d1": [
+      "IR_Utilidades/Vox_Vox_Large_Bottle_Hall.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/009_Vox_Vox_Large_Bottle_Hall.wav"
+    ],
+    "3219971e91794847b514b8733ed95d74": [
+      "IR_Utilidades/Vox_Vox_Greek_7_Echo_Hall.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/014_Vox_Vox_Greek_7_Echo_Hall.wav"
+    ],
+    "50e87d0db32acb9991373568c1081bef": [
+      "IR_Utilidades/Vox_Vox_Highly_Damped_Large_Room.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/058_Vox_Vox_Highly_Damped_Large_Room.wav"
+    ],
+    "1721dffbac3d7d2bdebc3e8e64d402f8": [
+      "IR_Utilidades/Marshall_Marshall_Marshall_2_Impact.wav",
+      "IR_Utilidades/Marshall_Marshall_Vintage_2.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/110_Marshall_Marshall_Marshall_2_Impact.wav"
+    ],
+    "e90c60b6e1d934db8dc62d0309192261": [
+      "IR_Utilidades/Marshall_Marshall_Marshall_3_Impact.wav",
+      "IR_Utilidades/Marshall_Marshall_Vintage_3.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/007_Marshall_Marshall_Marshall_3_Impact.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/119_Marshall_Marshall_Vintage_3.wav"
+    ],
+    "5591907584f472f58a2fe3203958a103": [
+      "IR_Utilidades/Marshall_Marshall_Marshall_4_Impact.wav",
+      "IR_Utilidades/Marshall_Marshall_Vintage.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/100_Marshall_Marshall_Marshall_4_Impact.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/020_Marshall_Marshall_Vintage.wav"
+    ],
+    "ab283e4c442947b8307c6f367ad4bfa3": [
+      "IR_Utilidades/Marshall_Jcm_13.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/001_Marshall_Jcm_13.wav"
+    ],
+    "bc0268a0ac10ebba97c31fcc200eff33": [
+      "IR_Utilidades/Marshall_Jcm_2.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/063_Marshall_Jcm_2.wav"
+    ],
+    "faf19293d3c4308d4bd60dc769520d8b": [
+      "IR_Utilidades/Marshall_Marshall_Marshall_1_Impact.wav",
+      "IR_Utilidades/Marshall_Marshall_Vintage_1.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/097_Marshall_Marshall_Vintage_1.wav"
+    ],
+    "5b7e583f73a9a4b7b06eaf15786d5cc7": [
+      "IR_Utilidades/Marshall_Jcm_Sm57_2.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/085_Marshall_Jcm_Sm57_2.wav"
+    ],
+    "9f07a6d5cc43e746567f15531c975e41": [
+      "IR_Utilidades/Marshall_Jcm_9.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/042_Marshall_Jcm_9.wav"
+    ],
+    "e7abaf646e6fd8a6e3670fb885cc2e31": [
+      "IR_Utilidades/Marshall_Jcm_Sm57.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/079_Marshall_Jcm_Sm57.wav"
+    ],
+    "3fd3c4b56efa055abfd5ddd19860a646": [
+      "IR_Utilidades/Marshall_Jcm_8.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/006_Marshall_Jcm_8.wav"
+    ],
+    "93451f0d7f982b721d5a74a84da7cde4": [
+      "IR_Utilidades/Marshall_Jcm_1.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/103_Marshall_Jcm_1.wav"
+    ],
+    "14eaa0d7db58006fd33a369b02bddb9f": [
+      "IR_Utilidades/Marshall_Jcm_7.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/052_Marshall_Jcm_7.wav"
+    ],
+    "bcb74325f1828bee8b46d0a3b5715bbc": [
+      "IR_Utilidades/Marshall_Jcm_12.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/031_Marshall_Jcm_12.wav"
+    ],
+    "0205a66884f1a398958a7362396c2742": [
+      "IR_Utilidades/Marshall_Jcm_6.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/027_Marshall_Jcm_6.wav"
+    ],
+    "8d3a2eb71a03f26a88ce66a9e0d6418b": [
+      "IR_Utilidades/Marshall_Jcm_5.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/092_Marshall_Jcm_5.wav"
+    ],
+    "7c0dc90a3c6f26c7706d85cae3ff3e33": [
+      "IR_Utilidades/Marshall_Jcm.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/040_Marshall_Jcm.wav"
+    ],
+    "3ff9f066e322dc2dd71d1e513920297c": [
+      "IR_Utilidades/Marshall_Jcm_14.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/038_Marshall_Jcm_14.wav"
+    ],
+    "547bbe1b41c72b77295007dd009bb440": [
+      "IR_Utilidades/Marshall_Jcm_10.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/056_Marshall_Jcm_10.wav"
+    ],
+    "61aac1679160827d45eb7db2ff87b9cc": [
+      "IR_Utilidades/Heavenshallburnveto_1.wav",
+      "IR_Utilidades/Heavenshallburnveto.wav"
+    ],
+    "b28e66c195c8c787d72ef37af176e8a3": [
+      "IR_Utilidades/Marshall_Higain.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/075_Marshall_Higain.wav"
+    ],
+    "9dd8ee0c85027a05e89925f349e94860": [
+      "IR_Utilidades/Marshall_Marshall_Marshall_Mg_15.wav",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/049_Marshall_Marshall_Marshall_Mg_15.wav"
+    ],
+    "cc7994d01a8b14f3715cf49f3105a250": [
+      "NAM_Capturas/Model_6.nam",
+      "NAM_Capturas/Model_7.nam"
+    ],
+    "1c540f401b17c86113ec1bfb8ea82a14": [
+      "NAM_Capturas/My_Model.nam",
+      "NAM_Capturas/Roman_A_Yerasov_Meshuggah_Boosted_1.nam",
+      "NAM_Capturas/Roman_A_Yerasov_Meshuggah_Boosted.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/041_Roman_A_Yerasov_Meshuggah_Boosted_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/069_Roman_A_Yerasov_Meshuggah_Boosted.nam"
+    ],
+    "746f513ad2f455267b2fec11de6e713b": [
+      "NAM_Capturas/Vox_Vox_Ac15.nam",
+      "NAM_Capturas/Vox_Vox_Ac15_5.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/015_Vox_Vox_Ac15.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/033_Vox_Vox_Ac15_5.nam"
+    ],
+    "ddc6979c6b3c60a0376048a12bd3e8e4": [
+      "NAM_Capturas/Vox_Crunch.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/023_Vox_Crunch.nam"
+    ],
+    "dde58ffc89e05617e1ac7ec0ff695f36": [
+      "NAM_Capturas/Vox_Clean.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/005_Vox_Clean.nam"
+    ],
+    "30f7badb4501e80bf1ca78cf298f18f6": [
+      "NAM_Capturas/Vox_Crunch_1.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/046_Vox_Crunch_1.nam"
+    ],
+    "9d32cc6a7d0d7fe9789486f06b42dcb9": [
+      "NAM_Capturas/Mesa_Mesa_Mesa_Boost.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/036_Mesa_Mesa_Mesa_Boost.nam"
+    ],
+    "f5831ef39967ce44b39bbe89ef647af0": [
+      "NAM_Capturas/Linear_1.nam",
+      "NAM_Capturas/Linear_1_1.nam"
+    ],
+    "f412c22fab8b0a23155fcd72c508f9ef": [
+      "NAM_Capturas/Enet_Minimal_1.nam",
+      "NAM_Capturas/Enet_Minimal.nam"
+    ],
+    "e4d0703f12022033f1cd326be7ad4dbc": [
+      "NAM_Capturas/Linear_10_1.nam",
+      "NAM_Capturas/Linear_10.nam"
+    ],
+    "24b1174b5a52bf74c205e07149166a83": [
+      "NAM_Capturas/Enet_Standard.nam",
+      "NAM_Capturas/Enet_Standard_1.nam"
+    ],
+    "88b0afcd2c374a5f65cb64a677ce1469": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Poweramp_Dep@8_G@5.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/000_Suhr_Tudor_N_Suhr_Rl_Poweramp_Dep@8_G@5.nam"
+    ],
+    "017382644e37d649458feee1ed7568e1": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Poweramp_Dep@5_G@5_1.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/001_Suhr_Tudor_N_Suhr_Rl_Poweramp_Dep@5_G@5_1.nam"
+    ],
+    "2544a596818746e581d33eebd2680602": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Poweramp_Dep@5_G@5.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/002_Suhr_Tudor_N_Suhr_Rl_Poweramp_Dep@5_G@5.nam"
+    ],
+    "b69f73b381d6d8a4bad0f9387b19423f": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Poweramp_Dep@10_G@1.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/003_Suhr_Tudor_N_Suhr_Rl_Poweramp_Dep@10_G@1.nam"
+    ],
+    "4d688a9174ad2f933d96aaca617a150d": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Poweramp_Dep@10_G@1_1.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/004_Suhr_Tudor_N_Suhr_Rl_Poweramp_Dep@10_G@1_1.nam"
+    ],
+    "e7c548dbb93d8aa24a9008effe019740": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@8_G@6.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/005_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@8_G@6.nam"
+    ],
+    "ef2d9bdc00ef8bbde2a5e70aca527e26": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/006_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6.nam"
+    ],
+    "5ef01aecac7990d99bbde29999a56268": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_6.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/007_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_6.nam"
+    ],
+    "90e0e4c865d4ebce1043557288c979d4": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_4.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/008_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_4.nam"
+    ],
+    "c33ec708a7f1441257ccefb3981ee6a0": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_2.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/009_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_2.nam"
+    ],
+    "7b3b80069bd58fdceb851f40b8dbf4d9": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_9.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/010_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_9.nam"
+    ],
+    "a32f5098aea23683223026718dcf3c88": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_10.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/011_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_10.nam"
+    ],
+    "06a535efe157bea20c0f568b460ce7cd": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_8.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/012_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_8.nam"
+    ],
+    "9126676d68637ce8abe1e5a4817b4094": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_1.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/013_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_1.nam"
+    ],
+    "eb62fb6e122bee7930d24c388ae54808": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_5.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/014_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_5.nam"
+    ],
+    "762d7083b00212212a77065118030772": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_3.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/015_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_3.nam"
+    ],
+    "c9c03631a1c2a53eaa18790dd8f34f7b": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_7.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/016_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@6_G@6_7.nam"
+    ],
+    "671f874dc516739ce1049fb2f2a13fb1": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5_5.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/017_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5_5.nam"
+    ],
+    "f86f38509fbea64c89447a196db89f3a": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/018_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5.nam"
+    ],
+    "b3c6b04dc269fc18658963a45aba4967": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5_4.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/019_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5_4.nam"
+    ],
+    "1fa49d2fcfa3781d100d85a6b6b17c37": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5_2.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/020_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5_2.nam"
+    ],
+    "8ad3e9cad2dda9e1e8d8102d2a9563ba": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5_1.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/021_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5_1.nam"
+    ],
+    "75922cf2fd94738fd31653bf8cc65e11": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5_3.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/022_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@5_G@5_3.nam"
+    ],
+    "d07c63a0349d03130f4756b7b910564d": [
+      "NAM_Capturas/Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@4_G@2.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/023_Suhr_Tudor_N_Suhr_Rl_Input@hi_Dep@4_G@2.nam"
+    ],
+    "53698aee4349f5725fb1a35b6076ea60": [
+      "NAM_Capturas/Crunch_Tudor_N_Precision_Drive_Pedalpcb_Vol@6_D_1.nam",
+      "NAM_Capturas/Crunch_Tudor_N_Precision_Drive_Pedalpcb_Vol@6_D.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/099_Crunch_Tudor_N_Precision_Drive_Pedalpcb_Vol@6_D_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/076_Crunch_Tudor_N_Precision_Drive_Pedalpcb_Vol@6_D.nam"
+    ],
+    "7ecb3c2f6e7e355d261858fa8719bd3b": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_15.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_2.nam"
+    ],
+    "8a9bac589459a5ee8feefee488fbc10d": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_20.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_10.nam"
+    ],
+    "f641f9b79bc045106a33d8b227c83efd": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_5.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_4.nam"
+    ],
+    "28a51a626cb4672205c0d7b9bd7d19d8": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_6.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_3.nam"
+    ],
+    "2b8893edb02b5aef99096fc0280a85b3": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_8.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_18.nam"
+    ],
+    "9e6042ee8035bd3f53184ff31361c1a4": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_23.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_13.nam"
+    ],
+    "05cdb422112ca212bf911682fab06888": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_9.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_26.nam"
+    ],
+    "e161e3daa2086bb147641b2e285deac1": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_22.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_11.nam"
+    ],
+    "f398706256f44989f62687194aaab964": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_12.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_14.nam"
+    ],
+    "fa1a29c4db2791124733255c06cb2a43": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_24.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_17.nam"
+    ],
+    "a0303d9291bac665b9e02d624467bff0": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_21.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_16.nam"
+    ],
+    "3e27ecb35874762572ac237c53169adf": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_25.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O.nam"
+    ],
+    "84f06741a5177446b369dabf6fa93743": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_7.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_19.nam"
+    ],
+    "f3cee9cdf295d798a1588a05033ef582": [
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_27.nam",
+      "NAM_Capturas/Tudor_N_Mxr_M77_Custom_Badass_Modified_O_1.nam"
+    ],
+    "05380cef2b573ca9380df864abe491dc": [
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@8.nam",
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@8_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/105_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@8.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/031_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@8_1.nam"
+    ],
+    "3ed0ce2ed8f65381db73e22cf2fe2d46": [
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@8_2.nam",
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@8_3.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/002_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@8_2.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/016_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@8_3.nam"
+    ],
+    "8e3f404929f4cb1763d04251dd4c61ec": [
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@5_1.nam",
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@5_3.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/017_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@5_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/067_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@5_3.nam"
+    ],
+    "a7ca1fe309dbf8e4c0afa3379ddebc58": [
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@5.nam",
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@5_2.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/051_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@5.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/080_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@5_2.nam"
+    ],
+    "389947f061fdc48cca89f0b5377004d0": [
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@1_2.nam",
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@1_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/068_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@1_2.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/033_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@1_1.nam"
+    ],
+    "e6cc9c67a076f84f2a1fbf472a1f1f14": [
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@1.nam",
+      "NAM_Capturas/Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@1_3.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/100_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/052_Crunch_Tudor_N_Ibanez_Tube_Screamer_Mini_Tone@1_3.nam"
+    ],
+    "cfcc1d4e18f521df0be5bddf1007b9fe": [
+      "NAM_Capturas/Tudor_N_Fortin_Grind_Mini_Knob_@_5_Esr_0_3.nam",
+      "NAM_Capturas/Tudor_N_Fortin_Grind_Mini_Knob_@_5_Esr_0.nam",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/100_Tudor_N_Fortin_Grind_Mini_Knob_@_5_Esr_0_3.nam"
+    ],
+    "0cb20760713200cffd9cf2556589de66": [
+      "NAM_Capturas/Tudor_N_Fortin_Grind_Mini_Knob_@_5_Esr_0_2.nam",
+      "NAM_Capturas/Tudor_N_Fortin_Grind_Mini_Knob_@_5_Esr_0_1.nam"
+    ],
+    "095e850c95e89a0eca20171200ca3793": [
+      "NAM_Capturas/Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_3.nam",
+      "NAM_Capturas/Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_7.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/060_Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_3.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/091_Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_7.nam"
+    ],
+    "60752df1c5013c510fee58f865690428": [
+      "NAM_Capturas/Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si.nam",
+      "NAM_Capturas/Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_4.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/094_Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_4.nam"
+    ],
+    "b2eb8b7752fb4787d09a713865af6275": [
+      "NAM_Capturas/Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_1.nam",
+      "NAM_Capturas/Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_6.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/056_Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/086_Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_6.nam"
+    ],
+    "af7b7842356e5e09778aadf4e2082d0e": [
+      "NAM_Capturas/Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_2.nam",
+      "NAM_Capturas/Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_5.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/014_Tudor_N_Nfx_Dual_Boost_Xotic_Ep_Boost_Si_2.nam"
+    ],
+    "1d4e29df148058e5174c0c755d14d1b2": [
+      "NAM_Capturas/Tudor_N_Nfx_Dual_Boost_Fortin_33_Side_Kn.nam",
+      "NAM_Capturas/Tudor_N_Nfx_Dual_Boost_Fortin_33_Side_Kn_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/047_Tudor_N_Nfx_Dual_Boost_Fortin_33_Side_Kn.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/110_Tudor_N_Nfx_Dual_Boost_Fortin_33_Side_Kn_1.nam"
+    ],
+    "8fb337cd3c9e425f8caa6c16ca56d4fb": [
+      "NAM_Capturas/Orange_Crunch.nam",
+      "NAM_Capturas/Orange_Crunch_1.nam"
+    ],
+    "a89f81a2d40645fb4b5564c146a94c40": [
+      "NAM_Capturas/Tim_R_Ts9_1.nam",
+      "NAM_Capturas/Tim_R_Ts9.nam"
+    ],
+    "876807413c69e08730347450d96be064": [
+      "NAM_Capturas/Crunch_Tim_R_Ts9_Driven_1.nam",
+      "NAM_Capturas/Crunch_Tim_R_Ts9_Driven.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/009_Crunch_Tim_R_Ts9_Driven_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/022_Crunch_Tim_R_Ts9_Driven.nam"
+    ],
+    "6dbf10b04af5daf9ef4766be5f4074c2": [
+      "NAM_Capturas/Tim_R_Splawn_Pro_Mod_G10_Gear_3_Od2.nam",
+      "NAM_Capturas/Tim_R_Splawn_Pro_Mod_G10_Gear_3_Od2_1.nam"
+    ],
+    "e44b1340495ba6e64c8c22fde0213e92": [
+      "NAM_Capturas/Tim_R_Splawn_Pro_Mod_G10_Gear_2_Od2.nam",
+      "NAM_Capturas/Tim_R_Splawn_Pro_Mod_G10_Gear_2_Od2_1.nam"
+    ],
+    "23bee3f04b945cc9359e5d9f29841e74": [
+      "NAM_Capturas/Tim_R_Splawn_Pro_Mod_G10_Gear_1_Od2_1.nam",
+      "NAM_Capturas/Tim_R_Splawn_Pro_Mod_G10_Gear_1_Od2.nam"
+    ],
+    "865bb4bde5b38c3e9c54beb4059cf673": [
+      "NAM_Capturas/Tim_R_Magnatone_Super_59_Mkii_Pushed_Ts9_1.nam",
+      "NAM_Capturas/Tim_R_Magnatone_Super_59_Mkii_Pushed_Ts9.nam",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/024_Tim_R_Magnatone_Super_59_Mkii_Pushed_Ts9.nam"
+    ],
+    "b134f23116a32051f8a7bce08e925b5c": [
+      "NAM_Capturas/Tim_R_Magnatone_Super_59_Mkii_Max'd_Ts9_1.nam",
+      "NAM_Capturas/Tim_R_Magnatone_Super_59_Mkii_Max'd_Ts9.nam"
+    ],
+    "61a01bdff6e73aeb0f5c4389f269cb92": [
+      "NAM_Capturas/Crunch_Tim_R_Magnatone_Super_59_Mkii_Ch2_Br_1.nam",
+      "NAM_Capturas/Crunch_Tim_R_Magnatone_Super_59_Mkii_Ch2_Br.nam"
+    ],
+    "ae49b06d68b435e71e726167b6003e12": [
+      "NAM_Capturas/Clean_Tim_R_Magnatone_Super_59_Mkii_Ch1_Br.nam",
+      "NAM_Capturas/Clean_Tim_R_Magnatone_Super_59_Mkii_Ch1_Br_1.nam"
+    ],
+    "188555051212a748041a1278c3b230c4": [
+      "NAM_Capturas/Crunch_Tim_R_Magnatone_Super_59_Mkii_Bridged_Dr_1.nam",
+      "NAM_Capturas/Crunch_Tim_R_Magnatone_Super_59_Mkii_Bridged_Dr.nam"
+    ],
+    "9283e28c8645bf77f9901cd7ae50c2e8": [
+      "NAM_Capturas/Tim_R_Magnatone_Super_59_Mkii_Bridged_Bl_1.nam",
+      "NAM_Capturas/Tim_R_Magnatone_Super_59_Mkii_Bridged_Bl.nam"
+    ],
+    "d8ceb17e974d86ef9adc42aa8629c07f": [
+      "NAM_Capturas/Tim_R_Magnatone_Super_59_Mkii_Ts9_On_Ful_1.nam",
+      "NAM_Capturas/Tim_R_Magnatone_Super_59_Mkii_Ts9_On_Ful.nam",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/101_Tim_R_Magnatone_Super_59_Mkii_Ts9_On_Ful.nam"
+    ],
+    "60782f459240e7e08b36bc724a3d1387": [
+      "NAM_Capturas/Tim_R_Jet_City_G9_Boosted.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/001_Tim_R_Jet_City_G9_Boosted.nam"
+    ],
+    "d1d93426bdbd3de3d8961ea41ae8e857": [
+      "NAM_Capturas/Marshall_Jcm.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/016_Marshall_Jcm.nam"
+    ],
+    "6e14b249466dc76af4e9f48301246cf8": [
+      "NAM_Capturas/Marshall_Jcm_7.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/102_Marshall_Jcm_7.nam"
+    ],
+    "20c274d7f8224ca0c2c59c8a215dc4bd": [
+      "NAM_Capturas/Marshall_Jcm_9.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/004_Marshall_Jcm_9.nam"
+    ],
+    "14a724671e88d55ed8bb4767680ec07c": [
+      "NAM_Capturas/Marshall_Jcm_4.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/115_Marshall_Jcm_4.nam"
+    ],
+    "6f1993831a20cb64fc8b98fafbb4799c": [
+      "NAM_Capturas/Marshall_Jcm_2.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/118_Marshall_Jcm_2.nam"
+    ],
+    "9c1dd1da6edc8657da098b21db3fef9d": [
+      "NAM_Capturas/Marshall_Jcm_5.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/047_Marshall_Jcm_5.nam"
+    ],
+    "223cac5ecad4e6107deb3f17e21ba554": [
+      "NAM_Capturas/Marshall_Jcm_6.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/112_Marshall_Jcm_6.nam"
+    ],
+    "ae48643b3c154b869d62e7a24997f668": [
+      "NAM_Capturas/Marshall_Jcm_11.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/003_Marshall_Jcm_11.nam"
+    ],
+    "c966d5a5e60201374efb11b654125136": [
+      "NAM_Capturas/Marshall_Jcm_Crunch.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/025_Marshall_Jcm_Crunch.nam"
+    ],
+    "159ac70abf2f940047fba14f11e5f2da": [
+      "NAM_Capturas/Marshall_Jcm_Clean.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/057_Marshall_Jcm_Clean.nam"
+    ],
+    "5240f30afbf29a4d6175c58c00ee1338": [
+      "NAM_Capturas/Fender_Fender_Tim_R_Fender_Twinverb_Vibrato_Bht.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/054_Fender_Fender_Tim_R_Fender_Twinverb_Vibrato_Bht.nam",
+      "_CURATED_RIGS/03_Pristine_Clean_Ambient/000_Fender_Fender_Tim_R_Fender_Twinverb_Vibrato_Bht.nam"
+    ],
+    "5bd6f4c83433f7bdb1c3a2d133386d50": [
+      "NAM_Capturas/Fender_Fender_Tim_R_Fender_Twinverb_Norm_Bht.nam",
+      "_CURATED_RIGS/03_Pristine_Clean_Ambient/001_Fender_Fender_Tim_R_Fender_Twinverb_Norm_Bht.nam"
+    ],
+    "f04a4a20aca3c5179532dfc7fa929dbe": [
+      "NAM_Capturas/Higain_Tim_R_5152_Lead_No_Boost_1.nam",
+      "NAM_Capturas/Higain_Tim_R_5152_Lead_No_Boost.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/064_Higain_Tim_R_5152_Lead_No_Boost.nam"
+    ],
+    "3c5975b4a06a7e5f0ce7d80007de63e5": [
+      "NAM_Capturas/Higain_Tim_R_5152_Lead_+_Ts9.nam",
+      "NAM_Capturas/Higain_Tim_R_5152_Lead_+_Ts9_1.nam",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/028_Higain_Tim_R_5152_Lead_+_Ts9.nam"
+    ],
+    "bcd9bd09d6b2672f99eb31ab40edfaba": [
+      "NAM_Capturas/Crunch_Crunch_Tim_R_5152_Crunch_No_Boost.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/007_Crunch_Crunch_Tim_R_5152_Crunch_No_Boost.nam"
+    ],
+    "66c5ac5c71792629b784a58bf257216d": [
+      "NAM_Capturas/Friedman_Friedman_Sascha_S_Friedmandsm_Powerampel_1.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/024_Friedman_Friedman_Sascha_S_Friedmandsm_Powerampel_1.nam"
+    ],
+    "f11e8219d5bc684a1dc2877f1a31ddad": [
+      "NAM_Capturas/Friedman_Friedman_Sascha_S_Friedmandsm_Powerampel.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/025_Friedman_Friedman_Sascha_S_Friedmandsm_Powerampel.nam"
+    ],
+    "001af22f612bb669609ad031546d85ba": [
+      "NAM_Capturas/Sascha_S_Dtyshleymini_Lowgain_M0_G3_5_Kl_1.nam",
+      "NAM_Capturas/Sascha_S_Dtyshleymini_Lowgain_M0_G3_5_Kl.nam"
+    ],
+    "6c2acf5a86105430f489ad4d8c42fedc": [
+      "NAM_Capturas/Crunch_Sascha_S_Dtyshleymini_Lowdrive_G6_Gainst.nam",
+      "NAM_Capturas/Crunch_Sascha_S_Dtyshleymini_Lowdrive_G6_Gainst_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/107_Crunch_Sascha_S_Dtyshleymini_Lowdrive_G6_Gainst.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/104_Crunch_Sascha_S_Dtyshleymini_Lowdrive_G6_Gainst_1.nam"
+    ],
+    "10b62a3388ca2a460b3adc9de4009b67": [
+      "NAM_Capturas/Roman_A_Yerasov_Meshuggah.nam",
+      "NAM_Capturas/Roman_A_Yerasov_Meshuggah_1.nam"
+    ],
+    "2d3fbd7145c3ead2f2a44f8bd7343129": [
+      "NAM_Capturas/Roman_A_Bugera_333_Boosted_1.nam",
+      "NAM_Capturas/Roman_A_Bugera_333_Boosted.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/037_Roman_A_Bugera_333_Boosted_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/053_Roman_A_Bugera_333_Boosted.nam"
+    ],
+    "6b4fafdd10224985aebf56b6bd5af5c2": [
+      "NAM_Capturas/Roman_A_Bugera_333_1.nam",
+      "NAM_Capturas/Roman_A_Bugera_333.nam"
+    ],
+    "ff94dd806271083cecee0caac0c5597a": [
+      "NAM_Capturas/Vox_Vox_Ac15_2.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/098_Vox_Vox_Ac15_2.nam"
+    ],
+    "18d016f04b870aead41ef04082b99d6a": [
+      "NAM_Capturas/Vox_Vox_Ac15_4.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/041_Vox_Vox_Ac15_4.nam"
+    ],
+    "a5a05580a77317b99a7e1c2f0ba8fcf3": [
+      "NAM_Capturas/Crunch_Phillipe_P_Precision_Drive_Feather_Esr0,_1.nam",
+      "NAM_Capturas/Crunch_Phillipe_P_Precision_Drive_Feather_Esr0,.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/115_Crunch_Phillipe_P_Precision_Drive_Feather_Esr0,_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/075_Crunch_Phillipe_P_Precision_Drive_Feather_Esr0,.nam"
+    ],
+    "323f73d6e1bc6ef63ef8ae2afe25fb00": [
+      "NAM_Capturas/Phillipe_P_Maxon_Od808_Feather_Esr0,001.nam",
+      "NAM_Capturas/Phillipe_P_Maxon_Od808_Feather_Esr0,001_1.nam"
+    ],
+    "70c05f30efcb5005ebf2f18f331c3352": [
+      "NAM_Capturas/Crunch_Phillipe_P_Precision_Drive_Att4_Feather.nam",
+      "NAM_Capturas/Crunch_Phillipe_P_Precision_Drive_Att4_Feather_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/077_Crunch_Phillipe_P_Precision_Drive_Att4_Feather.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/013_Crunch_Phillipe_P_Precision_Drive_Att4_Feather_1.nam"
+    ],
+    "142772c3c60582f04c94014e3bd63409": [
+      "NAM_Capturas/Phillipe_P_Mxr_M77_Feather_Esr0,001.nam",
+      "NAM_Capturas/Phillipe_P_Mxr_M77_Feather_Esr0,001_1.nam"
+    ],
+    "5c33ba05bae45a1d987f578c45247578": [
+      "NAM_Capturas/Marshall_Crunch_2.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/109_Marshall_Crunch_2.nam"
+    ],
+    "f65c33770cfcd64dfc40bc2fcb671fbf": [
+      "NAM_Capturas/Marshall_Crunch_5.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/055_Marshall_Crunch_5.nam"
+    ],
+    "a03d3f006823d8f3350702b0c376a1b3": [
+      "NAM_Capturas/Marshall_Crunch_4.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/054_Marshall_Crunch_4.nam"
+    ],
+    "5ca6f8fa859fe42a941203f20cd10898": [
+      "NAM_Capturas/Marshall_Marshall_Phillipe_P_Jvm_Od1_Gr_M77_Esr0,.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/072_Marshall_Marshall_Phillipe_P_Jvm_Od1_Gr_M77_Esr0,.nam"
+    ],
+    "138bc0be1d8574c4e83e4c58326b1ecb": [
+      "NAM_Capturas/Marshall_Marshall_Phillipe_P_Jvm_Cr_Or_Sd1_Esr0,0.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/080_Marshall_Marshall_Phillipe_P_Jvm_Cr_Or_Sd1_Esr0,0.nam"
+    ],
+    "4f79cc80da95aabe7874e6022dfbb66b": [
+      "NAM_Capturas/Marshall_Crunch.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/113_Marshall_Crunch.nam"
+    ],
+    "1f5e09551c2841558d17458da1661a93": [
+      "NAM_Capturas/Marshall_Crunch_3.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/062_Marshall_Crunch_3.nam"
+    ],
+    "0fa1f0562a8918f7e12a19bdc2034626": [
+      "NAM_Capturas/Marshall_Crunch_1.nam",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/078_Marshall_Crunch_1.nam"
+    ],
+    "32ce8e911b3a2f649548e52c22f04d47": [
+      "NAM_Capturas/Phillipe_P_Dty_Tree_Feather_Esr0,001.nam",
+      "NAM_Capturas/Phillipe_P_Dty_Tree_Feather_Esr0,001_1.nam"
+    ],
+    "b56305bd532fe22fa8473700b78d0151": [
+      "NAM_Capturas/Higain_Phillipe_P_Bugera6262_Lead_Nodrive_Esr0,.nam",
+      "NAM_Capturas/Higain_Phillipe_P_Bugera6262_Lead_Nodrive_Esr0,_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/074_Higain_Phillipe_P_Bugera6262_Lead_Nodrive_Esr0,.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/025_Higain_Phillipe_P_Bugera6262_Lead_Nodrive_Esr0,_1.nam"
+    ],
+    "381a933d72fb17bc7de651eb14bd1ddf": [
+      "NAM_Capturas/Higain_Phillipe_P_Bugera6262_Lead_Nodrive_Cab_E.nam",
+      "NAM_Capturas/Higain_Phillipe_P_Bugera6262_Lead_Nodrive_Cab_E_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/059_Higain_Phillipe_P_Bugera6262_Lead_Nodrive_Cab_E.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/089_Higain_Phillipe_P_Bugera6262_Lead_Nodrive_Cab_E_1.nam"
+    ],
+    "d7b869806a0a4d0a127f96eccdcfdf6e": [
+      "NAM_Capturas/Higain_Phillipe_P_Bugera6262_Lead_M77_Gain1,5_E.nam",
+      "NAM_Capturas/Higain_Phillipe_P_Bugera6262_Lead_M77_Gain1,5_E_1.nam"
+    ],
+    "49f2842f5eab1e2204ce30b70df94f16": [
+      "NAM_Capturas/Higain_Phillipe_P_Bugera6262_Lead_M77_Esr0,020_1.nam",
+      "NAM_Capturas/Higain_Phillipe_P_Bugera6262_Lead_M77_Esr0,020.nam"
+    ],
+    "d8c7c909f9d001dbd208044b3fd7fec0": [
+      "NAM_Capturas/Crunch_Crunch_Phillipe_P_Bug6262_Crunch_Nodrive.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/026_Crunch_Crunch_Phillipe_P_Bug6262_Crunch_Nodrive.nam"
+    ],
+    "5f9ad4dfc8fec71e891a2abc4f503508": [
+      "NAM_Capturas/Higain_Phillipe_P_Bug333_Lead_Nodrive_Esr0,004_1.nam",
+      "NAM_Capturas/Higain_Phillipe_P_Bug333_Lead_Nodrive_Esr0,004.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/096_Higain_Phillipe_P_Bug333_Lead_Nodrive_Esr0,004_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/093_Higain_Phillipe_P_Bug333_Lead_Nodrive_Esr0,004.nam"
+    ],
+    "6bce2dfec219c8c0fd613ced11041da6": [
+      "NAM_Capturas/Higain_Phillipe_P_Bug333_Lead_Nodrive_Cab_Esr0,.nam",
+      "NAM_Capturas/Higain_Phillipe_P_Bug333_Lead_Nodrive_Cab_Esr0,_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/020_Higain_Phillipe_P_Bug333_Lead_Nodrive_Cab_Esr0,.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/106_Higain_Phillipe_P_Bug333_Lead_Nodrive_Cab_Esr0,_1.nam"
+    ],
+    "cc66b6851b37d30e30829a42a13c3eb0": [
+      "NAM_Capturas/Crunch_Crunch_Phillipe_P_Bug333_Crunch_Nodrive_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/006_Crunch_Crunch_Phillipe_P_Bug333_Crunch_Nodrive_1.nam"
+    ],
+    "c6d15406d74dbeb104bdc3f0dd637c25": [
+      "NAM_Capturas/Crunch_Crunch_Phillipe_P_Bug333_Crunch_Nodrive.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/021_Crunch_Crunch_Phillipe_P_Bug333_Crunch_Nodrive.nam"
+    ],
+    "f61b13a67b822ab0c7a8a82c7c029fbc": [
+      "NAM_Capturas/Higain_Phillipe_P_Bug1990_Lead_Nodrive_Esr0,004.nam",
+      "NAM_Capturas/Higain_Phillipe_P_Bug1990_Lead_Nodrive_Esr0,004_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/114_Higain_Phillipe_P_Bug1990_Lead_Nodrive_Esr0,004.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/015_Higain_Phillipe_P_Bug1990_Lead_Nodrive_Esr0,004_1.nam"
+    ],
+    "6161f1dca788bddae23c205b41a9d896": [
+      "NAM_Capturas/Higain_Phillipe_P_Bug1990_Lead_Nodrive_Cab_Esr0_1.nam",
+      "NAM_Capturas/Higain_Phillipe_P_Bug1990_Lead_Nodrive_Cab_Esr0.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/005_Higain_Phillipe_P_Bug1990_Lead_Nodrive_Cab_Esr0_1.nam"
+    ],
+    "dca12a0ff8c46a6f0df4dacee8c8a966": [
+      "NAM_Capturas/Boss_Phillipe_P_Boss_Sd1_Feather_Esr0,00.nam",
+      "NAM_Capturas/Phillipe_P_Boss_Sd1_Feather_Esr0,001.nam"
+    ],
+    "dce0c7f6f0fbf807c304a9f68c28c9f2": [
+      "NAM_Capturas/Peter_N_Hm_2_L8_H4_D0_Std_Esr_0_0015.nam",
+      "NAM_Capturas/Peter_N_Hm_2_L8_H4_D0_Std_Esr_0_0015_1.nam"
+    ],
+    "0dc21d556ff38e50fc762efe812b2b72": [
+      "NAM_Capturas/Peter_N_Hm_2_L8_H4_D0_Lite_Esr_0_0015_1.nam",
+      "NAM_Capturas/Peter_N_Hm_2_L8_H4_D0_Lite_Esr_0_0015.nam"
+    ],
+    "69bcef44c7c2d29a5d66fd916f8e353c": [
+      "NAM_Capturas/Peter_N_Hm_2_L8_H4_D0_Feather_Esr_0_0025_1.nam",
+      "NAM_Capturas/Peter_N_Hm_2_L8_H4_D0_Feather_Esr_0_0025.nam"
+    ],
+    "c09e0ff5a7f9db6745386dc15d9e9391": [
+      "NAM_Capturas/Peter_N_Hm_2_L10_H8_D2_Std_Esr_0_0008_1.nam",
+      "NAM_Capturas/Peter_N_Hm_2_L10_H8_D2_Std_Esr_0_0008.nam"
+    ],
+    "e506f93627b254eb25846a3b49b3352e": [
+      "NAM_Capturas/Peter_N_Hm_2_L10_H8_D2_Feather_Esr_0_002.nam",
+      "NAM_Capturas/Peter_N_Hm_2_L10_H8_D2_Feather_Esr_0_002_1.nam"
+    ],
+    "5c8bc76d8dbecb8300961676e5e3dacb": [
+      "NAM_Capturas/Peter_N_Hm_2_L10_H8_D2_Lite_Esr_0_0014.nam",
+      "NAM_Capturas/Peter_N_Hm_2_L10_H8_D2_Lite_Esr_0_0014_1.nam"
+    ],
+    "7249c98f66777a03b6b3c440e0cbc15e": [
+      "NAM_Capturas/Peter_N_Hm_2_L10_H10_D0_Lite_Esr_0_0007_1.nam",
+      "NAM_Capturas/Peter_N_Hm_2_L10_H10_D0_Lite_Esr_0_0007.nam"
+    ],
+    "f07aaa990978f022eb8c1ce08994b411": [
+      "NAM_Capturas/Peter_N_Hm_2_L10_H10_D0_Std_Esr_0_0004.nam",
+      "NAM_Capturas/Peter_N_Hm_2_L10_H10_D0_Std_Esr_0_0004_1.nam"
+    ],
+    "c6d1753ae10174529a9d8c6a489d0159": [
+      "NAM_Capturas/Peter_N_Hm_2_L10_H10_D0_Feather_Esr_0_00.nam",
+      "NAM_Capturas/Peter_N_Hm_2_L10_H10_D0_Feather_Esr_0_00_1.nam"
+    ],
+    "bc26fc8dfcdbdf431aea827d03920012": [
+      "NAM_Capturas/Peter_N_Hm_2_Swede_Std_Esr_0_0034_1.nam",
+      "NAM_Capturas/Peter_N_Hm_2_Swede_Std_Esr_0_0034.nam"
+    ],
+    "e790eef452a1b7551109eb36d002ce13": [
+      "NAM_Capturas/Peter_N_Hm_2_Swede_Lite_Esr_0_0057.nam",
+      "NAM_Capturas/Peter_N_Hm_2_Swede_Lite_Esr_0_0057_1.nam"
+    ],
+    "0adc2ea576e807c5dbaf918025153cd8": [
+      "NAM_Capturas/Peter_N_Hm_2_Swede_Feather_Esr_0_0097_1.nam",
+      "NAM_Capturas/Peter_N_Hm_2_Swede_Feather_Esr_0_0097.nam"
+    ],
+    "56e3e755efe727f52327ea64f05cf1e2": [
+      "NAM_Capturas/Peter_N_Dtytree_Dt_Tc_L3_H7_Std_Esr_0_00_1.nam",
+      "NAM_Capturas/Peter_N_Dtytree_Dt_Tc_L3_H7_Std_Esr_0_00.nam"
+    ],
+    "a91c41e26ca33e65e5f94181afc87e0f": [
+      "NAM_Capturas/Peter_N_Dtytree_Dt_Tc_L3_H7_Lite_Esr_0_0_1.nam",
+      "NAM_Capturas/Peter_N_Dtytree_Dt_Tc_L3_H7_Lite_Esr_0_0.nam"
+    ],
+    "b4af608933d3207f1d74416528a6a192": [
+      "NAM_Capturas/Peter_N_Dtytree_Dt_Tc_L3_H7_Feather_Esr.nam",
+      "NAM_Capturas/Peter_N_Dtytree_Dt_Tc_L3_H7_Feather_Esr_1.nam"
+    ],
+    "f7c7c011b494dff03ff25c3aa9dd63f6": [
+      "NAM_Capturas/Peter_N_Dtytree_Dt_33_Std_Esr_0_0001_1.nam",
+      "NAM_Capturas/Peter_N_Dtytree_Dt_33_Std_Esr_0_0001.nam"
+    ],
+    "13583a288a24f6fdb9dc77b094844e40": [
+      "NAM_Capturas/Peter_N_Dtytree_Dt_33_Lite_Esr_0_0001.nam",
+      "NAM_Capturas/Peter_N_Dtytree_Dt_33_Lite_Esr_0_0001_1.nam"
+    ],
+    "46807f64b58a4bd0a6a1079d33a094e4": [
+      "NAM_Capturas/Peter_N_Dtytree_Dt_33_Feather_Esr_0_0001_1.nam",
+      "NAM_Capturas/Peter_N_Dtytree_Dt_33_Feather_Esr_0_0001.nam"
+    ],
+    "f6476284e7113729e300be727a5b7284": [
+      "NAM_Capturas/Mikhail_K_Sovtekmig50_+_Thronetorcher.nam",
+      "NAM_Capturas/Mikhail_K_Sovtekmig50_+_Thronetorcher_1.nam"
+    ],
+    "3b5793cf47eb6b362a764c3aee722600": [
+      "NAM_Capturas/Crunch_Mikhail_K_Sovtekmig50_+_Sparkledrive.nam",
+      "NAM_Capturas/Crunch_Mikhail_K_Sovtekmig50_+_Sparkledrive_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/112_Crunch_Mikhail_K_Sovtekmig50_+_Sparkledrive.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/023_Crunch_Mikhail_K_Sovtekmig50_+_Sparkledrive_1.nam"
+    ],
+    "a0b7bf0b2f90146ccf32a4e1b5925a36": [
+      "NAM_Capturas/Mikhail_K_Sovtekmig50_+_Klone_1.nam",
+      "NAM_Capturas/Mikhail_K_Sovtekmig50_+_Klone.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/050_Mikhail_K_Sovtekmig50_+_Klone_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/097_Mikhail_K_Sovtekmig50_+_Klone.nam"
+    ],
+    "8d80cfd2e7e6b54edff9ff1961246fd5": [
+      "NAM_Capturas/Mikhail_K_Sovtekmig50_+_Dod_Fx56b_1.nam",
+      "NAM_Capturas/Mikhail_K_Sovtekmig50_+_Dod_Fx56b.nam"
+    ],
+    "84be87f6d4ee1554bfdb1c14ef7b5f31": [
+      "NAM_Capturas/Mikhail_K_Sovtek_Mig50.nam",
+      "NAM_Capturas/Mikhail_K_Sovtek_Mig50_1.nam"
+    ],
+    "b0b4595b1214177f9cca88c0c72f6780": [
+      "NAM_Capturas/Luis_R_Driftwood_Purple_Nightmare_Ts_Eng_1.nam",
+      "NAM_Capturas/Luis_R_Driftwood_Purple_Nightmare_Ts_Eng.nam"
+    ],
+    "2fea65b85cc6cb1bf49db8f69d68c513": [
+      "NAM_Capturas/Keith_B_Klone_Maxg_T6_O5_1.nam",
+      "NAM_Capturas/Keith_B_Klone_Maxg_T6_O5.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/088_Keith_B_Klone_Maxg_T6_O5_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/103_Keith_B_Klone_Maxg_T6_O5.nam"
+    ],
+    "bb0d6baa5003b19aa473cca2d8f0e6fe": [
+      "NAM_Capturas/Keith_B_Klone_G6_T6_O5_1.nam",
+      "NAM_Capturas/Keith_B_Klone_G6_T6_O5.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/004_Keith_B_Klone_G6_T6_O5_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/055_Keith_B_Klone_G6_T6_O5.nam"
+    ],
+    "4cbf98ccf821a7977a37f3fb57c17d6e": [
+      "NAM_Capturas/Higain_Keith_B_Plumesclone_Maxg_T5_Switch3_1.nam",
+      "NAM_Capturas/Higain_Keith_B_Plumesclone_Maxg_T5_Switch3.nam"
+    ],
+    "81013e30931eeb3915062a4fed487fe3": [
+      "NAM_Capturas/Clean_Keith_B_Plumesclone_Maxg_T5_Switch1_1.nam",
+      "NAM_Capturas/Clean_Keith_B_Plumesclone_Maxg_T5_Switch1.nam"
+    ],
+    "afa3403e41cd6d11ffc298dfecf3916a": [
+      "NAM_Capturas/Keith_B_Klone_Plus_Bb_Medgain_1.nam",
+      "NAM_Capturas/Keith_B_Klone_Plus_Bb_Medgain.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/102_Keith_B_Klone_Plus_Bb_Medgain_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/000_Keith_B_Klone_Plus_Bb_Medgain.nam"
+    ],
+    "4a0f0388cf17589274fbff1dcd0d038f": [
+      "NAM_Capturas/Keith_B_Klone_Plus_Bb_Lowgain.nam",
+      "NAM_Capturas/Keith_B_Klone_Plus_Bb_Lowgain_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/057_Keith_B_Klone_Plus_Bb_Lowgain.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/078_Keith_B_Klone_Plus_Bb_Lowgain_1.nam"
+    ],
+    "4ec87580c1489085bc28a6908833f043": [
+      "NAM_Capturas/Higain_Keith_B_Klone_Plus_Bb_Highgain.nam",
+      "NAM_Capturas/Higain_Keith_B_Klone_Plus_Bb_Highgain_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/085_Higain_Keith_B_Klone_Plus_Bb_Highgain.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/028_Higain_Keith_B_Klone_Plus_Bb_Highgain_1.nam"
+    ],
+    "f1a9b115bc149a9628fcb16792c5b7d7": [
+      "NAM_Capturas/Keith_B_Ds1_Maxg_T5_1.nam",
+      "NAM_Capturas/Keith_B_Ds1_Maxg_T5.nam"
+    ],
+    "3336dc8b675b52a06ac0860a85f9dcf5": [
+      "NAM_Capturas/Keith_B_Ds1_G6_T5_1.nam",
+      "NAM_Capturas/Keith_B_Ds1_G6_T5.nam"
+    ],
+    "bedc90598fcf8013c305b935e06a64d2": [
+      "NAM_Capturas/Crunch_Jason_Z_Tech21_Dug_Dp3x_Bass_Preamp_Peda_1.nam",
+      "NAM_Capturas/Crunch_Jason_Z_Tech21_Dug_Dp3x_Bass_Preamp_Peda.nam",
+      "_CURATED_RIGS/04_Bass_Foundations/016_Crunch_Jason_Z_Tech21_Dug_Dp3x_Bass_Preamp_Peda_1.nam",
+      "_CURATED_RIGS/04_Bass_Foundations/018_Crunch_Jason_Z_Tech21_Dug_Dp3x_Bass_Preamp_Peda.nam"
+    ],
+    "18bcff855a1b1ee14e64160673fe7b9b": [
+      "NAM_Capturas/Soldano_Crunch.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/026_Soldano_Crunch.nam"
+    ],
+    "28447e7777bee5d4864b0a78defe4f6a": [
+      "NAM_Capturas/Line6_Higain_1.nam",
+      "NAM_Capturas/Line6_Higain.nam"
+    ],
+    "029f22ff4216cfc5cf59106760564db2": [
+      "NAM_Capturas/Jason_Z_Ksr_Vesta_Purple_Channel_All_Noo.nam",
+      "NAM_Capturas/Jason_Z_Ksr_Vesta_Purple_Channel_All_Noo_1.nam"
+    ],
+    "36e692b2105749d9ba64e1f303d5e7b5": [
+      "NAM_Capturas/Jason_Z_Ksr_Vesta_Light_Blue_Channel_All_1.nam",
+      "NAM_Capturas/Jason_Z_Ksr_Vesta_Light_Blue_Channel_All.nam"
+    ],
+    "d1b78506b9108beb403dc867c3c2956e": [
+      "NAM_Capturas/Jason_Z_Ksr_Ceres_Purple_Channel_All_Noo_1.nam",
+      "NAM_Capturas/Jason_Z_Ksr_Ceres_Purple_Channel_All_Noo.nam"
+    ],
+    "1dcd9cc521ec4438c495bc81190c3c19": [
+      "NAM_Capturas/Jason_Z_Ksr_Ceres_Light_Blue_Channel_All_1.nam",
+      "NAM_Capturas/Jason_Z_Ksr_Ceres_Light_Blue_Channel_All.nam"
+    ],
+    "d73593b5e5d4ef33b16de9fe98125571": [
+      "NAM_Capturas/Higain_Boss_Jason_Z_Boss_Hm2eq_Light_Distortion.nam",
+      "NAM_Capturas/Higain_Jason_Z_Boss_Hm2eq_Light_Distortion_With.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/090_Higain_Boss_Jason_Z_Boss_Hm2eq_Light_Distortion.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/101_Higain_Jason_Z_Boss_Hm2eq_Light_Distortion_With.nam"
+    ],
+    "b5fce4c245783b2158e86ae37e15e8e9": [
+      "NAM_Capturas/Higain_Boss_Jason_Z_Boss_Hm2btfo_Heavy_Distorti.nam",
+      "NAM_Capturas/Higain_Jason_Z_Boss_Hm2btfo_Heavy_Distortion_Me.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/113_Higain_Jason_Z_Boss_Hm2btfo_Heavy_Distortion_Me.nam"
+    ],
+    "a252a780692882524596e6abadd65116": [
+      "NAM_Capturas/Boss_Jason_Z_Boss_Hm2_Kinda_Bass_Heavy_W.nam",
+      "NAM_Capturas/Higain_Jason_Z_Boss_Hm2_Kinda_Bass_Heavy_With_M.nam",
+      "_CURATED_RIGS/04_Bass_Foundations/017_Boss_Jason_Z_Boss_Hm2_Kinda_Bass_Heavy_W.nam",
+      "_CURATED_RIGS/04_Bass_Foundations/019_Higain_Jason_Z_Boss_Hm2_Kinda_Bass_Heavy_With_M.nam"
+    ],
+    "826ffc8b70342d8399e75b08c6ffec27": [
+      "NAM_Capturas/Helga_B_Xxx_Kt77_Od808.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Xxx_Kt77_Od808.nam"
+    ],
+    "717f12727f173f4e29dc74241c265895": [
+      "NAM_Capturas/Helga_B_Xxx_Kt77_Noboost.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Xxx_Kt77_Noboost.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/072_Helga_B_Xxx_Kt77_Noboost.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/010_Peavey_Peavey_Helga_B_Xxx_Kt77_Noboost.nam"
+    ],
+    "23f956e6762f4a5a2c8add1075285106": [
+      "NAM_Capturas/Helga_B_Xxx_Kt77_M77.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Xxx_Kt77_M77.nam"
+    ],
+    "8ca8c049d7cedc1b7412e75e79e544ef": [
+      "NAM_Capturas/Helga_B_Xxx_6l6_Wendigo_Esr0,016.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Xxx_6l6_Wendigo_Esr0,016.nam"
+    ],
+    "ec1475f6eec6db29c79dc44c6fb8ae61": [
+      "NAM_Capturas/Helga_B_Xxx_6l6_Pp_Rot_Midscoop_Esr061.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Xxx_6l6_Pp_Rot_Midscoop_E.nam"
+    ],
+    "5dcd238b0568721778ab69fbfd0f8630": [
+      "NAM_Capturas/Helga_B_Xxx_6l6_Pp_Rot_Midboost_Esr056.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Xxx_6l6_Pp_Rot_Midboost_E.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/083_Helga_B_Xxx_6l6_Pp_Rot_Midboost_Esr056.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/043_Peavey_Peavey_Helga_B_Xxx_6l6_Pp_Rot_Midboost_E.nam"
+    ],
+    "317d70752c5747bf5c95bc09515b52f9": [
+      "NAM_Capturas/Helga_B_Xxx_6l6_Od808_Esr0015.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Xxx_6l6_Od808_Esr0015.nam"
+    ],
+    "bb767a51e3364c805548a5f4a529485f": [
+      "NAM_Capturas/Helga_B_Xxx_6l6_M77_Esr0015.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Xxx_6l6_M77_Esr0015.nam"
+    ],
+    "3f298743bc908ad2cbfb7be99e1b0180": [
+      "NAM_Capturas/Helga_B_Pp_Rot_Mid_Boost.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/079_Helga_B_Pp_Rot_Mid_Boost.nam"
+    ],
+    "9a3ee4d6e0c0ae7307205c3b36316a42": [
+      "NAM_Capturas/Crunch_Crunch_Helga_B_Jsx_Crunch_Od808_Esr0,007.nam",
+      "NAM_Capturas/Peavey_Crunch_2.nam"
+    ],
+    "8b696c8bdd1bf3eb0ad0fc0147d07ef2": [
+      "NAM_Capturas/Crunch_Crunch_Helga_B_Jsx_Crunch_Noboost_0,004.nam",
+      "NAM_Capturas/Peavey_Crunch.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/039_Crunch_Crunch_Helga_B_Jsx_Crunch_Noboost_0,004.nam",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/057_Peavey_Crunch.nam"
+    ],
+    "c5ee9f26ee602ad0249dec98424125f8": [
+      "NAM_Capturas/Crunch_Crunch_Helga_B_Jsx_Crunch_M77_Esr0,007.nam",
+      "NAM_Capturas/Peavey_Crunch_1.nam"
+    ],
+    "3d2b96f44a6bc5c20dd4f334bcf74355": [
+      "NAM_Capturas/Helga_B_Jsx_Ultra_Od808.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Jsx_Ultra_Od808.nam"
+    ],
+    "7705dc84bf46bceded7218ac336a4682": [
+      "NAM_Capturas/Helga_B_Jsx_Ultra_No_Boost.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Jsx_Ultra_No_Boost.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/049_Helga_B_Jsx_Ultra_No_Boost.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/065_Peavey_Peavey_Helga_B_Jsx_Ultra_No_Boost.nam",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/066_Peavey_Peavey_Helga_B_Jsx_Ultra_No_Boost.nam"
+    ],
+    "a2464c25f1d5b91af613cded69a8467b": [
+      "NAM_Capturas/Helga_B_Jsx_Ultra_M77ground_Hum.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Jsx_Ultra_M77ground_Hum.nam"
+    ],
+    "d644d5b03348b8829be22a01a976f4ff": [
+      "NAM_Capturas/Helga_B_Jsx_Ultra_M77fixed.nam",
+      "NAM_Capturas/Peavey_Peavey_Helga_B_Jsx_Ultra_M77fixed.nam"
+    ],
+    "077fe3ec5dc338b6987ff00e02bdb6b3": [
+      "NAM_Capturas/Higain_Helga_B_Iii_Red_Noboostballs_1.nam",
+      "NAM_Capturas/Higain_Helga_B_Iii_Red_Noboostballs.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/048_Higain_Helga_B_Iii_Red_Noboostballs_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/029_Higain_Helga_B_Iii_Red_Noboostballs.nam"
+    ],
+    "4b780eee65474d86833a3af44dee6a99": [
+      "NAM_Capturas/Higain_Helga_B_Iii_Red_Noboost.nam",
+      "NAM_Capturas/Higain_Helga_B_Iii_Red_Noboost_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/058_Higain_Helga_B_Iii_Red_Noboost.nam"
+    ],
+    "2ca195e700258e7bdec753f007803ee4": [
+      "NAM_Capturas/Higain_Helga_B_Iii_Red_805_Boost_1.nam",
+      "NAM_Capturas/Higain_Helga_B_Iii_Red_805_Boost.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/116_Higain_Helga_B_Iii_Red_805_Boost_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/027_Higain_Helga_B_Iii_Red_805_Boost.nam"
+    ],
+    "5db7c7f8e55b0a12313512a71c933fc0": [
+      "NAM_Capturas/Helga_B_Iii_Blue_Noboost_1.nam",
+      "NAM_Capturas/Helga_B_Iii_Blue_Noboost.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/046_Helga_B_Iii_Blue_Noboost_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/061_Helga_B_Iii_Blue_Noboost.nam"
+    ],
+    "6f4210aab84b28cd86be016cd890f36e": [
+      "NAM_Capturas/Helga_B_Iii_Blue_M77_Boost.nam",
+      "NAM_Capturas/Helga_B_Iii_Blue_M77_Boost_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/092_Helga_B_Iii_Blue_M77_Boost_1.nam"
+    ],
+    "c15ab2bbc1e3135dfe7140b34d78c912": [
+      "NAM_Capturas/Helga_B_Gci_Jugendstil.nam",
+      "NAM_Capturas/Helga_B_Gci_Jugendstil_1.nam"
+    ],
+    "f0863781da1b39528e4ef5d42c7eb6cc": [
+      "NAM_Capturas/Boss_Helga_B_Boss_Os_2.nam",
+      "NAM_Capturas/Helga_B_Boss_Os_2.nam"
+    ],
+    "a0cac9a8e97ddd66a62ef853c36267ec": [
+      "NAM_Capturas/Helga_B_6534+_Od808.nam",
+      "NAM_Capturas/Helga_B_6534+_Od808_1.nam"
+    ],
+    "6726902e699c778a8eea042c4e0cda8e": [
+      "NAM_Capturas/Helga_B_6534+_No_Boost_1.nam",
+      "NAM_Capturas/Helga_B_6534+_No_Boost.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/111_Helga_B_6534+_No_Boost_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/003_Helga_B_6534+_No_Boost.nam"
+    ],
+    "75e01501595a2b9334a9fa31f33d1da7": [
+      "NAM_Capturas/Helga_B_6534+_Mxr_M77.nam",
+      "NAM_Capturas/Helga_B_6534+_Mxr_M77_1.nam"
+    ],
+    "3a9ff467396685f1cb2ed53b18ba8a6e": [
+      "NAM_Capturas/Helga_B_6534+_Mxr_M77_Helga_Behrens_1.nam",
+      "NAM_Capturas/Helga_B_6534+_Mxr_M77_Helga_Behrens.nam"
+    ],
+    "580773230dda567948502bac1fb6f17c": [
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Chan2_70s_B.nam",
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Chan2_70s_B_1.nam"
+    ],
+    "1c6845a97c94a8d4166c44369ae9038b": [
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Turbo_Nonna_1.nam",
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Turbo_Nonna.nam"
+    ],
+    "554173706f68dd59cfa3691e1304d5f0": [
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Protein_Cha.nam",
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Protein_Cha_1.nam"
+    ],
+    "f9fe181632fb6f7b7be709789134628e": [
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Broadcast_C_1.nam",
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Broadcast_C.nam"
+    ],
+    "00812fd067092d49a30efb9cddd1bfab": [
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Boosted_Pea_1.nam",
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Boosted_Pea.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/087_George_B_Ceriatone_King_Kong_Boosted_Pea_1.nam",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/073_George_B_Ceriatone_King_Kong_Boosted_Pea.nam"
+    ],
+    "96476f9da0793ed69616e827412f71aa": [
+      "NAM_Capturas/Bogner_Bogner_George_B_Ceriatone_King_Kong.nam",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/027_Bogner_Bogner_George_B_Ceriatone_King_Kong.nam"
+    ],
+    "5d11dff3986939c98d5d3362815d32b9": [
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Channel_2_8_1.nam",
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Channel_2_8.nam"
+    ],
+    "df08f0b3aa7507db4086662efbdef3fd": [
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Channel_1_6.nam",
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Channel_1_6_1.nam"
+    ],
+    "d9caca00e40bc69125d28626ab564cf8": [
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Chan2_60s_B_1.nam",
+      "NAM_Capturas/George_B_Ceriatone_King_Kong_Chan2_60s_B.nam"
+    ],
+    "626ec538549c84effc27e2a834f1b633": [
+      "NAM_Capturas/Crunch_George_B_Ceriatone_King_Kong_Kk_Ch2_60s.nam",
+      "NAM_Capturas/Crunch_George_B_Ceriatone_King_Kong_Kk_Ch2_60s_1.nam"
+    ],
+    "083e86632fedc635358f68b1ce9fb439": [
+      "NAM_Capturas/Mesa_Higain.nam",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/116_Mesa_Higain.nam"
+    ],
+    "aa01e04ad2547c176c482b48992c4c7d": [
+      "IR_Guitarra/Loudness_Input_1.wav",
+      "IR_Guitarra/Loudness_Input.wav"
+    ],
+    "615ba0e40f17036f7ed28b38849fa93f": [
+      "IR_Guitarra/Mesa_U87_9.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/049_Mesa_U87_9.wav"
+    ],
+    "ee13dcc6a9286c51c989c42b7c2cff71": [
+      "IR_Guitarra/Mesa_U87_11.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/098_Mesa_U87_11.wav"
+    ],
+    "a4ed736fe2482998c9c88fd9e922249f": [
+      "IR_Guitarra/Mesa_U87_25.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/072_Mesa_U87_25.wav"
+    ],
+    "b5c0536da943ea0f223d074e1019ed59": [
+      "IR_Guitarra/Mesa_U87_307.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/103_Mesa_U87_307.wav"
+    ],
+    "f7b52658f37763e6240006aff6bb7f89": [
+      "IR_Guitarra/Mesa_U87_214.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/078_Mesa_U87_214.wav"
+    ],
+    "5a1a5741ff3d712ad865f7802082534d": [
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Ts_Grill_Cone_Far_Pres_5_1.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/048_Mesa_Mesa_Sm7b_Ts_Grill_Cone_Far_Pres_5_1.wav"
+    ],
+    "9e3f4d602d025861083d64364d83a65b": [
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Ts_Grill_Cap_Pres_2_1.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/062_Mesa_Mesa_Sm7b_Ts_Grill_Cap_Pres_2_1.wav"
+    ],
+    "e08e852cb65af0bfe3f2aa0ca6f8569e": [
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Ts_1_Inch_Cone_Near_Pres_3_1.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/043_Mesa_Mesa_Sm7b_Ts_1_Inch_Cone_Near_Pres_3_1.wav"
+    ],
+    "f241afc2053492f1df2aa104c53cacd8": [
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Ts_1_Inch_Cap_Pres_5_1.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/052_Mesa_Mesa_Sm7b_Ts_1_Inch_Cap_Pres_5_1.wav"
+    ],
+    "6fbd9f6d0a032961db1922d1e4bfcced": [
+      "IR_Guitarra/Mesa_Mesa_Sm7b_2_Inch_Edge_Pres_1_1.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/008_Mesa_Mesa_Sm7b_2_Inch_Edge_Pres_1_1.wav"
+    ],
+    "44592ae5a22ef5613a3a25bbc1762d59": [
+      "IR_Guitarra/Mesa_Mesa_Sm7b_2_Inch_Cap_Pres_1_1.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/097_Mesa_Mesa_Sm7b_2_Inch_Cap_Pres_1_1.wav"
+    ],
+    "b52de4e8fca3d952dfc88e5c42d7bcea": [
+      "IR_Guitarra/Mesa_Mesa_Sm7b_1_Inch_Edge_Pres_1_1.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/032_Mesa_Mesa_Sm7b_1_Inch_Edge_Pres_1_1.wav"
+    ],
+    "447291ba86005ed4a619b789e64673a6": [
+      "IR_Guitarra/Mesa_Mesa_Sm7b_1_Inch_Cone_Far_Pres_5_1.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/012_Mesa_Mesa_Sm7b_1_Inch_Cone_Far_Pres_5_1.wav"
+    ],
+    "a75cb6fc08cc2473f7d82795afea909b": [
+      "IR_Guitarra/Mesa_Sm57_177.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/034_Mesa_Sm57_177.wav"
+    ],
+    "6c69649408ccb09f9c11f7a4fb6597f8": [
+      "IR_Guitarra/Mesa_Sm57_21.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/054_Mesa_Sm57_21.wav"
+    ],
+    "acb5a1941f3a116469eceed2f405d238": [
+      "IR_Guitarra/Mesa_Sm57_306.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/031_Mesa_Sm57_306.wav"
+    ],
+    "7138f134bc4e48c91dbbdd732c14633d": [
+      "IR_Guitarra/Mesa_Sm57_126.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/006_Mesa_Sm57_126.wav"
+    ],
+    "a96aabe58ea80f7e839993dca1c13a04": [
+      "IR_Guitarra/Mesa_Sm57_283.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/099_Mesa_Sm57_283.wav"
+    ],
+    "cd0089493082d48a6787ea16c8716113": [
+      "IR_Guitarra/Mesa_Sm57_213.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/000_Mesa_Sm57_213.wav"
+    ],
+    "049441034b72c588974c19adf359f2f8": [
+      "IR_Guitarra/Mesa_Sm57_220.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/111_Mesa_Sm57_220.wav"
+    ],
+    "bfd825e5da904fafa2d49124be330ca3": [
+      "IR_Guitarra/Mesa_Sm57_221.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/041_Mesa_Sm57_221.wav"
+    ],
+    "73e89f2bf0d51e3ab2918a942f5f7466": [
+      "IR_Guitarra/Mesa_Md421_219.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/094_Mesa_Md421_219.wav"
+    ],
+    "42e6235b3e7ffbec6529f6c728d656ec": [
+      "IR_Guitarra/Mesa_Md421_318.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/005_Mesa_Md421_318.wav"
+    ],
+    "4bd92ec26fb48e3a5e7b2cfd66faa19c": [
+      "IR_Guitarra/Mesa_Md421_307.wav",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/085_Mesa_Md421_307.wav"
+    ],
+    "ac94efd6e7617c2a97f1ebde9be6130f": [
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/028_Bogner_Clean.wav",
+      "IR_Guitarra/Bogner_Clean.wav",
+      "IR_Guitarra/Peavey_Clean.wav"
+    ],
+    "f32707e72c48b58e1eb7ee6a8e68283c": [
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/029_Bogner_Bogner_C_Bogner_0.wav",
+      "IR_Guitarra/Bogner_Bogner_C_Bogner_0.wav",
+      "IR_Guitarra/Peavey_Peavey_0.wav"
+    ],
+    "9a2a2f1017aeb73c4f3e8b93a0c88d01": [
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/030_Structures_Divided_By.wav",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/036_Structures_Divided_By_1.wav",
+      "IR_Guitarra/Structures_Divided_By.wav",
+      "IR_Guitarra/Structures_Divided_By_1.wav"
+    ],
+    "be6c37166de276f5ec812b086dacaf9f": [
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/032_Soldano_Soldano_Slop_1.wav",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/037_Soldano_Slop_N09_Dtar_Slope_Jumbo.wav",
+      "IR_Guitarra/Soldano_Soldano_Slop_1.wav",
+      "IR_Guitarra/Soldano_Slop_N09_Dtar_Slope_Jumbo.wav"
+    ],
+    "477811d21811fb7f345364b46cb48956": [
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/031_Soldano_Soldano_Slop.wav",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/038_Soldano_Slop_N07_Dtar_Slope_Dread.wav",
+      "IR_Guitarra/Soldano_Soldano_Slop.wav",
+      "IR_Guitarra/Soldano_Slop_N07_Dtar_Slope_Dread.wav"
+    ],
+    "d0865919217f5e78419627bb4be7d97c": [
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/033_Soldano_Soldano_Slop_4.wav",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/039_Soldano_Slop_B09_Dtar_Slope_Jumbo.wav",
+      "IR_Guitarra/Soldano_Soldano_Slop_4.wav",
+      "IR_Guitarra/Soldano_Slop_B09_Dtar_Slope_Jumbo.wav"
+    ],
+    "839e321e8f8d24164aaba36901ddaf0f": [
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/034_Soldano_Soldano_Slop_2.wav",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/040_Soldano_Slop_109_Dtar_Slope_Jumbo.wav",
+      "IR_Guitarra/Soldano_Soldano_Slop_2.wav",
+      "IR_Guitarra/Soldano_Slop_109_Dtar_Slope_Jumbo.wav"
+    ],
+    "2136a6317e54094e70a75312273eee6e": [
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/035_Soldano_Soldano_Slop_3.wav",
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/041_Soldano_Slop_107_Dtar_Slope_Dread.wav",
+      "IR_Guitarra/Soldano_Soldano_Slop_3.wav",
+      "IR_Guitarra/Soldano_Slop_107_Dtar_Slope_Dread.wav"
+    ],
+    "d13840caca9f3dfcbda4e548d7f710d5": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/063_Muff_Target.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/012_Muff_Target_3.wav",
+      "IR_Guitarra/Muff_Target.wav",
+      "IR_Guitarra/Muff_Target_3.wav"
+    ],
+    "1cdc0c7a508d803f3767b812fee493b8": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/095_Muff_Input.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/108_Muff_Input_3.wav",
+      "IR_Guitarra/Muff_Input.wav",
+      "IR_Guitarra/Muff_Input_3.wav"
+    ],
+    "8ab707669b77500cc8494a9f37380cdd": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/082_Muff_Target_2.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/098_Muff_Target_2_1.wav",
+      "IR_Guitarra/Muff_Target_2.wav",
+      "IR_Guitarra/Muff_Target_2_1.wav"
+    ],
+    "f9f4fbcb1ef509a94df027e91b0f2b26": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/040_Muff_Input_2_1.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/044_Muff_Input_2.wav",
+      "IR_Guitarra/Muff_Input_2_1.wav",
+      "IR_Guitarra/Muff_Input_2.wav"
+    ],
+    "372559bd397318eefa4a259b8043cb7c": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/119_Fuzz.wav",
+      "IR_Guitarra/Fuzz.wav"
+    ],
+    "33aa4baa9e0b4a17cbda41588cf4baf4": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/118_Muff_Target_1.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/011_Muff_Target_1_1.wav",
+      "IR_Guitarra/Muff_Target_1.wav",
+      "IR_Guitarra/Muff_Target_1_1.wav"
+    ],
+    "bd2d0466cc1171cdd9b8dc2720df0e4c": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/081_Muff_Input_1_1.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/070_Muff_Input_1.wav",
+      "IR_Guitarra/Muff_Input_1_1.wav",
+      "IR_Guitarra/Muff_Input_1.wav"
+    ],
+    "5af97addb2019d474a7f0c4f6166fac1": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/071_Stratovarius_Legions.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/032_Stratovarius_Legions_1.wav",
+      "IR_Guitarra/Stratovarius_Legions.wav",
+      "IR_Guitarra/Stratovarius_Legions_1.wav"
+    ],
+    "641097841d698ebbfd1e0d031114ee15": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/062_Saratoga_Nemesis.wav",
+      "IR_Guitarra/Saratoga_Nemesis.wav"
+    ],
+    "c4be8bdc2ef4c07fa796e77abe35009d": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/045_Crunch_Parkwaydriveatlas_1.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/035_Crunch_Parkwaydriveatlas.wav",
+      "IR_Guitarra/Crunch_Parkwaydriveatlas_1.wav",
+      "IR_Guitarra/Crunch_Parkwaydriveatlas.wav"
+    ],
+    "7ff6b1b676ba7f0b3513360b7d61bcba": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/042_Persephonespitualmigration.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/109_Persephonespitualmigration_1.wav",
+      "IR_Guitarra/Persephonespitualmigration.wav",
+      "IR_Guitarra/Persephonespitualmigration_1.wav"
+    ],
+    "c5a2cbc546090565521d325d963a82ec": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/024_Lamb_Of_God_Wrath_1.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/008_Lamb_Of_God_Wrath.wav",
+      "IR_Guitarra/Lamb_Of_God_Wrath_1.wav",
+      "IR_Guitarra/Lamb_Of_God_Wrath.wav"
+    ],
+    "9664794c64a236a96185ef9dec4ceb54": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/084_Ignominious_Incarceration_Of_Winter_Born.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/018_Ignominious_Incarceration_Of_Winter_Born_1.wav",
+      "IR_Guitarra/Ignominious_Incarceration_Of_Winter_Born.wav",
+      "IR_Guitarra/Ignominious_Incarceration_Of_Winter_Born_1.wav"
+    ],
+    "ccbc38e954d64283140cee35ec1497dc": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/038_Crunch_Devildriverthelastkindwords_1.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/066_Crunch_Devildriverthelastkindwords.wav",
+      "IR_Guitarra/Crunch_Devildriverthelastkindwords_1.wav",
+      "IR_Guitarra/Crunch_Devildriverthelastkindwords.wav"
+    ],
+    "810ae1bccc3c0cf6f5ca71e1002ed277": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/034_Black_Dahlia_Murder_Deflorate_1.wav",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/117_Black_Dahlia_Murder_Deflorate.wav",
+      "IR_Guitarra/Black_Dahlia_Murder_Deflorate_1.wav",
+      "IR_Guitarra/Black_Dahlia_Murder_Deflorate.wav"
+    ],
+    "94eeba9c22d25e891aed423f8f3d587d": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/019_Taurus_Stomphead.wav",
+      "IR_Guitarra/Taurus_Stomphead.wav"
+    ],
+    "a7ed9650b79312761bfe1ed8ef02aa2f": [
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/030_Smartpedal.wav",
+      "IR_Guitarra/Smartpedal.wav"
+    ],
+    "81f5683a1ce6b324a55bf8d89d138ab1": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/063_Mesa_Mesa_C414_Ts_Grill_Cone_Far_Pres_4_1.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_Ts_Grill_Cone_Far_Pres_4_1.wav"
+    ],
+    "104f5635af39325f10716ad7d229cdda": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/047_Mesa_Mesa_C414_2_Inch_Edge_Pres_4_1.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_2_Inch_Edge_Pres_4_1.wav"
+    ],
+    "2878879b92bf2b7848ac4a8f3a96cb37": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/017_Mesa_Mesa_C414_1_Inch_Edge_Pres_5_1.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_1_Inch_Edge_Pres_5_1.wav"
+    ],
+    "d2d70b55de41519004da74b9e2b1e709": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/060_Mesa_U87_310.wav",
+      "IR_Guitarra/Mesa_U87_310.wav"
+    ],
+    "d32d503aaaa923ffea53175463ae9820": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/079_Mesa_U87_73.wav",
+      "IR_Guitarra/Mesa_U87_73.wav"
+    ],
+    "cba8560d30c3cf2982934809461abcc3": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/081_Mesa_Mesa_C02_Stereo_Ts_Pres_4_1.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Stereo_Ts_Pres_4_1.wav"
+    ],
+    "0251bc19d5e9fd8da89f9232b4355719": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/029_Mesa_Mesa_C02_Mono_Ts_Ht_Pres_3_1.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Ts_Ht_Pres_3_1.wav"
+    ],
+    "ed4a1eb87b54ba74cc4c6277fa137115": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/013_Mesa_Mesa_C02_Mono_Left_Pres_5_1.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Left_Pres_5_1.wav"
+    ],
+    "2538d792f590051f835a54dddaef10e3": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/093_Mesa_Mesa_C02_Mono_Left_Pres_2_1.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Left_Pres_2_1.wav"
+    ],
+    "2c09cb4f35e30f2685c7ce2f3554d190": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/070_Mesa_U87_8.wav",
+      "IR_Guitarra/Mesa_U87_8.wav"
+    ],
+    "5f3767101da91af35624d9b44580a0a0": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/020_Mesa_U87_61.wav",
+      "IR_Guitarra/Mesa_U87_61.wav"
+    ],
+    "8e526d536c7d8133dba2ccf1f9798bed": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/004_Mesa_U87_321.wav",
+      "IR_Guitarra/Mesa_U87_321.wav"
+    ],
+    "cefef3b2d1e89027b8995d0cafc56f74": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/050_Mesa_U87_353.wav",
+      "IR_Guitarra/Mesa_U87_353.wav"
+    ],
+    "69ce5f774441ba2a896f4586ba524928": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/073_Mesa_U87_289.wav",
+      "IR_Guitarra/Mesa_U87_289.wav"
+    ],
+    "98998a41a7643ad784448279ec6e1f26": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/014_Mesa_U87_29.wav",
+      "IR_Guitarra/Mesa_U87_29.wav"
+    ],
+    "c403933e2148d2d38213a4c8d44a8251": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/053_Mesa_U87_22.wav",
+      "IR_Guitarra/Mesa_U87_22.wav"
+    ],
+    "d5c92497b11f7ae62541f163fc2afe8e": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/065_Mesa_Mesa_Sm7b_Ts_Grill_Cap_Pres_5_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Ts_Grill_Cap_Pres_5_2.wav"
+    ],
+    "6325c1af83878160fd09dcef31b64aa7": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/003_Mesa_Mesa_Sm7b_Ts_Grill_Cone_Far_Pres_3_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Ts_Grill_Cone_Far_Pres_3_2.wav"
+    ],
+    "022ca678e7defe696a2fcba3f7b44fb3": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/087_Mesa_Mesa_Sm7b_Ts_Grill_Cap_Pres_4_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Ts_Grill_Cap_Pres_4_2.wav"
+    ],
+    "43fe8bc66b3554b35231119be139dc6d": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/108_Mesa_Mesa_Sm7b_Ts_2_Inch_Cap_Pres_3_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Ts_2_Inch_Cap_Pres_3_2.wav"
+    ],
+    "a5597993dc76f81aa32ff724122512ed": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/089_Mesa_Mesa_Sm7b_2_Inch_Edge_Pres_1_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_2_Inch_Edge_Pres_1_2.wav"
+    ],
+    "3e7036709e710265f3fd9728b058081e": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/119_Mesa_Mesa_Sm7b_2_Inch_Cone_Near_Pres_2_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_2_Inch_Cone_Near_Pres_2_2.wav"
+    ],
+    "c2eea3e6c061889218e5d16b189d7b47": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/037_Mesa_Mesa_Sm7b_2_Inch_Cone_Near_Pres_1_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_2_Inch_Cone_Near_Pres_1_2.wav"
+    ],
+    "783656c9ff7b128af10e7a108a0c8b71": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/086_Mesa_Mesa_Sm7b_2_Inch_Cap_Pres_2_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_2_Inch_Cap_Pres_2_2.wav"
+    ],
+    "f52a5800e3e999ad99af4e0af14a2047": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/113_Mesa_Mesa_Sm7b_1_Inch_Edge_Pres_5_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_1_Inch_Edge_Pres_5_2.wav"
+    ],
+    "780d16b0e9c833f784ccbecca29778f7": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/061_Mesa_Mesa_Sm7b_1_Inch_Edge_Pres_4_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_1_Inch_Edge_Pres_4_2.wav"
+    ],
+    "6fe23ec2e46d2112a973cb63ff8074eb": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/077_Mesa_Mesa_Sm7b_1_Inch_Cone_Near_Pres_1_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_1_Inch_Cone_Near_Pres_1_2.wav"
+    ],
+    "75db0dee7e84823785bc4e0467c13187": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/069_Mesa_Mesa_Sm7b_1_Inch_Cap_Pres_4_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_1_Inch_Cap_Pres_4_2.wav"
+    ],
+    "d8428f32665c65eedc2e064c0ee0e553": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/002_Mesa_Sm57_147.wav",
+      "IR_Guitarra/Mesa_Sm57_147.wav"
+    ],
+    "7aee07c51a7bd83854f0a6cea29d4629": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/027_Mesa_Sm57_338.wav",
+      "IR_Guitarra/Mesa_Sm57_338.wav"
+    ],
+    "08623f465580c9964d9fe05523887f63": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/022_Mesa_Sm57_12.wav",
+      "IR_Guitarra/Mesa_Sm57_12.wav"
+    ],
+    "3ba48d7a2ca9ba9a50bce684826fff42": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/051_Mesa_Sm57_305.wav",
+      "IR_Guitarra/Mesa_Sm57_305.wav"
+    ],
+    "b9f6f92fc7efef795b1bfdb628606a98": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/045_Mesa_Sm57_360.wav",
+      "IR_Guitarra/Mesa_Sm57_360.wav"
+    ],
+    "de8bdce47cea9b700082d18f20d307af": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/114_Mesa_Sm57_133.wav",
+      "IR_Guitarra/Mesa_Sm57_133.wav"
+    ],
+    "37331be7d28a5247f2882a74df76e49a": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/080_Mesa_Md421_186.wav",
+      "IR_Guitarra/Mesa_Md421_186.wav"
+    ],
+    "0d33564099fae9a4a196909f58b45bb0": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/075_Mesa_Md421_324.wav",
+      "IR_Guitarra/Mesa_Md421_324.wav"
+    ],
+    "412271978a63011b6c7823497d9a939a": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/071_Mesa_Md421_120.wav",
+      "IR_Guitarra/Mesa_Md421_120.wav"
+    ],
+    "83a3dba7a6db402fdcf9118dd4d3c876": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/030_Mesa_Mesa_C414_Ts_2_Inch_Cone_Near_Pres_4_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_Ts_2_Inch_Cone_Near_Pres_4_2.wav"
+    ],
+    "ef1f71c84de4849e7ac1029b482ab0e5": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/026_Mesa_Mesa_C414_Ts_2_Foot_Pres_4_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_Ts_2_Foot_Pres_4_2.wav"
+    ],
+    "92491636dd6b8c04e81288ea4d7fd287": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/036_Mesa_Mesa_C414_Ts_1_Inch_Cone_Far_Pres_5_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_Ts_1_Inch_Cone_Far_Pres_5_2.wav"
+    ],
+    "2aebcc51eefdbbaf1469272b07450fd2": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/059_Mesa_Mesa_C414_2_Inch_Edge_Pres_1_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_2_Inch_Edge_Pres_1_2.wav"
+    ],
+    "edba26220158f66c98d21ffa6dcf5100": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/035_Mesa_Mesa_C414_2_Foot_Pres_5_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_2_Foot_Pres_5_2.wav"
+    ],
+    "8b7b1a5f5389158fd67a9ffe575b18f5": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/092_Mesa_Mesa_C414_1_Inch_Cone_Near_Pres_4_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_1_Inch_Cone_Near_Pres_4_2.wav"
+    ],
+    "0f0b360db8ffacc769928e044b0f3029": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/046_Mesa_Mesa_C414_1_Inch_Edge_Pres_1_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_1_Inch_Edge_Pres_1_2.wav"
+    ],
+    "37769eb49be4a108989a151227903cbe": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/056_Mesa_Mesa_C414_1_Inch_Cap_Pres_4_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_1_Inch_Cap_Pres_4_2.wav"
+    ],
+    "7d72b7a8fcf876c8e9d1bbe4d184ee11": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/058_Mesa_U87_52.wav",
+      "IR_Guitarra/Mesa_U87_52.wav"
+    ],
+    "fece5f8cb0a53dfba8b9e9cd73771390": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/042_Mesa_Mesa_C02_Mono_Ts_Left_Pres_5_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Ts_Left_Pres_5_2.wav"
+    ],
+    "ad7c48b07efaa0e282a1de1ba2da99f6": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/068_Mesa_Mesa_C02_Mono_Ht_Pres_3_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Ht_Pres_3_2.wav"
+    ],
+    "4d4787aa84c5304e64ea005f1daffcdb": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/033_Mesa_Mesa_C02_Mono_Ts_Left_Pres_1_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Ts_Left_Pres_1_2.wav"
+    ],
+    "57dd6aded04472ef1f93e5be845ab4fd": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/105_Mesa_Mesa_C02_Mono_Left_Pres_1_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Left_Pres_1_2.wav"
+    ],
+    "152bb1f2491af0ee7c7158f10e82c89b": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/104_Mesa_U87_361.wav",
+      "IR_Guitarra/Mesa_U87_361.wav"
+    ],
+    "534461c0c3c91e04e3ba5af7b9cf3729": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/083_Mesa_U87_325.wav",
+      "IR_Guitarra/Mesa_U87_325.wav"
+    ],
+    "7e65093539ebab5930dff2256ef705a6": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/091_Mesa_U87_206.wav",
+      "IR_Guitarra/Mesa_U87_206.wav"
+    ],
+    "25c1437c0ac12548f429e60d863f1f34": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/076_Mesa_U87_70.wav",
+      "IR_Guitarra/Mesa_U87_70.wav"
+    ],
+    "319279eeb2c81c8534fbfb86e4c142c4": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/019_Mesa_Mesa_Sm7b_Grill_Cone_Near_Pres_5.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Grill_Cone_Near_Pres_5.wav"
+    ],
+    "d5470891be6732ac8fadf091103f6cd9": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/009_Mesa_Mesa_Sm7b_Grill_Cone_Far_Pres_2.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Grill_Cone_Far_Pres_2.wav"
+    ],
+    "502c0d07110c7a0c688abf9c430ddca7": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/102_Mesa_Mesa_Sm7b_Grill_Cap_Pres_5.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Grill_Cap_Pres_5.wav"
+    ],
+    "1a186629ecc0c292254591dfa8bffa7f": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/025_Mesa_Mesa_Sm7b_Grill_Cap_Pres_1.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_Grill_Cap_Pres_1.wav"
+    ],
+    "e1782635bfe864f89ea4df17b7d093ca": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/090_Mesa_Mesa_Sm7b_1_Inch_Edge_Pres_4.wav",
+      "IR_Guitarra/Mesa_Mesa_Sm7b_1_Inch_Edge_Pres_4.wav"
+    ],
+    "09403bb3e73647eb653613886b403878": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/115_Mesa_Sm57_250.wav",
+      "IR_Guitarra/Mesa_Sm57_250.wav"
+    ],
+    "8b4d93d3e58ba22836906223db037ff6": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/021_Mesa_Sm57_282.wav",
+      "IR_Guitarra/Mesa_Sm57_282.wav"
+    ],
+    "8c61ae893aa6f79e97ff31a11ca2d128": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/117_Mesa_Sm57_184.wav",
+      "IR_Guitarra/Mesa_Sm57_184.wav"
+    ],
+    "54cfc1d9c52ad722f064f2c2214f7a8b": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/055_Mesa_Sm57_138.wav",
+      "IR_Guitarra/Mesa_Sm57_138.wav"
+    ],
+    "75fded98c6001771fb5fec2c49e35850": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/084_Mesa_Sm57_142.wav",
+      "IR_Guitarra/Mesa_Sm57_142.wav"
+    ],
+    "46519e40e1d136e7d91dc0735f65cdf1": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/039_Mesa_Sm57_290.wav",
+      "IR_Guitarra/Mesa_Sm57_290.wav"
+    ],
+    "19f99ebdf2bdafcceb8a6e30363de0f5": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/067_Mesa_Sm57_175.wav",
+      "IR_Guitarra/Mesa_Sm57_175.wav"
+    ],
+    "1818e82c462e065bc5d01b8f078e6289": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/106_Mesa_Md421_103.wav",
+      "IR_Guitarra/Mesa_Md421_103.wav"
+    ],
+    "e6b0e80df87f9c4f8fdd02ffba6df97d": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/096_Mesa_Mesa_C414_Ts_Grill_Cone_Near_Pres_4.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_Ts_Grill_Cone_Near_Pres_4.wav"
+    ],
+    "874f558f5cb6e50a2fad33410d7d5cb7": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/082_Mesa_Mesa_C414_Ts_2_Inch_Edge_Pres_5.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_Ts_2_Inch_Edge_Pres_5.wav"
+    ],
+    "f2f338c1b18d89c01bf78fb576e9bdf1": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/015_Mesa_Mesa_C414_Ts_1_Inch_Edge_Pres_1.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_Ts_1_Inch_Edge_Pres_1.wav"
+    ],
+    "fc415f2009dc4d05c4d8aeadd64df2f4": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/095_Mesa_Mesa_C414_Ts_1_Foot_Pres_3.wav",
+      "IR_Guitarra/Mesa_Mesa_C414_Ts_1_Foot_Pres_3.wav"
+    ],
+    "a89928ce206f65a3c2b302ee2430f694": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/107_Mesa_U87_359.wav",
+      "IR_Guitarra/Mesa_U87_359.wav"
+    ],
+    "5f3111536e6a498d9b67a947d22a57e5": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/064_Mesa_U87_99.wav",
+      "IR_Guitarra/Mesa_U87_99.wav"
+    ],
+    "6af02a0a6aee5b06cecf7e1c93289c27": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/040_Mesa_U87_203.wav",
+      "IR_Guitarra/Mesa_U87_203.wav"
+    ],
+    "27c56fbea3d381e6f0327ff42061a65b": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/112_Mesa_Mesa_C02_Stereo_Ts_Pres_4.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Stereo_Ts_Pres_4.wav"
+    ],
+    "9c349c392c44a5e2e84b14cc42e715ab": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/088_Mesa_Mesa_C02_Mono_Ts_Ht_Pres_5.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Ts_Ht_Pres_5.wav"
+    ],
+    "80e88fd07935f177764bdf53031bc099": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/029_Vox_Vox_Dect_Cabinet_N1.wav",
+      "IR_Guitarra/Vox_Vox_Dect_Cabinet_N1.wav"
+    ],
+    "9b67a6125a6b7ae46c4655320eb5943a": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/086_Vox_Vox_Chateau_De_Logne,_Outside.wav",
+      "IR_Guitarra/Vox_Vox_Chateau_De_Logne,_Outside.wav"
+    ],
+    "38f009b5387bfcd5c8a87c13631598d5": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/059_Vox_Vox_Cement_Blocks_2.wav",
+      "IR_Guitarra/Vox_Vox_Cement_Blocks_2.wav"
+    ],
+    "e213b31c888203c7446678a3a7d16a99": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/106_Vox_Vox_Cement_Blocks_1.wav",
+      "IR_Guitarra/Vox_Vox_Cement_Blocks_1.wav"
+    ],
+    "e7f70128058840d9b41e9d2ddb7d4e88": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/101_Vox_Vox_Block_Inside.wav",
+      "IR_Guitarra/Vox_Vox_Block_Inside.wav"
+    ],
+    "b1e7ad158214eb94b52443b11a0d8b12": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/045_Vox_Vox_Vocal_Duo.wav",
+      "IR_Guitarra/Vox_Vox_Vocal_Duo.wav"
+    ],
+    "a90cf001a7883a1f0f673705c3caff18": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/088_Vox_Vox_St_Nicolaes_Church.wav",
+      "IR_Guitarra/Vox_Vox_St_Nicolaes_Church.wav"
+    ],
+    "f660d9b9ceb74694350a34905ec82946": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/094_Vox_Vox_Ht_Glass_Triangle.wav",
+      "IR_Guitarra/Vox_Vox_Ht_Glass_Triangle.wav"
+    ],
+    "898445af7a21f347037e1fccadff2b1d": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/036_Vox_Vox_Rays.wav",
+      "IR_Guitarra/Vox_Vox_Rays.wav"
+    ],
+    "2c0a952801b967988cf59a4b5746ab8b": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/064_Vox_Vox_Parking_Garage.wav",
+      "IR_Guitarra/Vox_Vox_Parking_Garage.wav"
+    ],
+    "13b88c45744b2c5e03de093334f477b2": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/067_Vox_Vox_Musikvereinsaal.wav",
+      "IR_Guitarra/Vox_Vox_Musikvereinsaal.wav"
+    ],
+    "1dbc00f377e1e42200b545ace23a2b45": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/089_Vox_Vox_Masonic_Lodge.wav",
+      "IR_Guitarra/Vox_Vox_Masonic_Lodge.wav"
+    ],
+    "a6b8722dd9bf8c9adab8e091b7208f14": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/043_Vox_Vox_In_The_Silo_Revised.wav",
+      "IR_Guitarra/Vox_Vox_In_The_Silo_Revised.wav"
+    ],
+    "9542bacbea458ea69fb8d08a919dca41": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/053_Vox_Vox_Five_Columns.wav",
+      "IR_Guitarra/Vox_Vox_Five_Columns.wav"
+    ],
+    "8335e805128670deefdb0db2c3773d1d": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/022_Vox_Vox_Five_Columns_Long.wav",
+      "IR_Guitarra/Vox_Vox_Five_Columns_Long.wav"
+    ],
+    "334353f78a1b275d843e6a148c18431a": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/011_Vox_Vox_Dect_Cabinet_N3.wav",
+      "IR_Guitarra/Vox_Vox_Dect_Cabinet_N3.wav"
+    ],
+    "a200ad55b98ae82751a8bdd2146e6002": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/108_Vox_Vox_Dect_Cabinet_N2.wav",
+      "IR_Guitarra/Vox_Vox_Dect_Cabinet_N2.wav"
+    ],
+    "1f523840c75c4fffb4de0d21b16444e5": [
+      "_CURATED_RIGS/03_Pristine_Clean_Ambient/002_Line6_Fender.wav",
+      "IR_Guitarra/Line6_Fender.wav"
+    ],
+    "500f1208586548330eded9e7f1d13578": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/066_Vox_Vox_Vox_Bht2b.wav",
+      "IR_Guitarra/Vox_Vox_Vox_Bht2b.wav"
+    ],
+    "5a21a7e4daf65254d2440155d16baeab": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/065_Vox_Vox_Vox_Bht1.wav",
+      "IR_Guitarra/Vox_Vox_Vox_Bht1.wav"
+    ],
+    "c5c55fce92f0531a1ba67e1db3e84eaa": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/071_Vox_U87.wav",
+      "IR_Guitarra/Vox_U87.wav"
+    ],
+    "27a88b928bb4e3442ba369dd42b6fd1b": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/024_Vox_Sm57_5.wav",
+      "IR_Guitarra/Vox_Sm57_5.wav"
+    ],
+    "2f95f4635f162f123a7b7fdacbe63c4d": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/084_Vox_Vox_Vox_Bht1_Raum.wav",
+      "IR_Guitarra/Vox_Vox_Vox_Bht1_Raum.wav"
+    ],
+    "1407bab97a65e62f48e562d484adca77": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/117_Vox_Vox_Ac30_3.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_3.wav"
+    ],
+    "20342c61326841a332e33e1899d23bae": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/116_Vox_Vox_Ac30_5.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_5.wav"
+    ],
+    "f678569e5223f5ddec682ee41cdb9721": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/061_Vox_Vox_Ac30_4.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_4.wav"
+    ],
+    "b66af6cf795173515c1ded7d2d39fecb": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/082_Vox_Vox_Ac30.wav",
+      "IR_Guitarra/Vox_Vox_Ac30.wav"
+    ],
+    "be62a9ec22fd70ccd9e4b5d47625e500": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/099_Vox_Vox_Ac30_1.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_1.wav"
+    ],
+    "194fe00a09491ee4d0c4c105a0463a58": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/076_Vox_Vox_Ac30_15.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_15.wav"
+    ],
+    "b767198e7d71a44ac31b4cd7c1c201b7": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/017_Vox_Sm57_3.wav",
+      "IR_Guitarra/Vox_Sm57_3.wav"
+    ],
+    "ff24b352a717223d1aa7ef542993bf29": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/068_Vox_Sm57_4.wav",
+      "IR_Guitarra/Vox_Sm57_4.wav"
+    ],
+    "0cd8ad6248ed6cfc6622c2fdf3310c95": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/105_Vox_Vox_Ac30_7.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_7.wav"
+    ],
+    "117e2ea765b94f9008fd5e382d79c030": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/111_Vox_Vox_Ac30_14.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_14.wav"
+    ],
+    "d0faeeff8b53561231592dd379116720": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/090_Vox_Vox_Ac30_11.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_11.wav"
+    ],
+    "7190a7c3908652d2c669a911a83055ef": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/039_Vox_Vox_Ac30_16.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_16.wav"
+    ],
+    "144c0a10c6236efd290a81d4696927ca": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/096_Vox_Vox_Ac30_19.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_19.wav"
+    ],
+    "02817c3e16bd4ee239de19cd0d23e9e4": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/008_Vox_Vox_Ac30_20.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_20.wav"
+    ],
+    "a6f212a8f401dd9f4f94a7d83d4b2da9": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/030_Vox_Vox_Ac30_8.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_8.wav"
+    ],
+    "8fc0d4f088f2b81aa22b34a4daf23eeb": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/073_Vox_Vox_Ac30_18.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_18.wav"
+    ],
+    "e80345d5903a42ece2de1c609fd9d58f": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/069_Vox_Vox_Ac30_10.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_10.wav"
+    ],
+    "22e664729182a73ef88316d9d8978c77": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/104_Vox_Vox_Ac30_9.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_9.wav"
+    ],
+    "53068efd68dac0bf871a2f36fa623c2a": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/019_Vox_Vox_Ac30_21.wav",
+      "IR_Guitarra/Vox_Vox_Ac30_21.wav"
+    ],
+    "6f8fe8e4ff52b2f173c244ebafb6b922": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/077_Vox_4x12_4.wav",
+      "IR_Guitarra/Vox_4x12_4.wav"
+    ],
+    "6fde9692f88ceadafbc422ba4078bd0e": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/087_Vox_4x12_5.wav",
+      "IR_Guitarra/Vox_4x12_5.wav"
+    ],
+    "baa775262c1c7475e6eb0f79a3783009": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/032_Vox_4x12_U87_1.wav",
+      "IR_Guitarra/Vox_4x12_U87_1.wav"
+    ],
+    "b7eee32bdd6439ae48db46e7819fd3b0": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/093_Vox_4x12_U87_2.wav",
+      "IR_Guitarra/Vox_4x12_U87_2.wav"
+    ],
+    "8f2ec0a921abb2279770dcf9c7b83b4c": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/010_Vox_4x12_10.wav",
+      "IR_Guitarra/Vox_4x12_10.wav"
+    ],
+    "a647a7f23479a9469889aec220dc8557": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/035_Vox_4x12_1.wav",
+      "IR_Guitarra/Vox_4x12_1.wav"
+    ],
+    "42328d73918cc865d03333ecd2c01e6b": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/021_Vox_4x12_6.wav",
+      "IR_Guitarra/Vox_4x12_6.wav"
+    ],
+    "024d8a17d34f44db13ba2d76c26a2b82": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/028_Vox_4x12_U87.wav",
+      "IR_Guitarra/Vox_4x12_U87.wav"
+    ],
+    "1418964d159b6620d79249f2ddfa9194": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/034_Vox_4x12_U87_3.wav",
+      "IR_Guitarra/Vox_4x12_U87_3.wav"
+    ],
+    "17dfa95979aae1f8a6778afc9af66eb7": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/070_Vox_4x12_8.wav",
+      "IR_Guitarra/Vox_4x12_8.wav"
+    ],
+    "e359780f95a5a4298a6d34ab073bd779": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/060_Vox_4x12_2.wav",
+      "IR_Guitarra/Vox_4x12_2.wav"
+    ],
+    "b33605262ea15518c7666f546d87c89c": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/091_Vox_4x12_12.wav",
+      "IR_Guitarra/Vox_4x12_12.wav"
+    ],
+    "053660629b5d64918d5b3298164eb3ea": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/051_Vox_4x12_13.wav",
+      "IR_Guitarra/Vox_4x12_13.wav"
+    ],
+    "d88b3a33c732d41745b4d9576451ac8f": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/018_Vox_4x12_9.wav",
+      "IR_Guitarra/Vox_4x12_9.wav"
+    ],
+    "d74618e1a7b5e4c11d06dc6ef49293a5": [
+      "_CURATED_RIGS/02_Classic_Rock_Legends/000_Vox_4x12_11.wav",
+      "IR_Guitarra/Vox_4x12_11.wav"
+    ],
+    "ef6cba01a34916fd968e6c02641b817c": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/018_Mesa_4x12_18.wav",
+      "IR_Guitarra/Mesa_4x12_18.wav"
+    ],
+    "5b868aa1a3d1b29631987b246e498ddf": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/007_Mesa_4x12_3.wav",
+      "IR_Guitarra/Mesa_4x12_3.wav"
+    ],
+    "4d5fe6cfe7fa5d4423b98ff62c9e029f": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/044_Diezel_Diezel_Diezel_Einstein.wav",
+      "IR_Guitarra/Diezel_Diezel_Diezel_Einstein.wav"
+    ],
+    "4365c5ee621ae8e0430df9db857d8f9a": [
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/109_Engl_Engl_Engl_Special_Edition.wav",
+      "IR_Guitarra/Engl_Engl_Engl_Special_Edition.wav"
+    ],
+    "97798b78db4e0045c0e1333805cd52e8": [
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Left_Pres_5_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Left_Pres_5_2.wav"
+    ],
+    "b2c13744884e1463a9e0de385d1af050": [
+      "IR_Guitarra/Ts9_1_Out_Fp32.wav",
+      "IR_Guitarra/Ts9_1_Out_Fp32_1.wav"
+    ],
+    "0cb2a86a82f14d6685a838c9b17675dd": [
+      "IR_Guitarra/Ts9_1_In_Fp32_1.wav",
+      "IR_Guitarra/Ts9_1_In_Fp32.wav"
+    ],
+    "281c830ba740edabac544c4f916fba94": [
+      "IR_Guitarra/Sample94_1.wav",
+      "IR_Guitarra/Sample94_1.wav"
+    ],
+    "a06a76eedf6895b2b9f7a8f0754e1b9e": [
+      "IR_Guitarra/Ht1_Target_3.wav",
+      "IR_Guitarra/Ht1_Target.wav"
+    ],
+    "3c0e7a3d035233bbb99c1a0081a722c3": [
+      "IR_Guitarra/Ht1_Input.wav",
+      "IR_Guitarra/Ht1_Input_3.wav"
+    ],
+    "61b21eb6efddd41ce8a4a73674e8ea22": [
+      "IR_Guitarra/Ht1_Target_2_1.wav",
+      "IR_Guitarra/Ht1_Target_2.wav"
+    ],
+    "4cb37c951cba22dce51dc2624db13766": [
+      "IR_Guitarra/Ht1_Input_2_1.wav",
+      "IR_Guitarra/Ht1_Input_2.wav"
+    ],
+    "d6b11eb3af8995e0b6e09ca141636252": [
+      "IR_Guitarra/Ht1_Target_1_1.wav",
+      "IR_Guitarra/Ht1_Target_1.wav"
+    ],
+    "09832324e1bf049967ccfaa869505a48": [
+      "IR_Guitarra/Ht1_Input_1.wav",
+      "IR_Guitarra/Ht1_Input_1_1.wav"
+    ],
+    "e417d22f498ad88d2bf4d1a260ec9d75": [
+      "IR_Guitarra/Fp32.wav",
+      "IR_Guitarra/Fp32_1.wav"
+    ],
+    "660841d0fef8d517dac3f6514f8d89b8": [
+      "IR_Guitarra/Celestion_Celestion_0_P2_Audix_I5_Deerinkstudios.wav",
+      "IR_Guitarra/Celestion_Celestion_0.wav"
+    ],
+    "ed24050082d49a3c5ecf9b57b32aef2d": [
+      "IR_Guitarra/Output_1.wav",
+      "IR_Guitarra/Output.wav"
+    ],
+    "d1cf1380ccf3be8ffb40973273cf8b09": [
+      "IR_Guitarra/Kdonnerflangerra12c12rg9singles1_Target_1.wav",
+      "IR_Guitarra/Kdonnerflangerra12c12rg9singles1_Target.wav"
+    ],
+    "4bf0d1a637c61c3aa53480c400a4c4fe": [
+      "IR_Guitarra/Kdonnerflangerra12c12rg9singles1_Input_1.wav",
+      "IR_Guitarra/Kdonnerflangerra12c12rg9singles1_Input.wav"
+    ],
+    "7577d87c11f817ac538bd9ef58a2c028": [
+      "IR_Guitarra/Celestion_4x12_168.wav",
+      "IR_Guitarra/Celestion_4x12_199.wav"
+    ],
+    "a658f8fc7d543483d6366880848c7883": [
+      "IR_Guitarra/Celestion_4x12_162.wav",
+      "IR_Guitarra/Celestion_4x12_210.wav"
+    ],
+    "05dfdfc43b0b064bea37cd70f328c673": [
+      "IR_Guitarra/Celestion_4x12_205.wav",
+      "IR_Guitarra/Celestion_4x12_152.wav"
+    ],
+    "1d9b9e98e9156d30eca6f427a0cded15": [
+      "IR_Guitarra/Celestion_4x12_182.wav",
+      "IR_Guitarra/Celestion_4x12_200.wav"
+    ],
+    "b41139424516f3e708a17e7aac04d488": [
+      "IR_Guitarra/Celestion_4x12_185.wav",
+      "IR_Guitarra/Celestion_4x12_169.wav"
+    ],
+    "48c56dc63286247daf667fd14a6aad24": [
+      "IR_Guitarra/Celestion_4x12_157.wav",
+      "IR_Guitarra/Celestion_4x12_207.wav"
+    ],
+    "1a1104a80caf1d09c0298c8acc5149d2": [
+      "IR_Guitarra/Celestion_4x12_159.wav",
+      "IR_Guitarra/Celestion_4x12_201.wav"
+    ],
+    "1a3d0bc64e8dc21dc162a1b791ebef0c": [
+      "IR_Guitarra/Celestion_4x12_197.wav",
+      "IR_Guitarra/Celestion_4x12_154.wav"
+    ],
+    "6ca235998db4bc0d78e471059d48e3f4": [
+      "IR_Guitarra/Celestion_4x12_191.wav",
+      "IR_Guitarra/Celestion_4x12_196.wav"
+    ],
+    "9b0cd81684ce5e505e455f58d1928c61": [
+      "IR_Guitarra/Celestion_4x12_139.wav",
+      "IR_Guitarra/Celestion_4x12_141.wav"
+    ],
+    "e098e3d17255d70ad94a1615c91f9303": [
+      "IR_Guitarra/Celestion_4x12_138.wav",
+      "IR_Guitarra/Celestion_4x12_184.wav"
+    ],
+    "e39f0d19399bc547d7af3359072c1348": [
+      "IR_Guitarra/Celestion_4x12_189.wav",
+      "IR_Guitarra/Celestion_4x12_219.wav"
+    ],
+    "4fa50ff4704f272e0d9ae15c7710ab1e": [
+      "IR_Guitarra/Celestion_4x12_217.wav",
+      "IR_Guitarra/Celestion_4x12_204.wav"
+    ],
+    "3e2c312c6bbe0dd8ec80aedecab9d9f1": [
+      "IR_Guitarra/Celestion_4x12_176.wav",
+      "IR_Guitarra/Celestion_4x12_158.wav"
+    ],
+    "47e1a4e7e6eb20c748e5f092c7de0645": [
+      "IR_Guitarra/Celestion_4x12_143.wav",
+      "IR_Guitarra/Celestion_4x12_194.wav"
+    ],
+    "874536e0d5d83ac2a51bffedcb716a5f": [
+      "IR_Guitarra/Celestion_4x12_215.wav",
+      "IR_Guitarra/Celestion_4x12_146.wav"
+    ],
+    "91d211b14add1d9cf92237a21a9b129f": [
+      "IR_Guitarra/Celestion_4x12_186.wav",
+      "IR_Guitarra/Celestion_4x12_178.wav"
+    ],
+    "35eb1c39ed72e6d4090a833760d60cb3": [
+      "IR_Guitarra/Celestion_4x12_163.wav",
+      "IR_Guitarra/Celestion_4x12_156.wav"
+    ],
+    "8f9ebbeff63f9160381efd6bb43cdaa5": [
+      "IR_Guitarra/Celestion_4x12_188.wav",
+      "IR_Guitarra/Celestion_4x12_170.wav"
+    ],
+    "46c2453f809726f3fb9ea74663021b12": [
+      "IR_Guitarra/Celestion_4x12_149.wav",
+      "IR_Guitarra/Celestion_4x12_208.wav"
+    ],
+    "c25fa70e2e3b751fc05c79bfd50028fe": [
+      "IR_Guitarra/Celestion_4x12_214.wav",
+      "IR_Guitarra/Celestion_4x12_137.wav"
+    ],
+    "46684f3a5f444156db15925371fe4d45": [
+      "IR_Guitarra/Celestion_4x12_212.wav",
+      "IR_Guitarra/Celestion_4x12_166.wav"
+    ],
+    "95966aa3ab703d466d12fb7a31ea6b53": [
+      "IR_Guitarra/Celestion_4x12_175.wav",
+      "IR_Guitarra/Celestion_4x12_151.wav"
+    ],
+    "0a0c8833172ebb4ce1219abdbf9dfd67": [
+      "IR_Guitarra/Celestion_4x12_174.wav",
+      "IR_Guitarra/Celestion_4x12_153.wav"
+    ],
+    "bf7141fc2fa4db6c035d2fcc58baf5df": [
+      "IR_Guitarra/Celestion_4x12_155.wav",
+      "IR_Guitarra/Celestion_4x12_187.wav"
+    ],
+    "0c74c9129070823080d82f2f1ecf4d9b": [
+      "IR_Guitarra/Celestion_4x12_144.wav",
+      "IR_Guitarra/Celestion_4x12_183.wav"
+    ],
+    "89945b58e3dfe2c5bde597e6cb3ffb42": [
+      "IR_Guitarra/Celestion_4x12_213.wav",
+      "IR_Guitarra/Celestion_4x12_164.wav"
+    ],
+    "4c6e16ada2ef658a4eac2cdc30ac0a22": [
+      "IR_Guitarra/Celestion_4x12_206.wav",
+      "IR_Guitarra/Celestion_4x12_142.wav"
+    ],
+    "bd6184b7c3d5c3036e054c9bbefe0820": [
+      "IR_Guitarra/Celestion_4x12_190.wav",
+      "IR_Guitarra/Celestion_4x12_136.wav"
+    ],
+    "e89f237ad8a12776f4fb8febf5ec8f39": [
+      "IR_Guitarra/Celestion_4x12_195.wav",
+      "IR_Guitarra/Celestion_4x12_145.wav"
+    ],
+    "a6dd4a67215cd25fe77ef6ac0b21e3de": [
+      "IR_Guitarra/Celestion_4x12_203.wav",
+      "IR_Guitarra/Celestion_4x12_161.wav"
+    ],
+    "a1e8d7fa16094caf6b8a139bd2476104": [
+      "IR_Guitarra/Celestion_4x12_165.wav",
+      "IR_Guitarra/Celestion_4x12_209.wav"
+    ],
+    "f54a3a1750e38ef4c330d6ffa5647da1": [
+      "IR_Guitarra/Celestion_4x12_171.wav",
+      "IR_Guitarra/Celestion_4x12_172.wav"
+    ],
+    "894353a99433fcd42580ee168ee697fd": [
+      "IR_Guitarra/Celestion_4x12_218.wav",
+      "IR_Guitarra/Celestion_4x12_140.wav"
+    ],
+    "279ec76d604435d8ee5ff498b677daac": [
+      "IR_Guitarra/Celestion_4x12_177.wav",
+      "IR_Guitarra/Celestion_4x12_150.wav"
+    ],
+    "ae2613ae2715082c993de9054889c81e": [
+      "IR_Guitarra/Celestion_4x12_198.wav",
+      "IR_Guitarra/Celestion_4x12_216.wav"
+    ],
+    "b54a6bd40e2c555d34f8acafb1ce5ea3": [
+      "IR_Guitarra/Celestion_4x12_173.wav",
+      "IR_Guitarra/Celestion_4x12_179.wav"
+    ],
+    "4769026340e1c46732ac9680a58dbecd": [
+      "IR_Guitarra/Celestion_4x12_148.wav",
+      "IR_Guitarra/Celestion_4x12_167.wav"
+    ],
+    "4bd16953678514a5bdc307f678fc3b66": [
+      "IR_Guitarra/Celestion_4x12_180.wav",
+      "IR_Guitarra/Celestion_4x12_192.wav"
+    ],
+    "d7b9e9abd5dfd26696f3dd05d584fb00": [
+      "IR_Guitarra/Celestion_4x12_147.wav",
+      "IR_Guitarra/Celestion_4x12_193.wav"
+    ],
+    "7e01ca34a6edf8a7975aeb08cbea0b3e": [
+      "IR_Guitarra/Celestion_4x12_181.wav",
+      "IR_Guitarra/Celestion_4x12_160.wav"
+    ],
+    "e557cdc8f728f921a0bff73c52a9bbcf": [
+      "IR_Guitarra/Celestion_4x12_211.wav",
+      "IR_Guitarra/Celestion_4x12_202.wav"
+    ],
+    "01fff03f036f144736b2e70c1e914976": [
+      "IR_Guitarra/Edge_1_I_Inch_Ala_Sneap_Pic.wav",
+      "IR_Guitarra/Edge_1_I_Inch_Ala_Sneap_Pic_1.wav"
+    ],
+    "28677662c8cc215dbc7ad27dbd706d5f": [
+      "IR_Guitarra/Guitarhack_Oinal_Edge_1.wav",
+      "IR_Guitarra/Guitarhack_Oinal_Edge.wav"
+    ],
+    "d225dabd5bae2f7f35799af3b7f860d3": [
+      "IR_Guitarra/Guitarhack_Oinal_Centre.wav",
+      "IR_Guitarra/Guitarhack_Oinal_Centre_1.wav"
+    ],
+    "013f83f561fbc89804088c409e34b213": [
+      "IR_Guitarra/Guitarhack_Oinal_Between_1.wav",
+      "IR_Guitarra/Guitarhack_Oinal_Between.wav"
+    ],
+    "69d212359bb6ecd4e373fcb4b0fe58e2": [
+      "IR_Guitarra/Higain_Guitarhack_Fredman_Straight_20_1.wav",
+      "IR_Guitarra/Higain_Guitarhack_Fredman_Straight_20.wav"
+    ],
+    "82156dc8a4518b233c595d351803526d": [
+      "IR_Guitarra/Higain_Guitarhack_Fredman_Angled_5_1.wav",
+      "IR_Guitarra/Higain_Guitarhack_Fredman_Angled_5.wav"
+    ],
+    "f7f9c16eb81c5a8699a714f8643e524e": [
+      "IR_Guitarra/Higain_Guitarhack_Fredman_Angled_10.wav",
+      "IR_Guitarra/Higain_Guitarhack_Fredman_Angled_10_1.wav"
+    ],
+    "d222e2270943187b0d6ffb1b2a1e2818": [
+      "IR_Guitarra/Guitarhack_Edge_Straight_20.wav",
+      "IR_Guitarra/Guitarhack_Edge_Straight_20_1.wav"
+    ],
+    "95ca2445701f1751ff3cb84b1233bdfd": [
+      "IR_Guitarra/Guitarhack_Edge_Straight_10_1.wav",
+      "IR_Guitarra/Guitarhack_Edge_Straight_10.wav"
+    ],
+    "36e6afc42fa5e954198984155335e5ce": [
+      "IR_Guitarra/Guitarhack_Edge_45.wav",
+      "IR_Guitarra/Guitarhack_Edge_45_1.wav"
+    ],
+    "bd5a3659b1c64cc033ffb833240029ad": [
+      "IR_Guitarra/Guitarhack_Centre_45_1.wav",
+      "IR_Guitarra/Guitarhack_Centre_45.wav"
+    ],
+    "ec95adb0f39885624efa99f11429c659": [
+      "IR_Guitarra/Guitarhack_Between_Straight_20_1.wav",
+      "IR_Guitarra/Guitarhack_Between_Straight_20.wav"
+    ],
+    "045f817397a19890b9ea67a0bfb2cc93": [
+      "IR_Guitarra/Guitarhack_Between_Straight_10.wav",
+      "IR_Guitarra/Guitarhack_Between_Straight_10_1.wav"
+    ],
+    "b78671df007f2c1f955a6cad7a07a89b": [
+      "IR_Guitarra/Guitarhack_Between_45.wav",
+      "IR_Guitarra/Guitarhack_Between_45_1.wav"
+    ],
+    "eb0752bb8090b01d4c8f7f7d4dd4bb36": [
+      "IR_Guitarra/Inch_Off_Edge_1_1.wav",
+      "IR_Guitarra/Inch_Off_Edge_1.wav"
+    ],
+    "a9b4c7921177cac7d15cef2bd917f467": [
+      "IR_Guitarra/Bbac_Half_1.wav",
+      "IR_Guitarra/Bbac_Half.wav"
+    ],
+    "8cf17bf8226dad041070b5f29e1de499": [
+      "IR_Guitarra/Edge_Half_2.wav",
+      "IR_Guitarra/Edge_Half_1.wav"
+    ],
+    "cf6c37709aad1feaafd9f0349817bd68": [
+      "IR_Guitarra/Edge_1_Bottom_Speaker_1.wav",
+      "IR_Guitarra/Edge_1_Bottom_Speaker.wav"
+    ],
+    "f953073ccf4efb3ae4e0b2c061739c28": [
+      "IR_Guitarra/Centre_Half_1.wav",
+      "IR_Guitarra/Centre_Half.wav"
+    ],
+    "f1be85510dee843a8abafd199e73f9e3": [
+      "IR_Guitarra/Centre_1_Bottom_Speaker.wav",
+      "IR_Guitarra/Centre_1_Bottom_Speaker_1.wav"
+    ],
+    "8b56ce5f6241a8f953c1bb1a44c4419a": [
+      "IR_Guitarra/Between_Half_2.wav",
+      "IR_Guitarra/Between_Half_1.wav"
+    ],
+    "8d9dfa288a05eb63f6f0099f7d6b20d8": [
+      "IR_Guitarra/Between_1_Bottom_Speaker_1.wav",
+      "IR_Guitarra/Between_1_Bottom_Speaker.wav"
+    ],
+    "a4cc049d6b1cfcd0405c75d1c97370e9": [
+      "IR_Guitarra/Londoncity_Fish_L_2mtg_Normal_Dc_K.wav",
+      "IR_Guitarra/Londoncity_Fish_L_2mtg_Normal_Dc_K_1.wav"
+    ],
+    "f25b0a2c102e82371a1629983ed79499": [
+      "IR_Guitarra/Londoncity_Normal_Fishneu_Mtg_Dc_K.wav",
+      "IR_Guitarra/Londoncity_Normal_Fishneu_Mtg_Dc_K_1.wav"
+    ],
+    "5791c42d6afb454da99b4caae14f35c1": [
+      "IR_Guitarra/Londoncity_Normal_Fishneu_At4033_Dc_K.wav",
+      "IR_Guitarra/Londoncity_Normal_Fishneu_At4033_Dc_K_1.wav"
+    ],
+    "bd1a4cd477c835369566b5ba2984d031": [
+      "IR_Guitarra/Londoncity_Normal_Fishalt_At4033_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Normal_Fishalt_At4033_Dc_K.wav"
+    ],
+    "0366326416ae88bcd8a5726e3a8ddf58": [
+      "IR_Guitarra/Londoncity_Normal_Fishalt_Mtg_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Normal_Fishalt_Mtg_Dc_K.wav"
+    ],
+    "97a67a9470f15fc390858a252fc5e322": [
+      "IR_Guitarra/Londoncity_Fish_Raum_M94_Normal_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Fish_Raum_M94_Normal_Dc_K.wav"
+    ],
+    "f898fe530745b8b0546bdbb365ee313c": [
+      "IR_Guitarra/Londoncity_Fish_Raum_M94_Brilliant_Dc_K.wav",
+      "IR_Guitarra/Londoncity_Fish_Raum_M94_Brilliant_Dc_K_1.wav"
+    ],
+    "108b3b4a36fc8390ed74321f34774c03": [
+      "IR_Guitarra/Londoncity_Fish_Raum_At4033_1_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Fish_Raum_At4033_1_Dc_K.wav"
+    ],
+    "d9c03423d5926399cd8d69fbc573b47a": [
+      "IR_Guitarra/Londoncity_Fish_Raum_At4033_2_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Fish_Raum_At4033_2_Dc_K.wav"
+    ],
+    "50ac7204bcbc3ee1de690ed42196d8f0": [
+      "IR_Guitarra/Londoncity_Fish_Neu_421_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Fish_Neu_421_Dc_K.wav"
+    ],
+    "9aa5d308bc52d5a4c569a9fdada8d82e": [
+      "IR_Guitarra/Londoncity_Fish_Alt_At4033_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Fish_Alt_At4033_Dc_K.wav"
+    ],
+    "88d20f8034d5d19f75293b55cd3fa34b": [
+      "IR_Guitarra/Londoncity_Fish_Neu_2mtg_Dc_K.wav",
+      "IR_Guitarra/Londoncity_Fish_Neu_2mtg_Dc_K_1.wav"
+    ],
+    "0affe115822f20e17eb78182d56aa790": [
+      "IR_Guitarra/Londoncity_Fish_Alt_2mtg_Bht_Dc_K.wav",
+      "IR_Guitarra/Londoncity_Fish_Alt_2mtg_Bht_Dc_K_1.wav"
+    ],
+    "6c1efaf0b33d26fa508120c34eb4e352": [
+      "IR_Guitarra/Londoncity_Fish_Alt_421_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Fish_Alt_421_Dc_K.wav"
+    ],
+    "a373a3bc75992ef02a51067aeee35472": [
+      "IR_Guitarra/Londoncity_Acsp_Neu_Km184_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Acsp_Neu_Km184_Dc_K.wav"
+    ],
+    "5213129c7e45e09fc4b1dcd3717660bb": [
+      "IR_Guitarra/Londoncity_Acsp_Neu_M71_Dc_K.wav",
+      "IR_Guitarra/Londoncity_Acsp_Neu_M71_Dc_K_1.wav"
+    ],
+    "82eeaabd1e59251082531b1ec67c3f12": [
+      "IR_Guitarra/Londoncity_Acsp_Neu_At4033_Dc_K.wav",
+      "IR_Guitarra/Londoncity_Acsp_Neu_At4033_Dc_K_1.wav"
+    ],
+    "c329c67a73c8b7e9a286fdc3b9496fea": [
+      "IR_Guitarra/Londoncity_Acsp_Alt_Schoeps_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Acsp_Alt_Schoeps_Dc_K.wav"
+    ],
+    "d40bc5305078686c35d9af84080654e2": [
+      "IR_Guitarra/Londoncity_Acsp_Alt_Mtg_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Acsp_Alt_Mtg_Dc_K.wav"
+    ],
+    "3856893a97f8d26e6a24d51ad87e5ddf": [
+      "IR_Guitarra/Londoncity_Acsp_Alt_M71_Dc_K.wav",
+      "IR_Guitarra/Londoncity_Acsp_Alt_M71_Dc_K_1.wav"
+    ],
+    "13e49aa8745439fd88b07e9464fc42c3": [
+      "IR_Guitarra/Londoncity_Acsp_Alt_Km184_Dc_K.wav",
+      "IR_Guitarra/Londoncity_Acsp_Alt_Km184_Dc_K_1.wav"
+    ],
+    "09d991a102b99814b2a3fa2adf13744c": [
+      "IR_Guitarra/Londoncity_Acsp_Alt_At4033_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Acsp_Alt_At4033_Dc_K.wav"
+    ],
+    "86217f91934b1555c9b374e3beda58b0": [
+      "IR_Guitarra/Londoncity_Acsp_Alt_2mtg_Dc_K_1.wav",
+      "IR_Guitarra/Londoncity_Acsp_Alt_2mtg_Dc_K.wav"
+    ],
+    "43993c0e6604e452a2af89e9663892c5": [
+      "IR_Guitarra/Londoncity_Normal_Sm7_The_Big_Bang.wav",
+      "IR_Guitarra/Londoncity_Normal_Sm7_The_Big_Bang_1.wav"
+    ],
+    "b731885ca8dacd0660dc39cd9933f9bd": [
+      "IR_Guitarra/Londoncity_Bht_Sm7_The_Big_Bang.wav",
+      "IR_Guitarra/Londoncity_Bht_Sm7_The_Big_Bang_1.wav"
+    ],
+    "bc41fb0d80e8b3d51b8b9b851d572d01": [
+      "IR_Guitarra/Londoncity_Normal_Raum_The_Big_Bang.wav",
+      "IR_Guitarra/Londoncity_Normal_Raum_The_Big_Bang_1.wav"
+    ],
+    "db9d7086e1fe335fe2d98822d573d428": [
+      "IR_Guitarra/Londoncity_Bht_Raum_The_Big_Bang_1.wav",
+      "IR_Guitarra/Londoncity_Bht_Raum_The_Big_Bang.wav"
+    ],
+    "bfe28cf43d100be0fe3a619e4721e69f": [
+      "IR_Guitarra/Celestion_4x12_22.wav",
+      "IR_Guitarra/Celestion_4x12_119.wav"
+    ],
+    "8e3559d5b8a5c4aa2d801eb10b8a3834": [
+      "IR_Guitarra/Celestion_4x12_127.wav",
+      "IR_Guitarra/Celestion_4x12_111.wav"
+    ],
+    "d691c0f097c22e2fbc798943ece380d6": [
+      "IR_Guitarra/Celestion_4x12_83.wav",
+      "IR_Guitarra/Celestion_4x12_30.wav"
+    ],
+    "73045cb987987e8d25ea501e27fc00ba": [
+      "IR_Guitarra/Celestion_4x12_69.wav",
+      "IR_Guitarra/Celestion_4x12_96.wav"
+    ],
+    "30b30ecd74c0314f1d2a58ccca74a3bd": [
+      "IR_Guitarra/Celestion_4x12_101.wav",
+      "IR_Guitarra/Celestion_4x12_102.wav"
+    ],
+    "4e2ec767cc44d184d6515318d6c33f86": [
+      "IR_Guitarra/Celestion_4x12_88.wav",
+      "IR_Guitarra/Celestion_4x12_104.wav"
+    ],
+    "28a56f0f934019cd9e3f384ddd11d34f": [
+      "IR_Guitarra/Celestion_4x12_18.wav",
+      "IR_Guitarra/Celestion_4x12_15.wav"
+    ],
+    "e0ed7d5f721bd109fb0871e5d658009d": [
+      "IR_Guitarra/Celestion_4x12_32.wav",
+      "IR_Guitarra/Celestion_4x12_79.wav"
+    ],
+    "6c32b314bd25876f4fd436ff4d0b1450": [
+      "IR_Guitarra/Celestion_4x12_124.wav",
+      "IR_Guitarra/Celestion_4x12_98.wav"
+    ],
+    "311cdae8d00c44f2704ea5bb070a8134": [
+      "IR_Guitarra/Celestion_4x12_28.wav",
+      "IR_Guitarra/Celestion_4x12_128.wav"
+    ],
+    "c956b8fdb571ca502fde7517f6d86aa5": [
+      "IR_Guitarra/Celestion_4x12_126.wav",
+      "IR_Guitarra/Celestion_4x12_121.wav"
+    ],
+    "3710f4fe694e706f018342ba41bea712": [
+      "IR_Guitarra/Celestion_4x12_13.wav",
+      "IR_Guitarra/Celestion_4x12_68.wav"
+    ],
+    "de3d78d1b5d976cb3458891a72550063": [
+      "IR_Guitarra/Celestion_4x12_70.wav",
+      "IR_Guitarra/Celestion_4x12_31.wav"
+    ],
+    "3b50e833f66533fda46cd0071697320e": [
+      "IR_Guitarra/Celestion_4x12_12.wav",
+      "IR_Guitarra/Celestion_4x12_14.wav"
+    ],
+    "919a52898b348df1c46668008932dde7": [
+      "IR_Guitarra/Celestion_4x12_20.wav",
+      "IR_Guitarra/Celestion_4x12_103.wav"
+    ],
+    "751c4c9c8f0100e67656b3e17a1e6e95": [
+      "IR_Guitarra/Celestion_4x12_78.wav",
+      "IR_Guitarra/Celestion_4x12_99.wav"
+    ],
+    "10ecc59c1f98d9dec69123f05e9e1b93": [
+      "IR_Guitarra/Celestion_4x12_133.wav",
+      "IR_Guitarra/Celestion_4x12_29.wav"
+    ],
+    "e12bc27e038849f98f38a3909b07c283": [
+      "IR_Guitarra/Celestion_4x12_38.wav",
+      "IR_Guitarra/Celestion_4x12_9.wav"
+    ],
+    "79a35060153ae2360ffff834957ccc4f": [
+      "IR_Guitarra/Celestion_4x12_132.wav",
+      "IR_Guitarra/Celestion_4x12.wav"
+    ],
+    "874f36fe835813c31617cf9954ab39d8": [
+      "IR_Guitarra/Celestion_4x12_11.wav",
+      "IR_Guitarra/Celestion_4x12_120.wav"
+    ],
+    "6265b3806357bbe00ebd17b3de6de489": [
+      "IR_Guitarra/Celestion_4x12_42.wav",
+      "IR_Guitarra/Celestion_4x12_45.wav"
+    ],
+    "92461d8d2f9d47b69d8e53501cc2d6f1": [
+      "IR_Guitarra/Celestion_4x12_37.wav",
+      "IR_Guitarra/Celestion_4x12_85.wav"
+    ],
+    "ae12a16b2250095f0a896695e940e37e": [
+      "IR_Guitarra/Celestion_4x12_108.wav",
+      "IR_Guitarra/Celestion_4x12_135.wav"
+    ],
+    "ef251fb6e49811ed1f6cc518fa8e954d": [
+      "IR_Guitarra/Celestion_4x12_89.wav",
+      "IR_Guitarra/Celestion_4x12_63.wav"
+    ],
+    "0360a31ac7b33c23532f4db0ba0fdc9a": [
+      "IR_Guitarra/Celestion_4x12_91.wav",
+      "IR_Guitarra/Celestion_4x12_43.wav"
+    ],
+    "488457339aa388dab1e97fca696865d7": [
+      "IR_Guitarra/Celestion_4x12_115.wav",
+      "IR_Guitarra/Celestion_4x12_122.wav"
+    ],
+    "571223f9e7040607b768c03dbb4a1e8c": [
+      "IR_Guitarra/Celestion_4x12_86.wav",
+      "IR_Guitarra/Celestion_4x12_74.wav"
+    ],
+    "febc932930113aa25578c35940f5f24c": [
+      "IR_Guitarra/Celestion_4x12_125.wav",
+      "IR_Guitarra/Celestion_4x12_55.wav"
+    ],
+    "2e5da2922c7d0979b4cca47270a7b43f": [
+      "IR_Guitarra/Celestion_4x12_44.wav",
+      "IR_Guitarra/Celestion_4x12_114.wav"
+    ],
+    "654eec01b1389897350b4066f88b2889": [
+      "IR_Guitarra/Celestion_4x12_90.wav",
+      "IR_Guitarra/Celestion_4x12_81.wav"
+    ],
+    "c3f4ef79a00ed555cc58177ebe6e3577": [
+      "IR_Guitarra/Celestion_4x12_51.wav",
+      "IR_Guitarra/Celestion_4x12_80.wav"
+    ],
+    "5727cd4ba7b000aab7e22d9ee4709b4f": [
+      "IR_Guitarra/Celestion_4x12_118.wav",
+      "IR_Guitarra/Celestion_4x12_62.wav"
+    ],
+    "be2426e2675e2b73029849b3ca46f768": [
+      "IR_Guitarra/Celestion_4x12_61.wav",
+      "IR_Guitarra/Celestion_4x12_59.wav"
+    ],
+    "c55fed12fc7a23af932d621433aa7435": [
+      "IR_Guitarra/Celestion_4x12_48.wav",
+      "IR_Guitarra/Celestion_4x12_58.wav"
+    ],
+    "ccbd319e7eaed9f2aec7326171714f6a": [
+      "IR_Guitarra/Celestion_4x12_72.wav",
+      "IR_Guitarra/Celestion_4x12_131.wav"
+    ],
+    "fde3e272d34237e5cedf658a1978b52f": [
+      "IR_Guitarra/Celestion_4x12_92.wav",
+      "IR_Guitarra/Celestion_4x12_93.wav"
+    ],
+    "6a9ec2de41bb6856c83140e9c1fffd12": [
+      "IR_Guitarra/Celestion_4x12_76.wav",
+      "IR_Guitarra/Celestion_4x12_41.wav"
+    ],
+    "d5727a3484fdb705faf3ebdd56b69597": [
+      "IR_Guitarra/Celestion_4x12_106.wav",
+      "IR_Guitarra/Celestion_4x12_36.wav"
+    ],
+    "4918ebd2173b2c0329c06b94f83c98ab": [
+      "IR_Guitarra/Celestion_4x12_117.wav",
+      "IR_Guitarra/Celestion_4x12_77.wav"
+    ],
+    "dae8734f279a5750da05c505368c719f": [
+      "IR_Guitarra/Celestion_4x12_84.wav",
+      "IR_Guitarra/Celestion_4x12_21.wav"
+    ],
+    "1c033f13d7c36f5f00ff5f14290055ea": [
+      "IR_Guitarra/Celestion_4x12_95.wav",
+      "IR_Guitarra/Celestion_4x12_25.wav"
+    ],
+    "fff22a416d960e122f2ae644eb61b66a": [
+      "IR_Guitarra/Celestion_4x12_19.wav",
+      "IR_Guitarra/Celestion_4x12_54.wav"
+    ],
+    "96e9b67121fcf911ce61d1fc7f6da484": [
+      "IR_Guitarra/Celestion_4x12_52.wav",
+      "IR_Guitarra/Celestion_4x12_23.wav"
+    ],
+    "0d6f33fa0567d440f63140255fab5d12": [
+      "IR_Guitarra/Celestion_4x12_65.wav",
+      "IR_Guitarra/Celestion_4x12_66.wav"
+    ],
+    "73bf30b1c0fd8dabb7938757cbf34e66": [
+      "IR_Guitarra/Celestion_4x12_71.wav",
+      "IR_Guitarra/Celestion_4x12_1.wav"
+    ],
+    "7e00f6217173dac968fb994f8ca5cf2d": [
+      "IR_Guitarra/Celestion_4x12_40.wav",
+      "IR_Guitarra/Celestion_4x12_97.wav"
+    ],
+    "c1d57b2e388a1bbc7486065a07eaa8bc": [
+      "IR_Guitarra/Celestion_4x12_94.wav",
+      "IR_Guitarra/Celestion_4x12_73.wav"
+    ],
+    "178d8a23c0f99510ac72d3dad1d77645": [
+      "IR_Guitarra/Celestion_4x12_47.wav",
+      "IR_Guitarra/Celestion_4x12_17.wav"
+    ],
+    "dec82cdef9299566d099e6e6fb597175": [
+      "IR_Guitarra/Celestion_4x12_39.wav",
+      "IR_Guitarra/Celestion_4x12_116.wav"
+    ],
+    "a7e41c86ddf19c32e2817b3a7de772d2": [
+      "IR_Guitarra/Celestion_4x12_49.wav",
+      "IR_Guitarra/Celestion_4x12_27.wav"
+    ],
+    "8a9e9882381b43c254fb1661fa5e24cb": [
+      "IR_Guitarra/Celestion_4x12_129.wav",
+      "IR_Guitarra/Celestion_4x12_35.wav"
+    ],
+    "65830611f7fcf1451789b25012f00672": [
+      "IR_Guitarra/Celestion_4x12_100.wav",
+      "IR_Guitarra/Celestion_4x12_105.wav"
+    ],
+    "6947193746d3d267d956fa226d89064c": [
+      "IR_Guitarra/Celestion_4x12_34.wav",
+      "IR_Guitarra/Celestion_4x12_7.wav"
+    ],
+    "21d42f1e25d80709b9da3e642cfcb7cf": [
+      "IR_Guitarra/Celestion_4x12_75.wav",
+      "IR_Guitarra/Celestion_4x12_112.wav"
+    ],
+    "2a81b0b34e9e948f445110be73d335a2": [
+      "IR_Guitarra/Celestion_4x12_5.wav",
+      "IR_Guitarra/Celestion_4x12_26.wav"
+    ],
+    "cdbd153f6731362829b408101d1e15f4": [
+      "IR_Guitarra/Celestion_4x12_134.wav",
+      "IR_Guitarra/Celestion_4x12_8.wav"
+    ],
+    "80d5798fa1a0ec7d35fbac26b26d1249": [
+      "IR_Guitarra/Celestion_4x12_57.wav",
+      "IR_Guitarra/Celestion_4x12_2.wav"
+    ],
+    "434ceea5f015a9a2333ef7702a5b5940": [
+      "IR_Guitarra/Celestion_4x12_87.wav",
+      "IR_Guitarra/Celestion_4x12_6.wav"
+    ],
+    "51e5002b960c7fab86a7346cf1aaf100": [
+      "IR_Guitarra/Celestion_4x12_110.wav",
+      "IR_Guitarra/Celestion_4x12_33.wav"
+    ],
+    "46bff44eb65c495dcaefa69570844089": [
+      "IR_Guitarra/Celestion_4x12_4.wav",
+      "IR_Guitarra/Celestion_4x12_113.wav"
+    ],
+    "a4270b5e9aafbedc1b312e71a70869dd": [
+      "IR_Guitarra/Celestion_4x12_53.wav",
+      "IR_Guitarra/Celestion_4x12_123.wav"
+    ],
+    "87bddf43d06fd0d3ade5adb7dd207144": [
+      "IR_Guitarra/Celestion_4x12_64.wav",
+      "IR_Guitarra/Celestion_4x12_3.wav"
+    ],
+    "fde4994aa24b85fcc3006443468f9372": [
+      "IR_Guitarra/Celestion_4x12_109.wav",
+      "IR_Guitarra/Celestion_4x12_56.wav"
+    ],
+    "2885194e7555146e10999556d12e14dd": [
+      "IR_Guitarra/Celestion_4x12_16.wav",
+      "IR_Guitarra/Celestion_4x12_50.wav"
+    ],
+    "0b5448e8e66eadc336f37dc96d131728": [
+      "IR_Guitarra/Celestion_4x12_82.wav",
+      "IR_Guitarra/Celestion_4x12_60.wav"
+    ],
+    "0e671e8b2ca0b3c396ffda3df258138f": [
+      "IR_Guitarra/Celestion_4x12_67.wav",
+      "IR_Guitarra/Celestion_4x12_130.wav"
+    ],
+    "96e4a80979065002cd0183a511e2cc73": [
+      "IR_Guitarra/Celestion_4x12_Md421_8.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_25.wav"
+    ],
+    "916aac517db038a985c866b0d794f806": [
+      "IR_Guitarra/Celestion_4x12_10.wav",
+      "IR_Guitarra/Celestion_4x12_46.wav"
+    ],
+    "4d2447b5bd46dc259c88119a1f5e5039": [
+      "IR_Guitarra/Celestion_4x12_107.wav",
+      "IR_Guitarra/Celestion_4x12_24.wav"
+    ],
+    "2702bd48bc97b96ee9d478d7282d40d2": [
+      "IR_Guitarra/Celestion_4x12_Md421_14.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_23.wav"
+    ],
+    "73e7d07feac020fe815c6a4608ddb7d9": [
+      "IR_Guitarra/Celestion_4x12_Md421_11.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_31.wav"
+    ],
+    "3017cc1fc07d3d5d100a6bb79370f76d": [
+      "IR_Guitarra/Celestion_4x12_Md421_10.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_22.wav"
+    ],
+    "492abd638e0b651bef1fdce0f96572b2": [
+      "IR_Guitarra/Celestion_4x12_Md421_34.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_5.wav"
+    ],
+    "d8636e0a8677dc7200eb1909d9e57247": [
+      "IR_Guitarra/Celestion_4x12_Md421_7.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_26.wav"
+    ],
+    "97909a491b6d7c3a206fc1fa169a9e27": [
+      "IR_Guitarra/Celestion_4x12_Md421_39.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_36.wav"
+    ],
+    "aca39beb07b8894ac6166718faf8e774": [
+      "IR_Guitarra/Celestion_4x12_Md421_19.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_17.wav"
+    ],
+    "9ff786ab31342e6bf70dbbd8c1714f70": [
+      "IR_Guitarra/Celestion_4x12_Md421_32.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_9.wav"
+    ],
+    "1b040340469c1b123b6bb6c47587510a": [
+      "IR_Guitarra/Celestion_4x12_Md421_33.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_2.wav"
+    ],
+    "aa37df799e6b7a00d546cddef064ccae": [
+      "IR_Guitarra/Celestion_4x12_Md421_18.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_20.wav"
+    ],
+    "803c1f9900493f656a0467246c3952e1": [
+      "IR_Guitarra/Celestion_4x12_Md421_24.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_30.wav"
+    ],
+    "c0afad6c84033413e39d22f511ffc0c4": [
+      "IR_Guitarra/Celestion_4x12_Md421_13.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_21.wav"
+    ],
+    "0018d49229c6915558d55604d7df074d": [
+      "IR_Guitarra/Celestion_4x12_Md421_16.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_3.wav"
+    ],
+    "e115fcef6dd5871e8f30017cd171123c": [
+      "IR_Guitarra/Celestion_4x12_Md421_28.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_4.wav"
+    ],
+    "f8b85b53c7502f32c6e8049b9b9c388a": [
+      "IR_Guitarra/Celestion_4x12_Md421_29.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_6.wav"
+    ],
+    "63a28f0568501043e7f839395568cd63": [
+      "IR_Guitarra/Celestion_4x12_Md421_37.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_27.wav"
+    ],
+    "4eef4d43c871046df158ab4127cd6bd1": [
+      "IR_Guitarra/Celestion_4x12_Md421_12.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_1.wav"
+    ],
+    "603f65bc554c2fa005f3e90173e7d5aa": [
+      "IR_Guitarra/Celestion_4x12_Md421.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_38.wav"
+    ],
+    "e63bdc265d0222321d275adf5b76a7f2": [
+      "IR_Guitarra/Celestion_4x12_Md421_15.wav",
+      "IR_Guitarra/Celestion_4x12_Md421_35.wav"
+    ],
+    "1db92816689a44011e9af3f5f8bb2195": [
+      "IR_Guitarra/Celestion_4x12_Sm57_80.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_90.wav"
+    ],
+    "5c63db02c20857e5add42307fa24964a": [
+      "IR_Guitarra/Celestion_4x12_Sm57_6.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_26.wav"
+    ],
+    "d0c8e0ccbd4db99c8995c36016778369": [
+      "IR_Guitarra/Celestion_4x12_Sm57_31.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_5.wav"
+    ],
+    "5b950153cdd00d68dd2c4c65ad5af6aa": [
+      "IR_Guitarra/Celestion_4x12_Sm57_34.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_10.wav"
+    ],
+    "51236d15d85af70587e5134b0128d5c3": [
+      "IR_Guitarra/Celestion_4x12_Sm57_42.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_79.wav"
+    ],
+    "a52e36aa1a5169449a620a94833c0644": [
+      "IR_Guitarra/Celestion_4x12_Sm57_59.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_36.wav"
+    ],
+    "0c53e32902a74683c031591d40262cc6": [
+      "IR_Guitarra/Celestion_4x12_Sm57_58.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_57.wav"
+    ],
+    "95a5f86d125c8fcbee45f16634001148": [
+      "IR_Guitarra/Celestion_4x12_Sm57_19.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_62.wav"
+    ],
+    "e15e76df86f4e3b9fd1cab8339a75f20": [
+      "IR_Guitarra/Celestion_4x12_Sm57_67.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_50.wav"
+    ],
+    "7490f24ccab809e07bd69b5ebd167588": [
+      "IR_Guitarra/Celestion_4x12_Sm57_38.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_47.wav"
+    ],
+    "f4097bc670f07188e215383a7ea0cc40": [
+      "IR_Guitarra/Celestion_4x12_Sm57_24.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_64.wav"
+    ],
+    "b653d13a19381ed39af12b6db0a77dd6": [
+      "IR_Guitarra/Celestion_4x12_Sm57_8.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_84.wav"
+    ],
+    "6771f0886e138bcc611931be55b791ab": [
+      "IR_Guitarra/Celestion_4x12_Sm57_74.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_11.wav"
+    ],
+    "9c520e5717294a29b6a539ad6ef1fafc": [
+      "IR_Guitarra/Celestion_4x12_Sm57_28.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_82.wav"
+    ],
+    "d675bac14621ccaf3e00f5c399ec403b": [
+      "IR_Guitarra/Celestion_4x12_Sm57_94.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_60.wav"
+    ],
+    "d12003ec52d69180b00100a7fc8b2e75": [
+      "IR_Guitarra/Celestion_4x12_Sm57_23.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_45.wav"
+    ],
+    "0ac59791e435973e52a00ae190fd1a6b": [
+      "IR_Guitarra/Celestion_4x12_Sm57_55.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_14.wav"
+    ],
+    "cc86866d73c418c0c8e0e4c38dd96ca9": [
+      "IR_Guitarra/Celestion_4x12_Sm57_29.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_43.wav"
+    ],
+    "fd25a05d895969b4482ae4d7d5a96eb4": [
+      "IR_Guitarra/Celestion_4x12_Sm57_30.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_17.wav"
+    ],
+    "c1c8b02a0e5d72f57b86592e447d47f6": [
+      "IR_Guitarra/Celestion_4x12_Sm57_65.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_32.wav"
+    ],
+    "8b28983399030f994e8ff3f68e267709": [
+      "IR_Guitarra/Celestion_4x12_Sm57_21.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_76.wav"
+    ],
+    "66a438293bc9f226731ecaa89f59ddf7": [
+      "IR_Guitarra/Celestion_4x12_Sm57_4.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_7.wav"
+    ],
+    "5fa018b3c7114810ecbc1c408963e673": [
+      "IR_Guitarra/Celestion_4x12_Sm57_49.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_53.wav"
+    ],
+    "eaceaa22385ae1591d475afd16c6961a": [
+      "IR_Guitarra/Celestion_4x12_Sm57_85.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_61.wav"
+    ],
+    "0a5b2a67616e8b45c94bb48103e43bff": [
+      "IR_Guitarra/Celestion_4x12_Sm57_33.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_95.wav"
+    ],
+    "90a6333a7d6e1f5c3ec5950d4faf4dd0": [
+      "IR_Guitarra/Celestion_4x12_Sm57_83.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_2.wav"
+    ],
+    "722a4a3c13920415d5abb3ea2aedc561": [
+      "IR_Guitarra/Celestion_4x12_Sm57_75.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_48.wav"
+    ],
+    "bd84598e1743543b28225920f6bd3937": [
+      "IR_Guitarra/Celestion_4x12_Sm57_88.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_9.wav"
+    ],
+    "4376a3ba8a879475051ea318cffa0b84": [
+      "IR_Guitarra/Celestion_4x12_Sm57_71.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_91.wav"
+    ],
+    "5d5054672875aa9ca129b1e6724a4753": [
+      "IR_Guitarra/Celestion_4x12_Sm57_35.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_1.wav"
+    ],
+    "e2163d9ca57845e5ce3666f7d461f03d": [
+      "IR_Guitarra/Celestion_4x12_Sm57_52.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_13.wav"
+    ],
+    "6fc0dd66248716a5d15779fb0dfbcd8c": [
+      "IR_Guitarra/Celestion_4x12_Sm57_41.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57.wav"
+    ],
+    "0e8cdbcd9c17cdf1fa81432816aff20a": [
+      "IR_Guitarra/Celestion_4x12_Sm57_27.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_87.wav"
+    ],
+    "a5d51956b8dcbfd82215f54a7f3760fa": [
+      "IR_Guitarra/Celestion_4x12_Sm57_89.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_16.wav"
+    ],
+    "97bc5bc651c33ebba7d2b79629c836a1": [
+      "IR_Guitarra/Celestion_4x12_Sm57_40.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_37.wav"
+    ],
+    "76d21a615d46029f118759803c5b7cb5": [
+      "IR_Guitarra/Celestion_4x12_Sm57_63.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_54.wav"
+    ],
+    "e5ddd7f12c5208a4396af7cd9337a6d3": [
+      "IR_Guitarra/Celestion_4x12_Sm57_86.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_20.wav"
+    ],
+    "7f120ef7364e3bef9d076a7e295e1a82": [
+      "IR_Guitarra/Celestion_4x12_Sm57_12.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_69.wav"
+    ],
+    "dcb96b3cb40ebf980e9dd603eab3b166": [
+      "IR_Guitarra/Celestion_4x12_Sm57_15.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_3.wav"
+    ],
+    "c3315e5b8210837afb9173ba2bd65680": [
+      "IR_Guitarra/Celestion_4x12_Sm57_68.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_22.wav"
+    ],
+    "119fd7b4a1071af15cd3fd665afff153": [
+      "IR_Guitarra/Celestion_4x12_Sm57_18.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_44.wav"
+    ],
+    "f37aed3055375cfeb12196ecc1e085c6": [
+      "IR_Guitarra/Celestion_4x12_Sm57_72.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_56.wav"
+    ],
+    "b601f9fcb560304e527ed129e22b0497": [
+      "IR_Guitarra/Celestion_4x12_Sm57_73.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_77.wav"
+    ],
+    "0cbb4c80948153e91cc4208ec6f5790f": [
+      "IR_Guitarra/Celestion_4x12_Sm57_92.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_51.wav"
+    ],
+    "eb1fdeb28881bc7674dc6723c2ecaf05": [
+      "IR_Guitarra/Celestion_4x12_Sm57_66.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_93.wav"
+    ],
+    "09b7fe8a8f79e947514f43c85c3c0706": [
+      "IR_Guitarra/Celestion_4x12_Sm57_39.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_78.wav"
+    ],
+    "3fe9f1af14fed031160cd1d78747d058": [
+      "IR_Guitarra/Celestion_4x12_Sm57_81.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_46.wav"
+    ],
+    "f66396aedcaddf2742095c4134bff4a2": [
+      "IR_Guitarra/Celestion_4x12_Sm57_70.wav",
+      "IR_Guitarra/Celestion_4x12_Sm57_25.wav"
+    ],
+    "167ee9a9e1a9c82f4ec07cbecd910312": [
+      "IR_Guitarra/Higain_Guitarhack_Jj_Fred45_Half_1.wav",
+      "IR_Guitarra/Higain_Guitarhack_Jj_Fred45_Half.wav"
+    ],
+    "a104c46f3b0518c571e4824167861031": [
+      "IR_Guitarra/Higain_Guitarhack_Jj_Fred45_0.wav",
+      "IR_Guitarra/Higain_Guitarhack_Jj_Fred45_0_1.wav"
+    ],
+    "2be0681045b3ae951c914afb10eeb774": [
+      "IR_Guitarra/Higain_Guitarhack_Jj_Fred45_1.wav",
+      "IR_Guitarra/Higain_Guitarhack_Jj_Fred45_1_1.wav"
+    ],
+    "f69e11732c6ea74b476fc9352b8df675": [
+      "IR_Guitarra/Guitarhack_Jj_Edge_Half.wav",
+      "IR_Guitarra/Guitarhack_Jj_Edge_Half_1.wav"
+    ],
+    "5de498a851bf915052d30f703e5604df": [
+      "IR_Guitarra/Guitarhack_Jj_Edge_1.wav",
+      "IR_Guitarra/Guitarhack_Jj_Edge_1_1.wav"
+    ],
+    "1eb9e8ecbec9186e33f5c1abdd5d2fef": [
+      "IR_Guitarra/Guitarhack_Jj_Edge_0.wav",
+      "IR_Guitarra/Guitarhack_Jj_Edge_0_1.wav"
+    ],
+    "3e2ae531f46cc430a8e8581912de36e1": [
+      "IR_Guitarra/Guitarhack_Jj_Centre45_1_1.wav",
+      "IR_Guitarra/Guitarhack_Jj_Centre45_1.wav"
+    ],
+    "1ddc037e2f00191fe3eaabe85305dfc1": [
+      "IR_Guitarra/Guitarhack_Jj_Centre45_Half.wav",
+      "IR_Guitarra/Guitarhack_Jj_Centre45_Half_1.wav"
+    ],
+    "c04fd4c77dda0a52c4ca57162ad2c6bf": [
+      "IR_Guitarra/Guitarhack_Jj_Centre45_0.wav",
+      "IR_Guitarra/Guitarhack_Jj_Centre45_0_1.wav"
+    ],
+    "cec5b20348efcfb16892b5782489b1e9": [
+      "IR_Guitarra/Guitarhack_Jj_Centre_Half.wav",
+      "IR_Guitarra/Guitarhack_Jj_Centre_Half_1.wav"
+    ],
+    "ca033bd623ec2779d152f913c446712e": [
+      "IR_Guitarra/Guitarhack_Jj_Centre_1.wav",
+      "IR_Guitarra/Guitarhack_Jj_Centre_1_1.wav"
+    ],
+    "8c68893349a976badf10fbb58bec31fe": [
+      "IR_Guitarra/Guitarhack_Jj_Centre_0.wav",
+      "IR_Guitarra/Guitarhack_Jj_Centre_0_1.wav"
+    ],
+    "e2fab459187e1d96001d5d809bd1454c": [
+      "IR_Guitarra/Guitarhack_Jj_Between_Half.wav",
+      "IR_Guitarra/Guitarhack_Jj_Between_Half_1.wav"
+    ],
+    "aaff756ea976e3ec1524b40050756b15": [
+      "IR_Guitarra/Guitarhack_Jj_Between_1_1.wav",
+      "IR_Guitarra/Guitarhack_Jj_Between_1.wav"
+    ],
+    "ceba9d68afbff321142208f6772dcf14": [
+      "IR_Guitarra/Guitarhack_Jj_Between_0_1.wav",
+      "IR_Guitarra/Guitarhack_Jj_Between_0.wav"
+    ],
+    "bec63faff939d2bb37be9c365a5579aa": [
+      "IR_Guitarra/Guitarhack_Jj_Bbae_Half_1.wav",
+      "IR_Guitarra/Guitarhack_Jj_Bbae_Half.wav"
+    ],
+    "bf769d27d9484ded3894eb0bae0cd3ba": [
+      "IR_Guitarra/Guitarhack_Jj_Bbae_1.wav",
+      "IR_Guitarra/Guitarhack_Jj_Bbae_1_1.wav"
+    ],
+    "a895d42883e49a4d3e1b1c87e3b50fde": [
+      "IR_Guitarra/Guitarhack_Jj_Bbae_0.wav",
+      "IR_Guitarra/Guitarhack_Jj_Bbae_0_1.wav"
+    ],
+    "ff1426b2616722dcd6b152c8ac96637c": [
+      "IR_Guitarra/Hatebreed_The_Divinity_Of_Purpose_1.wav",
+      "IR_Guitarra/Hatebreed_The_Divinity_Of_Purpose.wav"
+    ],
+    "c4955450c461f32fee186706c6f769fb": [
+      "IR_Guitarra/Woodsofypresswoods5greyskieselectricligh.wav",
+      "IR_Guitarra/Woodsofypresswoods5greyskieselectricligh_1.wav"
+    ],
+    "d001f7cb43b52d69cbf95ef10af342f4": [
+      "IR_Guitarra/Venomresurrection_1.wav",
+      "IR_Guitarra/Venomresurrection.wav"
+    ],
+    "7c8fa127d70575230d3f0332aa0efa9b": [
+      "IR_Guitarra/Ultraviolencetheprivilegetoovercome_1.wav",
+      "IR_Guitarra/Ultraviolencetheprivilegetoovercome.wav"
+    ],
+    "75047ecda42eb77bc429bec4de7b83f9": [
+      "IR_Guitarra/Trivium_Vengeance_Falls.wav",
+      "IR_Guitarra/Trivium_Vengeance_Falls_1.wav"
+    ],
+    "1f69496d1101baeadd0a83a52335f276": [
+      "IR_Guitarra/Trivium_In_Es_1.wav",
+      "IR_Guitarra/Trivium_In_Es.wav"
+    ],
+    "92bd0836f8b43f1ecb48f9f750cfdd8e": [
+      "IR_Guitarra/Thy_Art_Is_Murder_The_Adversary_1.wav",
+      "IR_Guitarra/Thy_Art_Is_Murder_The_Adversary.wav"
+    ],
+    "1020f02e2034ba1ce3ef3081618caffb": [
+      "IR_Guitarra/Thesorrowmiseryescape.wav",
+      "IR_Guitarra/Thesorrowmiseryescape_1.wav"
+    ],
+    "8c75c238964fa2de98f2310f837cf9ee": [
+      "IR_Guitarra/Thteen_Bled_Promises_Heliopause_Fleets_1.wav",
+      "IR_Guitarra/Thteen_Bled_Promises_Heliopause_Fleets.wav"
+    ],
+    "1cef7e8dae25aa7a865fbd16a7316603": [
+      "IR_Guitarra/Theghostinsidegetwhatyougive_1.wav",
+      "IR_Guitarra/Theghostinsidegetwhatyougive.wav"
+    ],
+    "5ae463de1a81ccd3c202a9d0a51771d0": [
+      "IR_Guitarra/Theblackkeyselcamino_1.wav",
+      "IR_Guitarra/Theblackkeyselcamino.wav"
+    ],
+    "ff85cb6ee7c96ae57e4276f391804762": [
+      "IR_Guitarra/Thehauntedrevolver.wav",
+      "IR_Guitarra/Thehauntedrevolver_1.wav"
+    ],
+    "625ebfe64b107bae649d1645ca72b8b3": [
+      "IR_Guitarra/Terroristars_Made_In_Hellspain_1.wav",
+      "IR_Guitarra/Terroristars_Made_In_Hellspain.wav"
+    ],
+    "e5239d9e055c6d25080783412870fbef": [
+      "IR_Guitarra/Ament_Dark_Roots_Of_Earth.wav",
+      "IR_Guitarra/Ament_Dark_Roots_Of_Earth_1.wav"
+    ],
+    "775a10663a4cf0ff2ff50cd04b74a7e5": [
+      "IR_Guitarra/System_Of_A_Down_Toxicity_1.wav",
+      "IR_Guitarra/System_Of_A_Down_Toxicity.wav"
+    ],
+    "f9e17b48e19c477f4383c1b370307fb7": [
+      "IR_Guitarra/Superjointritualuseonceanddestroy.wav",
+      "IR_Guitarra/Superjointritualuseonceanddestroy_1.wav"
+    ],
+    "dfd096b0886e6d12b69b5b75948e7e26": [
+      "IR_Guitarra/Steelhorse_In_The_Storm.wav",
+      "IR_Guitarra/Steelhorse_In_The_Storm_1.wav"
+    ],
+    "688cdcc1a6cafbece35538f18d0e124c": [
+      "IR_Guitarra/Eminence_Eminence_Steignyrthelegend.wav",
+      "IR_Guitarra/Eminence_Steignyrthelegend.wav"
+    ],
+    "beaa4e4cda444e532b074d35a25af6f0": [
+      "IR_Guitarra/Stonesourhouseofgoldandbones.wav",
+      "IR_Guitarra/Stonesourhouseofgoldandbones_1.wav"
+    ],
+    "9df236f117d5ab6869fc5e8009b36eb3": [
+      "IR_Guitarra/Strappingyoungladselftitled.wav",
+      "IR_Guitarra/Strappingyoungladselftitled_1.wav"
+    ],
+    "1750fd8c52717c7c4d000442d0cd7f30": [
+      "IR_Guitarra/Steeldragonmovie.wav",
+      "IR_Guitarra/Steeldragonmovie_1.wav"
+    ],
+    "1e5aac17b85c341360c0e9d3fa5ca71e": [
+      "IR_Guitarra/Soilworkthelivinginfinite_1.wav",
+      "IR_Guitarra/Soilworkthelivinginfinite.wav"
+    ],
+    "d2d552c8067205bedf0d7a766626ef98": [
+      "IR_Guitarra/Snakeyeswelcometothesnakepit.wav",
+      "IR_Guitarra/Snakeyeswelcometothesnakepit_1.wav"
+    ],
+    "b5b1d3d48751791dcfaa76912be8a851": [
+      "IR_Guitarra/Slipknotvol5.wav",
+      "IR_Guitarra/Slipknotvol5_1.wav"
+    ],
+    "a0e12bbc71d76b937dbb05760b3b12a1": [
+      "IR_Guitarra/Slayerchristillusion.wav",
+      "IR_Guitarra/Slayerchristillusion_1.wav"
+    ],
+    "edaa7b2ce628db8c0c4dd97da36aff34": [
+      "IR_Guitarra/Slayer_Hell_Awaits_1.wav",
+      "IR_Guitarra/Slayer_Hell_Awaits.wav"
+    ],
+    "8f0bc6c79cbfef821844fc581a5c76ed": [
+      "IR_Guitarra/Slayer_South_Of_Heaven.wav",
+      "IR_Guitarra/Slayer_South_Of_Heaven_1.wav"
+    ],
+    "d2ada40be84148cf8f75d2416b85d26d": [
+      "IR_Guitarra/Sixfeetundercommandment.wav",
+      "IR_Guitarra/Sixfeetundercommandment_1.wav"
+    ],
+    "9507b8c83345951cab1a7f3b90cfa032": [
+      "IR_Guitarra/Sanctity_Road_To_Bloodshed.wav",
+      "IR_Guitarra/Sanctity_Road_To_Bloodshed_1.wav"
+    ],
+    "d07b6b4613751e9dea82d7c242eb6881": [
+      "IR_Guitarra/Sepulturaarise.wav",
+      "IR_Guitarra/Sepulturaarise_1.wav"
+    ],
+    "c2a0f273504cedb45b9b7b9b06b63737": [
+      "IR_Guitarra/Higain_Red_Fang_Murder_The_Mountains.wav",
+      "IR_Guitarra/Higain_Red_Fang_Murder_The_Mountains_1.wav"
+    ],
+    "7f5d4fe3ca0b4d09147b740a2aa01813": [
+      "IR_Guitarra/Higain_Red_Wine_Sue\u00c3\u00b1os_Y_Locura_1.wav",
+      "IR_Guitarra/Higain_Red_Wine_Sue\u00c3\u00b1os_Y_Locura.wav"
+    ],
+    "84a8a088ab4fd90bb0e63404ce635ecd": [
+      "IR_Guitarra/Randall_Randall_Randall667.wav",
+      "IR_Guitarra/Randall_Randall667.wav"
+    ],
+    "9852c474e68e88f85c5519c3377af344": [
+      "IR_Guitarra/Randall_Randall_Randalldiavlord5.wav",
+      "IR_Guitarra/Randall_Randalldiavlord5.wav"
+    ],
+    "13ea24bed2caecd869c0780415d0b644": [
+      "IR_Guitarra/Piel_De_Serpiente_Inevitable_1.wav",
+      "IR_Guitarra/Piel_De_Serpiente_Inevitable.wav"
+    ],
+    "50a562b45441c2f53a5ff873bec85679": [
+      "IR_Guitarra/Primalfearunbreakable.wav",
+      "IR_Guitarra/Primalfearunbreakable_1.wav"
+    ],
+    "fbfa679c315a00d1245dc2f09650fb80": [
+      "IR_Guitarra/Purgatorynecromantaeon_1.wav",
+      "IR_Guitarra/Purgatorynecromantaeon.wav"
+    ],
+    "486acffeeb1ce87ba72255e059856ad9": [
+      "IR_Guitarra/Que_Desilusion_A_Golpe_De_Alfil.wav",
+      "IR_Guitarra/Que_Desilusion_A_Golpe_De_Alfil_1.wav"
+    ],
+    "00b44aa669c068ec7b2527846dbf8045": [
+      "IR_Guitarra/Peripheryperiphery_1.wav",
+      "IR_Guitarra/Peripheryperiphery.wav"
+    ],
+    "5c9d090aa85256ac2eec17915cd33f31": [
+      "IR_Guitarra/Perspectivesperspectives.wav",
+      "IR_Guitarra/Perspectivesperspectives_1.wav"
+    ],
+    "475a9c74d541198b25a865030352600c": [
+      "IR_Guitarra/Panteracowboysfromhell_1.wav",
+      "IR_Guitarra/Panteracowboysfromhell.wav"
+    ],
+    "9eb3ecdd042a964961d0c60e716cb0a8": [
+      "IR_Guitarra/Pan_De_Higo.wav",
+      "IR_Guitarra/Pan_De_Higo_1.wav"
+    ],
+    "c3fc6b5bd6e11fe49df3bcabbbf60250": [
+      "IR_Guitarra/Paradiselosttragicidol_1.wav",
+      "IR_Guitarra/Paradiselosttragicidol.wav"
+    ],
+    "48ef9d2920c987fbd3db47ced20de74a": [
+      "IR_Guitarra/Panteravulgardisplayofpower.wav",
+      "IR_Guitarra/Panteravulgardisplayofpower_1.wav"
+    ],
+    "531d0d2dcad1d9140e4d01b21f0d34b1": [
+      "IR_Guitarra/Papa_Roach_Getting_Away_With_Murder.wav",
+      "IR_Guitarra/Papa_Roach_Getting_Away_With_Murder_1.wav"
+    ],
+    "16083767574cdb414c1690ce116367e1": [
+      "IR_Guitarra/Nineinchnailsbroken.wav",
+      "IR_Guitarra/Nineinchnailsbroken_1.wav"
+    ],
+    "0d08186426d931b70d4733d765dad0d6": [
+      "IR_Guitarra/Overkill_The_Years_Of_Decay_1.wav",
+      "IR_Guitarra/Overkill_The_Years_Of_Decay.wav"
+    ],
+    "45f335eb4aab1b5a91418c99cd7ad4c5": [
+      "IR_Guitarra/Nodtyrlandofchaos_1.wav",
+      "IR_Guitarra/Nodtyrlandofchaos.wav"
+    ],
+    "9a145b0615fab7546ce420612be6ed93": [
+      "IR_Guitarra/Napalmdeathtimewaitsfornoslave.wav",
+      "IR_Guitarra/Napalmdeathtimewaitsfornoslave_1.wav"
+    ],
+    "2fc8d90639b07c860b8a579ae68d58af": [
+      "IR_Guitarra/Narco_Versiones_Para_No_Dorm.wav",
+      "IR_Guitarra/Narco_Versiones_Para_No_Dorm_1.wav"
+    ],
+    "791e1ba908e2dc7113b8769960eb82f5": [
+      "IR_Guitarra/Nancys_Rubias_Ahora_O_Nunca.wav",
+      "IR_Guitarra/Nancys_Rubias_Ahora_O_Nunca_1.wav"
+    ],
+    "343bd32c8dfbb33c5ad48411b2c948e8": [
+      "IR_Guitarra/Nightwishdarkpassionplay.wav",
+      "IR_Guitarra/Nightwishdarkpassionplay_1.wav"
+    ],
+    "353bf07e59a9fec6b27fb7a158ec99c7": [
+      "IR_Guitarra/Monumentsgnosis_1.wav",
+      "IR_Guitarra/Monumentsgnosis.wav"
+    ],
+    "0f19bae84b96d7e97e3781ad5ce0c08c": [
+      "IR_Guitarra/Missmayimonument_1.wav",
+      "IR_Guitarra/Missmayimonument.wav"
+    ],
+    "f7c7d71ac03a45605e897251fc5fefde": [
+      "IR_Guitarra/Mindlessinfernussong.wav",
+      "IR_Guitarra/Mindlessinfernussong_1.wav"
+    ],
+    "ae1712cfe1a58d86059ae8619b27bcca": [
+      "IR_Guitarra/Newsted_1.wav",
+      "IR_Guitarra/Newsted.wav"
+    ],
+    "e294c487576f7e5d8f2c3e71536c8c6b": [
+      "IR_Guitarra/Megadethyouthtanasia.wav",
+      "IR_Guitarra/Megadethyouthtanasia_1.wav"
+    ],
+    "241c56100b27147cd14495d704d501f7": [
+      "IR_Guitarra/Megadethholywars.wav",
+      "IR_Guitarra/Megadethholywars_1.wav"
+    ],
+    "139322da58493dd8d8723778a29378db": [
+      "IR_Guitarra/Megadethcountdowntoextintion_1.wav",
+      "IR_Guitarra/Megadethcountdowntoextintion.wav"
+    ],
+    "148f6e1233549b6e11882c2722629975": [
+      "IR_Guitarra/Mastodonremission_1.wav",
+      "IR_Guitarra/Mastodonremission.wav"
+    ],
+    "204e989d482bc8e27cd359c46a50875e": [
+      "IR_Guitarra/Mastodononcemorearoundthesun_1.wav",
+      "IR_Guitarra/Mastodononcemorearoundthesun.wav"
+    ],
+    "e95721d41ed567898772eaa08c994644": [
+      "IR_Guitarra/Megadethsupercollider.wav",
+      "IR_Guitarra/Megadethsupercollider_1.wav"
+    ],
+    "bbc41589926c5905da47b20940248442": [
+      "IR_Guitarra/Manowarbattlehymnsmmxi.wav",
+      "IR_Guitarra/Manowarbattlehymnsmmxi_1.wav"
+    ],
+    "8908de2ae95911f1b6b87a3dd9600fe9": [
+      "IR_Guitarra/Mastodoncurloftheburl_1.wav",
+      "IR_Guitarra/Mastodoncurloftheburl.wav"
+    ],
+    "d3100abe49ddf75b1962721b3440e920": [
+      "IR_Guitarra/Marilynmansonantichristsuperstarthebeaut.wav",
+      "IR_Guitarra/Marilynmansonantichristsuperstarthebeaut_1.wav"
+    ],
+    "5d3110bf617de3091fbed03db9173196": [
+      "IR_Guitarra/Mago_De_Oz_Finisterra_1.wav",
+      "IR_Guitarra/Mago_De_Oz_Finisterra.wav"
+    ],
+    "1b99b0c3a37b61d9b58f65ea467d5c0e": [
+      "IR_Guitarra/Machineheadtheblackening.wav",
+      "IR_Guitarra/Machineheadtheblackening_1.wav"
+    ],
+    "66536fe895c2ee16d3c8f933ff39e6e3": [
+      "IR_Guitarra/Lossuavessiyofueradios.wav",
+      "IR_Guitarra/Lossuavessiyofueradios_1.wav"
+    ],
+    "49974f6f9b8b85a34d560413f04e408f": [
+      "IR_Guitarra/Machineheadthroughtheashesofempes_1.wav",
+      "IR_Guitarra/Machineheadthroughtheashesofempes.wav"
+    ],
+    "a169890d0713a119f1d37c9186d73c27": [
+      "IR_Guitarra/Linkinparkthehuntingparty.wav",
+      "IR_Guitarra/Linkinparkthehuntingparty_1.wav"
+    ],
+    "b1d89e8bc92b047f6b075b09edd2829d": [
+      "IR_Guitarra/Legionofthedamneddescentintochaos_1.wav",
+      "IR_Guitarra/Legionofthedamneddescentintochaos.wav"
+    ],
+    "02e14f137ed6cd9fe6b43f3d2dd6ffec": [
+      "IR_Guitarra/Killswitchengageasdaylightdies_1.wav",
+      "IR_Guitarra/Killswitchengageasdaylightdies.wav"
+    ],
+    "aac3e2ce6426bc9964ca98a94ec64246": [
+      "IR_Guitarra/Kornkorn_1.wav",
+      "IR_Guitarra/Kornkorn.wav"
+    ],
+    "9ae4d8b250125576a568acdba6e01680": [
+      "IR_Guitarra/Kreatorviolentrevolution_1.wav",
+      "IR_Guitarra/Kreatorviolentrevolution.wav"
+    ],
+    "ba527ff7679410c3fa920113e850897e": [
+      "IR_Guitarra/Issuesblackdiamonds_1.wav",
+      "IR_Guitarra/Issuesblackdiamonds.wav"
+    ],
+    "4bdee9c9520286fa4a04275e97e2bcc4": [
+      "IR_Guitarra/Killerbekilledselftitled_1.wav",
+      "IR_Guitarra/Killerbekilledselftitled.wav"
+    ],
+    "6084b1e7017a89d785d33c9662344e8c": [
+      "IR_Guitarra/Judaspriestjugulator_1.wav",
+      "IR_Guitarra/Judaspriestjugulator.wav"
+    ],
+    "20873808cf8361f5228bcd40e683fd26": [
+      "IR_Guitarra/Jimmyhendrixlive_1.wav",
+      "IR_Guitarra/Jimmyhendrixlive.wav"
+    ],
+    "15a20d53a4b1bd41806ccda92e6ea2d9": [
+      "IR_Guitarra/Inflamesthejesterrace_1.wav",
+      "IR_Guitarra/Inflamesthejesterrace.wav"
+    ],
+    "fa9b4d736c0c7f660eae6f7476b30d6d": [
+      "IR_Guitarra/Onmaidenpowerslave_1.wav",
+      "IR_Guitarra/Onmaidenpowerslave.wav"
+    ],
+    "5c4a621865816f2bd2969d7a2fc3f88f": [
+      "IR_Guitarra/Inflameswhoracle_1.wav",
+      "IR_Guitarra/Inflameswhoracle.wav"
+    ],
+    "e73a3348ee8da08143232bd56084d1b9": [
+      "IR_Guitarra/Ihsahntheadversary.wav",
+      "IR_Guitarra/Ihsahntheadversary_1.wav"
+    ],
+    "780094e33517abe075b54741c53cb67c": [
+      "IR_Guitarra/Immortaldamnedinblack_1.wav",
+      "IR_Guitarra/Immortaldamnedinblack.wav"
+    ],
+    "1a58ec50fe0d8cb3353e0f3448a673e7": [
+      "IR_Guitarra/Humanitylastbreath_Selftitled_1.wav",
+      "IR_Guitarra/Humanitylastbreath_Selftitled.wav"
+    ],
+    "64e3b965d1794fe1d9097514abe9530a": [
+      "IR_Guitarra/Icedearthplaguesofbabylon.wav",
+      "IR_Guitarra/Icedearthplaguesofbabylon_1.wav"
+    ],
+    "53cc8e50e6757781e3c3333a582d4a3c": [
+      "IR_Guitarra/Hora_Zulu_Siempre_So\u00c3\u00b1\u00c3\u00a9_Saber_Sobre_Nadie_1.wav",
+      "IR_Guitarra/Hora_Zulu_Siempre_So\u00c3\u00b1\u00c3\u00a9_Saber_Sobre_Nadie.wav"
+    ],
+    "b12b9815d3ddb31944f1d02a69e8a7b4": [
+      "IR_Guitarra/Hijsdeputhoradepreaventuras_1.wav",
+      "IR_Guitarra/Hijsdeputhoradepreaventuras.wav"
+    ],
+    "7847f7bdca7e58e4a8888938e9e18fbf": [
+      "IR_Guitarra/Hexenbeingandnothingness_1.wav",
+      "IR_Guitarra/Hexenbeingandnothingness.wav"
+    ],
+    "ba9e85233bbf29767c6799463633cb0c": [
+      "IR_Guitarra/Helloween_Better_Than_Raw_1.wav",
+      "IR_Guitarra/Helloween_Better_Than_Raw.wav"
+    ],
+    "3a19a94ed3e87cc1d5e9f0f20334cad3": [
+      "IR_Guitarra/Havok_Ponr.wav",
+      "IR_Guitarra/Havok_Ponr_1.wav"
+    ],
+    "d24343269fd7b3315739a021615b6d75": [
+      "IR_Guitarra/Gojalenfantsauvage.wav",
+      "IR_Guitarra/Gojalenfantsauvage_1.wav"
+    ],
+    "61e1807229da73f9c8123703272cbd08": [
+      "IR_Guitarra/Clean_Greendaydookie.wav",
+      "IR_Guitarra/Clean_Greendaydookie_1.wav"
+    ],
+    "32f1cfb910e0bf9a2d4d076d5fb5c8b6": [
+      "IR_Guitarra/Gorgorothadmajoremsathanasgloriam.wav",
+      "IR_Guitarra/Gorgorothadmajoremsathanasgloriam_1.wav"
+    ],
+    "6cb55817fefc386da6ddbb40733267f7": [
+      "IR_Guitarra/Godforbidequilibrium.wav",
+      "IR_Guitarra/Godforbidequilibrium_1.wav"
+    ],
+    "ed662f19f652db95d2b5884a35448081": [
+      "IR_Guitarra/Godsmacktheoracle.wav",
+      "IR_Guitarra/Godsmacktheoracle_1.wav"
+    ],
+    "ca375e9c7216c194bf1f63948451fc6c": [
+      "IR_Guitarra/Fewinddaysofdefiance.wav",
+      "IR_Guitarra/Fewinddaysofdefiance_1.wav"
+    ],
+    "447453faa5567ad48491f48e2c1373a6": [
+      "IR_Guitarra/Higain_Fearedvinter_1.wav",
+      "IR_Guitarra/Higain_Fearedvinter.wav"
+    ],
+    "9a936c21ae5efbf1203312e279fd2ec1": [
+      "IR_Guitarra/Higain_Fearedrejects2011.wav",
+      "IR_Guitarra/Higain_Fearedrejects2011_1.wav"
+    ],
+    "73c51b86da0e5850d2748a13207d3f3f": [
+      "IR_Guitarra/Exploited_Beat_The_Bastards_1.wav",
+      "IR_Guitarra/Exploited_Beat_The_Bastards.wav"
+    ],
+    "3d6a8e2f7de52655da8a23f69c5e0ca8": [
+      "IR_Guitarra/Faithnomorealbumoftheyear.wav",
+      "IR_Guitarra/Faithnomorealbumoftheyear_1.wav"
+    ],
+    "0abbbea8b7e0e3c538a3b6d89e57699c": [
+      "IR_Guitarra/Exquisite_Pus_Dead_Forgotten.wav",
+      "IR_Guitarra/Exquisite_Pus_Dead_Forgotten_1.wav"
+    ],
+    "48c7b35f2d239ad011d3c3158865486d": [
+      "IR_Guitarra/Fearfactorydemanufacture.wav",
+      "IR_Guitarra/Fearfactorydemanufacture_1.wav"
+    ],
+    "4a86e1bb9d674461b82d007d3b22e932": [
+      "IR_Guitarra/Evilefiveserpentsteeth_1.wav",
+      "IR_Guitarra/Evilefiveserpentsteeth.wav"
+    ],
+    "9cbbe66ff281e8861e2f283c61d91cd0": [
+      "IR_Guitarra/Exodusexhibitbthehumancondition_1.wav",
+      "IR_Guitarra/Exodusexhibitbthehumancondition.wav"
+    ],
+    "96878a8003d5c7683bd19d363db3a630": [
+      "IR_Guitarra/Exodiahellbringer.wav",
+      "IR_Guitarra/Exodiahellbringer_1.wav"
+    ],
+    "84ad97f480e99460ad2b5743d24bb6cb": [
+      "IR_Guitarra/Entombedwolverineblues_1.wav",
+      "IR_Guitarra/Entombedwolverineblues.wav"
+    ],
+    "8a48387009f842b901f5cceb7424e5d6": [
+      "IR_Guitarra/Epicadesignyouruniverse_1.wav",
+      "IR_Guitarra/Epicadesignyouruniverse.wav"
+    ],
+    "2a7e903918e6d98aa7d488e6edbe731e": [
+      "IR_Guitarra/Evileenterthegrave.wav",
+      "IR_Guitarra/Evileenterthegrave_1.wav"
+    ],
+    "2a1339154aa6c37cbcbfd6b28e790e58": [
+      "IR_Guitarra/Edguyhellfeclub_1.wav",
+      "IR_Guitarra/Edguyhellfeclub.wav"
+    ],
+    "ee8f32d18bc9546492e8f24eddbd77d0": [
+      "IR_Guitarra/Dyingfetuswarofattrition_1.wav",
+      "IR_Guitarra/Dyingfetuswarofattrition.wav"
+    ],
+    "40f4cba03587d2c851694882f1169c5f": [
+      "IR_Guitarra/Dyingfetusreignsupreme_1.wav",
+      "IR_Guitarra/Dyingfetusreignsupreme.wav"
+    ],
+    "f529f03cf91fb8f5b1cb88ea4ed62aac": [
+      "IR_Guitarra/Dreamtheaterimagesandwords_1.wav",
+      "IR_Guitarra/Dreamtheaterimagesandwords.wav"
+    ],
+    "670817f34a058d2b006ce5e313c7e6ce": [
+      "IR_Guitarra/Dragonforcesonicfestorm_1.wav",
+      "IR_Guitarra/Dragonforcesonicfestorm.wav"
+    ],
+    "9d40d8b3336414ce7e9bdfd86e25eaaf": [
+      "IR_Guitarra/Dreamtheaterblackcloudssilverlinings.wav",
+      "IR_Guitarra/Dreamtheaterblackcloudssilverlinings_1.wav"
+    ],
+    "70dd49b418e3931307a679ae9f9a5365": [
+      "IR_Guitarra/Downnola.wav",
+      "IR_Guitarra/Downnola_1.wav"
+    ],
+    "3bfa55a227e0ac6829e64d014aa211f1": [
+      "IR_Guitarra/Down_Of_The_Maya_The_Truth_Is_In_Front_O_1.wav",
+      "IR_Guitarra/Down_Of_The_Maya_The_Truth_Is_In_Front_O.wav"
+    ],
+    "af2affa57f388b70dac6d4518b6ea372": [
+      "IR_Guitarra/Dokken_Back_For_The_Attack_1.wav",
+      "IR_Guitarra/Dokken_Back_For_The_Attack.wav"
+    ],
+    "443e1c864d2c44ddb95ea3a4c0134d5f": [
+      "IR_Guitarra/Disonance_In_Design_Neurotransmitting_An.wav",
+      "IR_Guitarra/Disonance_In_Design_Neurotransmitting_An_1.wav"
+    ],
+    "80799a57b6be071aeb0506efe2eaccaa": [
+      "IR_Guitarra/Divineheresybringerofplagues.wav",
+      "IR_Guitarra/Divineheresybringerofplagues_1.wav"
+    ],
+    "c33d258429c6ba0624416a41b60cf93b": [
+      "IR_Guitarra/Higain_Disturbedindestructible_1.wav",
+      "IR_Guitarra/Higain_Disturbedindestructible.wav"
+    ],
+    "509c9538ad293353fa95e72d9ffd1c0e": [
+      "IR_Guitarra/Dimmuborgenthronedarknesstriumphant_1.wav",
+      "IR_Guitarra/Dimmuborgenthronedarknesstriumphant.wav"
+    ],
+    "c15e3e3cf52d9ce5f81800ae25dc1ae7": [
+      "IR_Guitarra/Dethklokdethalbumi_1.wav",
+      "IR_Guitarra/Dethklokdethalbumi.wav"
+    ],
+    "b0bd5cedfd01e50f84acc042f5e2fb0f": [
+      "IR_Guitarra/Diamond_Head_Lightning_To_The_Nations.wav",
+      "IR_Guitarra/Diamond_Head_Lightning_To_The_Nations_1.wav"
+    ],
+    "649f665aa122158aea1af882982a2a9f": [
+      "IR_Guitarra/Higain_Deicidethestenchofredemption.wav",
+      "IR_Guitarra/Higain_Deicidethestenchofredemption_1.wav"
+    ],
+    "89b55159c731f2258c3c6f01d37363e1": [
+      "IR_Guitarra/Death_Over_Threat_Sangre_1.wav",
+      "IR_Guitarra/Death_Over_Threat_Sangre.wav"
+    ],
+    "c72caf924c922881b496a5a27f657750": [
+      "IR_Guitarra/Decapitated_Carnival_Is_Forever_1.wav",
+      "IR_Guitarra/Decapitated_Carnival_Is_Forever.wav"
+    ],
+    "e1d7d4b5e25e5720f3eedd2d0ab5d228": [
+      "IR_Guitarra/Deaththesoundofperseverance.wav",
+      "IR_Guitarra/Deaththesoundofperseverance_1.wav"
+    ],
+    "06c0b7c52fcd919990d1b977795f2618": [
+      "IR_Guitarra/D_A_M_Phantasmagoria.wav",
+      "IR_Guitarra/D_A_M_Phantasmagoria_1.wav"
+    ],
+    "49f25558ef334676733c31523b36b579": [
+      "IR_Guitarra/Daaththehinderers_1.wav",
+      "IR_Guitarra/Daaththehinderers.wav"
+    ],
+    "f2a38e14cf5c6aa9750351b19ab9359f": [
+      "IR_Guitarra/Darktranquilitycharacter_1.wav",
+      "IR_Guitarra/Darktranquilitycharacter.wav"
+    ],
+    "a16902a199087c90e6bc50ef204b246e": [
+      "IR_Guitarra/Crisix_The_Menace_1.wav",
+      "IR_Guitarra/Crisix_The_Menace.wav"
+    ],
+    "362b849e73f76aeea3195515d0f9b078": [
+      "IR_Guitarra/Crisixrisethenrest_1.wav",
+      "IR_Guitarra/Crisixrisethenrest.wav"
+    ],
+    "90b887eccb309d08e00c0ae107f2760d": [
+      "IR_Guitarra/Crowntheempethefallout.wav",
+      "IR_Guitarra/Crowntheempethefallout_1.wav"
+    ],
+    "3a45f5c4ee37dcb43bd573c9d23846ab": [
+      "IR_Guitarra/Conqueringdystopiaselftitled.wav",
+      "IR_Guitarra/Conqueringdystopiaselftitled_1.wav"
+    ],
+    "a4803056d8eeeff40f1e10d2d8d33945": [
+      "IR_Guitarra/Children_Of_Bodom_Are_You_Dead_Yet.wav",
+      "IR_Guitarra/Children_Of_Bodom_Are_You_Dead_Yet_1.wav"
+    ],
+    "3a5ca0a49e2ac2db67517b4b22582dad": [
+      "IR_Guitarra/Chimaacrownofphantoms.wav",
+      "IR_Guitarra/Chimaacrownofphantoms_1.wav"
+    ],
+    "ae35597dfe34fd740c5c896a8474e5f9": [
+      "IR_Guitarra/Bring_Me_The_Horizon_Sempiternal_1.wav",
+      "IR_Guitarra/Bring_Me_The_Horizon_Sempiternal.wav"
+    ],
+    "feb2a83187d9f5861340faabfc3ab4d6": [
+      "IR_Guitarra/Carnifexuntilifeelnothing.wav",
+      "IR_Guitarra/Carnifexuntilifeelnothing_1.wav"
+    ],
+    "ce8723c329c0c2dd216e77c784c6fbd8": [
+      "IR_Guitarra/Cannibalcorpsevile_1.wav",
+      "IR_Guitarra/Cannibalcorpsevile.wav"
+    ],
+    "90a6a93b3df0c60375ea1c17c84e8be1": [
+      "IR_Guitarra/Bulletformyvalentinetempertemper_1.wav",
+      "IR_Guitarra/Bulletformyvalentinetempertemper.wav"
+    ],
+    "bbf707ccf45915bf10ea090b56b94d1e": [
+      "IR_Guitarra/Cattle_Decapitation_Monolith_Of_Inhumani_1.wav",
+      "IR_Guitarra/Cattle_Decapitation_Monolith_Of_Inhumani.wav"
+    ],
+    "c45e4704c8a4fef555b7072847772d22": [
+      "IR_Guitarra/Contra_Arma_De_Asalto_1.wav",
+      "IR_Guitarra/Contra_Arma_De_Asalto.wav"
+    ],
+    "5110fa199cfbe60e97af77d3b52f904e": [
+      "IR_Guitarra/Born_Of_Osis_Tomorrow_We_Die_Alive.wav",
+      "IR_Guitarra/Born_Of_Osis_Tomorrow_We_Die_Alive_1.wav"
+    ],
+    "9c6ca394965243875fc00214445bc1b2": [
+      "IR_Guitarra/Brain_Drill_Quantum_Catastrophe_1.wav",
+      "IR_Guitarra/Brain_Drill_Quantum_Catastrophe.wav"
+    ],
+    "e2856b7b47600da3963e29070fef5a32": [
+      "IR_Guitarra/Blink182duderanch_1.wav",
+      "IR_Guitarra/Blink182duderanch.wav"
+    ],
+    "75ff59f3ecb838de4c1e3ef5d00165e6": [
+      "IR_Guitarra/Beyondcreationtheaura_1.wav",
+      "IR_Guitarra/Beyondcreationtheaura.wav"
+    ],
+    "2beadbcba7a43f2bf48891087f81c95c": [
+      "IR_Guitarra/Black_Label_Society_Order_Of_The_Black.wav",
+      "IR_Guitarra/Black_Label_Society_Order_Of_The_Black_1.wav"
+    ],
+    "d8dc8eb8fafd9728a46b9020ff021180": [
+      "IR_Guitarra/Bestpluginspunk_1.wav",
+      "IR_Guitarra/Bestpluginspunk.wav"
+    ],
+    "400d5d2b8387b5e501b79bde3f2736b0": [
+      "IR_Guitarra/Beforethedawndeathstarrising_1.wav",
+      "IR_Guitarra/Beforethedawndeathstarrising.wav"
+    ],
+    "76cad737b51d62f3af0983e8e2c7225b": [
+      "IR_Guitarra/Battlecrosswarofwill.wav",
+      "IR_Guitarra/Battlecrosswarofwill_1.wav"
+    ],
+    "faf2d3f9aaafa7764cdf512405a65429": [
+      "IR_Guitarra/Belphegorbondagegoatzombie.wav",
+      "IR_Guitarra/Belphegorbondagegoatzombie_1.wav"
+    ],
+    "673ae80e0ef46effac63af83f762de72": [
+      "IR_Guitarra/Randall_Randall_Behemoththesatanist.wav",
+      "IR_Guitarra/Randall_Behemoththesatanist.wav"
+    ],
+    "4be2ad3daeaf20766e7ce3af8433101d": [
+      "IR_Guitarra/Axhomarchalien.wav",
+      "IR_Guitarra/Axhomarchalien_1.wav"
+    ],
+    "caff35be33a1d0357cc38eca062dbfa1": [
+      "IR_Guitarra/Atthegatesslaughterofthesoul.wav",
+      "IR_Guitarra/Atthegatesslaughterofthesoul_1.wav"
+    ],
+    "2994c30b741df14db5b9eaff1ceff24b": [
+      "IR_Guitarra/Avengedsevenfoldnightmare_1.wav",
+      "IR_Guitarra/Avengedsevenfoldnightmare.wav"
+    ],
+    "b6f590f7f63e0af1dc3b1ff2c8515e46": [
+      "IR_Guitarra/Higain_Avulsed_Gorespattered_Suicide.wav",
+      "IR_Guitarra/Higain_Avulsed_Gorespattered_Suicide_1.wav"
+    ],
+    "49486cc847d32134d94b27a2952d06fa": [
+      "IR_Guitarra/Avenged_Sevenfold_Hail_To_The_King_1.wav",
+      "IR_Guitarra/Avenged_Sevenfold_Hail_To_The_King.wav"
+    ],
+    "ed0339761be7ddd5e7e0a77496659727": [
+      "IR_Guitarra/Avalanch_Los_Poetas_Han_Muerto.wav",
+      "IR_Guitarra/Avalanch_Los_Poetas_Han_Muerto_1.wav"
+    ],
+    "3c5b9ee88221cb5c16fcfa9542fa7e49": [
+      "IR_Guitarra/Archenemyriseofthetyrant_1.wav",
+      "IR_Guitarra/Archenemyriseofthetyrant.wav"
+    ],
+    "3bfdf7f8c29e019b402e778fd39bf4c1": [
+      "IR_Guitarra/Asilaydyingawakened_1.wav",
+      "IR_Guitarra/Asilaydyingawakened.wav"
+    ],
+    "21b612a58e8387dd4221fdd08fa8fb6e": [
+      "IR_Guitarra/Askingalexandriastandupandscream.wav",
+      "IR_Guitarra/Askingalexandriastandupandscream_1.wav"
+    ],
+    "52f6f85a6ff59872ba25f17483db019d": [
+      "IR_Guitarra/Asking_Alexandria_From_Death_To_Destiny.wav",
+      "IR_Guitarra/Asking_Alexandria_From_Death_To_Destiny_1.wav"
+    ],
+    "6f4a70be89170b3b32ca3984f20ba14a": [
+      "IR_Guitarra/Archenemywareternal.wav",
+      "IR_Guitarra/Archenemywareternal_1.wav"
+    ],
+    "a02bdd2b73a9130401a245179891dd94": [
+      "IR_Guitarra/Annihilatorfeast_1.wav",
+      "IR_Guitarra/Annihilatorfeast.wav"
+    ],
+    "7f4357014ee8bbe6eeabdb67bedbded0": [
+      "IR_Guitarra/Archenemydoomsdaymachine_1.wav",
+      "IR_Guitarra/Archenemydoomsdaymachine.wav"
+    ],
+    "4f135dbdc0677cc87b49a662679f96f3": [
+      "IR_Guitarra/Angeles_Del_Infierno_Diabolicca_1.wav",
+      "IR_Guitarra/Angeles_Del_Infierno_Diabolicca.wav"
+    ],
+    "6a07e8cb8e41c10cd448e06b60f17742": [
+      "IR_Guitarra/Angelus_Apatrida_The_Call.wav",
+      "IR_Guitarra/Angelus_Apatrida_The_Call_1.wav"
+    ],
+    "a34bdde4562d5ee3e3932318b9426559": [
+      "IR_Guitarra/Amoarthdeceiverofthegods.wav",
+      "IR_Guitarra/Amoarthdeceiverofthegods_1.wav"
+    ],
+    "9c4941304fdac2dbe6f33b6bcbb8a70e": [
+      "IR_Guitarra/Andreutodosimbiosi.wav",
+      "IR_Guitarra/Andreutodosimbiosi_1.wav"
+    ],
+    "dcf112846994746e5c2f5e0d1c444b0f": [
+      "IR_Guitarra/Alter_Bridge_Blackbd.wav",
+      "IR_Guitarra/Alter_Bridge_Blackbd_1.wav"
+    ],
+    "03de6f71693905add180acbea743836b": [
+      "IR_Guitarra/Aftertheburialrareform.wav",
+      "IR_Guitarra/Aftertheburialrareform_1.wav"
+    ],
+    "201305349ded2bd06005b8ac0f019ec1": [
+      "IR_Guitarra/Adgar_Tiempos_De_Cambio_1.wav",
+      "IR_Guitarra/Adgar_Tiempos_De_Cambio.wav"
+    ],
+    "4ec6bee9806f7a7156b7a1e3c2673f6d": [
+      "IR_Guitarra/Randall_Randall_Randall_Satan.wav",
+      "IR_Guitarra/Randall_Randall_Satan.wav"
+    ],
+    "5ea01ec871ce3fa7384ddff1e83d2cc3": [
+      "IR_Guitarra/Randall_Randall_Randall_Thrasher.wav",
+      "IR_Guitarra/Randall_Randall_Thrasher.wav"
+    ],
+    "61899faadf438886b7bc6e1dabc989a0": [
+      "IR_Guitarra/Higain_Makosampcustomhatred_1.wav",
+      "IR_Guitarra/Higain_Makosampcustomhatred.wav"
+    ],
+    "2ff095b984225723afb98c1a40b87c72": [
+      "IR_Guitarra/N15_Dtar_Blues_Res.wav",
+      "IR_Guitarra/N15_Dtar_Blues_Res_1.wav"
+    ],
+    "336b53d838ede68257446c0c2e105a22": [
+      "IR_Guitarra/N12_Dtar_Super_Jumbo.wav",
+      "IR_Guitarra/N12_Dtar_Super_Jumbo_1.wav"
+    ],
+    "2df8c9de1ca503913d9cc09450a34a41": [
+      "IR_Guitarra/N16_Dtar_Tricone_Res_1.wav",
+      "IR_Guitarra/N16_Dtar_Tricone_Res.wav"
+    ],
+    "9b5e82f1a7b8b5d2eff0795a2a31291c": [
+      "IR_Guitarra/N05_Dtar_Rose_Om_1.wav",
+      "IR_Guitarra/N05_Dtar_Rose_Om.wav"
+    ],
+    "beede64cac654508ae02832580cd5ee7": [
+      "IR_Guitarra/N06_Dtar_Btq_Fingerstyle_1.wav",
+      "IR_Guitarra/N06_Dtar_Btq_Fingerstyle.wav"
+    ],
+    "6809db99a20ba30f471211457b7beaf0": [
+      "IR_Guitarra/N10_Dtar_Mag_Dread_1.wav",
+      "IR_Guitarra/N10_Dtar_Mag_Dread.wav"
+    ],
+    "527dd6179d8ccca6280e752d7203da6c": [
+      "IR_Guitarra/N11_Dtar_Rose_Dread.wav",
+      "IR_Guitarra/N11_Dtar_Rose_Dread_1.wav"
+    ],
+    "759a6a069bf400207393da527c3e9d70": [
+      "IR_Guitarra/N08_Dtar_Grand_Aud.wav",
+      "IR_Guitarra/N08_Dtar_Grand_Aud_1.wav"
+    ],
+    "d543ad86e78d0ee3185f4b663f88fa82": [
+      "IR_Guitarra/N01_Dtar_Parlor_1.wav",
+      "IR_Guitarra/N01_Dtar_Parlor.wav"
+    ],
+    "7c62559b93f5a4b056bf66cbc59cf05b": [
+      "IR_Guitarra/B16_Dtar_Tricone_Res.wav",
+      "IR_Guitarra/B16_Dtar_Tricone_Res_1.wav"
+    ],
+    "36292e70b1a05c93ed084b62ca6bbe7b": [
+      "IR_Guitarra/N03_Dtar_Small_Blues_1.wav",
+      "IR_Guitarra/N03_Dtar_Small_Blues.wav"
+    ],
+    "59e7babf61dc3047c4ecef6ec867e88e": [
+      "IR_Guitarra/N02_Dtar_Small_Fingerstyle.wav",
+      "IR_Guitarra/N02_Dtar_Small_Fingerstyle_1.wav"
+    ],
+    "eadcbc37e327682a579ed5701cc16732": [
+      "IR_Guitarra/N04_Dtar_Mag_Om.wav",
+      "IR_Guitarra/N04_Dtar_Mag_Om_1.wav"
+    ],
+    "f3ffc2cf21076155301f527b8eeadd60": [
+      "IR_Guitarra/B10_Dtar_Mah_Dread_1.wav",
+      "IR_Guitarra/B10_Dtar_Mah_Dread.wav"
+    ],
+    "427e51db14df0e0bd1f6c694ee650787": [
+      "IR_Guitarra/B12_Dtar_Sup_Jumbo.wav",
+      "IR_Guitarra/B12_Dtar_Sup_Jumbo_1.wav"
+    ],
+    "9ce2888a320719bd96e6009353e6d732": [
+      "IR_Guitarra/B11_Dtar_Ros_Dread_1.wav",
+      "IR_Guitarra/B11_Dtar_Ros_Dread.wav"
+    ],
+    "54fbed266fa324f093b7fcbeef88c3a4": [
+      "IR_Guitarra/B07_Dtar_Dread.wav",
+      "IR_Guitarra/B07_Dtar_Dread_1.wav"
+    ],
+    "9dda963777bdfb8960569d3df767a383": [
+      "IR_Guitarra/B02_Dtar_Finger_1.wav",
+      "IR_Guitarra/B02_Dtar_Finger.wav"
+    ],
+    "2b05a64a4e1ca5a21a05ede284698a06": [
+      "IR_Guitarra/B08_Dtar_Graud.wav",
+      "IR_Guitarra/B08_Dtar_Graud_1.wav"
+    ],
+    "3a1e51040a7214512a3228454e586653": [
+      "IR_Guitarra/B03_Dtar_Blues.wav",
+      "IR_Guitarra/B03_Dtar_Blues_1.wav"
+    ],
+    "d4e9fe5a85c83980509c7c3a9b3ca3ae": [
+      "IR_Guitarra/B06_Dtar_Btq_Finger.wav",
+      "IR_Guitarra/B06_Dtar_Btq_Finger_1.wav"
+    ],
+    "c56d3017e0ce7f19465d37ee77ee430d": [
+      "IR_Guitarra/B04_Dtar_Mag_Om.wav",
+      "IR_Guitarra/B04_Dtar_Mag_Om_1.wav"
+    ],
+    "bb0dbb8ec94dc8c52da1797d3ac406ae": [
+      "IR_Guitarra/B05_Dtar_Ros_Om_1.wav",
+      "IR_Guitarra/B05_Dtar_Ros_Om.wav"
+    ],
+    "044259687a79b64f8ef214bb40f6cb46": [
+      "IR_Guitarra/B01_Dtar_Parlor_1.wav",
+      "IR_Guitarra/B01_Dtar_Parlor.wav"
+    ],
+    "137af914e1d6677bd742c52719dbd08a": [
+      "IR_Guitarra/Mandolin_Gibson_Wayne_Benson_Dpa_4011_1.wav",
+      "IR_Guitarra/Mandolin_Gibson_Wayne_Benson_Dpa_4011.wav"
+    ],
+    "9db3bdea7713a9ffbc804e758152fcdc": [
+      "IR_Guitarra/J45_Akg_Cs1000_1.wav",
+      "IR_Guitarra/J45_Akg_Cs1000.wav"
+    ],
+    "666ec011eeaa015346d782a538357141": [
+      "IR_Guitarra/Hummingbd_Dpa_4011.wav",
+      "IR_Guitarra/Hummingbd_Dpa_4011_1.wav"
+    ],
+    "824dc12c47d15e70bf1d7217383a17e0": [
+      "IR_Guitarra/Hd28_Soundelux_E47.wav",
+      "IR_Guitarra/Hd28_Soundelux_E47_1.wav"
+    ],
+    "3e2848751260802afd86e88c09eefaf4": [
+      "IR_Guitarra/J45_Dpa_4011.wav",
+      "IR_Guitarra/J45_Dpa_4011_1.wav"
+    ],
+    "2681d56fbd8512419c586644ac0e8e93": [
+      "IR_Guitarra/Hummingbd_Shure_Beta_58a.wav",
+      "IR_Guitarra/Hummingbd_Shure_Beta_58a_1.wav"
+    ],
+    "d98b0074d9cc6ee2d25e6a7dbf24b711": [
+      "IR_Guitarra/Hd28_Schoeps_Cmc64g.wav",
+      "IR_Guitarra/Hd28_Schoeps_Cmc64g_1.wav"
+    ],
+    "873b9741c8ab9f28d3a1500e425bb9c7": [
+      "IR_Guitarra/Collings_Om2ha_Dpa_4011.wav",
+      "IR_Guitarra/Collings_Om2ha_Dpa_4011_1.wav"
+    ],
+    "7faadccfb39edaa273c0fa56dd8991ea": [
+      "IR_Guitarra/Collings_Om2ha_Schoeps_Cmc64g_Xy.wav",
+      "IR_Guitarra/Collings_Om2ha_Schoeps_Cmc64g_Xy_1.wav"
+    ],
+    "0f020938cca0899bfc31ab249b837102": [
+      "IR_Guitarra/Collings_Om2ha_Schoeps_Cmc64g_1.wav",
+      "IR_Guitarra/Collings_Om2ha_Schoeps_Cmc64g.wav"
+    ],
+    "969bf08809872de1af7c14d9843a1eb0": [
+      "IR_Guitarra/Collings_Om2ha_Soundelux_E47.wav",
+      "IR_Guitarra/Collings_Om2ha_Soundelux_E47_1.wav"
+    ],
+    "16bc2f035e2039b79adeb836254c97ca": [
+      "IR_Guitarra/Hd28_Neumann_U47_1.wav",
+      "IR_Guitarra/Hd28_Neumann_U47.wav"
+    ],
+    "160d84d54a1f96669e914bbaa43fdda5": [
+      "IR_Guitarra/Collings_Om2ha_Akg_Cs1000_1.wav",
+      "IR_Guitarra/Collings_Om2ha_Akg_Cs1000.wav"
+    ],
+    "5f0d482d5a97f755f69cf7f6e7a03f1b": [
+      "IR_Guitarra/Collings_D2h_Sanken_Cu31.wav",
+      "IR_Guitarra/Collings_D2h_Sanken_Cu31_1.wav"
+    ],
+    "1facbf9368616c2194338abf6ac3fcd1": [
+      "IR_Guitarra/Hd28_Akg_C414b_Xls_1.wav",
+      "IR_Guitarra/Hd28_Akg_C414b_Xls.wav"
+    ],
+    "9d9b6cdfc2e79486e520d3c9c6a02bd2": [
+      "IR_Guitarra/Collings_D2h_Neumann_Km84.wav",
+      "IR_Guitarra/Collings_D2h_Neumann_Km84_1.wav"
+    ],
+    "f090f5c478b699c610d0ba128c5f98cf": [
+      "IR_Guitarra/Classical_Ambu2f_Akg_Cs1000.wav",
+      "IR_Guitarra/Vintage_Classical_Ambu2f_Akg_Cs1000.wav"
+    ],
+    "8a70cae7f31495ad680ab5dfd08d4f8f": [
+      "IR_Guitarra/Classical_Ambu2f_Neumann_M147.wav",
+      "IR_Guitarra/Vintage_Classical_Ambu2f_Neumann_M147.wav"
+    ],
+    "a961adff7c8c2c497cb9a2bb5e0dd9ac": [
+      "IR_Guitarra/116_Dtar_Tricone_Res.wav",
+      "IR_Guitarra/116_Dtar_Tricone_Res_1.wav"
+    ],
+    "ac440f94bb60f565c5b36338d4fa4225": [
+      "IR_Guitarra/Collings_D2h_Dpa_4011_1.wav",
+      "IR_Guitarra/Collings_D2h_Dpa_4011.wav"
+    ],
+    "c761c4f032fc1da33e7347dd1ba04cd5": [
+      "IR_Guitarra/115_Dtar_Blues_Res_1.wav",
+      "IR_Guitarra/115_Dtar_Blues_Res.wav"
+    ],
+    "7c4d926b78d4ed2ed324705482051c19": [
+      "IR_Guitarra/Collings_D2h_Neumann_M147.wav",
+      "IR_Guitarra/Collings_D2h_Neumann_M147_1.wav"
+    ],
+    "38b4e97aaadf1677bd2d0067957ae5f0": [
+      "IR_Guitarra/Classical_Ambu2f_Dpa_4011.wav",
+      "IR_Guitarra/Vintage_Classical_Ambu2f_Dpa_4011.wav"
+    ],
+    "13ec6ea5b10cf4f1bf96be0112f23ca7": [
+      "IR_Guitarra/108_Dtar_Grand_Aud_1.wav",
+      "IR_Guitarra/108_Dtar_Grand_Aud.wav"
+    ],
+    "d720c078a44e99ca9b66ad9ef2528945": [
+      "IR_Guitarra/111_Dtar_Rose_Dread.wav",
+      "IR_Guitarra/111_Dtar_Rose_Dread_1.wav"
+    ],
+    "999b27c0e52905e0690132d897f4f54d": [
+      "IR_Guitarra/112_Dtar_Super_Jumbo_1.wav",
+      "IR_Guitarra/112_Dtar_Super_Jumbo.wav"
+    ],
+    "a8a3d3c20d2d95b52cb390cb767800e0": [
+      "IR_Guitarra/110_Dtar_Mah_Dread.wav",
+      "IR_Guitarra/110_Dtar_Mah_Dread_1.wav"
+    ],
+    "b005ed68422821eab33e5d456df43381": [
+      "IR_Guitarra/106_Dtar_Btq_Finger.wav",
+      "IR_Guitarra/106_Dtar_Btq_Finger_1.wav"
+    ],
+    "5b690d4c0d305834954a81d5294d58bb": [
+      "IR_Guitarra/105_Dtar_Rose_Om_1.wav",
+      "IR_Guitarra/105_Dtar_Rose_Om.wav"
+    ],
+    "cae87d38359d5cd09885475179f3d809": [
+      "IR_Guitarra/102_Dtar_Small_Fingerstyle.wav",
+      "IR_Guitarra/102_Dtar_Small_Fingerstyle_1.wav"
+    ],
+    "3bb71a525806df936ef2277d2e2113e9": [
+      "IR_Guitarra/104_Dtar_Mah_Om_1.wav",
+      "IR_Guitarra/104_Dtar_Mah_Om.wav"
+    ],
+    "293788c645cf32e76db10c2788debc05": [
+      "IR_Guitarra/103_Dtar_Small_Blues_1.wav",
+      "IR_Guitarra/103_Dtar_Small_Blues.wav"
+    ],
+    "219cedfe37ff127cdf7a5a2e48cdcce5": [
+      "IR_Guitarra/101_Dtar_Parlor_1.wav",
+      "IR_Guitarra/101_Dtar_Parlor.wav"
+    ],
+    "58788d30f0ef51d0d2bfbd1ff8bc032c": [
+      "IR_Guitarra/Default.wav",
+      "IR_Guitarra/Default_1.wav"
+    ]
+  },
+  "name_duplicates": {
+    "Orange_Crunch_4.wav": [
+      "IR_Bajo/Orange_Crunch_4.wav",
+      "IR_Guitarra/Orange_Crunch_4.wav"
+    ],
+    "Orange_Crunch_1.wav": [
+      "IR_Bajo/Orange_Crunch_1.wav",
+      "IR_Guitarra/Orange_Crunch_1.wav"
+    ],
+    "Orange_Crunch_3.wav": [
+      "IR_Bajo/Orange_Crunch_3.wav",
+      "IR_Guitarra/Orange_Crunch_3.wav"
+    ],
+    "Orange_Crunch.wav": [
+      "IR_Bajo/Orange_Crunch.wav",
+      "IR_Guitarra/Orange_Crunch.wav"
+    ],
+    "Orange_Crunch_2.wav": [
+      "IR_Bajo/Orange_Crunch_2.wav",
+      "IR_Guitarra/Orange_Crunch_2.wav"
+    ],
+    "Orange_Crunch_5.wav": [
+      "IR_Bajo/Orange_Crunch_5.wav",
+      "IR_Guitarra/Orange_Crunch_5.wav"
+    ],
+    "README.txt": [
+      "_CURATED_RIGS/05_Boutique_Premium_Collection/README.txt",
+      "_CURATED_RIGS/06_Pedals_and_Overdrives/README.txt",
+      "_CURATED_RIGS/04_Bass_Foundations/README.txt",
+      "_CURATED_RIGS/03_Pristine_Clean_Ambient/README.txt",
+      "_CURATED_RIGS/02_Classic_Rock_Legends/README.txt",
+      "_CURATED_RIGS/01_Modern_Metal_Starter_Pack/README.txt"
+    ],
+    "Mesa_Mesa_C02_Mono_Left_Pres_5_2.wav": [
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Left_Pres_5_2.wav",
+      "IR_Guitarra/Mesa_Mesa_C02_Mono_Left_Pres_5_2.wav"
+    ],
+    "Sample94_1.wav": [
+      "IR_Guitarra/Sample94_1.wav",
+      "IR_Guitarra/Sample94_1.wav"
+    ]
+  }
+}

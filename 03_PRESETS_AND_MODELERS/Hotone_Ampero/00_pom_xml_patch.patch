@@ -1,0 +1,11 @@
+--- named-regexp-0.2.3/pom.xml	2013-09-15 19:28:36.000000000 -0430
++++ named-regexp-0.2.3~/pom.xml	2015-06-17 10:17:41.797918781 -0430
+@@ -64,6 +64,8 @@
+         <configuration>
+           <showDeprecation>true</showDeprecation>
+           <showWarnings>true</showWarnings>
++          <source>1.5</source>
++          <target>1.5</target>
+         </configuration>
+       </plugin>
+ 

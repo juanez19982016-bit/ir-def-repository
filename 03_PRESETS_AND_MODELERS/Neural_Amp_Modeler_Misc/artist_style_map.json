@@ -1,0 +1,143 @@
+{
+  "_comment": "아티스트/팀명 → 워십 스타일 매핑. tone_templates.py에서 로드됩니다.",
+  "_styles": ["ambient", "modern", "bluesy", "traditional", "high_energy"],
+
+  "korean_worship_teams": {
+    "gifted": "ambient",
+    "기프티드": "ambient",
+
+    "마커스": "modern",
+    "markers": "modern",
+    "markers worship": "modern",
+    "마커스워십": "modern",
+
+    "팀룩": "modern",
+    "team look": "modern",
+    "팀룩워십": "modern",
+
+    "어노인팅": "traditional",
+    "anointing": "traditional",
+
+    "예람": "modern",
+    "yeram": "modern",
+    "예람워십": "modern",
+
+    "아이자야": "modern",
+    "isaiah 6tyOne": "modern",
+    "isaiah": "modern",
+    "식스티원": "modern",
+
+    "사운드오브워십": "modern",
+    "sound of worship": "modern",
+    "sow": "modern",
+
+    "jeus": "ambient",
+    "제이어스": "ambient",
+
+    "조셉스톤": "ambient",
+    "josephstone": "ambient",
+
+    "뉴젠": "modern",
+    "newgen": "modern",
+    "뉴젠워십": "modern",
+
+    "jworship": "modern",
+    "제이워십": "modern",
+
+    "ccm": "traditional",
+    "소원": "traditional",
+    "옹기장이": "traditional",
+    "비전성가대": "traditional",
+
+    "온누리": "modern",
+    "onnuri": "modern",
+
+    "사랑의교회": "modern",
+    "sarang": "modern",
+
+    "오륜": "traditional",
+    "소망": "traditional",
+    "분당우리": "modern",
+    "순복음": "traditional"
+  },
+
+  "international_worship_teams": {
+    "hillsong": "modern",
+    "hillsong united": "modern",
+    "hillsong worship": "modern",
+    "hillsong young & free": "high_energy",
+    "young and free": "high_energy",
+    "y&f": "high_energy",
+
+    "elevation": "modern",
+    "elevation worship": "modern",
+
+    "bethel": "ambient",
+    "bethel music": "ambient",
+
+    "jesus culture": "ambient",
+
+    "passion": "modern",
+    "passion worship": "modern",
+    "passion city": "modern",
+    "kristian stanfill": "modern",
+
+    "planetshakers": "high_energy",
+    "planetboom": "high_energy",
+
+    "maverick city": "modern",
+    "maverick": "modern",
+
+    "upperroom": "ambient",
+    "upper room": "ambient",
+
+    "jesus image": "ambient",
+
+    "housefires": "modern",
+
+    "vertical worship": "modern",
+    "vertical": "modern",
+
+    "mosaic msc": "high_energy",
+    "mosaic": "modern",
+
+    "north point": "modern",
+
+    "leeland": "ambient",
+
+    "phil wickham": "ambient",
+    "wickham": "ambient",
+
+    "chris tomlin": "modern",
+    "tomlin": "modern",
+
+    "matt redman": "modern",
+    "redman": "modern",
+
+    "kari jobe": "ambient",
+
+    "lauren daigle": "modern",
+    "daigle": "modern",
+
+    "crowder": "bluesy",
+
+    "casting crowns": "traditional",
+
+    "gateway": "modern",
+    "gateway worship": "modern",
+
+    "cory asbury": "ambient",
+    "asbury": "ambient",
+
+    "sinach": "modern",
+
+    "don moen": "traditional",
+
+    "michael w. smith": "traditional",
+
+    "nigel hendroff": "modern",
+    "david helser": "ambient",
+    "jeffrey kunde": "ambient",
+    "lincoln brewster": "modern"
+  }
+}

@@ -1,0 +1,44 @@
+{
+    "meta": {
+        "id": "7B457877-E309-4735-9234-B33173D464BB",
+        "description": "",
+        "name": "Pop"
+    },
+    "presets": [
+        {
+            "id": "07079063-94A9-41B1-AB1D-02CBC5D00790",
+            "description": "1-Clean",
+            "name": "Silver Ship",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "CDE99591-C05D-4AE0-9E34-EC4A81F3F84F",
+            "description": "1-Clean",
+            "name": "Sweet Memory",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "F577F7F3-E8E0-4D35-8975-0427C2054DCE",
+            "description": "Description for Blues Preset 1",
+            "name": "Dancing in the room",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "D8757D67-98EA-4888-86E5-5F1FD96A30C3",
+            "description": "1-Clean",
+            "name": "Royal Crown",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "8c73a4e1-e7af-474c-b5f8-e35d9cb42f74",
+            "description": "",
+            "name": "dirty drive tele",
+            "version": "0.7",
+            "icon": "icon.png"
+        }
+    ]
+}

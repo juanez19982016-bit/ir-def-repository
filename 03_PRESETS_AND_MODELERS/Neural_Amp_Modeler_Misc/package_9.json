@@ -1,0 +1,63 @@
+{
+  "name": "named-regexp-groups",
+  "version": "1.0.6",
+  "description": "Regular expressions with named capture groups and named back-references",
+  "keywords": [
+    "backreference",
+    "capture",
+    "expression",
+    "group",
+    "named",
+    "regex",
+    "regexp",
+    "regular"
+  ],
+  "homepage": "https://github.com/commenthol/named-regexp-groups/",
+  "bugs": {
+    "url": "https://github.com/commenthol/named-regexp-groups/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/commenthol/named-regexp-groups.git"
+  },
+  "license": "MIT",
+  "author": "commenthol <commenthol@gmail.com>",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "scripts": {
+    "ci": "npm run clean && npm run lint && npm run build && npm test",
+    "build": "rollup -c rollup.conf.js",
+    "clean": "rimraf dist coverage .nyc_output",
+    "clean:all": "npm run clean && rimraf node_modules",
+    "coverage": "c8 -r lcov -r text -r html npm test",
+    "lint": "eslint --ext js .",
+    "prepublishOnly": "npm run all",
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/register": "^7.17.0",
+    "core-js": "^3.21.1",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-standard": "^4.1.0",
+    "mocha": "^9.2.1",
+    "c8": "^7.11.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.68.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-terser": "7.0.2",
+    "safe-regex": "^2.1.1"
+  },
+  "engines": {
+    "node": ">=6.0"
+  },
+  "maintainers": [
+    "commenthol <commenthol@gmail.com>"
+  ]
+}

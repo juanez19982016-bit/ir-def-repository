@@ -1,0 +1,245 @@
+{
+  "data": {
+    "device": 2162694,
+    "device_version": 55574528,
+    "meta": {
+      "application": "HX Edit",
+      "appversion": 55640064,
+      "build_sha": "v3.15-207-g09aad57",
+      "modifieddate": 1681322082,
+      "name": "B:Korn"
+    },
+    "tone": {
+      "dsp0": {
+        "block0": {
+          "@enabled": true,
+          "@model": "HD2_EQGraphic10Band",
+          "@no_snapshot_bypass": false,
+          "@path": 0,
+          "@position": 0,
+          "@stereo": false,
+          "@type": 0,
+          "125Hz": 3.700000762939453,
+          "16kHz": 15,
+          "1kHz": 8.299999237060547,
+          "250Hz": 0,
+          "2kHz": 1.3999996185302734,
+          "31p25Hz": 8.700000762939453,
+          "4kHz": 7.299999237060547,
+          "500Hz": -5,
+          "62p5Hz": 6.19999885559082,
+          "8kHz": 10.099998474121094,
+          "Level": 0
+        },
+        "block1": {
+          "@enabled": true,
+          "@model": "HD2_PitchSimplePitch",
+          "@no_snapshot_bypass": false,
+          "@path": 0,
+          "@position": 1,
+          "@stereo": false,
+          "@type": 0,
+          "Cents1": 0,
+          "Interval1": -2,
+          "Level": 0,
+          "LevelVoice1": 1,
+          "Mix": 1,
+          "PanDry": 0.5,
+          "PanVoice1": 0.4500000476837158,
+          "Time1": 0
+        },
+        "block2": {
+          "@enabled": true,
+          "@model": "HD2_Compressor3BandComp",
+          "@no_snapshot_bypass": false,
+          "@path": 0,
+          "@position": 3,
+          "@stereo": false,
+          "@type": 0,
+          "Attack": 0.034999966621398926,
+          "Detector": true,
+          "Hi Gain": -60,
+          "Hi Thresh": -50,
+          "Hi X Freq": 3000,
+          "Level": 0,
+          "Lo Gain": -3.200000762939453,
+          "Lo Thresh": -18.299999237060547,
+          "Lo X Freq": 300,
+          "Mid Gain": -60,
+          "Mid Thresh": -35,
+          "Ratio": 4,
+          "Release": 0.20000004768371582
+        },
+        "block3": {
+          "@bypassvolume": 1,
+          "@cab": "cab0",
+          "@enabled": true,
+          "@model": "HD2_AmpCaliBass",
+          "@no_snapshot_bypass": false,
+          "@path": 1,
+          "@position": 2,
+          "@type": 3,
+          "Bass": 0.6800000667572021,
+          "ChVol": 0.7999999523162842,
+          "Drive": 0.10000002384185791,
+          "HighMid": 0.3400000333786011,
+          "Master": 0.6000000238418579,
+          "Mid": 0.3400000333786011,
+          "Sag": 0.4500000476837158,
+          "Treble": 0.8600000143051147,
+          "Voice": 3
+        },
+        "cab0": {
+          "@enabled": true,
+          "@model": "HD2_CabMicIr_2x15Brute",
+          "Angle": 45,
+          "Distance": 4.25,
+          "HighCut": 11500,
+          "Level": 0,
+          "LowCut": 25,
+          "Mic": 6,
+          "Position": 0.09000003337860107
+        },
+        "inputA": {
+          "@input": 1,
+          "@model": "HelixStomp_AppDSPFlowInput",
+          "decay": 0.10000002384185791,
+          "noiseGate": false,
+          "threshold": -48
+        },
+        "inputB": {
+          "@input": 0,
+          "@model": "HelixStomp_AppDSPFlowInput",
+          "decay": 0.5,
+          "noiseGate": false,
+          "threshold": -48
+        },
+        "join": {
+          "@enabled": true,
+          "@model": "HD2_AppDSPFlowJoin",
+          "@no_snapshot_bypass": false,
+          "@position": 8,
+          "A Level": 0,
+          "A Pan": 0.5,
+          "B Level": 0,
+          "B Pan": 0.5,
+          "B Polarity": false,
+          "Level": 3
+        },
+        "outputA": {
+          "@model": "HelixStomp_AppDSPFlowOutputMain",
+          "@output": 1,
+          "gain": 0,
+          "pan": 0.5
+        },
+        "outputB": {
+          "@model": "HelixStomp_AppDSPFlowOutputSend",
+          "@output": 0,
+          "gain": 0,
+          "pan": 0.5,
+          "Type": true
+        },
+        "split": {
+          "@enabled": true,
+          "@model": "HD2_AppDSPFlowSplitXOver",
+          "@no_snapshot_bypass": false,
+          "@position": 2,
+          "bypass": false,
+          "Frequency": 300,
+          "Reverse": true
+        }
+      },
+      "dsp1": {},
+      "global": {
+        "@current_snapshot": 0,
+        "@cursor_dsp": 0,
+        "@cursor_group": "block0",
+        "@cursor_path": 0,
+        "@cursor_position": 0,
+        "@DtSelect": 2,
+        "@guitarinputZ": 0,
+        "@guitarpad": 0,
+        "@model": "@global_params",
+        "@pedalstate": 2,
+        "@PowercabMode": 0,
+        "@PowercabSelect": 2,
+        "@PowercabVoicing": 0,
+        "@tempo": 120,
+        "@topology0": "SABJ",
+        "@topology1": 0
+      },
+      "snapshot0": {
+        "@custom_name": false,
+        "@ledcolor": 0,
+        "@name": "SNAPSHOT 1",
+        "@pedalstate": 0,
+        "@tempo": 120,
+        "@valid": true,
+        "blocks": {
+          "dsp0": {
+            "block0": true,
+            "split": true,
+            "block1": true,
+            "block2": true,
+            "block3": true
+          }
+        }
+      },
+      "snapshot1": {
+        "@custom_name": false,
+        "@ledcolor": 0,
+        "@name": "SNAPSHOT 2",
+        "@pedalstate": 0,
+        "@tempo": 120,
+        "@valid": true,
+        "blocks": {
+          "dsp0": {
+            "block0": true,
+            "split": true,
+            "block1": true,
+            "block2": true,
+            "block3": true
+          }
+        }
+      },
+      "snapshot2": {
+        "@custom_name": false,
+        "@ledcolor": 0,
+        "@name": "SNAPSHOT 3",
+        "@pedalstate": 0,
+        "@tempo": 120,
+        "@valid": true,
+        "blocks": {
+          "dsp0": {
+            "block0": true,
+            "split": true,
+            "block1": true,
+            "block2": true,
+            "block3": true
+          }
+        }
+      },
+      "variax": {
+        "@variax_customtuning": true,
+        "@variax_lockctrls": 0,
+        "@variax_magmode": true,
+        "@variax_model": 0,
+        "@variax_str1tuning": 0,
+        "@variax_str2tuning": 0,
+        "@variax_str3tuning": 0,
+        "@variax_str4tuning": 0,
+        "@variax_str5tuning": 0,
+        "@variax_str6tuning": 0,
+        "@variax_toneknob": -0.10000002384185791,
+        "@variax_volumeknob": -0.10000002384185791
+      }
+    }
+  },
+  "meta": {
+    "original": 0,
+    "pbn": 0,
+    "premium": 0
+  },
+  "schema": "L6Preset",
+  "version": 6
+}

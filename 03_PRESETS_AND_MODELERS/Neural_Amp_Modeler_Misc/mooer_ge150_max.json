@@ -1,0 +1,517 @@
+{
+	"device": "Mooer GE150 Pro Max",
+	"note": "The effect chain cannot be altered, blocks/effects can only be turn on | off, not duplicated or moved from their position",
+	"effect-chain": "FX,DS,AMP,CAB,NR,EQ,MOD,DLY,RVB",
+	"modules": {
+		"FX_miscellaneous": [
+			{ "no": 1, "model_name": "Cry Wah", "description": "Modeled after a GCB95" },
+			{ "no": 2, "model_name": "535 Wah", "description": "Modeled after a modern 535Q" },
+			{ "no": 3, "model_name": "Auto Wah", "description": "Automatic sweeping Wah" },
+			{
+				"no": 4,
+				"model_name": "Talk Wah Ah",
+				"description": "Talking Wah algorithm from the MOOER® Red Kid with \"AH\" vocal effect"
+			},
+			{
+				"no": 5,
+				"model_name": "Talk Wah Oh",
+				"description": "Talking Wah algorithm from the MOOER® Red Kid with \"OH\" vocal effect"
+			},
+			{
+				"no": 6,
+				"model_name": "Touch Wah",
+				"description": "Dynamically responsive auto Wah with envelope filter"
+			},
+			{
+				"no": 7,
+				"model_name": "Yellow comp",
+				"description": "Based on MOOER® YELLOW COMP compressor with four parameters"
+			},
+			{
+				"no": 8,
+				"model_name": "Blue comp",
+				"description": "Compressor based on MOOER® BLUE COMP with four parameters"
+			},
+			{ "no": 9, "model_name": "S comp", "description": "Dual-parameter adjustable compressor." },
+			{ "no": 10, "model_name": "Red comp", "description": "Dual-parameter compressor." },
+			{ "no": 11, "model_name": "Limit", "description": "Dual-parameter limiter." },
+			{
+				"no": 12,
+				"model_name": "Inter Reducer",
+				"description": "Unlike conventional noise gates, the principle is to reduce noise while maintaining a naturally decaying trail by separating the conventional signal from the white noise in the signal and eliminating the white noise."
+			}
+		],
+		"DS_overdrive_distortion": [
+			{ "no": 1, "model_name": "Tube DR", "description": "Based on B.K. Butler® Tubedrive" },
+			{ "no": 2, "model_name": "808", "description": "Based on IBANEZ® TS808" },
+			{ "no": 3, "model_name": "Pure Boost", "description": "Based on MOOER® Pure Boost" },
+			{ "no": 4, "model_name": "Flex Boost", "description": "Based on MOOER® Flex Boost" },
+			{ "no": 5, "model_name": "D-Drive", "description": "Based on Barber® Direct Drive" },
+			{ "no": 6, "model_name": "Black Rat", "description": "Based on ProCo® Rat" },
+			{ "no": 7, "model_name": "Grey Faze", "description": "Based on MOOER® Grey Faze" },
+			{ "no": 8, "model_name": "Muffy", "description": "Based on EHX® Big Muff" },
+			{ "no": 9, "model_name": "MTL Zone", "description": "Based on BOSS® Metal Zone" },
+			{ "no": 10, "model_name": "MTL Master", "description": "Based on Digitech® Metal Master" },
+			{ "no": 11, "model_name": "Obsessive Dist", "description": "Based on Fulltone® OCD" },
+			{ "no": 12, "model_name": "Jimmy OD", "description": "Based on Paul Cochrane® Timmy OD" },
+			{ "no": 13, "model_name": "Full Drv", "description": "Based on Fulltone® Fulldrive 2" },
+			{ "no": 14, "model_name": "Shred", "description": "Based on Marshall® Shred Master" },
+			{ "no": 15, "model_name": "Beebee Pre", "description": "Based on Xotic® BB Preamp" },
+			{ "no": 16, "model_name": "Beebee+", "description": "Based on Xotic® BB Plus" },
+			{ "no": 17, "model_name": "Riet", "description": "Based on Suhr® Riot" },
+			{ "no": 18, "model_name": "Tight DS", "description": "Based on Amptweaker® Tight Rock" },
+			{ "no": 19, "model_name": "Full DS", "description": "Based on Fulltone® GT-500" },
+			{ "no": 20, "model_name": "Gold Clon", "description": "Based on Klon® Centaur Gold" },
+			{ "no": 21, "model_name": "VX Tube OD", "description": "Based on VOX® Tube OD" },
+			{ "no": 22, "model_name": "Tight Metal", "description": "Based on Amptweaker® Tight Metal" },
+			{ "no": 23, "model_name": "The Juicer", "description": "Based on MOOER® The Juicer" },
+			{ "no": 24, "model_name": "Rumble Drive", "description": "Based on MOOER® Rumble Drive" },
+			{ "no": 25, "model_name": "Solo", "description": "Based on MOOER® Solo" },
+			{ "no": 26, "model_name": "Blues Mood", "description": "Based on MOOER® Blues Mood" },
+			{ "no": 27, "model_name": "Blues Crab", "description": "Based on MOOER® Blues Crab" },
+			{ "no": 28, "model_name": "Hustle Drive", "description": "Based on MOOER® Hustle Drive" }
+		],
+		"AMP_amplifier": [
+			{ "no": 1, "model_name": "65 US DLX", "description": "Based on Fender® 65 Deluxe Reverb" },
+			{ "no": 2, "model_name": "65 US TW", "description": "Based on Fender® 65 Twin Reverb" },
+			{ "no": 3, "model_name": "59 US BASS", "description": "Based on Fender® 59 Bassman" },
+			{ "no": 4, "model_name": "US Sonic", "description": "Based on Fender® Super Sonic" },
+			{
+				"no": 5,
+				"model_name": "US BLUES CL",
+				"description": "Based on Fender® Blues Deluxe Clean Setting"
+			},
+			{
+				"no": 6,
+				"model_name": "US BLUES OD",
+				"description": "Based on Fender® Blues Deluxe Overdrive Setting"
+			},
+			{ "no": 7, "model_name": "J800", "description": "Based on Marshall® JCM800" },
+			{ "no": 8, "model_name": "J900", "description": "Based on Marshall® JCM900" },
+			{ "no": 9, "model_name": "PLX 100", "description": "Based on Marshall® Plexi 100" },
+			{ "no": 10, "model_name": "E650 CL", "description": "Based on ENGL® E650 Clean Setting" },
+			{
+				"no": 11,
+				"model_name": "E650 DS",
+				"description": "Based on Engl® E650 Distortion Setting"
+			},
+			{
+				"no": 12,
+				"model_name": "Powerbell CL",
+				"description": "Based on ENGL® Powerball E645 Clean Setting"
+			},
+			{
+				"no": 13,
+				"model_name": "Powerbell DS",
+				"description": "Based on ENGL® Powerball E645 Distortion Setting"
+			},
+			{
+				"no": 14,
+				"model_name": "Blacknight CL",
+				"description": "Based on ENGL® Blackmore Signature Clean Setting"
+			},
+			{
+				"no": 15,
+				"model_name": "Blacknight DS",
+				"description": "Based on ENGL® Blackmore Signature Distortion Setting"
+			},
+			{
+				"no": 16,
+				"model_name": "MARK III CL",
+				"description": "Based on MESA Boogie® MARK III Clean Setting"
+			},
+			{
+				"no": 17,
+				"model_name": "MARK III DS",
+				"description": "Based on MESA Boogie® MARK III Distortion Setting"
+			},
+			{
+				"no": 18,
+				"model_name": "MARK V CL",
+				"description": "Based on MESA Boogie® MARK V Clean Setting"
+			},
+			{
+				"no": 19,
+				"model_name": "MARK V DS",
+				"description": "Based on MESA Boogie® MARK V Distortion Setting"
+			},
+			{
+				"no": 20,
+				"model_name": "Tri Rec CL",
+				"description": "Based on MESA Boogie® Triple Rectifier Clean Setting"
+			},
+			{
+				"no": 21,
+				"model_name": "Tri Rec DS",
+				"description": "Based on MESA Boogie® Triple Rectifier Distortion Setting"
+			},
+			{
+				"no": 22,
+				"model_name": "Rock Verb CL",
+				"description": "Based on Orange® Rockerverb Clean Setting"
+			},
+			{
+				"no": 23,
+				"model_name": "Rock Verb DS",
+				"description": "Based on Orange® Rockerverb Distortion Setting"
+			},
+			{ "no": 24, "model_name": "Citrus 30", "description": "Based on Orange® AD30" },
+			{ "no": 25, "model_name": "Citrus 50", "description": "Based on Orange® OR50" },
+			{
+				"no": 26,
+				"model_name": "Slow 100 CR",
+				"description": "Based on Soldano® SLO-100 Crunch Setting"
+			},
+			{
+				"no": 27,
+				"model_name": "Slow 100 DS",
+				"description": "Based on Soldano® SLO-100 Distortion Setting"
+			},
+			{ "no": 28, "model_name": "DR ZEE 18 JR", "description": "Based on DR.Z® Maz18 Jr" },
+			{ "no": 29, "model_name": "DR ZEE Reck", "description": "Based on DR.Z® Z-Wreck" },
+			{
+				"no": 30,
+				"model_name": "JET 100H CL",
+				"description": "Based on Jet City® JCA100H Clean Setting"
+			},
+			{
+				"no": 31,
+				"model_name": "Jet 100H OD",
+				"description": "Based on Jet City® JCA100H Overdrive Setting"
+			},
+			{ "no": 32, "model_name": "JAZZ 120", "description": "Based on Roland® JC-120" },
+			{ "no": 33, "model_name": "UK 30 CL", "description": "Based on VOX® AC30 Clean Setting" },
+			{
+				"no": 34,
+				"model_name": "UK 30 OD",
+				"description": "Based on VOX® AC30 Overdrive Setting"
+			},
+			{ "no": 35, "model_name": "HWT 103", "description": "Based on Hiwatt® DR-103" },
+			{
+				"no": 36,
+				"model_name": "PV 5050 CL",
+				"description": "Based on Peavey® 5150 Clean Setting"
+			},
+			{
+				"no": 37,
+				"model_name": "PV 5050 DS",
+				"description": "Based on Peavey® 5150 Distortion Setting"
+			},
+			{
+				"no": 38,
+				"model_name": "Regal Tone CL",
+				"description": "Based on Tone King® Falcon Rhythm Setting"
+			},
+			{
+				"no": 39,
+				"model_name": "Regal Tone OD1",
+				"description": "Based on Tone King® Falcon Tweed Setting"
+			},
+			{
+				"no": 40,
+				"model_name": "Regal Tone OD2",
+				"description": "Based on Tone King® Falcon Lead Setting"
+			},
+			{
+				"no": 41,
+				"model_name": "Carol CL",
+				"description": "Based on Two Rock® Coral Clean Setting"
+			},
+			{
+				"no": 42,
+				"model_name": "Carol OD",
+				"description": "Based on Two Rock® Coral Overdrive Setting"
+			},
+			{ "no": 43, "model_name": "Cardeff", "description": "Based on Two Rock® Cardiff" },
+			{ "no": 44, "model_name": "EV 5050 CL", "description": "Based on EVH® 5150 Clean Setting" },
+			{
+				"no": 45,
+				"model_name": "EV 5050 DS",
+				"description": "Based on EVH® 5150 Distortion Setting"
+			},
+			{
+				"no": 46,
+				"model_name": "HT Club CL",
+				"description": "Based on Blackstar® HT Stage 100 Clean Setting"
+			},
+			{
+				"no": 47,
+				"model_name": "HT Club DS",
+				"description": "Based on Blackstar® HT Stage 100 Distortion Setting"
+			},
+			{
+				"no": 48,
+				"model_name": "Hugen CL",
+				"description": "Based on Diezel® Hagen Clean Setting"
+			},
+			{
+				"no": 49,
+				"model_name": "Hugen OD",
+				"description": "Based on Diezel® Hagen Overdrive Setting"
+			},
+			{
+				"no": 50,
+				"model_name": "Hugen DS",
+				"description": "Based on Diezel® Hagen Distortion Setting"
+			},
+			{
+				"no": 51,
+				"model_name": "Koche OD",
+				"description": "Based on Koch® Powertone Overdrive Setting"
+			},
+			{
+				"no": 52,
+				"model_name": "Koche DS",
+				"description": "Based on Koch® Powertone Distortion Setting"
+			},
+			{ "no": 53, "model_name": "Acoustic 1", "description": "Acoustic guitar amp simulation 1" },
+			{ "no": 54, "model_name": "Acoustic 2", "description": "Acoustic guitar amp simulation 2" },
+			{ "no": 55, "model_name": "Acoustic 3", "description": "Acoustic guitar amp simulation 3" },
+			{
+				"no": "56-75",
+				"model_name": "EMPTY",
+				"description": "Slots can be used for GNR files downloaded via computer-based editing software"
+			}
+		],
+		"CAB_cabinet": [
+			{
+				"no": 1,
+				"model_name": "US DLX 112",
+				"description": "Based on Fender® 65 Deluxe Reverb 112 Cabinet"
+			},
+			{
+				"no": 2,
+				"model_name": "US TWN 212",
+				"description": "Based on Fender® 65 Twin Reverb 212 Cabinet"
+			},
+			{
+				"no": 3,
+				"model_name": "US Bass 410",
+				"description": "Based on Fender® 59 Bassman 410 Cabinet"
+			},
+			{
+				"no": 4,
+				"model_name": "Sonic 112",
+				"description": "Based on Fender® Super Sonic 112 Cabinet"
+			},
+			{
+				"no": 5,
+				"model_name": "Blues 112",
+				"description": "Based on Fender® Blues Deluxe 112 Cabinet"
+			},
+			{ "no": 6, "model_name": "1960 412", "description": "Based on Marshall® 1960A 412 Cabinet" },
+			{ "no": 7, "model_name": "Eagle P412", "description": "Based on ENGL® Pro XXL 412 Cabinet" },
+			{
+				"no": 8,
+				"model_name": "Eagle S412",
+				"description": "Based on ENGL® Vintage XXL 412 Cabinet"
+			},
+			{
+				"no": 9,
+				"model_name": "Mark 112",
+				"description": "Based on Mesa Boogie® Mark 112 Cabinet"
+			},
+			{
+				"no": 10,
+				"model_name": "Rec 412",
+				"description": "Based on Mesa Boogie® Rectifier Standard 412 Cabinet"
+			},
+			{ "no": 11, "model_name": "Citrus 412", "description": "Based on Orange® PPC 412 Cabinet" },
+			{ "no": 12, "model_name": "Citrus 212", "description": "Based on Orange® PPC 212 Cabinet" },
+			{ "no": 13, "model_name": "Slow 412", "description": "Based on Soldano® Slo 412 Cabinet" },
+			{ "no": 14, "model_name": "Dr Zee 112", "description": "Based on DR.Z® MAZ 112 Cabinet" },
+			{ "no": 15, "model_name": "Dr Zee 112", "description": "Based on DR.Z® MAZ 112 Cabinet" },
+			{ "no": 16, "model_name": "Jazz 212", "description": "Based on Roland® JC120 212 Cabinet" },
+			{ "no": 17, "model_name": "UK 212", "description": "Based on VOX® AC30 212 Cabinet" },
+			{ "no": 18, "model_name": "HWT 412", "description": "Based on Hiwatt® AP412 Cabinet" },
+			{
+				"no": 19,
+				"model_name": "PV 5050 412",
+				"description": "Based on Peavey® 5150 412 Cabinet"
+			},
+			{
+				"no": 20,
+				"model_name": "Regal Tone 110",
+				"description": "Based on Tone King® Falcon 110 Cabinet"
+			},
+			{
+				"no": 21,
+				"model_name": "Two Stones 212",
+				"description": "Based on Two Rock® 212 Cabinet"
+			},
+			{ "no": 22, "model_name": "Cardeff 112", "description": "Based on Two Rock® 112 Cabinet" },
+			{ "no": 23, "model_name": "EV 5050 412", "description": "Based on EVH® 5150 412 Cabinet" },
+			{ "no": 24, "model_name": "HT 412", "description": "Based on Blackstar® HTV 412 Cabinet" },
+			{
+				"no": 25,
+				"model_name": "Gas Station 412",
+				"description": "Based on Diezel® Hagen 412 Cabinet"
+			},
+			{
+				"no": 26,
+				"model_name": "Accoustic 112",
+				"description": "Acoustic guitar cabinet simulation, 1 x 12\" speaker"
+			},
+			{
+				"no": "27-46",
+				"model_name": "EMPTY",
+				"description": "Slots can be used for GIR and 3rd party IR files downloaded via computer-based editing software"
+			}
+		],
+		"NS_noise_gate": [
+			{
+				"no": 1,
+				"model_name": "Noise Killer",
+				"description": "Hard noise gate based on the Mooer® Micro Noise Killer. The effect solves noise issues quickly and efficiently with simple threshold adjustments."
+			},
+			{
+				"no": 2,
+				"model_name": "Inter Reducer",
+				"description": "Unlike conventional noise gates, this works by separating the conventional signal from the white noise in the signal and eliminating the white noise to achieve noise reduction while maintaining natural decay. This module is recommended for use before distortion effects or speaker simulation."
+			},
+			{
+				"no": 3,
+				"model_name": "Noise Gate",
+				"description": "Three parameter studio noise gate. The user can adjust the effective threshold according to the current noise level, then adjust the appropriate Attack and Release times according to their needs, and finally select the appropriate damping."
+			}
+		],
+		"EQ_modules": [
+			{ "no": 1, "parameter": "Mooer G", "description": "5-band EQ for guitar" },
+			{ "no": 2, "parameter": "Mooer HM", "description": "5-band EQ for heavy guitar" },
+			{ "no": 3, "parameter": "Mooer G-6", "description": "6-band EQ for guitar" },
+			{
+				"no": 4,
+				"parameter": "Custom EQ",
+				"description": "3-band EQ with adjustable frequency bands."
+			}
+		],
+		"MOD_modulation": [
+			{
+				"no": 1,
+				"model_name": "Phaser",
+				"description": "Based on the MOOER® Ninety Orange, standard sine waves"
+			},
+			{ "no": 2, "model_name": "Step Phaser", "description": "Square wave phase shifter" },
+			{ "no": 3, "model_name": "Fat Phaser", "description": "Low frequency phase shifter" },
+			{
+				"no": 4,
+				"model_name": "Flanger",
+				"description": "Based on the MOOER® E-Lady, square wave effect"
+			},
+			{ "no": 5, "model_name": "Jet Flanger", "description": "Based on the MOOER® Jet Flanger" },
+			{ "no": 6, "model_name": "Tremolo", "description": "Based on the MOOER® Trelicopter" },
+			{ "no": 7, "model_name": "Stutter", "description": "Square wave tremolo effect" },
+			{ "no": 8, "model_name": "Vibrato", "description": "Pitch modulation" },
+			{
+				"no": 9,
+				"model_name": "Pitch Shift",
+				"description": "Pitch shift effect based on the original sound"
+			},
+			{ "no": 10, "model_name": "Detune", "description": "Fine-tuned pitch adjustment." },
+			{
+				"no": 11,
+				"model_name": "Rotary",
+				"description": "Simulates a vintage Leslie rotary speaker"
+			},
+			{ "no": 12, "model_name": "Ana Chorus", "description": "Classic analog chorus" },
+			{
+				"no": 13,
+				"model_name": "Tri Chorus",
+				"description": "More pronounced multi-chorus effect"
+			},
+			{ "no": 14, "model_name": "Ring Mod", "description": "Ring modulator effect" },
+			{ "no": 15, "model_name": "Q-Filter", "description": "Auto-Wah effect" },
+			{
+				"no": 16,
+				"model_name": "High Pass",
+				"description": "Modulation filter that emphasizes high frequencies"
+			},
+			{
+				"no": 17,
+				"model_name": "Low Pass",
+				"description": "Modulation filter that emphasizes low frequencies"
+			},
+			{ "no": 18, "model_name": "Slow Gear", "description": "Auto volume swell effect" },
+			{
+				"no": 19,
+				"model_name": "Lofi",
+				"description": "Low sampling rate filter for low fidelity sound"
+			},
+			{
+				"no": 20,
+				"model_name": "Multi Phaser",
+				"description": "Analog phase shift effect with multiple stages"
+			},
+			{ "no": 21, "model_name": "Modern Phaser", "description": "Modern sound phase shifter." },
+			{
+				"no": 22,
+				"model_name": "Flanger Pro",
+				"description": "Professional flanger effect with more parameter controls."
+			},
+			{ "no": 23, "model_name": "Modern Rotary", "description": "Modern sound rotary." },
+			{
+				"no": 24,
+				"model_name": "Optical Tremolo",
+				"description": "Simulates a device that reads a pattern printed on a rotating disc and converts it into a volume-modulating “tremolo” sound."
+			},
+			{ "no": 25, "model_name": "Octave", "description": "Adds a note one octave lower or higher." }
+		],
+		"DELAY_modules": [
+			{ "no": 1, "model_name": "Digital", "description": "Crystal-clear repeats" },
+			{
+				"no": 2,
+				"model_name": "Analog",
+				"description": "Warm and soft character of analog circuit reproduced by digital technology"
+			},
+			{ "no": 3, "model_name": "Real", "description": "Realistic and natural echoes" },
+			{ "no": 4, "model_name": "Tape", "description": "Recreates classic tape delay sounds" },
+			{ "no": 5, "model_name": "Mod", "description": "Digital Delay with modulated repeats" },
+			{ "no": 6, "model_name": "Reverse", "description": "Clear reverse playback delay effect" },
+			{
+				"no": 7,
+				"model_name": "Pingpong",
+				"description": "Spatialized left/right Ping Pong delay"
+			},
+			{
+				"no": 8,
+				"model_name": "Dynamic",
+				"description": "Digital delay which responds to instrument dynamics"
+			},
+			{
+				"no": 9,
+				"model_name": "Dual Delay",
+				"description": "2 clear delays with independent time controls"
+			}
+		],
+		"REVERB_modules": [
+			{ "no": 1, "model_name": "Room", "description": "Small room reverb" },
+			{
+				"no": 2,
+				"model_name": "Hall",
+				"description": "Concert hall reverb with rich diffusion and long decay times"
+			},
+			{
+				"no": 3,
+				"model_name": "Church",
+				"description": "Reverb simulating large space with long decay times"
+			},
+			{ "no": 4, "model_name": "Plate", "description": "Bright metal plate reverb" },
+			{ "no": 5, "model_name": "Spring", "description": "Vintage spring reverb" },
+			{
+				"no": 6,
+				"model_name": "Mod",
+				"description": "Reverb with added chorus effect, adding more detail"
+			},
+			{
+				"no": 7,
+				"model_name": "Cave",
+				"description": "Reverb reproducing the diffuse reflection of irregular surfaces in a cave"
+			},
+			{
+				"no": 8,
+				"model_name": "Shimmer",
+				"description": "Gorgeous sounding reverb with Shimmer effect"
+			}
+		]
+	}
+}

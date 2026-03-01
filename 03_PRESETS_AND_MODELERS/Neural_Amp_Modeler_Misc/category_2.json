@@ -1,0 +1,184 @@
+{
+    "meta": {
+        "id": "4F937EBC-E0A2-11E8-9F32-F2801F1B9FD1",
+        "description": "",
+        "name": "Jimi Hendrix™"
+    },
+    "presets": [
+        {
+            "id": "D8BEB3BB-48F5-4B25-98F1-631B4783228E",
+            "description": "1-Clean",
+            "name": "Free Wing Clean",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "0696FA40-9B6D-41DE-9CD1-89735FB7B2FB",
+            "description": "1-Clean",
+            "name": "Hey Jimi Solo",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "CD5004FC-DB7C-4762-99DC-CCD7E92A7BA1",
+            "description": "1-Clean",
+            "name": "Voodoo Kid Wah",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "BC03E21D-1013-4A5A-94CE-C56B76A4EC58",
+            "description": "1-Clean",
+            "name": "Voodoo Kid Fuzz",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "CC8BCE67-56BD-4540-BACF-7DB49333B328",
+            "description": "1-Clean",
+            "name": "The Haze Fuzz Lead",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "FEAA25C3-F923-41B0-B40A-3B1316FCFE10",
+            "description": "1-Clean",
+            "name": "Inside the Watchtower Fuzz Solo",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "C4BD2B0C-A98D-4144-A665-BCA4BA52EC15",
+            "description": "1-Clean",
+            "name": "Inside the Watchtower Wavy",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "DB864E68-E116-4210-9800-173DEE1E5A00",
+            "description": "1-Clean",
+            "name": "War Gun Crunch",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "888843DB-8ED8-4BE4-9C6F-FD9E8D3513F5",
+            "description": "1-Clean",
+            "name": "War Gun FuzzVibe",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "C8715C6B-B4E2-473D-B4CA-82BEA886088D",
+            "description": "1-Clean",
+            "name": "Bass Master Glassy",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "F617F5D9-04C3-4202-AB6F-18AF1FCB8E9B",
+            "description": "1-Clean",
+            "name": "Sun 100S Glassy",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "C57CAC0E-A76C-4FE9-AA6C-DF9599084E60",
+            "description": "1-Clean",
+            "name": "D-Show Master Glassy",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "E32E6FF5-7FA9-45AC-8291-7D34B383A957",
+            "description": "1-Clean",
+            "name": "Tone City 100 Crunch",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "DCE34F19-E8DE-4BB1-B446-4D6BB18970A9",
+            "description": "1-Clean",
+            "name": "45\/100 High Gain",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "3551BFB5-70D3-4AEE-A664-69DB76003A7A",
+            "description": "1-Clean",
+            "name": "Super 100 High Gain",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "7F1932C7-735D-4FA4-89B7-08EB84DD6550",
+            "description": "1-Clean",
+            "name": "Legendary Wah Auto",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "65537ADB-C4C9-4E09-A047-47ECE8D9243A",
+            "description": "1-Clean",
+            "name": "Legendary Wah Program",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "7FD7F127-4C31-4135-8BAD-4779A0449FA2",
+            "description": "1-Clean",
+            "name": "Axle Fuzz Boost",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "D259C9B4-64B8-43C3-AEEC-7FA8EE7AB95F",
+            "description": "1-Clean",
+            "name": "Axle Fuzz High Gain",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "66A136DE-580C-4F25-8986-929B7C37226F",
+            "description": "1-Clean",
+            "name": "Super Fuzz 1",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "67625C7A-B1EB-4273-9E0B-CC1AA93E5337",
+            "description": "1-Clean",
+            "name": "Octave Fuzz 1",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "85477DD7-D8DF-435C-A4EF-15AD24DA6385",
+            "description": "1-Clean",
+            "name": "Fuzz Zone High Gain",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "6C60E56E-91C1-42DD-A1ED-E1980AC50874",
+            "description": "1-Clean",
+            "name": "Legendary Vibe 1",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "94A7430E-99B3-4331-8B41-18401F3E422B",
+            "description": "1-Clean",
+            "name": "Legendary Vibe 2",
+            "version": "0.7",
+            "icon": "icon.png"
+        },
+        {
+            "id": "0c65e80c-1b03-431b-b538-60751cce4001",
+            "description": "",
+            "name": "Castles & Wings",
+            "version": "0.7",
+            "icon": "icon.png"
+        }
+    ]
+}

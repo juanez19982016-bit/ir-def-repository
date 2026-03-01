@@ -1,0 +1,83 @@
+{
+	"name": "vscode-kakoune",
+	"displayName": "Kakoune Mode",
+	"description": "Kakoune editing emulation for VSCode",
+	"repository": {
+		"type": "git",
+		"url": "https://git.sr.ht/~reykjalin/vscode-kakoune"
+	},
+	"version": "1.3.1",
+	"publisher": "reykjalin",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.47.0"
+	},
+	"categories": [
+		"Other",
+		"Keymaps"
+	],
+	"keywords": [
+		"vim",
+		"kakoune",
+		"modal editing",
+		"modal"
+	],
+	"activationEvents": [
+		"*",
+		"onCommand:type"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "vscode-kakoune.scrollDown",
+				"title": "Scroll down half a page",
+				"category": "Movement"
+			},
+			{
+				"command": "vscode-kakoune.scrollUp",
+				"title": "Scroll up half a page",
+				"category": "Movement"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "vscode-kakoune.toNormalMode",
+				"key": "Escape",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "vscode-kakoune.scrollDown",
+				"key": "ctrl+d",
+				"mac": "ctrl+d",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "vscode-kakoune.scrollUp",
+				"key": "ctrl+u",
+				"mac": "ctrl+u",
+				"when": "editorTextFocus"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run build && webpack --mode production",
+		"webpack": "webpack --mode development",
+		"webpack-dev": "webpack --mode development --watch",
+		"pretest": "npm run compile",
+		"test": "jest",
+		"build": "rescript",
+		"watch": "rescript build -w",
+		"clean": "rescript clean",
+		"package": "vsce package --baseContentUrl 'https://git.sr.ht/~reykjalin/vscode-kakoune'"
+	},
+	"devDependencies": {
+		"@glennsl/bs-jest": "^0.5.1",
+		"jest": "^26.2.2",
+		"rescript": "^9.1.4",
+		"vsce": "^1.78.0",
+		"webpack": "^4.44.1",
+		"webpack-cli": "^3.3.12"
+	},
+	"dependencies": {}
+}

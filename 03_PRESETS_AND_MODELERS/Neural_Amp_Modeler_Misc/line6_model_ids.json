@@ -1,0 +1,730 @@
+{
+  "version": "2.50",
+  "description": "Line 6 POD Go/Helix HD2 모델 ID 매핑",
+  "lastUpdated": "2026-02",
+  "note": "POD Go Edit에서 사용하는 실제 모델 ID (HLX/PGP 파일 포맷)",
+
+  "amps": {
+    "clean": {
+      "us_double_nrm": {
+        "model_id": "HD2_AmpUSDoubleNrm",
+        "display_name": "US Double Nrm",
+        "based_on": "Fender Twin Reverb (Normal)",
+        "worship_rating": 2
+      },
+      "us_double_vib": {
+        "model_id": "HD2_AmpUSDoubleVib",
+        "display_name": "US Double Vib",
+        "based_on": "Fender Twin Reverb (Vibrato)"
+      },
+      "us_deluxe_nrm": {
+        "model_id": "HD2_AmpUSDeluxeNrm",
+        "display_name": "US Deluxe Nrm",
+        "based_on": "Fender Deluxe Reverb (Normal)",
+        "worship_rating": 2
+      },
+      "us_deluxe_vib": {
+        "model_id": "HD2_AmpUSDeluxeVib",
+        "display_name": "US Deluxe Vib",
+        "based_on": "Fender Deluxe Reverb (Vibrato)"
+      },
+      "us_princess": {
+        "model_id": "HD2_AmpUSPrincess",
+        "display_name": "US Princess",
+        "based_on": "Fender Princeton Reverb"
+      },
+      "us_super_nrm": {
+        "model_id": "HD2_AmpUSSuperNrm",
+        "display_name": "US Super Nrm",
+        "based_on": "Fender Super Reverb (Normal)"
+      },
+      "jazz_rivet_120": {
+        "model_id": "HD2_AmpJazzRivet120",
+        "display_name": "Jazz Rivet 120",
+        "based_on": "Roland JC-120",
+        "style": "ambient"
+      },
+      "whowatt_100": {
+        "model_id": "HD2_AmpWhoWatt100",
+        "display_name": "WhoWatt 100",
+        "based_on": "Hiwatt DR-103"
+      },
+      "soup_pro": {
+        "model_id": "HD2_AmpSoupPro",
+        "display_name": "Soup Pro",
+        "based_on": "Supro S6616"
+      },
+      "divided_duo": {
+        "model_id": "HD2_AmpDividedDuo",
+        "display_name": "Divided Duo",
+        "based_on": "÷13 JRT 9/15"
+      },
+      "interstate_zed": {
+        "model_id": "HD2_AmpInterstateZed",
+        "display_name": "Interstate Zed",
+        "based_on": "Dr Z Route 66"
+      }
+    },
+    "vox": {
+      "essex_a15": {
+        "model_id": "HD2_AmpEssexA15",
+        "display_name": "Essex A-15",
+        "based_on": "Vox AC-15"
+      },
+      "essex_a30": {
+        "model_id": "HD2_AmpEssexA30",
+        "display_name": "Essex A-30",
+        "based_on": "Vox AC-30 Top Boost",
+        "worship_rating": 3,
+        "recommended": true
+      },
+      "a30_fawn_nrm": {
+        "model_id": "HD2_AmpA30FawnNrm",
+        "display_name": "A-30 Fawn Nrm",
+        "based_on": "Vox AC-30 Fawn (Normal)"
+      },
+      "a30_fawn_brt": {
+        "model_id": "HD2_AmpA30FawnBrt",
+        "display_name": "A-30 Fawn Brt",
+        "based_on": "Vox AC-30 Fawn (Bright)"
+      }
+    },
+    "marshall": {
+      "brit_plexi_nrm": {
+        "model_id": "HD2_AmpBritPlexiNrm",
+        "display_name": "Brit Plexi Nrm",
+        "based_on": "Marshall Super Lead 100"
+      },
+      "brit_plexi_brt": {
+        "model_id": "HD2_AmpBritPlexiBrt",
+        "display_name": "Brit Plexi Brt",
+        "based_on": "Marshall Super Lead 100 (Bright)"
+      },
+      "brit_plexi_jump": {
+        "model_id": "HD2_AmpBritPlexiJump",
+        "display_name": "Brit Plexi Jump",
+        "based_on": "Marshall Super Lead 100 (Jumped)"
+      },
+      "brit_2204": {
+        "model_id": "HD2_AmpBrit2204",
+        "display_name": "Brit 2204",
+        "based_on": "Marshall JCM-800"
+      },
+      "brit_2203": {
+        "model_id": "HD2_AmpBrit2203",
+        "display_name": "Brit 2203",
+        "based_on": "Marshall JCM-800 2203"
+      }
+    },
+    "high_gain": {
+      "german_mahadeva": {
+        "model_id": "HD2_AmpGermanMahadeva",
+        "display_name": "German Mahadeva",
+        "based_on": "Bogner Shiva"
+      },
+      "german_ubersonic": {
+        "model_id": "HD2_AmpGermanUbersonic",
+        "display_name": "German Ubersonic",
+        "based_on": "Bogner Ecstasy 101B (Blue)"
+      },
+      "german_uberschall": {
+        "model_id": "HD2_AmpGermanUberschall",
+        "display_name": "German Uberschall",
+        "based_on": "Bogner Ecstasy 101B (Red)"
+      },
+      "cali_iv_rhythm1": {
+        "model_id": "HD2_AmpCaliIVRhythm1",
+        "display_name": "Cali IV Rhythm 1",
+        "based_on": "Mesa Boogie Mk IV (Rhythm 1)",
+        "worship_rating": 2
+      },
+      "cali_iv_rhythm2": {
+        "model_id": "HD2_AmpCaliIVRhythm2",
+        "display_name": "Cali IV Rhythm 2",
+        "based_on": "Mesa Boogie Mk IV (Rhythm 2)"
+      },
+      "cali_iv_lead": {
+        "model_id": "HD2_AmpCaliIVLead",
+        "display_name": "Cali IV Lead",
+        "based_on": "Mesa Boogie Mk IV (Lead)"
+      },
+      "cali_texas_ch1": {
+        "model_id": "HD2_AmpCaliTexasCh1",
+        "display_name": "Cali Texas Ch1",
+        "based_on": "Mesa Lonestar (Ch1)"
+      },
+      "solo_lead_crunch": {
+        "model_id": "HD2_AmpSoloLeadCrunch",
+        "display_name": "Solo Lead Crunch",
+        "based_on": "Soldano SLO-100 (Crunch)"
+      },
+      "placater_clean": {
+        "model_id": "HD2_AmpPlacaterClean",
+        "display_name": "Placater Clean",
+        "based_on": "Friedman BE-100 (Clean)",
+        "worship_rating": 2
+      },
+      "placater_dirty": {
+        "model_id": "HD2_AmpPlacaterDirty",
+        "display_name": "Placater Dirty",
+        "based_on": "Friedman BE-100 (Dirty)",
+        "worship_rating": 3,
+        "recommended": true
+      },
+      "derailed_ingrid": {
+        "model_id": "HD2_AmpDerailedIngrid",
+        "display_name": "Derailed Ingrid",
+        "based_on": "Trainwreck Express",
+        "worship_rating": 2
+      },
+      "revv_gen_purple": {
+        "model_id": "HD2_AmpRevvGenPurple",
+        "display_name": "Revv Gen Purple",
+        "based_on": "Revv Generator 120 (Purple)"
+      },
+      "revv_gen_red": {
+        "model_id": "HD2_AmpRevvGenRed",
+        "display_name": "Revv Gen Red",
+        "based_on": "Revv Generator 120 (Red)"
+      }
+    },
+    "matchless": {
+      "matchstick_ch1": {
+        "model_id": "HD2_AmpMatchstickCh1",
+        "display_name": "Matchstick Ch1",
+        "based_on": "Matchless DC30 (Ch1)",
+        "worship_rating": 3,
+        "recommended": true
+      },
+      "matchstick_ch2": {
+        "model_id": "HD2_AmpMatchstickCh2",
+        "display_name": "Matchstick Ch2",
+        "based_on": "Matchless DC30 (Ch2)",
+        "worship_rating": 2
+      },
+      "matchstick_jump": {
+        "model_id": "HD2_AmpMatchstickJump",
+        "display_name": "Matchstick Jump",
+        "based_on": "Matchless DC30 (Jumped)"
+      }
+    },
+    "line6_original": {
+      "litigator": {
+        "model_id": "HD2_AmpLitigator",
+        "display_name": "Litigator",
+        "based_on": "Line 6 Original (Dumble-inspired)",
+        "worship_rating": 3,
+        "recommended": true,
+        "description": "부티크 미드게인, 워십 최고 추천"
+      },
+      "clarity": {
+        "model_id": "HD2_AmpClarity",
+        "display_name": "Clarity",
+        "based_on": "Line 6 Original (Catalyst)",
+        "description": "클린 솔리드스테이트/튜브"
+      },
+      "aristocrat": {
+        "model_id": "HD2_AmpAristocrat",
+        "display_name": "Aristocrat",
+        "based_on": "Line 6 Original (Catalyst)",
+        "worship_rating": 2,
+        "description": "부티크 미드게인"
+      },
+      "carillon": {
+        "model_id": "HD2_AmpCarillon",
+        "display_name": "Carillon",
+        "based_on": "Line 6 Original (Catalyst)",
+        "description": "EL84 기반 그릿"
+      },
+      "voltage": {
+        "model_id": "HD2_AmpVoltage",
+        "display_name": "Voltage",
+        "based_on": "Line 6 Original (Catalyst)"
+      },
+      "kinetic": {
+        "model_id": "HD2_AmpKinetic",
+        "display_name": "Kinetic",
+        "based_on": "Line 6 Original (Catalyst)"
+      },
+      "oblivion": {
+        "model_id": "HD2_AmpOblivion",
+        "display_name": "Oblivion",
+        "based_on": "Line 6 Original (Catalyst)",
+        "description": "모던 메탈"
+      }
+    }
+  },
+
+  "cabinets": {
+    "1x12": {
+      "1x12_us_deluxe": {
+        "model_id": "HD2_CabMicIr_1x12USDeluxe",
+        "display_name": "1x12 US Deluxe",
+        "based_on": "Fender Deluxe Reverb",
+        "speaker": "Jensen C12N",
+        "worship_rating": 3,
+        "recommended": true
+      },
+      "1x12_blue_bell": {
+        "model_id": "HD2_CabMicIr_1x12BlueBell",
+        "display_name": "1x12 Blue Bell",
+        "based_on": "Vox AC15",
+        "speaker": "Celestion Blue"
+      },
+      "1x12_match_h30": {
+        "model_id": "HD2_CabMicIr_1x12MatchH30",
+        "display_name": "1x12 Match H-30",
+        "based_on": "Matchless DC30",
+        "speaker": "G12-H30",
+        "worship_rating": 2
+      },
+      "1x12_match_g25": {
+        "model_id": "HD2_CabMicIr_1x12MatchG25",
+        "display_name": "1x12 Match G-25",
+        "based_on": "Matchless",
+        "speaker": "G12-M Greenback 25W",
+        "worship_rating": 2
+      },
+      "1x12_interstate": {
+        "model_id": "HD2_CabMicIr_1x12Interstate",
+        "display_name": "1x12 Interstate",
+        "based_on": "Dr Z 1x12",
+        "speaker": "G12-H30"
+      }
+    },
+    "2x12": {
+      "2x12_double_c12n": {
+        "model_id": "HD2_CabMicIr_2x12DoubleC12N",
+        "display_name": "2x12 Double C12N",
+        "based_on": "Fender Twin",
+        "speaker": "Jensen C12N"
+      },
+      "2x12_silver_bell": {
+        "model_id": "HD2_CabMicIr_2x12SilverBell",
+        "display_name": "2x12 Silver Bell",
+        "based_on": "Vox AC30",
+        "speaker": "Celestion Silver",
+        "worship_rating": 3,
+        "recommended": true
+      },
+      "2x12_blue_bell": {
+        "model_id": "HD2_CabMicIr_2x12BlueBell",
+        "display_name": "2x12 Blue Bell",
+        "based_on": "Vox AC30",
+        "speaker": "Celestion Blue",
+        "worship_rating": 2
+      },
+      "2x12_match_h30": {
+        "model_id": "HD2_CabMicIr_2x12MatchH30",
+        "display_name": "2x12 Match H-30",
+        "based_on": "Matchless 2x12",
+        "speaker": "G12-H30",
+        "worship_rating": 2
+      }
+    },
+    "4x12": {
+      "4x12_cali_v30": {
+        "model_id": "HD2_CabMicIr_4x12CaliV30",
+        "display_name": "4x12 Cali V30",
+        "based_on": "Mesa Rectifier",
+        "speaker": "Vintage 30"
+      },
+      "4x12_greenback25": {
+        "model_id": "HD2_CabMicIr_4x12Greenback25",
+        "display_name": "4x12 Greenback 25",
+        "based_on": "Marshall",
+        "speaker": "G12M Greenback 25W",
+        "worship_rating": 3,
+        "recommended": true
+      },
+      "4x12_greenback30": {
+        "model_id": "HD2_CabMicIr_4x12Greenback30",
+        "display_name": "4x12 Greenback 30",
+        "based_on": "Marshall Basketweave",
+        "speaker": "G12H-30",
+        "worship_rating": 2
+      }
+    }
+  },
+
+  "microphones": {
+    "dynamic": {
+      "57_dynamic": {
+        "model_id": "HD2_Mic57Dynamic",
+        "display_name": "57 Dynamic",
+        "based_on": "Shure SM57",
+        "recommended": true
+      },
+      "421_dynamic": {
+        "model_id": "HD2_Mic421Dynamic",
+        "display_name": "421 Dynamic",
+        "based_on": "Sennheiser MD 421"
+      },
+      "7_dynamic": {
+        "model_id": "HD2_Mic7Dynamic",
+        "display_name": "7 Dynamic",
+        "based_on": "Shure SM7B"
+      }
+    },
+    "condenser": {
+      "67_condenser": {
+        "model_id": "HD2_Mic67Condenser",
+        "display_name": "67 Condenser",
+        "based_on": "Neumann U67"
+      },
+      "87_condenser": {
+        "model_id": "HD2_Mic87Condenser",
+        "display_name": "87 Condenser",
+        "based_on": "Neumann U87"
+      },
+      "414_condenser": {
+        "model_id": "HD2_Mic414Condenser",
+        "display_name": "414 Condenser",
+        "based_on": "AKG C414"
+      }
+    },
+    "ribbon": {
+      "160_ribbon": {
+        "model_id": "HD2_Mic160Ribbon",
+        "display_name": "160 Ribbon",
+        "based_on": "Beyerdynamic M160"
+      },
+      "4038_ribbon": {
+        "model_id": "HD2_Mic4038Ribbon",
+        "display_name": "4038 Ribbon",
+        "based_on": "Coles 4038"
+      },
+      "121_ribbon": {
+        "model_id": "HD2_Mic121Ribbon",
+        "display_name": "121 Ribbon",
+        "based_on": "Royer R-121",
+        "worship_rating": 2
+      }
+    }
+  },
+
+  "effects": {
+    "dynamics": {
+      "la_studio_comp": {
+        "model_id": "HD2_CompLAStudioComp",
+        "display_name": "LA Studio Comp",
+        "based_on": "Teletronix LA-2A",
+        "worship_rating": 3,
+        "recommended": true
+      },
+      "deluxe_comp": {
+        "model_id": "HD2_CompDeluxeComp",
+        "display_name": "Deluxe Comp",
+        "based_on": "Line 6 Original"
+      },
+      "red_squeeze": {
+        "model_id": "HD2_CompRedSqueeze",
+        "display_name": "Red Squeeze",
+        "based_on": "MXR Dyna Comp"
+      },
+      "kinky_comp": {
+        "model_id": "HD2_CompKinkyComp",
+        "display_name": "Kinky Comp",
+        "based_on": "ROSS Compressor"
+      },
+      "noise_gate": {
+        "model_id": "HD2_GateHardGate",
+        "display_name": "Hard Gate",
+        "based_on": "Line 6 Original"
+      }
+    },
+    "distortion": {
+      "scream_808": {
+        "model_id": "HD2_DistScream808",
+        "display_name": "Scream 808",
+        "based_on": "Ibanez TS808 Tube Screamer",
+        "worship_rating": 3,
+        "recommended": true
+      },
+      "minotaur": {
+        "model_id": "HD2_DistMinotaur",
+        "display_name": "Minotaur",
+        "based_on": "Klon Centaur",
+        "worship_rating": 3,
+        "recommended": true
+      },
+      "teemah": {
+        "model_id": "HD2_DistTeemah",
+        "display_name": "Teemah!",
+        "based_on": "Paul Cochrane Tim/Timmy",
+        "worship_rating": 2
+      },
+      "kinky_boost": {
+        "model_id": "HD2_DistKinkyBoost",
+        "display_name": "Kinky Boost",
+        "based_on": "Xotic EP Booster"
+      },
+      "heir_apparent": {
+        "model_id": "HD2_DistHeirApparent",
+        "display_name": "Heir Apparent",
+        "based_on": "AnalogMan Prince of Tone"
+      },
+      "obsidian_7000": {
+        "model_id": "HD2_DistObsidian7000",
+        "display_name": "Obsidian 7000",
+        "based_on": "Darkglass B7K"
+      }
+    },
+    "modulation": {
+      "script_mod_phase": {
+        "model_id": "HD2_ModScriptModPhase",
+        "display_name": "Script Mod Phase",
+        "based_on": "MXR Phase 90"
+      },
+      "ubiquitous_vibe": {
+        "model_id": "HD2_ModUbiquitousVibe",
+        "display_name": "Ubiquitous Vibe",
+        "based_on": "Shin-ei Uni-Vibe"
+      },
+      "trinity_chorus": {
+        "model_id": "HD2_ModTrinityChorStereo",
+        "display_name": "Trinity Chorus",
+        "based_on": "Line 6 Original",
+        "worship_rating": 2
+      },
+      "harmonic_tremolo": {
+        "model_id": "HD2_ModHarmTremolo",
+        "display_name": "Harmonic Tremolo",
+        "based_on": "Fender Harmonic Tremolo"
+      },
+      "optical_tremolo": {
+        "model_id": "HD2_ModOpticalTrem",
+        "display_name": "Optical Trem",
+        "based_on": "Fender Optical Tremolo"
+      },
+      "122_rotary": {
+        "model_id": "HD2_Mod122Rotary",
+        "display_name": "122 Rotary",
+        "based_on": "Leslie 122"
+      }
+    },
+    "delay": {
+      "simple_delay": {
+        "model_id": "HD2_DelaySimple",
+        "display_name": "Simple Delay",
+        "based_on": "Line 6 Original"
+      },
+      "transistor_tape": {
+        "model_id": "HD2_DelayTransistorTape",
+        "display_name": "Transistor Tape",
+        "based_on": "Maestro Echoplex",
+        "worship_rating": 3,
+        "recommended": true
+      },
+      "vintage_digital": {
+        "model_id": "HD2_DelayVintageDigital",
+        "display_name": "Vintage Digital",
+        "based_on": "Line 6 Original",
+        "worship_rating": 2
+      },
+      "dual_delay": {
+        "model_id": "HD2_DelayDualDelay",
+        "display_name": "Dual Delay",
+        "based_on": "Line 6 Original",
+        "worship_rating": 2
+      },
+      "multi_pass": {
+        "model_id": "HD2_DelayMultiPass",
+        "display_name": "Multi Pass",
+        "based_on": "Line 6 Original"
+      },
+      "adriatic_delay": {
+        "model_id": "HD2_DelayAdriatic",
+        "display_name": "Adriatic Delay",
+        "based_on": "Boss DM-2",
+        "worship_rating": 2
+      },
+      "bucket_brigade": {
+        "model_id": "HD2_DelayBucketBrigade",
+        "display_name": "Bucket Brigade",
+        "based_on": "Boss DM-2"
+      },
+      "elephant_man": {
+        "model_id": "HD2_DelayElephantMan",
+        "display_name": "Elephant Man",
+        "based_on": "Electro-Harmonix Memory Man",
+        "worship_rating": 2
+      }
+    },
+    "reverb": {
+      "glitz": {
+        "model_id": "HD2_ReverbGlitz",
+        "display_name": "Glitz",
+        "based_on": "Line 6 Original (Shimmer)",
+        "worship_rating": 3,
+        "recommended": true,
+        "style": "ambient"
+      },
+      "ganymede": {
+        "model_id": "HD2_ReverbGanymede",
+        "display_name": "Ganymede",
+        "based_on": "Line 6 Original",
+        "worship_rating": 3,
+        "recommended": true
+      },
+      "searchlights": {
+        "model_id": "HD2_ReverbSearchlights",
+        "display_name": "Searchlights",
+        "based_on": "Line 6 Original",
+        "worship_rating": 2
+      },
+      "plateaux": {
+        "model_id": "HD2_ReverbPlateaux",
+        "display_name": "Plateaux",
+        "based_on": "Line 6 Original (Shimmer)",
+        "worship_rating": 3,
+        "style": "ambient"
+      },
+      "double_tank": {
+        "model_id": "HD2_ReverbDoubleTank",
+        "display_name": "Double Tank",
+        "based_on": "Fender Twin Reverb Tank"
+      },
+      "spring": {
+        "model_id": "HD2_ReverbSpring",
+        "display_name": "'63 Spring",
+        "based_on": "Fender Spring Reverb"
+      },
+      "particle_verb": {
+        "model_id": "HD2_ReverbParticleVerb",
+        "display_name": "Particle Verb",
+        "based_on": "Line 6 Original",
+        "worship_rating": 2,
+        "style": "ambient"
+      },
+      "room": {
+        "model_id": "HD2_ReverbRoom",
+        "display_name": "Room",
+        "based_on": "Line 6 Original"
+      },
+      "chamber": {
+        "model_id": "HD2_ReverbChamber",
+        "display_name": "Chamber",
+        "based_on": "Line 6 Original"
+      },
+      "hall": {
+        "model_id": "HD2_ReverbHall",
+        "display_name": "Hall",
+        "based_on": "Line 6 Original"
+      }
+    },
+    "eq": {
+      "parametric_eq": {
+        "model_id": "HD2_EQ_STATIC_ParametricStereo",
+        "display_name": "Parametric EQ",
+        "based_on": "Line 6 Original"
+      },
+      "graphic_eq_10band": {
+        "model_id": "HD2_EQ_STATIC_10BandGraphic",
+        "display_name": "10 Band Graphic",
+        "based_on": "MXR 10 Band EQ"
+      },
+      "simple_eq": {
+        "model_id": "HD2_EQ_STATIC_SimpleEQ",
+        "display_name": "Simple EQ",
+        "based_on": "Line 6 Original"
+      },
+      "low_mid_high_eq": {
+        "model_id": "HD2_EQ_STATIC_LowMidHighEQ",
+        "display_name": "Low/Mid/High EQ",
+        "based_on": "Line 6 Original"
+      },
+      "cali_q": {
+        "model_id": "HD2_EQ_STATIC_CaliQ",
+        "display_name": "Cali Q Graphic",
+        "based_on": "Mesa Boogie 5 Band EQ"
+      }
+    },
+    "volume_wah": {
+      "volume_pedal": {
+        "model_id": "HD2_VolPanVolStereo",
+        "display_name": "Volume Pedal",
+        "based_on": "Line 6 Original"
+      },
+      "wah_fassel": {
+        "model_id": "HD2_WahFasselStereo",
+        "display_name": "Fassel",
+        "based_on": "Vox Wah",
+        "worship_rating": 2
+      },
+      "wah_chrome": {
+        "model_id": "HD2_WahChromeStereo",
+        "display_name": "Chrome",
+        "based_on": "Vox Wah V847"
+      },
+      "wah_weeper": {
+        "model_id": "HD2_WahWeeperStereo",
+        "display_name": "Weeper",
+        "based_on": "Arbiter Cry Baby"
+      },
+      "wah_uk_846": {
+        "model_id": "HD2_WahUKWah846Stereo",
+        "display_name": "UK Wah 846",
+        "based_on": "Vox 846"
+      }
+    }
+  },
+
+  "parameters": {
+    "amp": {
+      "drive": {"min": 0, "max": 10, "default": 5, "hlx_scale": "0-1"},
+      "bass": {"min": 0, "max": 10, "default": 5, "hlx_scale": "0-1"},
+      "mid": {"min": 0, "max": 10, "default": 5, "hlx_scale": "0-1"},
+      "treble": {"min": 0, "max": 10, "default": 5, "hlx_scale": "0-1"},
+      "presence": {"min": 0, "max": 10, "default": 5, "hlx_scale": "0-1"},
+      "master": {"min": 0, "max": 10, "default": 5, "hlx_scale": "0-1"},
+      "sag": {"min": 0, "max": 10, "default": 5, "hlx_scale": "0-1"},
+      "bias": {"min": 0, "max": 10, "default": 6, "hlx_scale": "0-1"},
+      "bias_x": {"min": 0, "max": 10, "default": 5, "hlx_scale": "0-1"}
+    },
+    "cab": {
+      "distance": {"min": 1, "max": 12, "default": 2, "unit": "inches"},
+      "low_cut": {"min": 20, "max": 500, "default": 80, "unit": "Hz"},
+      "high_cut": {"min": 2000, "max": 20000, "default": 8000, "unit": "Hz"},
+      "early_reflections": {"min": 0, "max": 100, "default": 0, "unit": "%"},
+      "level": {"min": -18, "max": 18, "default": 0, "unit": "dB"}
+    },
+    "delay": {
+      "time": {"min": 20, "max": 2000, "default": 500, "unit": "ms"},
+      "feedback": {"min": 0, "max": 100, "default": 35, "unit": "%", "hlx_scale": "0-1"},
+      "mix": {"min": 0, "max": 100, "default": 40, "unit": "%", "hlx_scale": "0-1"},
+      "modulation": {"min": 0, "max": 10, "default": 3, "hlx_scale": "0-1"}
+    },
+    "reverb": {
+      "decay": {"min": 0, "max": 10, "default": 5, "hlx_scale": "0-1"},
+      "predelay": {"min": 0, "max": 500, "default": 50, "unit": "ms"},
+      "mix": {"min": 0, "max": 100, "default": 40, "unit": "%", "hlx_scale": "0-1"},
+      "low_cut": {"min": 20, "max": 500, "default": 80, "unit": "Hz"},
+      "high_cut": {"min": 2000, "max": 20000, "default": 8000, "unit": "Hz"}
+    }
+  },
+
+  "device_info": {
+    "pod_go": {
+      "device_id": 2162695,
+      "max_blocks": 9,
+      "snapshots": 4,
+      "footswitches": 8,
+      "expression_pedals": 1
+    },
+    "helix_floor": {
+      "device_id": 2162690,
+      "max_blocks": 32,
+      "snapshots": 8,
+      "footswitches": 10,
+      "expression_pedals": 3
+    },
+    "hx_stomp": {
+      "device_id": 2162689,
+      "max_blocks": 6,
+      "snapshots": 3,
+      "footswitches": 3,
+      "expression_pedals": 2
+    }
+  }
+}

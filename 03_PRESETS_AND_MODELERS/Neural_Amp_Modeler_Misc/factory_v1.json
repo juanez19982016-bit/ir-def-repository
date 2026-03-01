@@ -1,0 +1,3649 @@
+{
+  "name": "Factory",
+  "format_rev": "0002",
+  "device": "KATANA MkII",
+  "data": [
+    [
+      {
+        "memo": "",
+        "param_set": {
+          "name": "Modern Brown",
+          "patch0": {
+            "boost_on": false,
+            "boost_type": 10,
+            "boost_drive": 0,
+            "boost_bottom": 10,
+            "boost_tone": 0,
+            "boost_solo_on": false,
+            "boost_solo_level": 50,
+            "boost_direct_mix": 0,
+            "boost_level": 75,
+            "amp_type": 32,
+            "amp_gain": 74,
+            "amp_volume": 51,
+            "amp_eq_bass": 74,
+            "amp_eq_middle": 60,
+            "amp_eq_treble": 45,
+            "amp_eq_presence": 54,
+            "eq": {
+              "on": false,
+              "type_": 0,
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 14,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0,
+              "bar_31": 0.0,
+              "bar_62": 0.0,
+              "bar_125": 0.0,
+              "bar_250": 0.0,
+              "bar_500": 0.0,
+              "bar_1000": 0.0,
+              "bar_2000": 0.0,
+              "bar_4000": 0.0,
+              "bar_8000": 0.0,
+              "bar_16000": 0.0,
+              "bar_level": 0.0
+            }
+          },
+          "fx1": {
+            "on": false,
+            "type_": 35,
+            "t_wah": {
+              "mode": 1,
+              "polarity": 1,
+              "sens": 50,
+              "frequency": 35,
+              "peak": 35,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "auto_wah": {
+              "mode": 1,
+              "frequency": 35,
+              "peak": 50,
+              "rate": 50,
+              "depth": 60,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "pedal_wah": {
+              "type_": 0,
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "compressor": {
+              "type_": 0,
+              "sustain": 50,
+              "attack": 50,
+              "tone": 0,
+              "level": 50
+            },
+            "limiter": {
+              "type_": 0,
+              "attack": 0,
+              "threshold": 30,
+              "ratio": 11,
+              "release": 10,
+              "level": 30
+            },
+            "graphic_eq": {
+              "bar_31": 0,
+              "bar_62": 0,
+              "bar_125": 0,
+              "bar_250": 0,
+              "bar_500": 0,
+              "bar_1000": 0,
+              "bar_2000": 0,
+              "bar_4000": 0,
+              "bar_8000": 0,
+              "bar_16000": 0,
+              "bar_level": 0
+            },
+            "parametric_eq": {
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 13,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0
+            },
+            "guitar_sim": {
+              "type_": 0,
+              "low": 0,
+              "high": 0,
+              "level": 50,
+              "body": 50
+            },
+            "slow_gear": {
+              "sens": 45,
+              "rise_time": 50,
+              "level": 60
+            },
+            "wave_synth": {
+              "type_": 0,
+              "cutoff": 40,
+              "resonance": 30,
+              "level": 25,
+              "filter_sens": 40,
+              "filter_decay": 50,
+              "filter_depth": 50,
+              "direct_mix": 0
+            },
+            "octave": {
+              "range_": 1,
+              "level": 62,
+              "direct_mix": 100
+            },
+            "pitch_shifter": {
+              "voice": 0,
+              "ps1_mode": 1,
+              "ps1_pitch": 0,
+              "ps1_fine": 10,
+              "ps1_pre_delay": 0,
+              "ps1_level": 70,
+              "ps1_feedback": 0,
+              "ps2_mode": 1,
+              "ps2_pitch": 0,
+              "ps2_fine": -10,
+              "ps2_pre_delay": 0,
+              "ps2_level": 70,
+              "direct_mix": 100
+            },
+            "harmonist": {
+              "voice": 1,
+              "hr1_mode": 12,
+              "hr1_level": 70,
+              "hr1_pre_delay": 0,
+              "hr1_feedback": 0,
+              "hr2_mode": 7,
+              "hr2_level": 80,
+              "hr2_pre_delay": 0,
+              "direct_mix": 100,
+              "hr1_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              },
+              "hr2_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              }
+            },
+            "ac_processor": {
+              "type_": 1,
+              "bass": 0,
+              "middle": 0,
+              "middle_freq": 16,
+              "treble": 0,
+              "presence": 0,
+              "level": 50
+            },
+            "phaser": {
+              "type_": 0,
+              "rate": 70,
+              "depth": 40,
+              "manual": 55,
+              "resonance": 0,
+              "step_rate": 0,
+              "level": 0,
+              "direct_mix": 100
+            },
+            "flanger": {
+              "rate": 31,
+              "depth": 40,
+              "manual": 82,
+              "resonance": 50,
+              "low_cut": 0,
+              "level": 60,
+              "direct_mix": 0
+            },
+            "tremolo": {
+              "wave_shape": 70,
+              "rate": 85,
+              "depth": 65,
+              "level": 50
+            },
+            "rotary": {
+              "rate": 85,
+              "depth": 60,
+              "level": 50
+            },
+            "uni_v": {
+              "rate": 70,
+              "depth": 60,
+              "level": 100
+            },
+            "slicer": {
+              "pattern": 1,
+              "rate": 50,
+              "trigger_sens": 50,
+              "level": 50,
+              "direct_mix": 0
+            },
+            "vibrato": {
+              "rate": 80,
+              "depth": 45,
+              "level": 50
+            },
+            "ring_mod": {
+              "type_": 0,
+              "frequency": 50,
+              "level": 100,
+              "direct_mix": 100
+            },
+            "humanizer": {
+              "mode": 1,
+              "vowel1": 0,
+              "vowel2": 2,
+              "rate": 80,
+              "depth": 100,
+              "sens": 50,
+              "manual": 50,
+              "level": 100
+            },
+            "chorus": {
+              "crossover_frequency": 4,
+              "low_rate": 43,
+              "low_depth": 46,
+              "low_pre_delay": 1.5,
+              "low_level": 75,
+              "high_rate": 33,
+              "high_depth": 48,
+              "high_pre_delay": 1.5,
+              "high_level": 65,
+              "direct_mix": 80
+            },
+            "ac_guitar_sim": {
+              "body": 50,
+              "low": 0,
+              "high": 0,
+              "level": 50
+            },
+            "phaser_90e": {
+              "script_on": true,
+              "speed": 5
+            },
+            "flanger_117e": {
+              "manual": 45,
+              "width": 50,
+              "speed": 50,
+              "regen": 80
+            },
+            "wah_95e": {
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "dc30": {
+              "type_": 0,
+              "chorus_intensity": 50,
+              "echo_repeat_rate": 400,
+              "echo_intensity": 50,
+              "echo_volume": 100,
+              "input_volume": 50,
+              "tone": 50,
+              "output": 0
+            },
+            "heavy_octave": {
+              "level_1_oct": 100,
+              "level_2_oct": 0,
+              "direct_mix": 100
+            },
+            "pedal_bend": null
+          },
+          "fx2": {
+            "on": false,
+            "type_": 39,
+            "t_wah": {
+              "mode": 1,
+              "polarity": 1,
+              "sens": 50,
+              "frequency": 35,
+              "peak": 35,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "auto_wah": {
+              "mode": 1,
+              "frequency": 35,
+              "peak": 50,
+              "rate": 50,
+              "depth": 60,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "pedal_wah": {
+              "type_": 0,
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "compressor": {
+              "type_": 0,
+              "sustain": 50,
+              "attack": 50,
+              "tone": 0,
+              "level": 50
+            },
+            "limiter": {
+              "type_": 0,
+              "attack": 0,
+              "threshold": 30,
+              "ratio": 11,
+              "release": 10,
+              "level": 30
+            },
+            "graphic_eq": {
+              "bar_31": 0,
+              "bar_62": 0,
+              "bar_125": 0,
+              "bar_250": 0,
+              "bar_500": 0,
+              "bar_1000": 0,
+              "bar_2000": 0,
+              "bar_4000": 0,
+              "bar_8000": 0,
+              "bar_16000": 0,
+              "bar_level": 0
+            },
+            "parametric_eq": {
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 13,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0
+            },
+            "guitar_sim": {
+              "type_": 0,
+              "low": 0,
+              "high": 0,
+              "level": 50,
+              "body": 50
+            },
+            "slow_gear": {
+              "sens": 45,
+              "rise_time": 50,
+              "level": 60
+            },
+            "wave_synth": {
+              "type_": 0,
+              "cutoff": 40,
+              "resonance": 30,
+              "level": 25,
+              "filter_sens": 40,
+              "filter_decay": 50,
+              "filter_depth": 50,
+              "direct_mix": 0
+            },
+            "octave": {
+              "range_": 1,
+              "level": 62,
+              "direct_mix": 100
+            },
+            "pitch_shifter": {
+              "voice": 0,
+              "ps1_mode": 1,
+              "ps1_pitch": 0,
+              "ps1_fine": 10,
+              "ps1_pre_delay": 0,
+              "ps1_level": 70,
+              "ps1_feedback": 0,
+              "ps2_mode": 1,
+              "ps2_pitch": 0,
+              "ps2_fine": -10,
+              "ps2_pre_delay": 0,
+              "ps2_level": 70,
+              "direct_mix": 100
+            },
+            "harmonist": {
+              "voice": 1,
+              "hr1_mode": 12,
+              "hr1_level": 70,
+              "hr1_pre_delay": 0,
+              "hr1_feedback": 0,
+              "hr2_mode": 7,
+              "hr2_level": 80,
+              "hr2_pre_delay": 0,
+              "direct_mix": 100,
+              "hr1_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              },
+              "hr2_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              }
+            },
+            "ac_processor": {
+              "type_": 1,
+              "bass": 0,
+              "middle": 0,
+              "middle_freq": 16,
+              "treble": 0,
+              "presence": 0,
+              "level": 50
+            },
+            "phaser": {
+              "type_": 0,
+              "rate": 70,
+              "depth": 40,
+              "manual": 55,
+              "resonance": 0,
+              "step_rate": 0,
+              "level": 0,
+              "direct_mix": 100
+            },
+            "flanger": {
+              "rate": 31,
+              "depth": 40,
+              "manual": 82,
+              "resonance": 50,
+              "low_cut": 0,
+              "level": 60,
+              "direct_mix": 0
+            },
+            "tremolo": {
+              "wave_shape": 70,
+              "rate": 85,
+              "depth": 65,
+              "level": 50
+            },
+            "rotary": {
+              "rate": 85,
+              "depth": 60,
+              "level": 50
+            },
+            "uni_v": {
+              "rate": 70,
+              "depth": 60,
+              "level": 100
+            },
+            "slicer": {
+              "pattern": 1,
+              "rate": 50,
+              "trigger_sens": 50,
+              "level": 50,
+              "direct_mix": 0
+            },
+            "vibrato": {
+              "rate": 80,
+              "depth": 45,
+              "level": 50
+            },
+            "ring_mod": {
+              "type_": 0,
+              "frequency": 50,
+              "level": 100,
+              "direct_mix": 100
+            },
+            "humanizer": {
+              "mode": 1,
+              "vowel1": 0,
+              "vowel2": 2,
+              "rate": 80,
+              "depth": 100,
+              "sens": 50,
+              "manual": 50,
+              "level": 100
+            },
+            "chorus": {
+              "crossover_frequency": 4,
+              "low_rate": 43,
+              "low_depth": 46,
+              "low_pre_delay": 1.5,
+              "low_level": 75,
+              "high_rate": 33,
+              "high_depth": 48,
+              "high_pre_delay": 1.5,
+              "high_level": 65,
+              "direct_mix": 80
+            },
+            "ac_guitar_sim": {
+              "body": 50,
+              "low": 0,
+              "high": 0,
+              "level": 50
+            },
+            "phaser_90e": {
+              "script_on": true,
+              "speed": 50
+            },
+            "flanger_117e": {
+              "manual": 45,
+              "width": 50,
+              "speed": 50,
+              "regen": 80
+            },
+            "wah_95e": {
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "dc30": {
+              "type_": 0,
+              "chorus_intensity": 50,
+              "echo_repeat_rate": 400,
+              "echo_intensity": 50,
+              "echo_volume": 100,
+              "input_volume": 50,
+              "tone": 50,
+              "output": 0
+            },
+            "heavy_octave": {
+              "level_1_oct": 30,
+              "level_2_oct": 0,
+              "direct_mix": 100
+            },
+            "pedal_bend": null
+          },
+          "delay1": {
+            "delay_on": true,
+            "delay_type": 8,
+            "delay_time": 567,
+            "feedback": 33,
+            "high_cut": 10,
+            "effect_level": 27,
+            "direct_mix": 100,
+            "tap_time": 50,
+            "mod_rate": 40,
+            "mod_depth": 55,
+            "filter_on": false,
+            "range_": 1,
+            "feedback_phase": 0,
+            "delay_phase": 0,
+            "mod_sw_on": false
+          },
+          "delay2": {
+            "delay_on": false,
+            "delay_type": 8,
+            "delay_time": 400,
+            "feedback": 22,
+            "high_cut": 10,
+            "effect_level": 50,
+            "direct_mix": 100,
+            "tap_time": 50,
+            "mod_rate": 40,
+            "mod_depth": 55,
+            "filter_on": false,
+            "range_": 1,
+            "feedback_phase": 0,
+            "delay_phase": 0,
+            "mod_sw_on": false
+          },
+          "patch1": {
+            "reverb_on": true,
+            "reverb_type": 3,
+            "reverb_time": 3.0,
+            "reverb_pre_delay": 10,
+            "reverb_low_cut": 2,
+            "reverb_high_cut": 10,
+            "reverb_density": 10,
+            "reverb_effect_level": 58,
+            "reverb_direct_mix": 100,
+            "reverb_color": 100,
+            "pedal_fx_type": 0,
+            "pedal_fx_wah_type": 0,
+            "pedal_fx_wah_pos": 100,
+            "pedal_fx_wah_min": 0,
+            "pedal_fx_wah_max": 100,
+            "pedal_fx_wah_level": 100,
+            "pedal_fx_wah_direct_mix": 0,
+            "pedal_fx_bend_pos": 50,
+            "pedal_fx_bend_pitch": 12,
+            "pedal_fx_bend_level": 100,
+            "pedal_fx_bend_direct_mix": 0,
+            "pedal_fx_wah95_pos": 100,
+            "pedal_fx_wah95_min": 0,
+            "pedal_fx_wah95_max": 100,
+            "pedal_fx_wah95_level": 100,
+            "pedal_fx_wah95_direct_mix": 0,
+            "noise_suppressor_on": false,
+            "noise_suppressor_threshold": 5,
+            "noise_suppressor_release": 50,
+            "master_key": 0,
+            "solo_on": false,
+            "solo_level": 50,
+            "contour": 0
+          },
+          "patch2": {
+            "boost_green": 10,
+            "boost_red": 11,
+            "boost_yellow": 14,
+            "mod_green": 29,
+            "mod_red": 35,
+            "mod_yellow": 36,
+            "fx_green": 21,
+            "fx_red": 0,
+            "fx_yellow": 39,
+            "delay_green": 0,
+            "delay_red": 7,
+            "delay_yellow": 8,
+            "reverb_green": 4,
+            "reverb_red": 5,
+            "reverb_yellow": 3,
+            "delay2_green": 0,
+            "delay2_red": 7,
+            "delay2_yellow": 8,
+            "reverb_green_mode": 2,
+            "reverb_red_mode": 2,
+            "reverb_yellow_mode": 2,
+            "boost_light": 0,
+            "mod_light": 1,
+            "fx_light": 2,
+            "delay_light": 2,
+            "reverb_light": 2,
+            "cab_resonance": 1
+          },
+          "patch_mk2v2": null,
+          "contour1": null,
+          "contour2": null,
+          "contour3": null,
+          "eq2": {
+            "on": false,
+            "type_": 0,
+            "low_cut": 0,
+            "low_gain": 0,
+            "low_mid_freq": 14,
+            "low_mid_q": 1.0,
+            "low_mid_gain": 0,
+            "high_mid_freq": 23,
+            "high_mid_q": 1.0,
+            "high_mid_gain": 0,
+            "high_gain": 0,
+            "high_cut": 14,
+            "level": 0,
+            "bar_31": 0.0,
+            "bar_62": 0.0,
+            "bar_125": 0.0,
+            "bar_250": 0.0,
+            "bar_500": 0.0,
+            "bar_1000": 0.0,
+            "bar_2000": 0.0,
+            "bar_4000": 0.0,
+            "bar_8000": 0.0,
+            "bar_16000": 0.0,
+            "bar_level": 0.0
+          }
+        }
+      },
+      {
+        "memo": "",
+        "param_set": {
+          "name": "Full Clean",
+          "patch0": {
+            "boost_on": false,
+            "boost_type": 14,
+            "boost_drive": 7,
+            "boost_bottom": 18,
+            "boost_tone": 0,
+            "boost_solo_on": false,
+            "boost_solo_level": 50,
+            "boost_direct_mix": 0,
+            "boost_level": 61,
+            "amp_type": 8,
+            "amp_gain": 63,
+            "amp_volume": 55,
+            "amp_eq_bass": 68,
+            "amp_eq_middle": 43,
+            "amp_eq_treble": 78,
+            "amp_eq_presence": 45,
+            "eq": {
+              "on": false,
+              "type_": 0,
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 14,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0,
+              "bar_31": 0.0,
+              "bar_62": 0.0,
+              "bar_125": 0.0,
+              "bar_250": 0.0,
+              "bar_500": 0.0,
+              "bar_1000": 0.0,
+              "bar_2000": 0.0,
+              "bar_4000": 0.0,
+              "bar_8000": 0.0,
+              "bar_16000": 0.0,
+              "bar_level": 0.0
+            }
+          },
+          "fx1": {
+            "on": false,
+            "type_": 29,
+            "t_wah": {
+              "mode": 1,
+              "polarity": 1,
+              "sens": 50,
+              "frequency": 35,
+              "peak": 35,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "auto_wah": {
+              "mode": 1,
+              "frequency": 35,
+              "peak": 50,
+              "rate": 50,
+              "depth": 60,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "pedal_wah": {
+              "type_": 0,
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "compressor": {
+              "type_": 0,
+              "sustain": 50,
+              "attack": 50,
+              "tone": 0,
+              "level": 50
+            },
+            "limiter": {
+              "type_": 0,
+              "attack": 0,
+              "threshold": 30,
+              "ratio": 11,
+              "release": 10,
+              "level": 30
+            },
+            "graphic_eq": {
+              "bar_31": 0,
+              "bar_62": 0,
+              "bar_125": 0,
+              "bar_250": 0,
+              "bar_500": 0,
+              "bar_1000": 0,
+              "bar_2000": 0,
+              "bar_4000": 0,
+              "bar_8000": 0,
+              "bar_16000": 0,
+              "bar_level": 0
+            },
+            "parametric_eq": {
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 13,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0
+            },
+            "guitar_sim": {
+              "type_": 0,
+              "low": 0,
+              "high": 0,
+              "level": 50,
+              "body": 50
+            },
+            "slow_gear": {
+              "sens": 45,
+              "rise_time": 50,
+              "level": 60
+            },
+            "wave_synth": {
+              "type_": 0,
+              "cutoff": 40,
+              "resonance": 30,
+              "level": 25,
+              "filter_sens": 40,
+              "filter_decay": 50,
+              "filter_depth": 50,
+              "direct_mix": 0
+            },
+            "octave": {
+              "range_": 1,
+              "level": 62,
+              "direct_mix": 100
+            },
+            "pitch_shifter": {
+              "voice": 0,
+              "ps1_mode": 1,
+              "ps1_pitch": 0,
+              "ps1_fine": 10,
+              "ps1_pre_delay": 0,
+              "ps1_level": 70,
+              "ps1_feedback": 0,
+              "ps2_mode": 1,
+              "ps2_pitch": 0,
+              "ps2_fine": -10,
+              "ps2_pre_delay": 0,
+              "ps2_level": 70,
+              "direct_mix": 100
+            },
+            "harmonist": {
+              "voice": 1,
+              "hr1_mode": 12,
+              "hr1_level": 70,
+              "hr1_pre_delay": 0,
+              "hr1_feedback": 0,
+              "hr2_mode": 7,
+              "hr2_level": 80,
+              "hr2_pre_delay": 0,
+              "direct_mix": 100,
+              "hr1_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              },
+              "hr2_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              }
+            },
+            "ac_processor": {
+              "type_": 1,
+              "bass": 0,
+              "middle": 0,
+              "middle_freq": 16,
+              "treble": 0,
+              "presence": 0,
+              "level": 50
+            },
+            "phaser": {
+              "type_": 0,
+              "rate": 70,
+              "depth": 40,
+              "manual": 55,
+              "resonance": 0,
+              "step_rate": 0,
+              "level": 0,
+              "direct_mix": 100
+            },
+            "flanger": {
+              "rate": 31,
+              "depth": 40,
+              "manual": 82,
+              "resonance": 50,
+              "low_cut": 0,
+              "level": 60,
+              "direct_mix": 0
+            },
+            "tremolo": {
+              "wave_shape": 70,
+              "rate": 85,
+              "depth": 65,
+              "level": 50
+            },
+            "rotary": {
+              "rate": 85,
+              "depth": 60,
+              "level": 50
+            },
+            "uni_v": {
+              "rate": 70,
+              "depth": 60,
+              "level": 100
+            },
+            "slicer": {
+              "pattern": 1,
+              "rate": 50,
+              "trigger_sens": 50,
+              "level": 50,
+              "direct_mix": 0
+            },
+            "vibrato": {
+              "rate": 80,
+              "depth": 45,
+              "level": 50
+            },
+            "ring_mod": {
+              "type_": 0,
+              "frequency": 50,
+              "level": 100,
+              "direct_mix": 100
+            },
+            "humanizer": {
+              "mode": 1,
+              "vowel1": 0,
+              "vowel2": 2,
+              "rate": 80,
+              "depth": 100,
+              "sens": 50,
+              "manual": 50,
+              "level": 100
+            },
+            "chorus": {
+              "crossover_frequency": 4,
+              "low_rate": 51,
+              "low_depth": 46,
+              "low_pre_delay": 1.5,
+              "low_level": 75,
+              "high_rate": 41,
+              "high_depth": 48,
+              "high_pre_delay": 1.5,
+              "high_level": 65,
+              "direct_mix": 80
+            },
+            "ac_guitar_sim": {
+              "body": 50,
+              "low": 0,
+              "high": 0,
+              "level": 50
+            },
+            "phaser_90e": {
+              "script_on": true,
+              "speed": 50
+            },
+            "flanger_117e": {
+              "manual": 45,
+              "width": 50,
+              "speed": 50,
+              "regen": 80
+            },
+            "wah_95e": {
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "dc30": {
+              "type_": 0,
+              "chorus_intensity": 50,
+              "echo_repeat_rate": 400,
+              "echo_intensity": 50,
+              "echo_volume": 100,
+              "input_volume": 50,
+              "tone": 50,
+              "output": 0
+            },
+            "heavy_octave": {
+              "level_1_oct": 100,
+              "level_2_oct": 0,
+              "direct_mix": 100
+            },
+            "pedal_bend": null
+          },
+          "fx2": {
+            "on": false,
+            "type_": 21,
+            "t_wah": {
+              "mode": 1,
+              "polarity": 1,
+              "sens": 50,
+              "frequency": 35,
+              "peak": 35,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "auto_wah": {
+              "mode": 1,
+              "frequency": 35,
+              "peak": 50,
+              "rate": 50,
+              "depth": 60,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "pedal_wah": {
+              "type_": 0,
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "compressor": {
+              "type_": 0,
+              "sustain": 50,
+              "attack": 50,
+              "tone": 0,
+              "level": 50
+            },
+            "limiter": {
+              "type_": 0,
+              "attack": 0,
+              "threshold": 30,
+              "ratio": 11,
+              "release": 10,
+              "level": 30
+            },
+            "graphic_eq": {
+              "bar_31": 0,
+              "bar_62": 0,
+              "bar_125": 0,
+              "bar_250": 0,
+              "bar_500": 0,
+              "bar_1000": 0,
+              "bar_2000": 0,
+              "bar_4000": 0,
+              "bar_8000": 0,
+              "bar_16000": 0,
+              "bar_level": 0
+            },
+            "parametric_eq": {
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 13,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0
+            },
+            "guitar_sim": {
+              "type_": 0,
+              "low": 0,
+              "high": 0,
+              "level": 50,
+              "body": 50
+            },
+            "slow_gear": {
+              "sens": 45,
+              "rise_time": 50,
+              "level": 60
+            },
+            "wave_synth": {
+              "type_": 0,
+              "cutoff": 40,
+              "resonance": 30,
+              "level": 25,
+              "filter_sens": 40,
+              "filter_decay": 50,
+              "filter_depth": 50,
+              "direct_mix": 0
+            },
+            "octave": {
+              "range_": 1,
+              "level": 62,
+              "direct_mix": 100
+            },
+            "pitch_shifter": {
+              "voice": 0,
+              "ps1_mode": 1,
+              "ps1_pitch": 0,
+              "ps1_fine": 10,
+              "ps1_pre_delay": 0,
+              "ps1_level": 70,
+              "ps1_feedback": 0,
+              "ps2_mode": 1,
+              "ps2_pitch": 0,
+              "ps2_fine": -10,
+              "ps2_pre_delay": 0,
+              "ps2_level": 70,
+              "direct_mix": 100
+            },
+            "harmonist": {
+              "voice": 1,
+              "hr1_mode": 12,
+              "hr1_level": 70,
+              "hr1_pre_delay": 0,
+              "hr1_feedback": 0,
+              "hr2_mode": 7,
+              "hr2_level": 80,
+              "hr2_pre_delay": 0,
+              "direct_mix": 100,
+              "hr1_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              },
+              "hr2_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              }
+            },
+            "ac_processor": {
+              "type_": 1,
+              "bass": 0,
+              "middle": 0,
+              "middle_freq": 16,
+              "treble": 0,
+              "presence": 0,
+              "level": 50
+            },
+            "phaser": {
+              "type_": 0,
+              "rate": 70,
+              "depth": 40,
+              "manual": 55,
+              "resonance": 0,
+              "step_rate": 0,
+              "level": 0,
+              "direct_mix": 100
+            },
+            "flanger": {
+              "rate": 31,
+              "depth": 40,
+              "manual": 82,
+              "resonance": 50,
+              "low_cut": 0,
+              "level": 60,
+              "direct_mix": 0
+            },
+            "tremolo": {
+              "wave_shape": 70,
+              "rate": 80,
+              "depth": 65,
+              "level": 50
+            },
+            "rotary": {
+              "rate": 85,
+              "depth": 60,
+              "level": 50
+            },
+            "uni_v": {
+              "rate": 70,
+              "depth": 60,
+              "level": 100
+            },
+            "slicer": {
+              "pattern": 1,
+              "rate": 50,
+              "trigger_sens": 50,
+              "level": 50,
+              "direct_mix": 0
+            },
+            "vibrato": {
+              "rate": 80,
+              "depth": 45,
+              "level": 50
+            },
+            "ring_mod": {
+              "type_": 0,
+              "frequency": 50,
+              "level": 100,
+              "direct_mix": 100
+            },
+            "humanizer": {
+              "mode": 1,
+              "vowel1": 0,
+              "vowel2": 2,
+              "rate": 80,
+              "depth": 100,
+              "sens": 50,
+              "manual": 50,
+              "level": 100
+            },
+            "chorus": {
+              "crossover_frequency": 4,
+              "low_rate": 43,
+              "low_depth": 46,
+              "low_pre_delay": 1.5,
+              "low_level": 75,
+              "high_rate": 33,
+              "high_depth": 48,
+              "high_pre_delay": 1.5,
+              "high_level": 65,
+              "direct_mix": 80
+            },
+            "ac_guitar_sim": {
+              "body": 50,
+              "low": 0,
+              "high": 0,
+              "level": 50
+            },
+            "phaser_90e": {
+              "script_on": true,
+              "speed": 50
+            },
+            "flanger_117e": {
+              "manual": 45,
+              "width": 50,
+              "speed": 50,
+              "regen": 80
+            },
+            "wah_95e": {
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "dc30": {
+              "type_": 0,
+              "chorus_intensity": 50,
+              "echo_repeat_rate": 400,
+              "echo_intensity": 50,
+              "echo_volume": 100,
+              "input_volume": 50,
+              "tone": 50,
+              "output": 0
+            },
+            "heavy_octave": {
+              "level_1_oct": 100,
+              "level_2_oct": 0,
+              "direct_mix": 100
+            },
+            "pedal_bend": null
+          },
+          "delay1": {
+            "delay_on": true,
+            "delay_type": 8,
+            "delay_time": 370,
+            "feedback": 32,
+            "high_cut": 10,
+            "effect_level": 43,
+            "direct_mix": 100,
+            "tap_time": 50,
+            "mod_rate": 40,
+            "mod_depth": 55,
+            "filter_on": false,
+            "range_": 1,
+            "feedback_phase": 0,
+            "delay_phase": 0,
+            "mod_sw_on": false
+          },
+          "delay2": {
+            "delay_on": false,
+            "delay_type": 0,
+            "delay_time": 400,
+            "feedback": 22,
+            "high_cut": 10,
+            "effect_level": 50,
+            "direct_mix": 100,
+            "tap_time": 50,
+            "mod_rate": 40,
+            "mod_depth": 55,
+            "filter_on": false,
+            "range_": 1,
+            "feedback_phase": 0,
+            "delay_phase": 0,
+            "mod_sw_on": false
+          },
+          "patch1": {
+            "reverb_on": true,
+            "reverb_type": 4,
+            "reverb_time": 3.0,
+            "reverb_pre_delay": 10,
+            "reverb_low_cut": 14,
+            "reverb_high_cut": 10,
+            "reverb_density": 5,
+            "reverb_effect_level": 32,
+            "reverb_direct_mix": 100,
+            "reverb_color": 100,
+            "pedal_fx_type": 0,
+            "pedal_fx_wah_type": 0,
+            "pedal_fx_wah_pos": 100,
+            "pedal_fx_wah_min": 0,
+            "pedal_fx_wah_max": 100,
+            "pedal_fx_wah_level": 100,
+            "pedal_fx_wah_direct_mix": 0,
+            "pedal_fx_bend_pos": 50,
+            "pedal_fx_bend_pitch": 12,
+            "pedal_fx_bend_level": 100,
+            "pedal_fx_bend_direct_mix": 0,
+            "pedal_fx_wah95_pos": 100,
+            "pedal_fx_wah95_min": 0,
+            "pedal_fx_wah95_max": 100,
+            "pedal_fx_wah95_level": 100,
+            "pedal_fx_wah95_direct_mix": 0,
+            "noise_suppressor_on": false,
+            "noise_suppressor_threshold": 5,
+            "noise_suppressor_release": 50,
+            "master_key": 0,
+            "solo_on": false,
+            "solo_level": 50,
+            "contour": 0
+          },
+          "patch2": {
+            "boost_green": 10,
+            "boost_red": 11,
+            "boost_yellow": 14,
+            "mod_green": 29,
+            "mod_red": 35,
+            "mod_yellow": 36,
+            "fx_green": 21,
+            "fx_red": 0,
+            "fx_yellow": 39,
+            "delay_green": 0,
+            "delay_red": 7,
+            "delay_yellow": 8,
+            "reverb_green": 4,
+            "reverb_red": 5,
+            "reverb_yellow": 3,
+            "delay2_green": 0,
+            "delay2_red": 7,
+            "delay2_yellow": 8,
+            "reverb_green_mode": 2,
+            "reverb_red_mode": 2,
+            "reverb_yellow_mode": 2,
+            "boost_light": 2,
+            "mod_light": 0,
+            "fx_light": 0,
+            "delay_light": 2,
+            "reverb_light": 0,
+            "cab_resonance": 1
+          },
+          "patch_mk2v2": null,
+          "contour1": null,
+          "contour2": null,
+          "contour3": null,
+          "eq2": {
+            "on": false,
+            "type_": 0,
+            "low_cut": 0,
+            "low_gain": 0,
+            "low_mid_freq": 14,
+            "low_mid_q": 1.0,
+            "low_mid_gain": 0,
+            "high_mid_freq": 23,
+            "high_mid_q": 1.0,
+            "high_mid_gain": 0,
+            "high_gain": 0,
+            "high_cut": 14,
+            "level": 0,
+            "bar_31": 0.0,
+            "bar_62": 0.0,
+            "bar_125": 0.0,
+            "bar_250": 0.0,
+            "bar_500": 0.0,
+            "bar_1000": 0.0,
+            "bar_2000": 0.0,
+            "bar_4000": 0.0,
+            "bar_8000": 0.0,
+            "bar_16000": 0.0,
+            "bar_level": 0.0
+          }
+        }
+      },
+      {
+        "memo": "",
+        "param_set": {
+          "name": "Echo Crunch",
+          "patch0": {
+            "boost_on": true,
+            "boost_type": 1,
+            "boost_drive": 46,
+            "boost_bottom": 10,
+            "boost_tone": 0,
+            "boost_solo_on": false,
+            "boost_solo_level": 50,
+            "boost_direct_mix": 0,
+            "boost_level": 40,
+            "amp_type": 30,
+            "amp_gain": 81,
+            "amp_volume": 50,
+            "amp_eq_bass": 93,
+            "amp_eq_middle": 66,
+            "amp_eq_treble": 50,
+            "amp_eq_presence": 50,
+            "eq": {
+              "on": false,
+              "type_": 0,
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 14,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0,
+              "bar_31": 0.0,
+              "bar_62": 0.0,
+              "bar_125": 0.0,
+              "bar_250": 0.0,
+              "bar_500": 0.0,
+              "bar_1000": 0.0,
+              "bar_2000": 0.0,
+              "bar_4000": 0.0,
+              "bar_8000": 0.0,
+              "bar_16000": 0.0,
+              "bar_level": 0.0
+            }
+          },
+          "fx1": {
+            "on": false,
+            "type_": 38,
+            "t_wah": {
+              "mode": 1,
+              "polarity": 1,
+              "sens": 50,
+              "frequency": 35,
+              "peak": 35,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "auto_wah": {
+              "mode": 1,
+              "frequency": 35,
+              "peak": 50,
+              "rate": 50,
+              "depth": 60,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "pedal_wah": {
+              "type_": 0,
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "compressor": {
+              "type_": 0,
+              "sustain": 50,
+              "attack": 50,
+              "tone": 0,
+              "level": 50
+            },
+            "limiter": {
+              "type_": 0,
+              "attack": 0,
+              "threshold": 30,
+              "ratio": 11,
+              "release": 10,
+              "level": 30
+            },
+            "graphic_eq": {
+              "bar_31": 0,
+              "bar_62": 0,
+              "bar_125": 0,
+              "bar_250": 0,
+              "bar_500": 0,
+              "bar_1000": 0,
+              "bar_2000": 0,
+              "bar_4000": 0,
+              "bar_8000": 0,
+              "bar_16000": 0,
+              "bar_level": 0
+            },
+            "parametric_eq": {
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 13,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0
+            },
+            "guitar_sim": {
+              "type_": 0,
+              "low": 0,
+              "high": 0,
+              "level": 50,
+              "body": 50
+            },
+            "slow_gear": {
+              "sens": 45,
+              "rise_time": 50,
+              "level": 60
+            },
+            "wave_synth": {
+              "type_": 0,
+              "cutoff": 40,
+              "resonance": 30,
+              "level": 25,
+              "filter_sens": 40,
+              "filter_decay": 50,
+              "filter_depth": 50,
+              "direct_mix": 0
+            },
+            "octave": {
+              "range_": 1,
+              "level": 62,
+              "direct_mix": 100
+            },
+            "pitch_shifter": {
+              "voice": 0,
+              "ps1_mode": 1,
+              "ps1_pitch": 0,
+              "ps1_fine": 10,
+              "ps1_pre_delay": 0,
+              "ps1_level": 70,
+              "ps1_feedback": 0,
+              "ps2_mode": 1,
+              "ps2_pitch": 0,
+              "ps2_fine": -10,
+              "ps2_pre_delay": 0,
+              "ps2_level": 70,
+              "direct_mix": 100
+            },
+            "harmonist": {
+              "voice": 1,
+              "hr1_mode": 12,
+              "hr1_level": 70,
+              "hr1_pre_delay": 0,
+              "hr1_feedback": 0,
+              "hr2_mode": 7,
+              "hr2_level": 80,
+              "hr2_pre_delay": 0,
+              "direct_mix": 100,
+              "hr1_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              },
+              "hr2_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              }
+            },
+            "ac_processor": {
+              "type_": 1,
+              "bass": 0,
+              "middle": 0,
+              "middle_freq": 16,
+              "treble": 0,
+              "presence": 0,
+              "level": 50
+            },
+            "phaser": {
+              "type_": 0,
+              "rate": 70,
+              "depth": 40,
+              "manual": 55,
+              "resonance": 0,
+              "step_rate": 0,
+              "level": 0,
+              "direct_mix": 100
+            },
+            "flanger": {
+              "rate": 31,
+              "depth": 40,
+              "manual": 82,
+              "resonance": 50,
+              "low_cut": 0,
+              "level": 60,
+              "direct_mix": 0
+            },
+            "tremolo": {
+              "wave_shape": 70,
+              "rate": 85,
+              "depth": 65,
+              "level": 50
+            },
+            "rotary": {
+              "rate": 85,
+              "depth": 60,
+              "level": 50
+            },
+            "uni_v": {
+              "rate": 70,
+              "depth": 60,
+              "level": 100
+            },
+            "slicer": {
+              "pattern": 1,
+              "rate": 50,
+              "trigger_sens": 50,
+              "level": 50,
+              "direct_mix": 0
+            },
+            "vibrato": {
+              "rate": 80,
+              "depth": 45,
+              "level": 50
+            },
+            "ring_mod": {
+              "type_": 0,
+              "frequency": 50,
+              "level": 100,
+              "direct_mix": 100
+            },
+            "humanizer": {
+              "mode": 1,
+              "vowel1": 0,
+              "vowel2": 2,
+              "rate": 80,
+              "depth": 100,
+              "sens": 50,
+              "manual": 50,
+              "level": 100
+            },
+            "chorus": {
+              "crossover_frequency": 4,
+              "low_rate": 43,
+              "low_depth": 46,
+              "low_pre_delay": 1.5,
+              "low_level": 75,
+              "high_rate": 33,
+              "high_depth": 48,
+              "high_pre_delay": 1.5,
+              "high_level": 65,
+              "direct_mix": 80
+            },
+            "ac_guitar_sim": {
+              "body": 50,
+              "low": 0,
+              "high": 0,
+              "level": 50
+            },
+            "phaser_90e": {
+              "script_on": true,
+              "speed": 50
+            },
+            "flanger_117e": {
+              "manual": 45,
+              "width": 50,
+              "speed": 36,
+              "regen": 80
+            },
+            "wah_95e": {
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "dc30": {
+              "type_": 0,
+              "chorus_intensity": 50,
+              "echo_repeat_rate": 400,
+              "echo_intensity": 50,
+              "echo_volume": 100,
+              "input_volume": 50,
+              "tone": 50,
+              "output": 0
+            },
+            "heavy_octave": {
+              "level_1_oct": 100,
+              "level_2_oct": 0,
+              "direct_mix": 100
+            },
+            "pedal_bend": null
+          },
+          "fx2": {
+            "on": false,
+            "type_": 15,
+            "t_wah": {
+              "mode": 1,
+              "polarity": 1,
+              "sens": 50,
+              "frequency": 35,
+              "peak": 35,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "auto_wah": {
+              "mode": 1,
+              "frequency": 35,
+              "peak": 50,
+              "rate": 50,
+              "depth": 60,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "pedal_wah": {
+              "type_": 0,
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "compressor": {
+              "type_": 0,
+              "sustain": 50,
+              "attack": 50,
+              "tone": 0,
+              "level": 50
+            },
+            "limiter": {
+              "type_": 0,
+              "attack": 0,
+              "threshold": 30,
+              "ratio": 11,
+              "release": 10,
+              "level": 30
+            },
+            "graphic_eq": {
+              "bar_31": 0,
+              "bar_62": 0,
+              "bar_125": 0,
+              "bar_250": 0,
+              "bar_500": 0,
+              "bar_1000": 0,
+              "bar_2000": 0,
+              "bar_4000": 0,
+              "bar_8000": 0,
+              "bar_16000": 0,
+              "bar_level": 0
+            },
+            "parametric_eq": {
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 13,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0
+            },
+            "guitar_sim": {
+              "type_": 0,
+              "low": 0,
+              "high": 0,
+              "level": 50,
+              "body": 50
+            },
+            "slow_gear": {
+              "sens": 45,
+              "rise_time": 50,
+              "level": 60
+            },
+            "wave_synth": {
+              "type_": 0,
+              "cutoff": 40,
+              "resonance": 30,
+              "level": 25,
+              "filter_sens": 40,
+              "filter_decay": 50,
+              "filter_depth": 50,
+              "direct_mix": 0
+            },
+            "octave": {
+              "range_": 1,
+              "level": 62,
+              "direct_mix": 100
+            },
+            "pitch_shifter": {
+              "voice": 0,
+              "ps1_mode": 1,
+              "ps1_pitch": 0,
+              "ps1_fine": 10,
+              "ps1_pre_delay": 0,
+              "ps1_level": 70,
+              "ps1_feedback": 0,
+              "ps2_mode": 1,
+              "ps2_pitch": 0,
+              "ps2_fine": -10,
+              "ps2_pre_delay": 0,
+              "ps2_level": 70,
+              "direct_mix": 100
+            },
+            "harmonist": {
+              "voice": 1,
+              "hr1_mode": 12,
+              "hr1_level": 70,
+              "hr1_pre_delay": 0,
+              "hr1_feedback": 0,
+              "hr2_mode": 7,
+              "hr2_level": 80,
+              "hr2_pre_delay": 0,
+              "direct_mix": 100,
+              "hr1_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              },
+              "hr2_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              }
+            },
+            "ac_processor": {
+              "type_": 1,
+              "bass": 0,
+              "middle": 0,
+              "middle_freq": 16,
+              "treble": 0,
+              "presence": 0,
+              "level": 50
+            },
+            "phaser": {
+              "type_": 0,
+              "rate": 70,
+              "depth": 40,
+              "manual": 55,
+              "resonance": 0,
+              "step_rate": 0,
+              "level": 0,
+              "direct_mix": 100
+            },
+            "flanger": {
+              "rate": 31,
+              "depth": 40,
+              "manual": 82,
+              "resonance": 50,
+              "low_cut": 0,
+              "level": 60,
+              "direct_mix": 0
+            },
+            "tremolo": {
+              "wave_shape": 70,
+              "rate": 85,
+              "depth": 65,
+              "level": 50
+            },
+            "rotary": {
+              "rate": 85,
+              "depth": 60,
+              "level": 50
+            },
+            "uni_v": {
+              "rate": 70,
+              "depth": 60,
+              "level": 100
+            },
+            "slicer": {
+              "pattern": 1,
+              "rate": 50,
+              "trigger_sens": 50,
+              "level": 50,
+              "direct_mix": 0
+            },
+            "vibrato": {
+              "rate": 80,
+              "depth": 45,
+              "level": 50
+            },
+            "ring_mod": {
+              "type_": 0,
+              "frequency": 50,
+              "level": 100,
+              "direct_mix": 100
+            },
+            "humanizer": {
+              "mode": 1,
+              "vowel1": 0,
+              "vowel2": 2,
+              "rate": 80,
+              "depth": 100,
+              "sens": 50,
+              "manual": 50,
+              "level": 100
+            },
+            "chorus": {
+              "crossover_frequency": 4,
+              "low_rate": 43,
+              "low_depth": 46,
+              "low_pre_delay": 1.5,
+              "low_level": 75,
+              "high_rate": 33,
+              "high_depth": 48,
+              "high_pre_delay": 1.5,
+              "high_level": 65,
+              "direct_mix": 80
+            },
+            "ac_guitar_sim": {
+              "body": 50,
+              "low": 0,
+              "high": 0,
+              "level": 50
+            },
+            "phaser_90e": {
+              "script_on": true,
+              "speed": 25
+            },
+            "flanger_117e": {
+              "manual": 45,
+              "width": 50,
+              "speed": 50,
+              "regen": 80
+            },
+            "wah_95e": {
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "dc30": {
+              "type_": 0,
+              "chorus_intensity": 50,
+              "echo_repeat_rate": 400,
+              "echo_intensity": 50,
+              "echo_volume": 100,
+              "input_volume": 50,
+              "tone": 50,
+              "output": 0
+            },
+            "heavy_octave": {
+              "level_1_oct": 100,
+              "level_2_oct": 0,
+              "direct_mix": 100
+            },
+            "pedal_bend": null
+          },
+          "delay1": {
+            "delay_on": true,
+            "delay_type": 9,
+            "delay_time": 400,
+            "feedback": 32,
+            "high_cut": 12,
+            "effect_level": 36,
+            "direct_mix": 100,
+            "tap_time": 50,
+            "mod_rate": 40,
+            "mod_depth": 55,
+            "filter_on": false,
+            "range_": 1,
+            "feedback_phase": 0,
+            "delay_phase": 0,
+            "mod_sw_on": false
+          },
+          "delay2": {
+            "delay_on": false,
+            "delay_type": 8,
+            "delay_time": 400,
+            "feedback": 35,
+            "high_cut": 10,
+            "effect_level": 50,
+            "direct_mix": 100,
+            "tap_time": 50,
+            "mod_rate": 40,
+            "mod_depth": 55,
+            "filter_on": false,
+            "range_": 1,
+            "feedback_phase": 0,
+            "delay_phase": 0,
+            "mod_sw_on": false
+          },
+          "patch1": {
+            "reverb_on": false,
+            "reverb_type": 4,
+            "reverb_time": 3.0,
+            "reverb_pre_delay": 10,
+            "reverb_low_cut": 14,
+            "reverb_high_cut": 8,
+            "reverb_density": 5,
+            "reverb_effect_level": 50,
+            "reverb_direct_mix": 100,
+            "reverb_color": 100,
+            "pedal_fx_type": 0,
+            "pedal_fx_wah_type": 0,
+            "pedal_fx_wah_pos": 100,
+            "pedal_fx_wah_min": 0,
+            "pedal_fx_wah_max": 100,
+            "pedal_fx_wah_level": 100,
+            "pedal_fx_wah_direct_mix": 0,
+            "pedal_fx_bend_pos": 50,
+            "pedal_fx_bend_pitch": 12,
+            "pedal_fx_bend_level": 100,
+            "pedal_fx_bend_direct_mix": 0,
+            "pedal_fx_wah95_pos": 100,
+            "pedal_fx_wah95_min": 0,
+            "pedal_fx_wah95_max": 100,
+            "pedal_fx_wah95_level": 100,
+            "pedal_fx_wah95_direct_mix": 0,
+            "noise_suppressor_on": false,
+            "noise_suppressor_threshold": 5,
+            "noise_suppressor_release": 50,
+            "master_key": 0,
+            "solo_on": false,
+            "solo_level": 50,
+            "contour": 0
+          },
+          "patch2": {
+            "boost_green": 1,
+            "boost_red": 0,
+            "boost_yellow": 2,
+            "mod_green": 38,
+            "mod_red": 3,
+            "mod_yellow": 4,
+            "fx_green": 35,
+            "fx_red": 36,
+            "fx_yellow": 15,
+            "delay_green": 10,
+            "delay_red": 0,
+            "delay_yellow": 9,
+            "reverb_green": 4,
+            "reverb_red": 4,
+            "reverb_yellow": 3,
+            "delay2_green": 8,
+            "delay2_red": 10,
+            "delay2_yellow": 10,
+            "reverb_green_mode": 2,
+            "reverb_red_mode": 2,
+            "reverb_yellow_mode": 2,
+            "boost_light": 0,
+            "mod_light": 0,
+            "fx_light": 2,
+            "delay_light": 2,
+            "reverb_light": 0,
+            "cab_resonance": 1
+          },
+          "patch_mk2v2": null,
+          "contour1": null,
+          "contour2": null,
+          "contour3": null,
+          "eq2": {
+            "on": false,
+            "type_": 0,
+            "low_cut": 0,
+            "low_gain": 0,
+            "low_mid_freq": 14,
+            "low_mid_q": 1.0,
+            "low_mid_gain": 0,
+            "high_mid_freq": 23,
+            "high_mid_q": 1.0,
+            "high_mid_gain": 0,
+            "high_gain": 0,
+            "high_cut": 14,
+            "level": 0,
+            "bar_31": 0.0,
+            "bar_62": 0.0,
+            "bar_125": 0.0,
+            "bar_250": 0.0,
+            "bar_500": 0.0,
+            "bar_1000": 0.0,
+            "bar_2000": 0.0,
+            "bar_4000": 0.0,
+            "bar_8000": 0.0,
+            "bar_16000": 0.0,
+            "bar_level": 0.0
+          }
+        }
+      },
+      {
+        "memo": "",
+        "param_set": {
+          "name": "Modern Lead",
+          "patch0": {
+            "boost_on": true,
+            "boost_type": 2,
+            "boost_drive": 49,
+            "boost_bottom": 10,
+            "boost_tone": 0,
+            "boost_solo_on": false,
+            "boost_solo_level": 50,
+            "boost_direct_mix": 0,
+            "boost_level": 40,
+            "amp_type": 24,
+            "amp_gain": 82,
+            "amp_volume": 40,
+            "amp_eq_bass": 72,
+            "amp_eq_middle": 80,
+            "amp_eq_treble": 65,
+            "amp_eq_presence": 77,
+            "eq": {
+              "on": false,
+              "type_": 0,
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 14,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0,
+              "bar_31": 0.0,
+              "bar_62": 0.0,
+              "bar_125": 0.0,
+              "bar_250": 0.0,
+              "bar_500": 0.0,
+              "bar_1000": 0.0,
+              "bar_2000": 0.0,
+              "bar_4000": 0.0,
+              "bar_8000": 0.0,
+              "bar_16000": 0.0,
+              "bar_level": 0.0
+            }
+          },
+          "fx1": {
+            "on": false,
+            "type_": 3,
+            "t_wah": {
+              "mode": 1,
+              "polarity": 1,
+              "sens": 50,
+              "frequency": 35,
+              "peak": 35,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "auto_wah": {
+              "mode": 1,
+              "frequency": 35,
+              "peak": 50,
+              "rate": 50,
+              "depth": 60,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "pedal_wah": {
+              "type_": 0,
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "compressor": {
+              "type_": 0,
+              "sustain": 50,
+              "attack": 50,
+              "tone": 0,
+              "level": 50
+            },
+            "limiter": {
+              "type_": 0,
+              "attack": 0,
+              "threshold": 30,
+              "ratio": 11,
+              "release": 10,
+              "level": 30
+            },
+            "graphic_eq": {
+              "bar_31": 0,
+              "bar_62": 0,
+              "bar_125": 0,
+              "bar_250": 0,
+              "bar_500": 0,
+              "bar_1000": 0,
+              "bar_2000": 0,
+              "bar_4000": 0,
+              "bar_8000": 0,
+              "bar_16000": 0,
+              "bar_level": 0
+            },
+            "parametric_eq": {
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 13,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0
+            },
+            "guitar_sim": {
+              "type_": 0,
+              "low": 0,
+              "high": 0,
+              "level": 50,
+              "body": 50
+            },
+            "slow_gear": {
+              "sens": 45,
+              "rise_time": 50,
+              "level": 60
+            },
+            "wave_synth": {
+              "type_": 0,
+              "cutoff": 40,
+              "resonance": 30,
+              "level": 25,
+              "filter_sens": 40,
+              "filter_decay": 50,
+              "filter_depth": 50,
+              "direct_mix": 0
+            },
+            "octave": {
+              "range_": 1,
+              "level": 62,
+              "direct_mix": 100
+            },
+            "pitch_shifter": {
+              "voice": 0,
+              "ps1_mode": 1,
+              "ps1_pitch": 0,
+              "ps1_fine": 10,
+              "ps1_pre_delay": 0,
+              "ps1_level": 70,
+              "ps1_feedback": 0,
+              "ps2_mode": 1,
+              "ps2_pitch": 0,
+              "ps2_fine": -10,
+              "ps2_pre_delay": 0,
+              "ps2_level": 70,
+              "direct_mix": 100
+            },
+            "harmonist": {
+              "voice": 1,
+              "hr1_mode": 12,
+              "hr1_level": 70,
+              "hr1_pre_delay": 0,
+              "hr1_feedback": 0,
+              "hr2_mode": 7,
+              "hr2_level": 80,
+              "hr2_pre_delay": 0,
+              "direct_mix": 100,
+              "hr1_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              },
+              "hr2_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              }
+            },
+            "ac_processor": {
+              "type_": 1,
+              "bass": 0,
+              "middle": 0,
+              "middle_freq": 16,
+              "treble": 0,
+              "presence": 0,
+              "level": 50
+            },
+            "phaser": {
+              "type_": 0,
+              "rate": 70,
+              "depth": 40,
+              "manual": 55,
+              "resonance": 0,
+              "step_rate": 0,
+              "level": 0,
+              "direct_mix": 100
+            },
+            "flanger": {
+              "rate": 31,
+              "depth": 40,
+              "manual": 82,
+              "resonance": 50,
+              "low_cut": 0,
+              "level": 60,
+              "direct_mix": 0
+            },
+            "tremolo": {
+              "wave_shape": 70,
+              "rate": 85,
+              "depth": 65,
+              "level": 50
+            },
+            "rotary": {
+              "rate": 85,
+              "depth": 60,
+              "level": 50
+            },
+            "uni_v": {
+              "rate": 70,
+              "depth": 60,
+              "level": 100
+            },
+            "slicer": {
+              "pattern": 1,
+              "rate": 50,
+              "trigger_sens": 50,
+              "level": 50,
+              "direct_mix": 0
+            },
+            "vibrato": {
+              "rate": 80,
+              "depth": 45,
+              "level": 50
+            },
+            "ring_mod": {
+              "type_": 0,
+              "frequency": 50,
+              "level": 100,
+              "direct_mix": 100
+            },
+            "humanizer": {
+              "mode": 1,
+              "vowel1": 0,
+              "vowel2": 2,
+              "rate": 80,
+              "depth": 100,
+              "sens": 50,
+              "manual": 50,
+              "level": 100
+            },
+            "chorus": {
+              "crossover_frequency": 4,
+              "low_rate": 43,
+              "low_depth": 46,
+              "low_pre_delay": 1.5,
+              "low_level": 75,
+              "high_rate": 33,
+              "high_depth": 48,
+              "high_pre_delay": 1.5,
+              "high_level": 65,
+              "direct_mix": 80
+            },
+            "ac_guitar_sim": {
+              "body": 50,
+              "low": 0,
+              "high": 0,
+              "level": 50
+            },
+            "phaser_90e": {
+              "script_on": true,
+              "speed": 50
+            },
+            "flanger_117e": {
+              "manual": 45,
+              "width": 50,
+              "speed": 48,
+              "regen": 65
+            },
+            "wah_95e": {
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "dc30": {
+              "type_": 0,
+              "chorus_intensity": 50,
+              "echo_repeat_rate": 400,
+              "echo_intensity": 50,
+              "echo_volume": 100,
+              "input_volume": 50,
+              "tone": 50,
+              "output": 0
+            },
+            "heavy_octave": {
+              "level_1_oct": 100,
+              "level_2_oct": 0,
+              "direct_mix": 100
+            },
+            "pedal_bend": null
+          },
+          "fx2": {
+            "on": false,
+            "type_": 36,
+            "t_wah": {
+              "mode": 1,
+              "polarity": 1,
+              "sens": 50,
+              "frequency": 35,
+              "peak": 35,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "auto_wah": {
+              "mode": 1,
+              "frequency": 35,
+              "peak": 50,
+              "rate": 50,
+              "depth": 60,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "pedal_wah": {
+              "type_": 0,
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "compressor": {
+              "type_": 0,
+              "sustain": 50,
+              "attack": 50,
+              "tone": 0,
+              "level": 50
+            },
+            "limiter": {
+              "type_": 0,
+              "attack": 0,
+              "threshold": 30,
+              "ratio": 11,
+              "release": 10,
+              "level": 30
+            },
+            "graphic_eq": {
+              "bar_31": 0,
+              "bar_62": 0,
+              "bar_125": 0,
+              "bar_250": 0,
+              "bar_500": 0,
+              "bar_1000": 0,
+              "bar_2000": 0,
+              "bar_4000": 0,
+              "bar_8000": 0,
+              "bar_16000": 0,
+              "bar_level": 0
+            },
+            "parametric_eq": {
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 13,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0
+            },
+            "guitar_sim": {
+              "type_": 0,
+              "low": 0,
+              "high": 0,
+              "level": 50,
+              "body": 50
+            },
+            "slow_gear": {
+              "sens": 45,
+              "rise_time": 50,
+              "level": 60
+            },
+            "wave_synth": {
+              "type_": 0,
+              "cutoff": 40,
+              "resonance": 30,
+              "level": 25,
+              "filter_sens": 40,
+              "filter_decay": 50,
+              "filter_depth": 50,
+              "direct_mix": 0
+            },
+            "octave": {
+              "range_": 1,
+              "level": 62,
+              "direct_mix": 100
+            },
+            "pitch_shifter": {
+              "voice": 0,
+              "ps1_mode": 1,
+              "ps1_pitch": 0,
+              "ps1_fine": 10,
+              "ps1_pre_delay": 0,
+              "ps1_level": 70,
+              "ps1_feedback": 0,
+              "ps2_mode": 1,
+              "ps2_pitch": 0,
+              "ps2_fine": -10,
+              "ps2_pre_delay": 0,
+              "ps2_level": 70,
+              "direct_mix": 100
+            },
+            "harmonist": {
+              "voice": 1,
+              "hr1_mode": 12,
+              "hr1_level": 70,
+              "hr1_pre_delay": 0,
+              "hr1_feedback": 0,
+              "hr2_mode": 7,
+              "hr2_level": 80,
+              "hr2_pre_delay": 0,
+              "direct_mix": 100,
+              "hr1_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              },
+              "hr2_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              }
+            },
+            "ac_processor": {
+              "type_": 1,
+              "bass": 0,
+              "middle": 0,
+              "middle_freq": 16,
+              "treble": 0,
+              "presence": 0,
+              "level": 50
+            },
+            "phaser": {
+              "type_": 0,
+              "rate": 70,
+              "depth": 40,
+              "manual": 55,
+              "resonance": 0,
+              "step_rate": 0,
+              "level": 0,
+              "direct_mix": 100
+            },
+            "flanger": {
+              "rate": 31,
+              "depth": 40,
+              "manual": 82,
+              "resonance": 50,
+              "low_cut": 0,
+              "level": 60,
+              "direct_mix": 0
+            },
+            "tremolo": {
+              "wave_shape": 70,
+              "rate": 85,
+              "depth": 65,
+              "level": 50
+            },
+            "rotary": {
+              "rate": 85,
+              "depth": 60,
+              "level": 50
+            },
+            "uni_v": {
+              "rate": 70,
+              "depth": 60,
+              "level": 100
+            },
+            "slicer": {
+              "pattern": 1,
+              "rate": 50,
+              "trigger_sens": 50,
+              "level": 50,
+              "direct_mix": 0
+            },
+            "vibrato": {
+              "rate": 80,
+              "depth": 45,
+              "level": 50
+            },
+            "ring_mod": {
+              "type_": 0,
+              "frequency": 50,
+              "level": 100,
+              "direct_mix": 100
+            },
+            "humanizer": {
+              "mode": 1,
+              "vowel1": 0,
+              "vowel2": 2,
+              "rate": 80,
+              "depth": 100,
+              "sens": 50,
+              "manual": 50,
+              "level": 100
+            },
+            "chorus": {
+              "crossover_frequency": 4,
+              "low_rate": 43,
+              "low_depth": 46,
+              "low_pre_delay": 1.5,
+              "low_level": 75,
+              "high_rate": 33,
+              "high_depth": 48,
+              "high_pre_delay": 1.5,
+              "high_level": 65,
+              "direct_mix": 80
+            },
+            "ac_guitar_sim": {
+              "body": 50,
+              "low": 0,
+              "high": 0,
+              "level": 50
+            },
+            "phaser_90e": {
+              "script_on": true,
+              "speed": 10
+            },
+            "flanger_117e": {
+              "manual": 45,
+              "width": 50,
+              "speed": 50,
+              "regen": 80
+            },
+            "wah_95e": {
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "dc30": {
+              "type_": 0,
+              "chorus_intensity": 50,
+              "echo_repeat_rate": 400,
+              "echo_intensity": 50,
+              "echo_volume": 100,
+              "input_volume": 50,
+              "tone": 50,
+              "output": 0
+            },
+            "heavy_octave": {
+              "level_1_oct": 100,
+              "level_2_oct": 0,
+              "direct_mix": 100
+            },
+            "pedal_bend": null
+          },
+          "delay1": {
+            "delay_on": true,
+            "delay_type": 10,
+            "delay_time": 717,
+            "feedback": 32,
+            "high_cut": 12,
+            "effect_level": 43,
+            "direct_mix": 100,
+            "tap_time": 50,
+            "mod_rate": 40,
+            "mod_depth": 55,
+            "filter_on": false,
+            "range_": 1,
+            "feedback_phase": 0,
+            "delay_phase": 0,
+            "mod_sw_on": false
+          },
+          "delay2": {
+            "delay_on": false,
+            "delay_type": 8,
+            "delay_time": 400,
+            "feedback": 29,
+            "high_cut": 10,
+            "effect_level": 65,
+            "direct_mix": 100,
+            "tap_time": 50,
+            "mod_rate": 40,
+            "mod_depth": 55,
+            "filter_on": false,
+            "range_": 1,
+            "feedback_phase": 0,
+            "delay_phase": 0,
+            "mod_sw_on": false
+          },
+          "patch1": {
+            "reverb_on": true,
+            "reverb_type": 4,
+            "reverb_time": 3.0,
+            "reverb_pre_delay": 10,
+            "reverb_low_cut": 14,
+            "reverb_high_cut": 8,
+            "reverb_density": 5,
+            "reverb_effect_level": 26,
+            "reverb_direct_mix": 100,
+            "reverb_color": 100,
+            "pedal_fx_type": 0,
+            "pedal_fx_wah_type": 0,
+            "pedal_fx_wah_pos": 100,
+            "pedal_fx_wah_min": 0,
+            "pedal_fx_wah_max": 100,
+            "pedal_fx_wah_level": 100,
+            "pedal_fx_wah_direct_mix": 0,
+            "pedal_fx_bend_pos": 50,
+            "pedal_fx_bend_pitch": 12,
+            "pedal_fx_bend_level": 100,
+            "pedal_fx_bend_direct_mix": 0,
+            "pedal_fx_wah95_pos": 100,
+            "pedal_fx_wah95_min": 0,
+            "pedal_fx_wah95_max": 100,
+            "pedal_fx_wah95_level": 100,
+            "pedal_fx_wah95_direct_mix": 0,
+            "noise_suppressor_on": false,
+            "noise_suppressor_threshold": 5,
+            "noise_suppressor_release": 50,
+            "master_key": 0,
+            "solo_on": false,
+            "solo_level": 50,
+            "contour": 0
+          },
+          "patch2": {
+            "boost_green": 1,
+            "boost_red": 0,
+            "boost_yellow": 2,
+            "mod_green": 38,
+            "mod_red": 3,
+            "mod_yellow": 4,
+            "fx_green": 35,
+            "fx_red": 36,
+            "fx_yellow": 15,
+            "delay_green": 10,
+            "delay_red": 0,
+            "delay_yellow": 9,
+            "reverb_green": 4,
+            "reverb_red": 4,
+            "reverb_yellow": 3,
+            "delay2_green": 8,
+            "delay2_red": 10,
+            "delay2_yellow": 10,
+            "reverb_green_mode": 2,
+            "reverb_red_mode": 2,
+            "reverb_yellow_mode": 2,
+            "boost_light": 2,
+            "mod_light": 1,
+            "fx_light": 1,
+            "delay_light": 0,
+            "reverb_light": 0,
+            "cab_resonance": 1
+          },
+          "patch_mk2v2": null,
+          "contour1": null,
+          "contour2": null,
+          "contour3": null,
+          "eq2": {
+            "on": false,
+            "type_": 0,
+            "low_cut": 0,
+            "low_gain": 0,
+            "low_mid_freq": 14,
+            "low_mid_q": 1.0,
+            "low_mid_gain": 0,
+            "high_mid_freq": 23,
+            "high_mid_q": 1.0,
+            "high_mid_gain": 0,
+            "high_gain": 0,
+            "high_cut": 14,
+            "level": 0,
+            "bar_31": 0.0,
+            "bar_62": 0.0,
+            "bar_125": 0.0,
+            "bar_250": 0.0,
+            "bar_500": 0.0,
+            "bar_1000": 0.0,
+            "bar_2000": 0.0,
+            "bar_4000": 0.0,
+            "bar_8000": 0.0,
+            "bar_16000": 0.0,
+            "bar_level": 0.0
+          }
+        }
+      },
+      {
+        "memo": "",
+        "param_set": {
+          "name": "KATANA Mk2",
+          "patch0": {
+            "boost_on": false,
+            "boost_type": 10,
+            "boost_drive": 0,
+            "boost_bottom": 10,
+            "boost_tone": 0,
+            "boost_solo_on": false,
+            "boost_solo_level": 50,
+            "boost_direct_mix": 0,
+            "boost_level": 75,
+            "amp_type": 8,
+            "amp_gain": 29,
+            "amp_volume": 55,
+            "amp_eq_bass": 35,
+            "amp_eq_middle": 75,
+            "amp_eq_treble": 55,
+            "amp_eq_presence": 50,
+            "eq": {
+              "on": false,
+              "type_": 0,
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 14,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0,
+              "bar_31": 0.0,
+              "bar_62": 0.0,
+              "bar_125": 0.0,
+              "bar_250": 0.0,
+              "bar_500": 0.0,
+              "bar_1000": 0.0,
+              "bar_2000": 0.0,
+              "bar_4000": 0.0,
+              "bar_8000": 0.0,
+              "bar_16000": 0.0,
+              "bar_level": 0.0
+            }
+          },
+          "fx1": {
+            "on": false,
+            "type_": 29,
+            "t_wah": {
+              "mode": 1,
+              "polarity": 1,
+              "sens": 50,
+              "frequency": 35,
+              "peak": 35,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "auto_wah": {
+              "mode": 1,
+              "frequency": 35,
+              "peak": 50,
+              "rate": 50,
+              "depth": 60,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "pedal_wah": {
+              "type_": 0,
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "compressor": {
+              "type_": 0,
+              "sustain": 50,
+              "attack": 50,
+              "tone": 0,
+              "level": 50
+            },
+            "limiter": {
+              "type_": 0,
+              "attack": 0,
+              "threshold": 30,
+              "ratio": 11,
+              "release": 10,
+              "level": 30
+            },
+            "graphic_eq": {
+              "bar_31": 0,
+              "bar_62": 0,
+              "bar_125": 0,
+              "bar_250": 0,
+              "bar_500": 0,
+              "bar_1000": 0,
+              "bar_2000": 0,
+              "bar_4000": 0,
+              "bar_8000": 0,
+              "bar_16000": 0,
+              "bar_level": 0
+            },
+            "parametric_eq": {
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 13,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0
+            },
+            "guitar_sim": {
+              "type_": 0,
+              "low": 0,
+              "high": 0,
+              "level": 50,
+              "body": 50
+            },
+            "slow_gear": {
+              "sens": 45,
+              "rise_time": 50,
+              "level": 60
+            },
+            "wave_synth": {
+              "type_": 0,
+              "cutoff": 40,
+              "resonance": 30,
+              "level": 25,
+              "filter_sens": 40,
+              "filter_decay": 50,
+              "filter_depth": 50,
+              "direct_mix": 0
+            },
+            "octave": {
+              "range_": 1,
+              "level": 62,
+              "direct_mix": 100
+            },
+            "pitch_shifter": {
+              "voice": 0,
+              "ps1_mode": 1,
+              "ps1_pitch": 0,
+              "ps1_fine": 10,
+              "ps1_pre_delay": 0,
+              "ps1_level": 70,
+              "ps1_feedback": 0,
+              "ps2_mode": 1,
+              "ps2_pitch": 0,
+              "ps2_fine": -10,
+              "ps2_pre_delay": 0,
+              "ps2_level": 70,
+              "direct_mix": 100
+            },
+            "harmonist": {
+              "voice": 1,
+              "hr1_mode": 12,
+              "hr1_level": 70,
+              "hr1_pre_delay": 0,
+              "hr1_feedback": 0,
+              "hr2_mode": 7,
+              "hr2_level": 80,
+              "hr2_pre_delay": 0,
+              "direct_mix": 100,
+              "hr1_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              },
+              "hr2_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              }
+            },
+            "ac_processor": {
+              "type_": 1,
+              "bass": 0,
+              "middle": 0,
+              "middle_freq": 16,
+              "treble": 0,
+              "presence": 0,
+              "level": 50
+            },
+            "phaser": {
+              "type_": 0,
+              "rate": 70,
+              "depth": 40,
+              "manual": 55,
+              "resonance": 0,
+              "step_rate": 0,
+              "level": 0,
+              "direct_mix": 100
+            },
+            "flanger": {
+              "rate": 31,
+              "depth": 40,
+              "manual": 82,
+              "resonance": 50,
+              "low_cut": 0,
+              "level": 60,
+              "direct_mix": 0
+            },
+            "tremolo": {
+              "wave_shape": 70,
+              "rate": 85,
+              "depth": 65,
+              "level": 50
+            },
+            "rotary": {
+              "rate": 85,
+              "depth": 60,
+              "level": 50
+            },
+            "uni_v": {
+              "rate": 70,
+              "depth": 60,
+              "level": 100
+            },
+            "slicer": {
+              "pattern": 1,
+              "rate": 50,
+              "trigger_sens": 50,
+              "level": 50,
+              "direct_mix": 0
+            },
+            "vibrato": {
+              "rate": 80,
+              "depth": 45,
+              "level": 50
+            },
+            "ring_mod": {
+              "type_": 0,
+              "frequency": 50,
+              "level": 100,
+              "direct_mix": 100
+            },
+            "humanizer": {
+              "mode": 1,
+              "vowel1": 0,
+              "vowel2": 2,
+              "rate": 80,
+              "depth": 100,
+              "sens": 50,
+              "manual": 50,
+              "level": 100
+            },
+            "chorus": {
+              "crossover_frequency": 4,
+              "low_rate": 20,
+              "low_depth": 46,
+              "low_pre_delay": 1.5,
+              "low_level": 75,
+              "high_rate": 10,
+              "high_depth": 48,
+              "high_pre_delay": 1.5,
+              "high_level": 65,
+              "direct_mix": 80
+            },
+            "ac_guitar_sim": {
+              "body": 50,
+              "low": 0,
+              "high": 0,
+              "level": 50
+            },
+            "phaser_90e": {
+              "script_on": true,
+              "speed": 50
+            },
+            "flanger_117e": {
+              "manual": 45,
+              "width": 50,
+              "speed": 50,
+              "regen": 80
+            },
+            "wah_95e": {
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "dc30": {
+              "type_": 0,
+              "chorus_intensity": 50,
+              "echo_repeat_rate": 400,
+              "echo_intensity": 50,
+              "echo_volume": 100,
+              "input_volume": 50,
+              "tone": 50,
+              "output": 0
+            },
+            "heavy_octave": {
+              "level_1_oct": 50,
+              "level_2_oct": 0,
+              "direct_mix": 100
+            },
+            "pedal_bend": null
+          },
+          "fx2": {
+            "on": true,
+            "type_": 21,
+            "t_wah": {
+              "mode": 1,
+              "polarity": 1,
+              "sens": 50,
+              "frequency": 35,
+              "peak": 35,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "auto_wah": {
+              "mode": 1,
+              "frequency": 35,
+              "peak": 50,
+              "rate": 50,
+              "depth": 60,
+              "direct_mix": 0,
+              "level": 50
+            },
+            "pedal_wah": {
+              "type_": 0,
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "compressor": {
+              "type_": 0,
+              "sustain": 50,
+              "attack": 50,
+              "tone": 0,
+              "level": 50
+            },
+            "limiter": {
+              "type_": 0,
+              "attack": 0,
+              "threshold": 30,
+              "ratio": 11,
+              "release": 10,
+              "level": 30
+            },
+            "graphic_eq": {
+              "bar_31": 0,
+              "bar_62": 0,
+              "bar_125": 0,
+              "bar_250": 0,
+              "bar_500": 0,
+              "bar_1000": 0,
+              "bar_2000": 0,
+              "bar_4000": 0,
+              "bar_8000": 0,
+              "bar_16000": 0,
+              "bar_level": 0
+            },
+            "parametric_eq": {
+              "low_cut": 0,
+              "low_gain": 0,
+              "low_mid_freq": 13,
+              "low_mid_q": 1.0,
+              "low_mid_gain": 0,
+              "high_mid_freq": 23,
+              "high_mid_q": 1.0,
+              "high_mid_gain": 0,
+              "high_gain": 0,
+              "high_cut": 14,
+              "level": 0
+            },
+            "guitar_sim": {
+              "type_": 0,
+              "low": 0,
+              "high": 0,
+              "level": 50,
+              "body": 50
+            },
+            "slow_gear": {
+              "sens": 45,
+              "rise_time": 50,
+              "level": 60
+            },
+            "wave_synth": {
+              "type_": 0,
+              "cutoff": 40,
+              "resonance": 30,
+              "level": 25,
+              "filter_sens": 40,
+              "filter_decay": 50,
+              "filter_depth": 50,
+              "direct_mix": 0
+            },
+            "octave": {
+              "range_": 1,
+              "level": 62,
+              "direct_mix": 100
+            },
+            "pitch_shifter": {
+              "voice": 0,
+              "ps1_mode": 1,
+              "ps1_pitch": 0,
+              "ps1_fine": 10,
+              "ps1_pre_delay": 0,
+              "ps1_level": 70,
+              "ps1_feedback": 0,
+              "ps2_mode": 1,
+              "ps2_pitch": 0,
+              "ps2_fine": -10,
+              "ps2_pre_delay": 0,
+              "ps2_level": 70,
+              "direct_mix": 100
+            },
+            "harmonist": {
+              "voice": 1,
+              "hr1_mode": 12,
+              "hr1_level": 70,
+              "hr1_pre_delay": 0,
+              "hr1_feedback": 0,
+              "hr2_mode": 7,
+              "hr2_level": 80,
+              "hr2_pre_delay": 0,
+              "direct_mix": 100,
+              "hr1_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              },
+              "hr2_user": {
+                "e": 0,
+                "f": 0,
+                "f_sharp": 0,
+                "g": 0,
+                "a_flat": 0,
+                "a": 0,
+                "b_flat": 0,
+                "b": 0,
+                "c": 0,
+                "d_flat": 0,
+                "d": 0,
+                "e_flat": 0
+              }
+            },
+            "ac_processor": {
+              "type_": 1,
+              "bass": 0,
+              "middle": 0,
+              "middle_freq": 16,
+              "treble": 0,
+              "presence": 0,
+              "level": 50
+            },
+            "phaser": {
+              "type_": 0,
+              "rate": 70,
+              "depth": 40,
+              "manual": 55,
+              "resonance": 0,
+              "step_rate": 0,
+              "level": 0,
+              "direct_mix": 100
+            },
+            "flanger": {
+              "rate": 31,
+              "depth": 40,
+              "manual": 82,
+              "resonance": 50,
+              "low_cut": 0,
+              "level": 60,
+              "direct_mix": 0
+            },
+            "tremolo": {
+              "wave_shape": 70,
+              "rate": 44,
+              "depth": 65,
+              "level": 50
+            },
+            "rotary": {
+              "rate": 85,
+              "depth": 60,
+              "level": 50
+            },
+            "uni_v": {
+              "rate": 70,
+              "depth": 60,
+              "level": 100
+            },
+            "slicer": {
+              "pattern": 1,
+              "rate": 50,
+              "trigger_sens": 50,
+              "level": 50,
+              "direct_mix": 0
+            },
+            "vibrato": {
+              "rate": 80,
+              "depth": 45,
+              "level": 50
+            },
+            "ring_mod": {
+              "type_": 0,
+              "frequency": 50,
+              "level": 100,
+              "direct_mix": 100
+            },
+            "humanizer": {
+              "mode": 1,
+              "vowel1": 0,
+              "vowel2": 2,
+              "rate": 80,
+              "depth": 100,
+              "sens": 50,
+              "manual": 50,
+              "level": 100
+            },
+            "chorus": {
+              "crossover_frequency": 4,
+              "low_rate": 43,
+              "low_depth": 46,
+              "low_pre_delay": 1.5,
+              "low_level": 75,
+              "high_rate": 33,
+              "high_depth": 48,
+              "high_pre_delay": 1.5,
+              "high_level": 65,
+              "direct_mix": 80
+            },
+            "ac_guitar_sim": {
+              "body": 50,
+              "low": 0,
+              "high": 0,
+              "level": 50
+            },
+            "phaser_90e": {
+              "script_on": true,
+              "speed": 50
+            },
+            "flanger_117e": {
+              "manual": 45,
+              "width": 50,
+              "speed": 50,
+              "regen": 80
+            },
+            "wah_95e": {
+              "pedal_pos": 100,
+              "pedal_min": 0,
+              "pedal_max": 100,
+              "level": 100,
+              "direct_mix": 0
+            },
+            "dc30": {
+              "type_": 0,
+              "chorus_intensity": 50,
+              "echo_repeat_rate": 400,
+              "echo_intensity": 50,
+              "echo_volume": 100,
+              "input_volume": 50,
+              "tone": 50,
+              "output": 0
+            },
+            "heavy_octave": {
+              "level_1_oct": 50,
+              "level_2_oct": 0,
+              "direct_mix": 100
+            },
+            "pedal_bend": null
+          },
+          "delay1": {
+            "delay_on": false,
+            "delay_type": 0,
+            "delay_time": 400,
+            "feedback": 35,
+            "high_cut": 12,
+            "effect_level": 0,
+            "direct_mix": 100,
+            "tap_time": 50,
+            "mod_rate": 40,
+            "mod_depth": 55,
+            "filter_on": false,
+            "range_": 1,
+            "feedback_phase": 0,
+            "delay_phase": 0,
+            "mod_sw_on": false
+          },
+          "delay2": {
+            "delay_on": false,
+            "delay_type": 0,
+            "delay_time": 400,
+            "feedback": 22,
+            "high_cut": 10,
+            "effect_level": 50,
+            "direct_mix": 100,
+            "tap_time": 50,
+            "mod_rate": 40,
+            "mod_depth": 55,
+            "filter_on": false,
+            "range_": 1,
+            "feedback_phase": 0,
+            "delay_phase": 0,
+            "mod_sw_on": false
+          },
+          "patch1": {
+            "reverb_on": true,
+            "reverb_type": 4,
+            "reverb_time": 3.0,
+            "reverb_pre_delay": 10,
+            "reverb_low_cut": 14,
+            "reverb_high_cut": 8,
+            "reverb_density": 5,
+            "reverb_effect_level": 54,
+            "reverb_direct_mix": 100,
+            "reverb_color": 100,
+            "pedal_fx_type": 0,
+            "pedal_fx_wah_type": 0,
+            "pedal_fx_wah_pos": 100,
+            "pedal_fx_wah_min": 0,
+            "pedal_fx_wah_max": 100,
+            "pedal_fx_wah_level": 100,
+            "pedal_fx_wah_direct_mix": 0,
+            "pedal_fx_bend_pos": 50,
+            "pedal_fx_bend_pitch": 12,
+            "pedal_fx_bend_level": 100,
+            "pedal_fx_bend_direct_mix": 0,
+            "pedal_fx_wah95_pos": 100,
+            "pedal_fx_wah95_min": 0,
+            "pedal_fx_wah95_max": 100,
+            "pedal_fx_wah95_level": 100,
+            "pedal_fx_wah95_direct_mix": 0,
+            "noise_suppressor_on": false,
+            "noise_suppressor_threshold": 5,
+            "noise_suppressor_release": 50,
+            "master_key": 0,
+            "solo_on": false,
+            "solo_level": 50,
+            "contour": 0
+          },
+          "patch2": {
+            "boost_green": 10,
+            "boost_red": 11,
+            "boost_yellow": 14,
+            "mod_green": 29,
+            "mod_red": 35,
+            "mod_yellow": 36,
+            "fx_green": 21,
+            "fx_red": 0,
+            "fx_yellow": 39,
+            "delay_green": 0,
+            "delay_red": 7,
+            "delay_yellow": 8,
+            "reverb_green": 4,
+            "reverb_red": 5,
+            "reverb_yellow": 3,
+            "delay2_green": 0,
+            "delay2_red": 7,
+            "delay2_yellow": 8,
+            "reverb_green_mode": 2,
+            "reverb_red_mode": 2,
+            "reverb_yellow_mode": 2,
+            "boost_light": 0,
+            "mod_light": 0,
+            "fx_light": 0,
+            "delay_light": 0,
+            "reverb_light": 0,
+            "cab_resonance": 1
+          },
+          "patch_mk2v2": null,
+          "contour1": null,
+          "contour2": null,
+          "contour3": null,
+          "eq2": {
+            "on": false,
+            "type_": 0,
+            "low_cut": 0,
+            "low_gain": 0,
+            "low_mid_freq": 14,
+            "low_mid_q": 1.0,
+            "low_mid_gain": 0,
+            "high_mid_freq": 23,
+            "high_mid_q": 1.0,
+            "high_mid_gain": 0,
+            "high_gain": 0,
+            "high_cut": 14,
+            "level": 0,
+            "bar_31": 0.0,
+            "bar_62": 0.0,
+            "bar_125": 0.0,
+            "bar_250": 0.0,
+            "bar_500": 0.0,
+            "bar_1000": 0.0,
+            "bar_2000": 0.0,
+            "bar_4000": 0.0,
+            "bar_8000": 0.0,
+            "bar_16000": 0.0,
+            "bar_level": 0.0
+          }
+        }
+      }
+    ]
+  ]
+}

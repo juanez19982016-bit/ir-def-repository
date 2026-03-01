@@ -1,0 +1,88 @@
+{
+  "kind": "build_request",
+  "title": "Add per-page animations, add a final Yes page, and ensure all images are transparent",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-7",
+      "text": "Add noticeable, cute animations to each page in the Valentine flow (FirstNamePage, LastNamePage, LoveSliderPage, ValentineMainPage, WrongAnswerPage), including an on-enter transition for the main card/content so each step feels animated when it appears.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "ok final fixes, add animations to each page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each step/page visibly animates in when it is shown (e.g., fade/scale/slide-in on the main card content).",
+        "Animations are consistent with the existing Valentine theme and do not block form inputs or navigation.",
+        "Existing slider-completion hearts burst animation still works and still auto-navigates to the main Valentine page."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "When the user presses \"Yes\" on the main Valentine page, navigate to a new final confirmation/celebration page instead of showing a browser alert.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "and if yes is pressed have a final page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Clicking the \"Yes\" button on the main Valentine page routes to a new final celebration page within the existing App.tsx step flow (no alert is shown).",
+        "The final page contains celebratory Valentine-themed UI and at least one clear action (e.g., restart/go back).",
+        "The existing \"No\" flow still navigates to the WrongAnswerPage and the Go Back button still returns to the main Valentine page."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Ensure all generated image assets used by the app have transparent backgrounds (alpha channel), including the background pattern image if it is retained as an image asset.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Have all images have transparent backgrounds aswell"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All PNG assets under /assets/generated used by the UI render without a visible non-transparent box/background around the illustrated elements (where applicable).",
+        "If the background image (valentine-bg.dim_1920x1080.png) is used, it has transparency so the existing gradient overlay can show through cleanly."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify files under frontend/src/components/ui (read-only).",
+    "Do not modify immutable hook/entry files: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx.",
+    "Do not serve images via the backend; keep using static assets under frontend/public/assets/generated."
+  ],
+  "nonGoals": [
+    "Adding background music or sound effects.",
+    "Adding backend persistence or any Motoko backend features (backend/main.mo remains unchanged unless explicitly required later).",
+    "Adding third-party auth providers beyond Internet Identity."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": [
+      "Ensure fully transparent background/alpha channel (valentine-bg.dim_1920x1080.png > valentine-bg.dim_1920x1080.png)",
+      "Ensure fully transparent background/alpha channel (heart-mascot.dim_512x512.png > heart-mascot.dim_512x512.png)",
+      "Ensure fully transparent background/alpha channel (mad-emoji.dim_256x256.png > mad-emoji.dim_256x256.png)"
+    ]
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

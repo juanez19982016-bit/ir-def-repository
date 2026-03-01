@@ -1,0 +1,470 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-02",
+  "models": [
+    {
+      "id": "pod_go",
+      "brand": "Line 6",
+      "name": "POD Go",
+      "category": "floor",
+      "priceRange": "$450-500",
+      "specs": {
+        "dsp": "400MHz",
+        "ampModels": 80,
+        "cabinets": 40,
+        "effects": 200,
+        "simultaneousBlocks": 4,
+        "snapshots": 4,
+        "footswitches": 8,
+        "expressionPedal": true,
+        "display": "4.3인치 컬러 LCD",
+        "usbAudio": true
+      },
+      "worshipRecommended": true,
+      "supportedInApp": true,
+      "recommendedAmps": [
+        {"name": "Litigator", "original": "Dumble", "style": "모던 워십, 앰비언트"},
+        {"name": "Matchstick Ch1", "original": "Matchless DC30", "style": "모던 워십"},
+        {"name": "Essex A30", "original": "Vox AC30", "style": "브리티쉬 록"},
+        {"name": "Cali IV Rhythm 1", "original": "Mesa Boogie", "style": "하이 게인"},
+        {"name": "Placater Dirty", "original": "Friedman", "style": "락/CCM"}
+      ],
+      "recommendedDrives": [
+        {"name": "Teemah!", "original": "Timmy", "use": "기본 크런치"},
+        {"name": "Minotaur", "original": "Klon Centaur", "use": "솔로/리드"},
+        {"name": "Screamer 808", "original": "Tube Screamer", "use": "미드 부스터"},
+        {"name": "Kinky Boost", "original": "Xotic EP Booster", "use": "클린 부스트"}
+      ]
+    },
+    {
+      "id": "helix_floor",
+      "brand": "Line 6",
+      "name": "Helix Floor",
+      "category": "floor",
+      "priceRange": "$1,700",
+      "specs": {
+        "dsp": "Dual SHARC",
+        "ampModels": 100,
+        "effects": 240,
+        "simultaneousBlocks": 32,
+        "snapshots": 8,
+        "footswitches": 12,
+        "expressionPedal": true,
+        "display": "6.2인치 컬러",
+        "usbAudio": "8 in / 8 out"
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "helix_lt",
+      "brand": "Line 6",
+      "name": "Helix LT",
+      "category": "floor",
+      "priceRange": "$1,200",
+      "specs": {
+        "dsp": "Dual SHARC",
+        "ampModels": 100,
+        "effects": 240,
+        "simultaneousBlocks": 32,
+        "snapshots": 8,
+        "footswitches": 10,
+        "expressionPedal": true,
+        "display": "6.2인치 컬러"
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "hx_stomp",
+      "brand": "Line 6",
+      "name": "HX Stomp",
+      "category": "compact",
+      "priceRange": "$650",
+      "specs": {
+        "dsp": "450MHz",
+        "ampModels": 80,
+        "effects": 200,
+        "simultaneousBlocks": 8,
+        "snapshots": 3,
+        "footswitches": 3,
+        "midi": true
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false,
+      "notes": "페달보드 통합에 최적"
+    },
+    {
+      "id": "hx_stomp_xl",
+      "brand": "Line 6",
+      "name": "HX Stomp XL",
+      "category": "compact",
+      "priceRange": "$900",
+      "specs": {
+        "dsp": "450MHz",
+        "ampModels": 80,
+        "effects": 200,
+        "simultaneousBlocks": 8,
+        "snapshots": 3,
+        "footswitches": 8,
+        "midi": true
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "gt1000",
+      "brand": "Boss",
+      "name": "GT-1000",
+      "category": "floor",
+      "priceRange": "$1,000",
+      "specs": {
+        "processing": "32-bit AD/DA, 96kHz",
+        "technology": "AIRD + Tube Logic",
+        "ampModels": 22,
+        "effects": 118,
+        "cabinets": 7,
+        "irSlots": 16,
+        "simultaneousBlocks": 24,
+        "footswitches": 10,
+        "effectsLoop": 2,
+        "bluetooth": true
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "gt1000core",
+      "brand": "Boss",
+      "name": "GT-1000CORE",
+      "category": "compact",
+      "priceRange": "$700",
+      "specs": {
+        "processing": "32-bit AD/DA, 96kHz",
+        "technology": "AIRD + Tube Logic",
+        "ampModels": 22,
+        "effects": 118,
+        "cabinets": 7,
+        "irSlots": 16,
+        "simultaneousBlocks": 24,
+        "footswitches": 6,
+        "effectsLoop": 2
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "quad_cortex",
+      "brand": "Neural DSP",
+      "name": "Quad Cortex",
+      "category": "floor",
+      "priceRange": "$1,850",
+      "specs": {
+        "dsp": "2GHz Quad-Core SHARC+",
+        "additionalCpu": "Dual ARM Core",
+        "ampModels": 90,
+        "effects": 100,
+        "irSlots": 1000,
+        "captures": 2000,
+        "display": "7인치 터치스크린",
+        "footswitches": 11,
+        "wifi": true,
+        "usbAudio": true
+      },
+      "technology": "Neural Capture (AI-based)",
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "nano_cortex",
+      "brand": "Neural DSP",
+      "name": "Nano Cortex",
+      "category": "compact",
+      "priceRange": "$950",
+      "specs": {
+        "neuralCapture": true
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false,
+      "notes": "페달보드 통합용 콤팩트"
+    },
+    {
+      "id": "axe_fx_iii",
+      "brand": "Fractal Audio",
+      "name": "Axe-Fx III",
+      "category": "rack",
+      "priceRange": "$3,000",
+      "specs": {
+        "dspPower": "4x (최고)",
+        "ampModels": 300,
+        "effects": 200,
+        "ampEngine": "Cygnus",
+        "cabBlocks": 2,
+        "irSlotsPerCab": 4,
+        "presets": 1024,
+        "display": "컬러 LCD"
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "fm9",
+      "brand": "Fractal Audio",
+      "name": "FM9",
+      "category": "floor",
+      "priceRange": "$2,000",
+      "specs": {
+        "dspPower": "2x",
+        "ampModels": 300,
+        "effects": 200,
+        "ampEngine": "Cygnus",
+        "cabBlocks": 2,
+        "irSlotsPerCab": 2,
+        "presets": 512,
+        "footswitches": 9,
+        "display": "컬러 LCD"
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "fm3",
+      "brand": "Fractal Audio",
+      "name": "FM3 MK II Turbo",
+      "category": "compact",
+      "priceRange": "$1,100",
+      "specs": {
+        "dspPower": "1x (+10% Turbo)",
+        "ampModels": 300,
+        "effects": 200,
+        "ampEngine": "Cygnus",
+        "cabBlocks": 1,
+        "irSlotsPerCab": 2,
+        "presets": 512,
+        "footswitches": 3,
+        "inputs": 3,
+        "outputs": 5
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "kemper_stage",
+      "brand": "Kemper",
+      "name": "Profiler Stage",
+      "category": "floor",
+      "priceRange": "$2,000",
+      "specs": {
+        "profiling": true,
+        "effectBlocks": 13,
+        "effectBlocksMk2": 20,
+        "effectsLoop": "2x stereo",
+        "fxPresets": 441
+      },
+      "technology": "Profiling (앰프 DNA 추출)",
+      "worshipRecommended": true,
+      "supportedInApp": false,
+      "mk2Upgrades": {
+        "frequencyPoints": 100000,
+        "bootTime": "~20초",
+        "usbChannels": 8,
+        "material": "경량 알루미늄"
+      }
+    },
+    {
+      "id": "kemper_player",
+      "brand": "Kemper",
+      "name": "Profiler Player",
+      "category": "compact",
+      "priceRange": "$700",
+      "specs": {
+        "profiling": false,
+        "profileLoading": true,
+        "fxSettings": 199,
+        "fxPresets": 441
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false,
+      "notes": "초콤팩트, 프로파일 로드만 가능"
+    },
+    {
+      "id": "headrush_prime",
+      "brand": "HeadRush",
+      "name": "HeadRush Prime",
+      "category": "floor",
+      "priceRange": "$1,300",
+      "specs": {
+        "display": "7인치 터치스크린",
+        "ir": 300,
+        "footswitches": 12,
+        "expressionPedal": true,
+        "looper": "5분/루프, 20분 총",
+        "usbAudio": "24-bit/96kHz",
+        "vocalFx": true,
+        "autoTune": true,
+        "wifi": true,
+        "bluetooth": true
+      },
+      "technology": "Amp Cloning",
+      "worshipRecommended": true,
+      "supportedInApp": false,
+      "notes": "보컬 FX 겸용 가능"
+    },
+    {
+      "id": "headrush_pedalboard",
+      "brand": "HeadRush",
+      "name": "HeadRush Pedalboard",
+      "category": "floor",
+      "priceRange": "$700",
+      "specs": {
+        "display": "7인치 터치스크린",
+        "footswitches": 12,
+        "expressionPedal": true
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "mooer_ge300",
+      "brand": "Mooer",
+      "name": "GE300",
+      "category": "floor",
+      "priceRange": "$500",
+      "specs": {
+        "ampModels": 108,
+        "effects": 164,
+        "factoryCabs": 43,
+        "userIrSlots": 20,
+        "looper": "30분",
+        "toneCapture": true
+      },
+      "toneCaptureMode": ["AMP & STOMP", "GUITAR", "CAB"],
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "mooer_ge1000",
+      "brand": "Mooer",
+      "name": "GE1000",
+      "category": "floor",
+      "priceRange": "$700",
+      "specs": {
+        "display": "5인치 터치스크린",
+        "irPoints": 2048,
+        "aiAutoEq": true,
+        "grooveStation": true,
+        "cloud": "MNRS GE Cloud"
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "mooer_ge1000li",
+      "brand": "Mooer",
+      "name": "GE1000 Li",
+      "category": "floor",
+      "priceRange": "$750",
+      "specs": {
+        "battery": "리튬이온 내장",
+        "display": "5인치 터치스크린",
+        "irPoints": 2048,
+        "aiAutoEq": true
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false,
+      "notes": "배터리 내장, 스트리트 가능"
+    },
+    {
+      "id": "tonex_pedal",
+      "brand": "IK Multimedia",
+      "name": "ToneX Pedal",
+      "category": "compact",
+      "priceRange": "$400",
+      "specs": {
+        "toneModels": 150,
+        "banks": 50,
+        "presetsPerBank": 3,
+        "processing": "24-bit/192kHz",
+        "dynamicRange": "123dB",
+        "frequencyResponse": "5Hz-24kHz",
+        "effects": ["노이즈게이트", "EQ", "컴프", "딜레이x2", "모듈레이션x5", "리버브x6"],
+        "usbAudio": "24-bit/44.1kHz"
+      },
+      "library": {
+        "premium": 1000,
+        "toneNet": "무제한"
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false
+    },
+    {
+      "id": "tonex_one",
+      "brand": "IK Multimedia",
+      "name": "ToneX ONE",
+      "category": "mini",
+      "priceRange": "$150",
+      "specs": {
+        "processing": "24-bit",
+        "compact": true
+      },
+      "worshipRecommended": true,
+      "supportedInApp": false,
+      "notes": "가장 저렴한 AI 캡처 품질"
+    }
+  ],
+  "ampModelMapping": {
+    "description": "POD Go 앰프 모델과 타 기기 대응표",
+    "mappings": [
+      {
+        "podGo": "Litigator",
+        "helix": "Litigator",
+        "quadCortex": "Dumble 캡처",
+        "fractal": "Dumble ODS",
+        "original": "Dumble"
+      },
+      {
+        "podGo": "Matchstick Ch1",
+        "helix": "Matchstick",
+        "quadCortex": "Matchless 캡처",
+        "fractal": "Matchless DC30",
+        "original": "Matchless DC30"
+      },
+      {
+        "podGo": "Essex A30",
+        "helix": "Essex A30",
+        "quadCortex": "AC30 캡처",
+        "fractal": "AC30 TB",
+        "original": "Vox AC30"
+      },
+      {
+        "podGo": "Placater Dirty",
+        "helix": "Placater",
+        "quadCortex": "Friedman 캡처",
+        "fractal": "Friedman BE",
+        "original": "Friedman BE-100"
+      },
+      {
+        "podGo": "Cali IV Rhythm 1",
+        "helix": "Cali IV Rhythm",
+        "quadCortex": "Mesa 캡처",
+        "fractal": "Mesa Mark IV",
+        "original": "Mesa Boogie Mark IV"
+      }
+    ]
+  },
+  "categories": {
+    "floor": "풀사이즈 플로어 유닛",
+    "compact": "컴팩트/페달보드 통합용",
+    "rack": "랙 마운트",
+    "mini": "미니/초소형"
+  },
+  "priceCategories": [
+    {"range": "$150-300", "label": "입문", "recommended": ["tonex_one"]},
+    {"range": "$400-500", "label": "가성비", "recommended": ["pod_go", "mooer_ge300", "tonex_pedal"]},
+    {"range": "$650-750", "label": "중급", "recommended": ["hx_stomp", "gt1000core", "kemper_player"]},
+    {"range": "$900-1,100", "label": "프리미엄 컴팩트", "recommended": ["hx_stomp_xl", "fm3", "nano_cortex"]},
+    {"range": "$1,200-1,400", "label": "풀사이즈", "recommended": ["helix_lt", "headrush_prime"]},
+    {"range": "$1,700-2,000", "label": "하이엔드", "recommended": ["helix_floor", "fm9", "quad_cortex", "kemper_stage"]},
+    {"range": "$2,500+", "label": "플래그십", "recommended": ["axe_fx_iii"]}
+  ]
+}

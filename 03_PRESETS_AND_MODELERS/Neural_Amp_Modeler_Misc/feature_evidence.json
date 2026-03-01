@@ -1,0 +1,64 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-add-noticeable-cute-animations-to-each-page-in-the-valentine-flow-firstnamepage-lastnamepage-lovesliderpage-valentinemainpage-wronganswerpage-including-an-on-enter-transition-for-the-main-card-content-so-each-step-feels-animated-when-it-appears",
+      "featureTitle": "Add noticeable, cute animations to each page in the Valentine flow (FirstNamePage, LastNamePage, LoveSliderPage, ValentineMainPage, WrongAnswerPage), including an on-enter transition for the main card/content so each step feels animated when it appears.",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/src/pages/FirstNamePage.tsx",
+        "frontend/src/pages/LastNamePage.tsx",
+        "frontend/src/pages/LoveSliderPage.tsx",
+        "frontend/src/pages/ValentineMainPage.tsx",
+        "frontend/src/pages/WrongAnswerPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-when-the-user-presses-yes-on-the-main-valentine-page-navigate-to-a-new-final-confirmation-celebration-page-instead-of-showing-a-browser-alert",
+      "featureTitle": "When the user presses \"Yes\" on the main Valentine page, navigate to a new final confirmation/celebration page instead of showing a browser alert.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/FinalYesPage.tsx",
+        "frontend/src/pages/ValentineMainPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-all-generated-image-assets-used-by-the-app-have-transparent-backgrounds-alpha-channel-including-the-background-pattern-image-if-it-is-retained-as-an-image-asset",
+      "featureTitle": "Ensure all generated image assets used by the app have transparent backgrounds (alpha channel), including the background pattern image if it is retained as an image asset.",
+      "files": [],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

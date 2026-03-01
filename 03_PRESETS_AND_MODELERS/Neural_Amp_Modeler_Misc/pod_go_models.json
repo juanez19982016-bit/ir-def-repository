@@ -1,0 +1,972 @@
+{
+  "version": "2.50",
+  "lastUpdated": "2026-02",
+  "firmware": "2.50 (2025.01.23)",
+  "specifications": {
+    "dsp": "400MHz",
+    "ampModels": 80,
+    "cabinets": 37,
+    "microphones": 16,
+    "effects": 200,
+    "simultaneousBlocks": 4,
+    "snapshots": 4,
+    "footswitches": 8,
+    "expressionPedal": true,
+    "display": "4.3인치 컬러 LCD",
+    "usbAudio": true
+  },
+  "amps": {
+    "clean": [
+      {
+        "id": "whowatt_100",
+        "name": "WhoWatt 100",
+        "basedOn": "Hiwatt DR-103",
+        "worshipRating": 1
+      },
+      {
+        "id": "soup_pro",
+        "name": "Soup Pro",
+        "basedOn": "Supro S6616",
+        "worshipRating": 0
+      },
+      {
+        "id": "us_deluxe_nrm",
+        "name": "US Deluxe Nrm",
+        "basedOn": "Fender Deluxe Reverb (Normal)",
+        "worshipRating": 2
+      },
+      {
+        "id": "us_deluxe_vib",
+        "name": "US Deluxe Vib",
+        "basedOn": "Fender Deluxe Reverb (Vibrato)",
+        "worshipRating": 1
+      },
+      {
+        "id": "us_double_nrm",
+        "name": "US Double Nrm",
+        "basedOn": "Fender Twin Reverb (Normal)",
+        "worshipRating": 2
+      },
+      {
+        "id": "us_double_vib",
+        "name": "US Double Vib",
+        "basedOn": "Fender Twin Reverb (Vibrato)",
+        "worshipRating": 0
+      },
+      {
+        "id": "divided_duo",
+        "name": "Divided Duo",
+        "basedOn": "÷13 JRT 9/15",
+        "worshipRating": 1
+      },
+      {
+        "id": "interstate_zed",
+        "name": "Interstate Zed",
+        "basedOn": "Dr Z Route 66",
+        "worshipRating": 1
+      },
+      {
+        "id": "jazz_rivet_120",
+        "name": "Jazz Rivet 120",
+        "basedOn": "Roland JC-120",
+        "worshipRating": 1,
+        "style": "앰비언트"
+      },
+      {
+        "id": "us_princess",
+        "name": "US Princess",
+        "basedOn": "Fender Princeton Reverb",
+        "worshipRating": 1
+      },
+      {
+        "id": "us_super_nrm",
+        "name": "US Super Nrm",
+        "basedOn": "Fender Super Reverb (Normal)",
+        "worshipRating": 1
+      }
+    ],
+    "vox": [
+      {
+        "id": "essex_a15",
+        "name": "Essex A-15",
+        "basedOn": "Vox AC-15",
+        "worshipRating": 1
+      },
+      {
+        "id": "essex_a30",
+        "name": "Essex A-30",
+        "basedOn": "Vox AC-30 Top Boost",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "a30_fawn_nrm",
+        "name": "A-30 Fawn Nrm",
+        "basedOn": "Vox AC-30 Fawn (Normal)",
+        "worshipRating": 0
+      },
+      {
+        "id": "a30_fawn_brt",
+        "name": "A-30 Fawn Brt",
+        "basedOn": "Vox AC-30 Fawn (Bright)",
+        "worshipRating": 0
+      }
+    ],
+    "marshall": [
+      {
+        "id": "brit_plexi_nrm",
+        "name": "Brit Plexi Nrm",
+        "basedOn": "Marshall Super Lead 100",
+        "worshipRating": 1
+      },
+      {
+        "id": "brit_plexi_brt",
+        "name": "Brit Plexi Brt",
+        "basedOn": "Marshall Super Lead 100 (Bright)",
+        "worshipRating": 0
+      },
+      {
+        "id": "brit_plexi_jump",
+        "name": "Brit Plexi Jump",
+        "basedOn": "Marshall Super Lead 100 (Jumped)",
+        "worshipRating": 0
+      },
+      {
+        "id": "brit_2204",
+        "name": "Brit 2204",
+        "basedOn": "Marshall JCM-800",
+        "worshipRating": 0
+      },
+      {
+        "id": "brit_2203",
+        "name": "Brit 2203",
+        "basedOn": "Marshall JCM-800 2203",
+        "worshipRating": 0
+      }
+    ],
+    "highGain": [
+      {
+        "id": "german_mahadeva",
+        "name": "German Mahadeva",
+        "basedOn": "Bogner Shiva",
+        "worshipRating": 1
+      },
+      {
+        "id": "german_ubersonic",
+        "name": "German Ubersonic",
+        "basedOn": "Bogner Ecstasy 101B (Blue)",
+        "worshipRating": 1
+      },
+      {
+        "id": "german_uberschall",
+        "name": "German Uberschall",
+        "basedOn": "Bogner Ecstasy 101B (Red)",
+        "worshipRating": 0
+      },
+      {
+        "id": "cali_iv_rhythm1",
+        "name": "Cali IV Rhythm 1",
+        "basedOn": "Mesa Boogie Mk IV (Rhythm 1)",
+        "worshipRating": 2
+      },
+      {
+        "id": "cali_iv_rhythm2",
+        "name": "Cali IV Rhythm 2",
+        "basedOn": "Mesa Boogie Mk IV (Rhythm 2)",
+        "worshipRating": 0
+      },
+      {
+        "id": "cali_iv_lead",
+        "name": "Cali IV Lead",
+        "basedOn": "Mesa Boogie Mk IV (Lead)",
+        "worshipRating": 0
+      },
+      {
+        "id": "cali_texas_ch1",
+        "name": "Cali Texas Ch1",
+        "basedOn": "Mesa Lonestar (Ch1)",
+        "worshipRating": 1
+      },
+      {
+        "id": "solo_lead_crunch",
+        "name": "Solo Lead Crunch",
+        "basedOn": "Soldano SLO-100 (Crunch)",
+        "worshipRating": 1
+      },
+      {
+        "id": "placater_clean",
+        "name": "Placater Clean",
+        "basedOn": "Friedman BE-100 (Clean)",
+        "worshipRating": 2
+      },
+      {
+        "id": "placater_dirty",
+        "name": "Placater Dirty",
+        "basedOn": "Friedman BE-100 (Dirty)",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "derailed_ingrid",
+        "name": "Derailed Ingrid",
+        "basedOn": "Trainwreck Express",
+        "worshipRating": 2
+      },
+      {
+        "id": "revv_gen_purple",
+        "name": "Revv Gen Purple",
+        "basedOn": "Revv Generator 120 (Purple)",
+        "worshipRating": 0
+      },
+      {
+        "id": "revv_gen_red",
+        "name": "Revv Gen Red",
+        "basedOn": "Revv Generator 120 (Red)",
+        "worshipRating": 0
+      }
+    ],
+    "matchless": [
+      {
+        "id": "matchstick_ch1",
+        "name": "Matchstick Ch1",
+        "basedOn": "Matchless DC30 (Ch1)",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "matchstick_ch2",
+        "name": "Matchstick Ch2",
+        "basedOn": "Matchless DC30 (Ch2)",
+        "worshipRating": 2
+      },
+      {
+        "id": "matchstick_jump",
+        "name": "Matchstick Jump",
+        "basedOn": "Matchless DC30 (Jumped)",
+        "worshipRating": 0
+      }
+    ],
+    "line6Original": [
+      {
+        "id": "litigator",
+        "name": "Litigator",
+        "basedOn": "Line 6 Original (Dumble-inspired)",
+        "worshipRating": 3,
+        "recommended": true,
+        "description": "부티크 미드게인, 워십 최고 추천"
+      },
+      {
+        "id": "clarity",
+        "name": "Clarity",
+        "basedOn": "Line 6 Original (Catalyst)",
+        "worshipRating": 1,
+        "description": "클린 솔리드스테이트/튜브"
+      },
+      {
+        "id": "aristocrat",
+        "name": "Aristocrat",
+        "basedOn": "Line 6 Original (Catalyst)",
+        "worshipRating": 2,
+        "description": "부티크 미드게인"
+      },
+      {
+        "id": "carillon",
+        "name": "Carillon",
+        "basedOn": "Line 6 Original (Catalyst)",
+        "worshipRating": 1,
+        "description": "EL84 기반 그릿"
+      },
+      {
+        "id": "voltage",
+        "name": "Voltage",
+        "basedOn": "Line 6 Original (Catalyst)",
+        "worshipRating": 0
+      },
+      {
+        "id": "kinetic",
+        "name": "Kinetic",
+        "basedOn": "Line 6 Original (Catalyst)",
+        "worshipRating": 0
+      },
+      {
+        "id": "oblivion",
+        "name": "Oblivion",
+        "basedOn": "Line 6 Original (Catalyst)",
+        "worshipRating": 0,
+        "description": "모던 메탈"
+      }
+    ]
+  },
+  "cabinets": {
+    "guitar1x12": [
+      {
+        "id": "1x12_us_deluxe",
+        "name": "1x12 US Deluxe",
+        "basedOn": "Fender Deluxe Reverb",
+        "speaker": "Jensen C12N",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "1x12_blue_bell",
+        "name": "1x12 Blue Bell",
+        "basedOn": "Vox AC15",
+        "speaker": "Celestion Blue",
+        "worshipRating": 1
+      },
+      {
+        "id": "1x12_match_h30",
+        "name": "1x12 Match H-30",
+        "basedOn": "Matchless DC30",
+        "speaker": "G12-H30",
+        "worshipRating": 2
+      },
+      {
+        "id": "1x12_match_g25",
+        "name": "1x12 Match G-25",
+        "basedOn": "Matchless",
+        "speaker": "G12-M Greenback 25W",
+        "worshipRating": 2
+      },
+      {
+        "id": "1x12_interstate",
+        "name": "1x12 Interstate",
+        "basedOn": "Dr Z 1x12",
+        "speaker": "G12-H30",
+        "worshipRating": 1
+      }
+    ],
+    "guitar2x12": [
+      {
+        "id": "2x12_double_c12n",
+        "name": "2x12 Double C12N",
+        "basedOn": "Fender Twin",
+        "speaker": "Jensen C12N",
+        "worshipRating": 1
+      },
+      {
+        "id": "2x12_silver_bell",
+        "name": "2x12 Silver Bell",
+        "basedOn": "Vox AC30",
+        "speaker": "Celestion Silver",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "2x12_blue_bell",
+        "name": "2x12 Blue Bell",
+        "basedOn": "Vox AC30",
+        "speaker": "Celestion Blue",
+        "worshipRating": 2
+      },
+      {
+        "id": "2x12_match_h30",
+        "name": "2x12 Match H-30",
+        "basedOn": "Matchless 2x12",
+        "speaker": "G12-H30",
+        "worshipRating": 2
+      }
+    ],
+    "guitar4x12": [
+      {
+        "id": "4x12_cali_v30",
+        "name": "4x12 Cali V30",
+        "basedOn": "Mesa Rectifier",
+        "speaker": "Vintage 30",
+        "worshipRating": 1
+      },
+      {
+        "id": "4x12_greenback25",
+        "name": "4x12 Greenback 25",
+        "basedOn": "Marshall",
+        "speaker": "G12M Greenback 25W",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "4x12_greenback30",
+        "name": "4x12 Greenback 30",
+        "basedOn": "Marshall Basketweave",
+        "speaker": "G12H-30",
+        "worshipRating": 2
+      }
+    ]
+  },
+  "microphones": {
+    "dynamic": [
+      {
+        "id": "57_dynamic",
+        "name": "57 Dynamic",
+        "basedOn": "Shure SM57",
+        "worshipRating": 3,
+        "recommended": true,
+        "description": "만능 스탠다드"
+      },
+      {
+        "id": "421_dynamic",
+        "name": "421 Dynamic",
+        "basedOn": "Sennheiser MD 421-U",
+        "worshipRating": 2,
+        "description": "풍성한 저역"
+      },
+      {
+        "id": "7_dynamic",
+        "name": "7 Dynamic",
+        "basedOn": "Shure SM7",
+        "worshipRating": 0
+      },
+      {
+        "id": "906_dynamic",
+        "name": "906 Dynamic",
+        "basedOn": "Sennheiser e906",
+        "worshipRating": 1
+      },
+      {
+        "id": "30_dynamic",
+        "name": "30 Dynamic",
+        "basedOn": "Heil Sound PR 30",
+        "worshipRating": 0
+      }
+    ],
+    "ribbon": [
+      {
+        "id": "121_ribbon",
+        "name": "121 Ribbon",
+        "basedOn": "Royer R-121",
+        "worshipRating": 3,
+        "recommended": true,
+        "description": "싱글픽업 최적, 따뜻하고 실키"
+      },
+      {
+        "id": "160_ribbon",
+        "name": "160 Ribbon",
+        "basedOn": "Beyerdynamic M 160",
+        "worshipRating": 1
+      },
+      {
+        "id": "4038_ribbon",
+        "name": "4038 Ribbon",
+        "basedOn": "Coles 4038",
+        "worshipRating": 0
+      },
+      {
+        "id": "84_ribbon",
+        "name": "84 Ribbon",
+        "basedOn": "AEA R84",
+        "worshipRating": 0
+      }
+    ],
+    "condenser": [
+      {
+        "id": "414_cond",
+        "name": "414 Cond",
+        "basedOn": "AKG C414 XLS",
+        "worshipRating": 1
+      },
+      {
+        "id": "47_cond_fet",
+        "name": "47 Cond FET",
+        "basedOn": "Neumann U47 FET",
+        "worshipRating": 0
+      },
+      {
+        "id": "67_cond",
+        "name": "67 Cond",
+        "basedOn": "Neumann U67",
+        "worshipRating": 0
+      }
+    ]
+  },
+  "effects": {
+    "dynamics": [
+      {
+        "id": "kinky_comp",
+        "name": "Kinky Comp",
+        "basedOn": "Ross Compressor",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "deluxe_comp",
+        "name": "Deluxe Comp",
+        "basedOn": "MXR Dyna Comp Deluxe",
+        "worshipRating": 2
+      },
+      {
+        "id": "red_squeeze",
+        "name": "Red Squeeze",
+        "basedOn": "MXR Dyna Comp",
+        "worshipRating": 1
+      },
+      {
+        "id": "la_studio_comp",
+        "name": "LA Studio Comp",
+        "basedOn": "Teletronix LA-2A",
+        "worshipRating": 1
+      },
+      {
+        "id": "noise_gate",
+        "name": "Noise Gate",
+        "basedOn": "Line 6",
+        "worshipRating": 3,
+        "recommended": true
+      }
+    ],
+    "drive": [
+      {
+        "id": "kinky_boost",
+        "name": "Kinky Boost",
+        "basedOn": "Xotic EP Booster",
+        "worshipRating": 3,
+        "recommended": true,
+        "use": "클린 부스트"
+      },
+      {
+        "id": "teemah",
+        "name": "Teemah!",
+        "basedOn": "Paul Cochrane Timmy",
+        "worshipRating": 3,
+        "recommended": true,
+        "use": "투명한 오버드라이브"
+      },
+      {
+        "id": "minotaur",
+        "name": "Minotaur",
+        "basedOn": "Klon Centaur",
+        "worshipRating": 3,
+        "recommended": true,
+        "use": "중음 부스팅, 솔로/리드"
+      },
+      {
+        "id": "scream_808",
+        "name": "Scream 808",
+        "basedOn": "Ibanez TS808",
+        "worshipRating": 3,
+        "recommended": true,
+        "use": "미드 부스트"
+      },
+      {
+        "id": "pillars_od",
+        "name": "Pillars OD",
+        "basedOn": "EQD Plumes",
+        "worshipRating": 2,
+        "use": "투명한 OD"
+      },
+      {
+        "id": "heir_apparent",
+        "name": "Heir Apparent",
+        "basedOn": "Analogman King of Tone",
+        "worshipRating": 2
+      },
+      {
+        "id": "compulsive_drive",
+        "name": "Compulsive Drive",
+        "basedOn": "Fulltone OCD",
+        "worshipRating": 2
+      },
+      {
+        "id": "dhyana_drive",
+        "name": "Dhyana Drive",
+        "basedOn": "Hermida Zendrive",
+        "worshipRating": 2,
+        "use": "덤블 스타일"
+      },
+      {
+        "id": "tone_sovereign",
+        "name": "Tone Sovereign",
+        "basedOn": "Analogman Prince of Tone",
+        "worshipRating": 1
+      }
+    ],
+    "modulation": [
+      {
+        "id": "optical_trem",
+        "name": "Optical Trem",
+        "basedOn": "Fender Opto Tremolo",
+        "worshipRating": 1
+      },
+      {
+        "id": "harmonic_trem",
+        "name": "Harmonic Trem",
+        "basedOn": "Brownface Harmonic Trem",
+        "worshipRating": 1
+      },
+      {
+        "id": "script_mod_phase",
+        "name": "Script Mod Phase",
+        "basedOn": "MXR Phase 90 (Script)",
+        "worshipRating": 2
+      },
+      {
+        "id": "ubiquitous_vibe",
+        "name": "Ubiquitous Vibe",
+        "basedOn": "Shin-ei Uni-Vibe",
+        "worshipRating": 2
+      },
+      {
+        "id": "70s_chorus",
+        "name": "70s Chorus",
+        "basedOn": "BOSS CE-1",
+        "worshipRating": 1
+      },
+      {
+        "id": "trinity_chorus",
+        "name": "Trinity Chorus",
+        "basedOn": "Dytronics Tri-Stereo",
+        "worshipRating": 2
+      },
+      {
+        "id": "122_rotary",
+        "name": "122 Rotary",
+        "basedOn": "Leslie 122",
+        "worshipRating": 2
+      },
+      {
+        "id": "double_take",
+        "name": "Double Take",
+        "basedOn": "Line 6 ADT",
+        "worshipRating": 1
+      }
+    ],
+    "delay": [
+      {
+        "id": "simple_delay",
+        "name": "Simple Delay",
+        "basedOn": "Line 6",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "mod_chorus_echo",
+        "name": "Mod/Chorus Echo",
+        "basedOn": "Line 6",
+        "worshipRating": 2
+      },
+      {
+        "id": "dual_delay",
+        "name": "Dual Delay",
+        "basedOn": "Line 6",
+        "worshipRating": 2
+      },
+      {
+        "id": "ping_pong",
+        "name": "Ping Pong",
+        "basedOn": "Line 6",
+        "worshipRating": 2
+      },
+      {
+        "id": "ducked_delay",
+        "name": "Ducked Delay",
+        "basedOn": "TC Electronic",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "reverse_delay",
+        "name": "Reverse Delay",
+        "basedOn": "Line 6",
+        "worshipRating": 1,
+        "style": "앰비언트"
+      },
+      {
+        "id": "vintage_swell",
+        "name": "Vintage Swell",
+        "basedOn": "Line 6",
+        "worshipRating": 2,
+        "style": "앰비언트"
+      },
+      {
+        "id": "transistor_tape",
+        "name": "Transistor Tape",
+        "basedOn": "Maestro EP-1",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "cosmos_echo",
+        "name": "Cosmos Echo",
+        "basedOn": "Roland RE-201",
+        "worshipRating": 2
+      },
+      {
+        "id": "bucket_brigade",
+        "name": "Bucket Brigade",
+        "basedOn": "BOSS DM-2",
+        "worshipRating": 2
+      },
+      {
+        "id": "elephant_man",
+        "name": "Elephant Man",
+        "basedOn": "EHX Deluxe Memory Man",
+        "worshipRating": 2
+      }
+    ],
+    "reverb": [
+      {
+        "id": "glitz",
+        "name": "Glitz",
+        "basedOn": "Line 6 Shimmer",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "ganymede",
+        "name": "Ganymede",
+        "basedOn": "Line 6 Modern Hall",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "searchlights",
+        "name": "Searchlights",
+        "basedOn": "Line 6",
+        "worshipRating": 2
+      },
+      {
+        "id": "plateaux",
+        "name": "Plateaux",
+        "basedOn": "Line 6 Plate",
+        "worshipRating": 2
+      },
+      {
+        "id": "plate",
+        "name": "Plate",
+        "basedOn": "EMT 140",
+        "worshipRating": 2
+      },
+      {
+        "id": "room",
+        "name": "Room",
+        "basedOn": "Line 6",
+        "worshipRating": 1
+      },
+      {
+        "id": "chamber",
+        "name": "Chamber",
+        "basedOn": "Line 6",
+        "worshipRating": 1
+      },
+      {
+        "id": "hall",
+        "name": "Hall",
+        "basedOn": "Line 6",
+        "worshipRating": 3,
+        "recommended": true
+      },
+      {
+        "id": "cave",
+        "name": "Cave",
+        "basedOn": "Line 6",
+        "worshipRating": 1,
+        "style": "앰비언트"
+      },
+      {
+        "id": "ducking",
+        "name": "Ducking",
+        "basedOn": "Line 6",
+        "worshipRating": 2
+      },
+      {
+        "id": "octo",
+        "name": "Octo",
+        "basedOn": "Eventide H3000",
+        "worshipRating": 2,
+        "style": "앰비언트"
+      },
+      {
+        "id": "shimmer",
+        "name": "Shimmer",
+        "basedOn": "Line 6",
+        "worshipRating": 3,
+        "recommended": true,
+        "style": "앰비언트"
+      },
+      {
+        "id": "particle_verb",
+        "name": "Particle Verb",
+        "basedOn": "Line 6 Granular",
+        "worshipRating": 1,
+        "style": "앰비언트"
+      }
+    ],
+    "eq": [
+      {
+        "id": "simple_eq",
+        "name": "Simple EQ",
+        "basedOn": "3-Band",
+        "worshipRating": 1
+      },
+      {
+        "id": "low_high_cut",
+        "name": "Low/High Cut",
+        "basedOn": "Line 6",
+        "worshipRating": 2
+      },
+      {
+        "id": "parametric",
+        "name": "Parametric",
+        "basedOn": "Line 6",
+        "worshipRating": 1
+      },
+      {
+        "id": "cali_q_graphic",
+        "name": "Cali Q Graphic",
+        "basedOn": "Mesa Style",
+        "worshipRating": 2
+      }
+    ],
+    "wah": [
+      {
+        "id": "uk_wah_846",
+        "name": "UK Wah 846",
+        "basedOn": "Vox V846",
+        "worshipRating": 1
+      },
+      {
+        "id": "teardrop_310",
+        "name": "Teardrop 310",
+        "basedOn": "Dunlop Cry Baby",
+        "worshipRating": 1
+      },
+      {
+        "id": "chrome",
+        "name": "Chrome",
+        "basedOn": "Vox V847",
+        "worshipRating": 1
+      }
+    ],
+    "pitch": [
+      {
+        "id": "pitch_wham",
+        "name": "Pitch Wham",
+        "basedOn": "Digitech Whammy",
+        "worshipRating": 1
+      },
+      {
+        "id": "twin_harmony",
+        "name": "Twin Harmony",
+        "basedOn": "Line 6",
+        "worshipRating": 1
+      }
+    ],
+    "volume": [
+      {
+        "id": "volume_pedal",
+        "name": "Volume Pedal",
+        "basedOn": "Line 6",
+        "worshipRating": 3,
+        "recommended": true
+      }
+    ]
+  },
+  "worshipPresets": {
+    "modernWorship": {
+      "name": "모던 워십 기본",
+      "amp": "litigator",
+      "cabinet": "1x12_us_deluxe",
+      "mic": "121_ribbon",
+      "signalChain": [
+        "noise_gate",
+        "kinky_comp",
+        "teemah",
+        "minotaur",
+        "amp",
+        "cab",
+        "volume_pedal",
+        "simple_delay",
+        "hall"
+      ],
+      "snapshots": {
+        "1_clean": {
+          "drives": [],
+          "delayMix": 20,
+          "reverbMix": 35
+        },
+        "2_rhythm": {
+          "drives": [
+            "teemah"
+          ],
+          "delayMix": 25,
+          "reverbMix": 25
+        },
+        "3_lead": {
+          "drives": [
+            "teemah",
+            "minotaur"
+          ],
+          "delayMix": 30,
+          "reverbMix": 40
+        },
+        "4_ambient": {
+          "drives": [],
+          "delayMix": 45,
+          "reverbMix": 60
+        }
+      }
+    },
+    "ambientWorship": {
+      "name": "앰비언트/발라드",
+      "amp": "litigator",
+      "ampSettings": {
+        "drive": 3.5
+      },
+      "cabinet": "2x12_silver_bell",
+      "mic": "121_ribbon",
+      "essentialEffects": [
+        "transistor_tape",
+        "glitz",
+        "volume_pedal"
+      ],
+      "delaySettings": {
+        "time": "1/4",
+        "feedback": 45
+      },
+      "reverbSettings": {
+        "decay": 6.0,
+        "mix": 45
+      }
+    },
+    "highGainCCM": {
+      "name": "하이게인/CCM 락",
+      "amp": "placater_dirty",
+      "cabinet": "4x12_greenback25",
+      "mic": "121_ribbon",
+      "signalChain": [
+        "noise_gate",
+        "deluxe_comp",
+        "minotaur",
+        "scream_808",
+        "amp",
+        "cab",
+        "volume_pedal",
+        "simple_delay",
+        "hall",
+        "cali_q_graphic"
+      ],
+      "ampAdvanced": {
+        "HBE": true,
+        "C45_Saturation": true,
+        "Fat": false,
+        "Presence": 7.5,
+        "Treble": 7.0,
+        "Sag": 4.0
+      }
+    }
+  },
+  "globalSettings": {
+    "singleCoilGuitar": {
+      "inputPad": false,
+      "inputImpedance": "1M",
+      "noiseGateThreshold": -55,
+      "cabHighCut": "4.5-6.5kHz",
+      "recommendedMic": "121_ribbon"
+    },
+    "humbuckerGuitar": {
+      "inputPad": "auto",
+      "inputImpedance": "auto",
+      "noiseGateThreshold": -65,
+      "cabHighCut": "8-10kHz",
+      "recommendedMic": "57_dynamic"
+    }
+  }
+}

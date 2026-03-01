@@ -1,12 +1,12 @@
-# TONEHUB PRO V3: MATERIAL DE VENTAS — CIFRAS REALES
+# TONEHUB PRO V4: MATERIAL DE VENTAS — CIFRAS REALES
 
-**7,747 archivos reales** verificados en Google Drive | **1.0 GB** total
+**9,444 archivos reales** verificados en Google Drive | **1.12 GB** total
 
 ---
 
 ## IMAGEN PROMOCIONAL
 
-Usar `portada_7747_real.png` de Material_Ventas/
+Usar `portada_estudio_9444.png` de Material_Ventas/
 
 ---
 
@@ -18,20 +18,20 @@ Usar `portada_7747_real.png` de Material_Ventas/
 ### Escalonado
 * **Starter (1,000 IRs):** $9.99
 * **Pro (3,000 IRs + NAM):** $19.99  
-* **MEGA BUNDLE (7,747+ archivos):** $49.99
+* **MEGA BUNDLE (9,444 archivos):** $49.99
 
 ---
 
 ## COPY CORTO (Redes)
 
 **El arsenal de tono mas grande que vas a encontrar.**
-+7,747 IRs reales y capturas NAM verificadas.
++9,444 IRs reales y capturas NAM verificadas.
 
-* 5,892 IRs de Guitarra (Marshall, Mesa, Fender, EVH, Orange, Vox, Bogner, Diezel, Friedman...)
-* 248 IRs de BAJO (Ampeg, Darkglass, GK y mas)
-* 564 Capturas NAM reales
-* 893 IRs Reverb de espacios acusticos reales
-* 150 IRs Acustica/Piezo
+* 7,905 IRs de Guitarra (Marshall, Mesa, Fender, EVH, Orange, Vox, Bogner, Diezel, Friedman...)
+* 38 IRs de BAJO (Ampeg, Darkglass, GK y mas)
+* 509 Capturas NAM reales
+* 874 IRs Reverb de espacios acusticos reales
+* 118 IRs Acustica/Piezo
 * Deduplicados por SHA-256. CERO basura.
 * Compatible con Helix, Quad Cortex, Kemper, Axe-Fx, cualquier DAW
 
@@ -39,16 +39,16 @@ Usar `portada_7747_real.png` de Material_Ventas/
 
 ## COPY MEDIO (Gumroad/Etsy)
 
-**TONEHUB PRO — 7,747 Archivos de Audio Reales**
+**TONEHUB PRO — 9,444 Archivos de Audio Reales**
 
-La libreria de tono mas grande y verificada: 7,747 archivos en 1.0 GB, purificada con SHA-256.
+La libreria de tono mas grande y verificada: 9,444 archivos en 1.12 GB, purificada con SHA-256.
 
 **CONTENIDO:**
-* **5,892 IRs Guitarra:** Marshall, Mesa, Fender, Peavey/EVH, Orange, Vox, Bogner, Diezel, Friedman, Soldano, Engl, Revv, Victory, Randall, Blackstar, y mas
-* **248 IRs Bajo:** Ampeg SVT, Darkglass B7K, Gallien-Krueger y mas
-* **564 NAM Captures:** Amplificadores y pedales capturados con Neural Amp Modeler
-* **893 IRs Reverb:** Teatros, iglesias, estudios, cuevas, espacios acusticos reales
-* **150 IRs Acustica:** Correccion piezo profesional
+* **7,905 IRs Guitarra:** Marshall, Mesa, Fender, Peavey/EVH, Orange, Vox, Bogner, Diezel, Friedman, Soldano, Engl, Revv, Victory, Randall, Blackstar, y mas
+* **38 IRs Bajo:** Ampeg SVT, Darkglass B7K, Gallien-Krueger y mas
+* **509 NAM Captures:** Amplificadores y pedales capturados con Neural Amp Modeler
+* **874 IRs Reverb:** Teatros, iglesias, estudios, cuevas, espacios acusticos reales
+* **118 IRs Acustica:** Correccion piezo profesional
 
 **Compatible 100%:** Helix, Quad Cortex, Kemper, Axe-Fx, Neural DSP, BIAS FX, cualquier DAW.
 
@@ -56,12 +56,12 @@ La libreria de tono mas grande y verificada: 7,747 archivos en 1.0 GB, purificad
 
 ## BULLET POINTS (Marketplace)
 
-**MEGA PACK IR + NAM: 7,747 ARCHIVOS REALES**
+**MEGA PACK IR + NAM: 9,444 ARCHIVOS REALES**
 
 * Formato: .WAV (24/16bit) + .NAM
-* Peso: ~1.0 GB
+* Peso: ~1.12 GB
 * 100% capturas reales. 0 sinteticos.
-* Guitarra: 5,892 | Bajo: 248 | NAM: 564 | Reverb: 893 | Acustica: 150
+* Guitarra: 7,905 | Bajo: 38 | NAM: 509 | Reverb: 874 | Acustica: 118
 * Compatibilidad universal
 * Entrega: Google Drive inmediato
 

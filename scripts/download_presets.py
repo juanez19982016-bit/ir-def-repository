@@ -160,7 +160,7 @@ def github_search_preset_repos(session):
     found = set(KNOWN_REPOS)
     
     for q in tqdm(queries, desc="🧠 Intelligent Deep Search", leave=False):
-        for page in range(1, 4):  # Hit more pages!
+        for page in range(1, 10):  # Hit up to 10 pages * 100 = 1000 repos per query!
             try:
                 r = session.get(
                     f"https://api.github.com/search/repositories?q={quote(q)}&sort=stars&order=desc&per_page=100&page={page}",
@@ -241,7 +241,7 @@ def download_tonehunt(session, pbar_shared):
     except: return 0
 
     # Getting recent models
-    for page in tqdm(range(1, 40), desc="🎵 Scraping ToneHunt Presets", leave=False):
+    for page in tqdm(range(1, 120), desc="🎵 Scraping ToneHunt Presets", leave=False):
         try:
             r = session.get(f"{base_api}/models?page={page}&perPage=100&sortBy=newest", timeout=10)
             if r.status_code != 200: break

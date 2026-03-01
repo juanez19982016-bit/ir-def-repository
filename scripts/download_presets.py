@@ -63,7 +63,12 @@ KNOWN_REPOS = [
     "Pilkch/nam-models",
     "studioroberto/guitar-impulse-responses",
     "romancardenas/guitar-cabinet-ir",
-    "markusaksli-nc/nam-models"
+    "markusaksli-nc/nam-models",
+    "GuitarML/ToneLibrary",
+    "pelennor2170/NAM_models",
+    "MoisesM/Helix-Presets",
+    "EmmanuelBeziat/helix-presets",
+    "bellol/helix-presets"
 ]
 
 DIRECT_ZIPS = [
@@ -75,7 +80,25 @@ DIRECT_ZIPS = [
     ("https://github.com/MrCitron/helaix/archive/refs/heads/main.zip", "Helaix"),
     ("https://github.com/bbuehrig/AxeFx2000/archive/refs/heads/main.zip", "AxeFx2000"),
     ("https://github.com/ray-su/Ampero-presets/archive/refs/heads/master.zip", "AmperoPresetsRaySu"),
-    ("https://github.com/engageintellect/pod-go-patches/archive/refs/heads/master.zip", "PodGoEngage")
+    ("https://github.com/engageintellect/pod-go-patches/archive/refs/heads/master.zip", "PodGoEngage"),
+    ("https://github.com/GuitarML/ToneLibrary/archive/refs/heads/main.zip", "GuitarML_ToneLibrary"),
+    ("https://github.com/tansey-sern/NAM_Community_Models/archive/refs/heads/main.zip", "NAM_Community_1"),
+    ("https://github.com/davedude0/NeuralAmpModelerModels/archive/refs/heads/main.zip", "NAM_DaveDude0"),
+    ("https://github.com/screamingFrog/NAM-packs/archive/refs/heads/main.zip", "NAM_ScreamingFrog"),
+    ("https://github.com/j4de/NAM-Models/archive/refs/heads/main.zip", "NAM_J4de"),
+    ("https://github.com/mfmods/mf-nam-models/archive/refs/heads/main.zip", "NAM_mfmods"),
+    ("https://github.com/Pilkch/nam-models/archive/refs/heads/main.zip", "NAM_Pilkch"),
+    ("https://github.com/markusaksli-nc/nam-models/archive/refs/heads/main.zip", "NAM_MarkusAksli_NC"),
+    ("https://github.com/pelennor2170/NAM_models/archive/refs/heads/main.zip", "NAM_Pelennor2170"),
+    ("https://github.com/MoisesM/Helix-Presets/archive/refs/heads/master.zip", "Helix_Moises"),
+    ("https://github.com/jyanes83/Line6-Helix-Bundle-Parser/archive/refs/heads/master.zip", "Line6_Helix_Bundle"),
+    ("https://github.com/EmmanuelBeziat/helix-presets/archive/refs/heads/master.zip", "Helix_EB"),
+    ("https://github.com/bellol/helix-presets/archive/refs/heads/master.zip", "Helix_Bellol"),
+    ("https://github.com/bohoffi/boss-gt-1000-patch-editor/archive/refs/heads/main.zip", "BossGT1000"),
+    ("https://github.com/thjorth/GT1kScenes/archive/refs/heads/main.zip", "BossGT1kScenes"),
+    ("https://github.com/ThibaultDucray/TouchOSC-Hotone-Ampero-template/archive/refs/heads/master.zip", "AmperoTouchOSC"),
+    ("https://github.com/bloodysummers/headrushfx-editor/archive/refs/heads/master.zip", "HeadrushEditor"),
+    ("https://github.com/DrkSdeOfMnn/headrush-mx5/archive/refs/heads/master.zip", "HeadrushMX5")
 ]
 
 class Cache:

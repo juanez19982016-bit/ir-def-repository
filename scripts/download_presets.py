@@ -26,10 +26,11 @@ CACHE_FILE = BASE_DIR / ".presets_cache.json"
 
 VALID_EXT = {
     ".kipr", ".hlx", ".pgp", ".syx", ".rig", ".tsl", 
-    ".txp", ".prst", ".patch", ".mo", ".preset"
+    ".txp", ".prst", ".patch", ".mo", ".preset", ".nam", ".json", ".wav",
+    ".fxp", ".fxb", ".tdy"
 }
 
-MAX_WORKERS = 8  # more aggressive for Actions
+MAX_WORKERS = 12
 
 EXT_MAP = {
     ".kipr": "Kemper_Profiler",
@@ -42,21 +43,27 @@ EXT_MAP = {
     ".prst": "Hotone_Ampero",
     ".patch": "Hotone_Ampero",
     ".mo": "Mooer",
-    ".preset": "Neural_DSP_Quad_Cortex"
+    ".preset": "Neural_DSP_Quad_Cortex",
+    ".nam": "Neural_Amp_Modeler",
+    ".json": "Neural_Amp_Modeler_Misc",
+    ".wav": "Misc_Captures",
+    ".fxp": "Misc_Plugins",
+    ".fxb": "Misc_Plugins_Bank",
+    ".tdy": "Yamaha_THR"
 }
 
-# Core Seed Repositories to guarantee huge initial downloads without relying on search only
+# Core Seed Repositories
 KNOWN_REPOS = [
     "alexander-makarov/Fractal-AxeFx2-Presets",
-    "fretboardbiology/Kemper-Profiles",
-    "baker-dev/Ampero-Patches",
-    "Benson-Amps/TONEX-Captures",
-    "amplitube/tonex-models-free",
-    "Valeton/GP-200-Patches",
-    "MoisesM/Helix-Presets",
-    "pedalboard-presets/gx-100",
-    "G6-Presets/zoom",
-    "valeton/gp100-patches"
+    "davedude0/NeuralAmpModelerModels",
+    "screamingFrog/NAM-packs",
+    "j4de/NAM-Models",
+    "tansey-sern/NAM_Community_Models",
+    "mfmods/mf-nam-models",
+    "Pilkch/nam-models",
+    "studioroberto/guitar-impulse-responses",
+    "romancardenas/guitar-cabinet-ir",
+    "markusaksli-nc/nam-models"
 ]
 
 class Cache:
@@ -146,27 +153,28 @@ def organize_file(src_path, context=""):
 def github_search_preset_repos(session):
     print("\n🔍 Expanding Vault targets via GitHub Search...")
     queries = [
-        "kemper profiles .kipr", "helix presets .hlx",
-        "fractal axe fx presets .syx", "headrush rigs .rig",
-        "boss gt-1000 patches .tsl", "tonex tone models txp",
-        "quad cortex captures preset", "guitar modeler presets free",
-        "pod go patches pgp", "ampero presets prst", "mooer presets mo"
+        "guitar presets", "kemper profile", "nam captures", "syx preset", 
+        "helix patch", "rig preset headrush", "tsl boss", "tonex model",
+        "quad cortex", "ampero patch"
     ]
     found = set(KNOWN_REPOS)
     
-    for q in tqdm(queries, desc="🧠 Intelligent Search", leave=False):
-        try:
-            r = session.get(
-                f"https://api.github.com/search/repositories?q={quote(q)}&sort=updated&per_page=50",
-                timeout=10, headers={"Accept": "application/vnd.github+json"}
-            )
-            if r.status_code == 200:
-                for repo in r.json().get("items", []):
-                    if repo.get("size", 0) > 10:  # skip empty repos
-                        found.add(repo["full_name"])
-        except:
-            pass
-        time.sleep(1.5)
+    for q in tqdm(queries, desc="🧠 Intelligent Deep Search", leave=False):
+        for page in range(1, 4):  # Hit more pages!
+            try:
+                r = session.get(
+                    f"https://api.github.com/search/repositories?q={quote(q)}&sort=stars&order=desc&per_page=100&page={page}",
+                    timeout=10, headers={"Accept": "application/vnd.github+json"}
+                )
+                if r.status_code == 200:
+                    items = r.json().get("items", [])
+                    if not items: break
+                    for repo in items:
+                        if repo.get("size", 0) > 10:  # skip almost empty repos
+                            found.add(repo["full_name"])
+                else: break
+            except: pass
+            time.sleep(1)
         
     res = list(found)
     print(f"✔ Target locked onto {len(res)} preset databases.")

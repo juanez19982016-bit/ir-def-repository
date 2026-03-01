@@ -1,0 +1,70 @@
+name: "Tier 4: The Ultimate Preset Vault Expansion"
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  schedule:
+    - cron: '0 4 * * 0' # Run every Sunday at 4 AM
+
+jobs:
+  preset-vault-expansion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests tqdm
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+          echo "=== Authentication Complete. Discovered Remotes: ==="
+          rclone listremotes
+
+      - name: Download metadata cache from Drive
+        run: |
+          mkdir -p /tmp/preset_vault/03_PRESETS_AND_MODELERS
+          rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.presets_cache.json /tmp/preset_vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || echo "No previous cache found. Starting fresh."
+
+      - name: "🎸 Massive Extraction: Multi-Effects & Modelers Presets"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/download_presets.py --output-dir /tmp/preset_vault
+
+      - name: "📊 Progress Statistics"
+        if: always()
+        run: |
+          echo "=== Content Yield by Platform ==="
+          for d in /tmp/preset_vault/03_PRESETS_AND_MODELERS/*/; do
+            [ -d "$d" ] && echo "📁 $(basename "$d"): $(find "$d" -type f -not -name ".*" 2>/dev/null | wc -l) files"
+          done
+          echo "=== 🔥 TOTAL INJECTED 🔥 ==="
+          find /tmp/preset_vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" 2>/dev/null | wc -l
+
+      - name: "📤 Vault Upload Protocol (Rclone Google Drive Sync)"
+        if: always()
+        run: |
+          rclone copy /tmp/preset_vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS \
+            --transfers 12 --checkers 24 --drive-chunk-size 64M \
+            --fast-list --stats 30s --log-level INFO --stats-one-line
+
+      - name: Verify Cloud Inject
+        if: always()
+        run: |
+          echo "=== Cloud Validation ==="
+          rclone size gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS || true
+          rclone lsd gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS || true

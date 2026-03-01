@@ -24,7 +24,7 @@ from urllib3.util.retry import Retry
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--tier", required=True,
-    choices=["seed","search","releases","guitarpatches","patchstorage","cleanup","all"])
+    choices=["seed","search","releases","guitarpatches","patchstorage","codesearch","cleanup","all"])
 parser.add_argument("--output-dir", required=True)
 parser.add_argument("--fresh", action="store_true")
 args = parser.parse_args()
@@ -371,7 +371,7 @@ def extract_presets(zip_path, folder="", ctx=""):
 # GITHUB REPO DOWNLOAD
 # ═══════════════════════════════════════════════════════════
 def download_repo(repo, stats):
-    ckey = f"v3_{repo.replace('/','_')}"
+    ckey = f"v4_{repo.replace('/','_')}"
     if cache.seen_repo(ckey): return 0
     count = 0
     for branch in ["main","master","develop"]:
@@ -434,7 +434,7 @@ def github_search(queries):
                 for repo in items:
                     if repo.get("size",0) > 5 and not repo.get("fork",False):
                         fn = repo["full_name"]
-                        if not cache.seen_repo(f"v3_{fn.replace('/','_')}"): found.add(fn)
+                        if not cache.seen_repo(f"v4_{fn.replace('/','_')}"): found.add(fn)
             except: pass
             time.sleep(2)
         if (i+1) % 20 == 0: print(f"  ... {i+1}/{len(queries)}, {len(found)} repos found")
@@ -481,6 +481,118 @@ def download_releases(repos, stats):
         except: pass
     stats["files"] += total
     print(f"  ✔ {total} presets from releases")
+    return total
+
+# ═══════════════════════════════════════════════════════════
+# GITHUB CODE SEARCH — finds individual files by extension
+# This is the MOST EFFECTIVE method: searches actual files
+# across ALL of GitHub and downloads them via raw URLs
+# ═══════════════════════════════════════════════════════════
+CODE_SEARCH_EXTS = [
+    "hlx","pgp","syx","tsl","kipr","krig","txp","prst",
+    "l6t","l6p","5xt","mo","zd2","zdt","nux","gxp",
+    "tdy","fxp","fxb","spk","patch","preset","liveset",
+    "xpm","rfl","gt5","gt6","gt8","g2p","g3p","kpa",
+]
+
+CODE_SEARCH_QUERIES = []
+for ext in CODE_SEARCH_EXTS:
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} guitar")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} preset")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} patch")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} tone")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} amp")
+
+def run_code_search(stats):
+    """Use GitHub Code Search API to find individual files."""
+    print("\n" + "=" * 60)
+    print(f"🔬 GITHUB CODE SEARCH — {len(CODE_SEARCH_QUERIES)} queries")
+    print("  Finding individual preset files across ALL of GitHub")
+    print("=" * 60)
+    total = 0
+    rate_hits = 0
+    seen_files = set()
+
+    for qi, q in enumerate(CODE_SEARCH_QUERIES):
+        if rate_hits > 30:
+            print("  ⚠ Rate limited, stopping code search")
+            break
+        for page in range(1, 6):  # up to 5 pages per query
+            try:
+                r = SESSION.get(
+                    f"https://api.github.com/search/code?q={quote(q)}&per_page=100&page={page}",
+                    timeout=15,
+                    headers={"Accept": "application/vnd.github+json"}
+                )
+                if r.status_code == 403:
+                    rate_hits += 1
+                    time.sleep(60)
+                    break
+                if r.status_code == 422:  # validation failed
+                    break
+                if r.status_code != 200:
+                    break
+
+                data = r.json()
+                items = data.get("items", [])
+                if not items:
+                    break
+
+                for item in items:
+                    fname = item.get("name", "")
+                    fpath = item.get("path", "")
+                    repo = item.get("repository", {}).get("full_name", "")
+                    sha = item.get("sha", "")
+                    ext = Path(fname).suffix.lower()
+
+                    if ext not in VALID_EXT:
+                        continue
+
+                    file_key = f"{repo}/{fpath}"
+                    if file_key in seen_files:
+                        continue
+                    seen_files.add(file_key)
+
+                    if cache.seen_url(f"cs_{sha}"):
+                        continue
+
+                    # Download raw file
+                    raw_url = f"https://raw.githubusercontent.com/{repo}/HEAD/{quote(fpath)}"
+                    try:
+                        fr = SESSION.get(raw_url, stream=True, timeout=30)
+                        if fr.status_code != 200:
+                            continue
+
+                        tmp = Path(f"/tmp/cs_{hash(file_key)%999999}")
+                        tmp.mkdir(parents=True, exist_ok=True)
+                        flocal = tmp / fname
+
+                        with open(flocal, "wb") as f:
+                            for ch in fr.iter_content(1024*1024):
+                                f.write(ch)
+
+                        if is_valid(flocal) and not cache.is_dup(flocal):
+                            folder = EXT_MAP.get(ext, "Misc")
+                            if save_file(flocal, folder):
+                                total += 1
+
+                        cache.mark_url(f"cs_{sha}")
+                    except:
+                        pass
+                    finally:
+                        shutil.rmtree(Path(f"/tmp/cs_{hash(file_key)%999999}"), ignore_errors=True)
+
+                time.sleep(2)  # respect rate limits
+            except:
+                pass
+
+        if (qi + 1) % 10 == 0:
+            print(f"  ... {qi+1}/{len(CODE_SEARCH_QUERIES)}, {total} files downloaded, {len(seen_files)} found")
+        time.sleep(1)
+
+    stats["files"] += total
+    print(f"\n  🔥 Code Search: {total} individual files from {len(seen_files)} found")
+    cache.save()
     return total
 
 # ═══════════════════════════════════════════════════════════
@@ -745,8 +857,8 @@ def print_stats():
 
 def main():
     print("╔═══════════════════════════════════════════════════════╗")
-    print("║  MEGA PRESET VAULT v3 — MAXIMUM EXPANSION            ║")
-    print("║  GitHub + GuitarPatches.com + PatchStorage.com API   ║")
+    print("║  MEGA PRESET VAULT v4 — ABSOLUTE MAXIMUM             ║")
+    print("║  GitHub Repos + Code Search + Patches + Storage      ║")
     print("║  Presets ONLY · No NAM/IR/WAV/JSON                   ║")
     print("╚═══════════════════════════════════════════════════════╝")
     total = 0; tier = args.tier
@@ -755,6 +867,8 @@ def main():
     if tier in ("seed","all"): total += run_seed()
     if tier in ("search","all"): total += run_search()
     if tier in ("releases","all"): total += run_releases()
+    if tier in ("codesearch","all"):
+        st = {"files":0}; run_code_search(st); total += st["files"]
     if tier in ("guitarpatches","all"):
         st = {"files":0}; scrape_guitarpatches(st); total += st["files"]
     if tier in ("patchstorage","all"):

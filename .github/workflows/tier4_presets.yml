@@ -7,7 +7,7 @@ on:
         description: "Reset cache (re-download everything)"
         required: false
         type: boolean
-        default: false
+        default: true
   workflow_call:
 
 jobs:
@@ -28,13 +28,9 @@ jobs:
         run: |
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
-      - name: "🧹 Cleanup NAM/WAV/JSON"
+      - name: "🧹 Cleanup"
         run: python scripts/mega_preset_vault.py --tier cleanup --output-dir /tmp/vault
-      - name: Cache
-        run: |
-          mkdir -p /tmp/vault/03_PRESETS_AND_MODELERS
-          rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.mega_presets_cache.json /tmp/vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || true
-      - name: "🌱 Seed Repos + ZIPs"
+      - name: "🌱 Seed Repos + ZIPs (FRESH)"
         env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
         run: |
           F=""; [ "${{ inputs.fresh }}" = "true" ] && F="--fresh"
@@ -42,16 +38,14 @@ jobs:
       - name: Stats
         if: always()
         run: |
-          for d in /tmp/vault/03_PRESETS_AND_MODELERS/*/; do
-            [ -d "$d" ] && echo "$(basename "$d"): $(find "$d" -type f -not -name ".*" | wc -l)"
-          done
-          echo "TOTAL: $(find /tmp/vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" | wc -l)"
+          echo "=== SEED YIELD ==="
+          find /tmp/vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" 2>/dev/null | wc -l
       - name: "☁️ Upload"
         if: always()
-        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list --stats 30s --stats-one-line
+        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list
 
   # ═══════════════════════════════════════════════════════
-  # Job 2: GitHub Search (200+ queries)
+  # Job 2: GitHub Repo Search (200+ queries)
   # ═══════════════════════════════════════════════════════
   job2-search:
     needs: [job1-cleanup-seed]
@@ -73,18 +67,57 @@ jobs:
         run: |
           mkdir -p /tmp/vault/03_PRESETS_AND_MODELERS
           rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.mega_presets_cache.json /tmp/vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || true
-      - name: "🔍 GitHub Search"
+      - name: "🔍 GitHub Repo Search"
         env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
         run: python scripts/mega_preset_vault.py --tier search --output-dir /tmp/vault
       - name: "☁️ Upload"
         if: always()
-        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list --stats 30s --stats-one-line
+        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list
 
   # ═══════════════════════════════════════════════════════
-  # Job 3: GitHub Releases
+  # Job 3: GitHub CODE Search (individual file download)
+  # THIS IS THE BIG ONE — finds files across ALL GitHub
   # ═══════════════════════════════════════════════════════
-  job3-releases:
+  job3-codesearch:
     needs: [job2-search]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install requests
+      - run: curl -fsSL https://rclone.org/install.sh | sudo bash
+      - name: rclone
+        env: { RCLONE_CONFIG_B64: "${{ secrets.RCLONE_CONFIG_B64 }}" }
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+      - name: Cache
+        run: |
+          mkdir -p /tmp/vault/03_PRESETS_AND_MODELERS
+          rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.mega_presets_cache.json /tmp/vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || true
+      - name: "🔬 GitHub Code Search (155 queries, individual files)"
+        env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
+        run: python scripts/mega_preset_vault.py --tier codesearch --output-dir /tmp/vault
+      - name: Stats
+        if: always()
+        run: |
+          echo "=== CODE SEARCH YIELD ==="
+          for d in /tmp/vault/03_PRESETS_AND_MODELERS/*/; do
+            [ -d "$d" ] && echo "$(basename "$d"): $(find "$d" -type f -not -name ".*" | wc -l)"
+          done
+          echo "TOTAL: $(find /tmp/vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" | wc -l)"
+      - name: "☁️ Upload"
+        if: always()
+        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list
+
+  # ═══════════════════════════════════════════════════════
+  # Job 4: GitHub Releases
+  # ═══════════════════════════════════════════════════════
+  job4-releases:
+    needs: [job3-codesearch]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 180
@@ -103,18 +136,18 @@ jobs:
         run: |
           mkdir -p /tmp/vault/03_PRESETS_AND_MODELERS
           rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.mega_presets_cache.json /tmp/vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || true
-      - name: "📦 Releases"
+      - name: "📦 GitHub Releases"
         env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
         run: python scripts/mega_preset_vault.py --tier releases --output-dir /tmp/vault
       - name: "☁️ Upload"
         if: always()
-        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list --stats 30s --stats-one-line
+        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list
 
   # ═══════════════════════════════════════════════════════
-  # Job 4: GuitarPatches.com (80+ devices)
+  # Job 5: GuitarPatches.com (80+ devices)
   # ═══════════════════════════════════════════════════════
-  job4-guitarpatches:
-    needs: [job3-releases]
+  job5-guitarpatches:
+    needs: [job4-releases]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 360
@@ -135,22 +168,15 @@ jobs:
           rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.mega_presets_cache.json /tmp/vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || true
       - name: "🌐 GuitarPatches.com (80+ devices)"
         run: python scripts/mega_preset_vault.py --tier guitarpatches --output-dir /tmp/vault
-      - name: Stats
-        if: always()
-        run: |
-          for d in /tmp/vault/03_PRESETS_AND_MODELERS/*/; do
-            [ -d "$d" ] && echo "$(basename "$d"): $(find "$d" -type f -not -name ".*" | wc -l)"
-          done
-          echo "TOTAL: $(find /tmp/vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" | wc -l)"
       - name: "☁️ Upload"
         if: always()
-        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list --stats 30s --stats-one-line
+        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list
 
   # ═══════════════════════════════════════════════════════
-  # Job 5: PatchStorage.com API (16 platforms)
+  # Job 6: PatchStorage.com API + FINAL REPORT
   # ═══════════════════════════════════════════════════════
-  job5-patchstorage:
-    needs: [job4-guitarpatches]
+  job6-patchstorage-report:
+    needs: [job5-guitarpatches]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 360
@@ -171,24 +197,20 @@ jobs:
           rclone copy gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/.mega_presets_cache.json /tmp/vault/03_PRESETS_AND_MODELERS/ 2>/dev/null || true
       - name: "📦 PatchStorage.com API"
         run: python scripts/mega_preset_vault.py --tier patchstorage --output-dir /tmp/vault
-      - name: Stats
-        if: always()
-        run: |
-          for d in /tmp/vault/03_PRESETS_AND_MODELERS/*/; do
-            [ -d "$d" ] && echo "$(basename "$d"): $(find "$d" -type f -not -name ".*" | wc -l)"
-          done
-          echo "TOTAL: $(find /tmp/vault/03_PRESETS_AND_MODELERS -type f -not -name ".*" | wc -l)"
       - name: "☁️ Upload"
         if: always()
-        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list --stats 30s --stats-one-line
-      - name: "🔥 FINAL"
+        run: rclone copy /tmp/vault/03_PRESETS_AND_MODELERS gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS --transfers 12 --checkers 24 --fast-list
+      - name: "🔥 FINAL REPORT"
         if: always()
         run: |
-          echo "╔═══════════════════════════════════════════╗"
-          echo "║  MEGA PRESET VAULT v3 — FINAL REPORT      ║"
-          echo "╚═══════════════════════════════════════════╝"
+          echo "╔════════════════════════════════════════════╗"
+          echo "║  MEGA PRESET VAULT v4 — FINAL REPORT       ║"
+          echo "╚════════════════════════════════════════════╝"
           rclone size gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS || true
+          GRAND=0
           for d in $(rclone lsd gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS 2>/dev/null | awk '{print $NF}'); do
             c=$(rclone ls "gdrive2:IR_DEF_REPOSITORY/03_PRESETS_AND_MODELERS/$d" 2>/dev/null | wc -l)
-            echo "  $d: $c"
+            echo "  📁 $d: $c"
+            GRAND=$((GRAND + c))
           done
+          echo "  🔥 GRAND TOTAL: $GRAND presets"

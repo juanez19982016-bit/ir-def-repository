@@ -57,7 +57,11 @@ SEED_REPOS = [
     "mfmods/mf-nam-models",
     "Pilkch/nam-models",
     "markusaksli-nc/nam-models",
-    "pelennor2170/NAM_models"
+    "pelennor2170/NAM_models",
+    "amplitube-nam/nam-models",
+    "felipehw/NAM",
+    "tonehunt-org/models",
+    "pete/nam-models",
 ]
 
 DIRECT_ZIPS = []
@@ -69,7 +73,15 @@ SEARCH_QUERIES = [
     "nam capture pedal", "nam profiles pedal", "nam models pedal",
     "klon nam", "ts9 nam", "tube screamer nam", "rat nam", "big muff nam",
     "nam pedal capture", "nam distortion capture", "nam drive pedal",
-    "nam pedals", "nam overdrive capture", "nam fuzz capture"
+    "nam pedals", "nam overdrive capture", "nam fuzz capture", "fuzzbox nam",
+    "fuzz face nam", "tone bender nam", "morning glory nam", "blues driver nam", "bd-2 nam",
+    "timmy nam", "zendrive nam", "king of tone nam", "kot nam", "prince of tone nam",
+    "duke of tone nam", "spark nam", "fortin 33 nam", "fortin grind nam", "maxon od808 nam",
+    "precision drive nam", "metal zone nam", "mt-2 nam", "hm-2 nam", "ds-1 nam", "sd-1 nam",
+    "od-1 nam", "mxr drive nam", "chase tone secret nam", "echoplex nam", "plumes nam", 
+    "ocd nam", "archer nam", "tumnus nam", "soul food nam", "bonsai nam", "mudhoney nam",
+    "plexi drive nam", "be-od nam", "revv g3 nam", "revv g4 nam", "diezel vh4 pedal nam",
+    "ceres nam", "eros nam", "d&m drive nam", "nam delay", "nam chorus", "nam flanger"
 ]
 
 # ═══════════════════════════════════════════════════════════
@@ -359,6 +371,18 @@ for ext in CODE_SEARCH_EXTS:
     CODE_SEARCH_QUERIES.append(f"extension:{ext} boost")
     CODE_SEARCH_QUERIES.append(f"extension:{ext} klon")
     CODE_SEARCH_QUERIES.append(f"extension:{ext} ts9")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} screamer")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} rat")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} muff")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} bd2")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} morning")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} timmy")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} kot")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} ocd")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} plumes")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} metal")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} hm2")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} fortin")
 
 def run_code_search(stats):
     """Use GitHub Code Search API to find individual files."""

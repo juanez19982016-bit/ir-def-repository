@@ -502,6 +502,14 @@ for ext in CODE_SEARCH_EXTS:
     CODE_SEARCH_QUERIES.append(f"extension:{ext} patch")
     CODE_SEARCH_QUERIES.append(f"extension:{ext} tone")
     CODE_SEARCH_QUERIES.append(f"extension:{ext} amp")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} metal")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} clean")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} lead")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} crunch")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} acoustic")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} bass")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} worship")
+    CODE_SEARCH_QUERIES.append(f"extension:{ext} ambient")
 
 def run_code_search(stats):
     """Use GitHub Code Search API to find individual files."""

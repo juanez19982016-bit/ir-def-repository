@@ -31,11 +31,15 @@ jobs:
         run: |
           python scripts/organize_subfolders.py
           
+      - name: "⭐ Create Essentials Folder"
+        run: |
+          python scripts/create_essentials.py
+          
       - name: "🌳 Mostrar Árbol de Carpetas"
         if: always()
         run: |
-          echo "=== 01_GABINETES_IRs_GUITARRA ==="
-          rclone lsd gdrive2:IR_DEF_REPOSITORY/01_GABINETES_IRs_GUITARRA || true
+          echo "=== 02_AMPLIFICADORES_NAM ==="
+          rclone lsd gdrive2:IR_DEF_REPOSITORY/02_AMPLIFICADORES_NAM || true
           echo ""
-          echo "=== 04_PRESETS_MULTI_EFECTOS ==="
-          rclone lsd gdrive2:IR_DEF_REPOSITORY/04_PRESETS_MULTI_EFECTOS || true
+          echo "=== 00_EMPIEZA_AQUI ==="
+          rclone lsd gdrive2:IR_DEF_REPOSITORY/00_EMPIEZA_AQUI || true

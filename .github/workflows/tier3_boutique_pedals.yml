@@ -1,0 +1,67 @@
+name: "Tier 3: Boutique Pedals (NAM)"
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  download-boutique-pedals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+
+      - name: Download existing cache
+        run: |
+          mkdir -p /tmp/boutique_pedals
+          rclone copy gdrive2:IR_DEF_REPOSITORY/04_BOUTIQUE_PEDALS_NAM/.mega_pedals_cache.json /tmp/boutique_pedals/ 2>/dev/null || true
+
+      - name: "📦 Phase 1: Seed Repos"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/mega_pedals_vault.py --tier seed --output-dir /tmp/boutique_pedals
+
+      - name: "📦 Phase 2: Code Search"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/mega_pedals_vault.py --tier codesearch --output-dir /tmp/boutique_pedals
+
+      - name: Stats
+        if: always()
+        run: |
+          echo "=== Boutique Pedals Extracted ==="
+          find /tmp/boutique_pedals -type f -name '*.nam' | wc -l
+
+      - name: "📤 Upload to Drive (gdrive2)"
+        if: always()
+        run: |
+          rclone copy /tmp/boutique_pedals/04_BOUTIQUE_PEDALS_NAM gdrive2:IR_DEF_REPOSITORY/04_BOUTIQUE_PEDALS_NAM \
+            --transfers 8 --checkers 16 --drive-chunk-size 64M \
+            --fast-list --stats 30s --log-level INFO --stats-one-line \
+            --exclude ".*" --exclude "*.log"
+
+      - name: "📤 Upload Cache"
+        if: always()
+        run: |
+          rclone copy /tmp/boutique_pedals/.mega_pedals_cache.json gdrive2:IR_DEF_REPOSITORY/04_BOUTIQUE_PEDALS_NAM/ 2>/dev/null || true

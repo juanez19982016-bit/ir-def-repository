@@ -1,0 +1,73 @@
+name: "VERIFIED Expansion (Real Sources Only)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      fresh:
+        description: "Reset cache to re-download everything"
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  verified-download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Install rclone
+        run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+      - name: Configure rclone
+        env:
+          RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONFIG_B64 }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+          rclone listremotes
+
+      - name: "ESTADO ANTES"
+        run: rclone size gdrive2:IR_DEF_REPOSITORY || true
+
+      - name: "🚀 VERIFIED EXPANSION"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          FRESH_FLAG=""
+          if [ "${{ inputs.fresh }}" = "true" ]; then FRESH_FLAG="--fresh"; fi
+          python scripts/verified_expansion.py \
+            --output-dir /tmp/ir_repository $FRESH_FLAG
+
+      - name: Stats
+        if: always()
+        run: |
+          echo "=== Files downloaded ==="
+          find /tmp/ir_repository -type f \( -name '*.wav' -o -name '*.nam' \) 2>/dev/null | wc -l
+          echo "=== By category ==="
+          for d in /tmp/ir_repository/*/; do
+            [ -d "$d" ] && echo "$(basename $d): $(find $d -type f 2>/dev/null | wc -l)"
+          done
+
+      - name: "📤 Upload to Drive"
+        if: always()
+        run: |
+          rclone copy /tmp/ir_repository gdrive2:IR_DEF_REPOSITORY \
+            --transfers 8 --checkers 16 --drive-chunk-size 64M \
+            --fast-list --stats 30s --log-level INFO --stats-one-line \
+            --exclude ".*" --exclude "*.log" --exclude "*.json"
+
+      - name: "ESTADO DESPUÉS"
+        if: always()
+        run: |
+          echo "=== FINAL DRIVE STATE ==="
+          rclone size gdrive2:IR_DEF_REPOSITORY || true

@@ -31,8 +31,8 @@ parser.add_argument("--output-dir", required=True)
 parser.add_argument("--fresh", action="store_true")
 args = parser.parse_args()
 
-BASE_DIR = Path(args.output_dir) / "03_PRESETS_AND_MODELERS"
-CACHE_FILE = BASE_DIR / ".mega_presets_cache.json"
+BASE_DIR = Path(args.output_dir) / "04_BOUTIQUE_PEDALS_NAM"
+CACHE_FILE = BASE_DIR / ".mega_pedals_cache.json"
 BASE_DIR.mkdir(parents=True, exist_ok=True)
 
 # ═══════════════════════════════════════════════════════════

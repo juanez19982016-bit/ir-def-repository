@@ -56,7 +56,7 @@ jobs:
       - name: "📤 Upload to Drive (gdrive2)"
         if: always()
         run: |
-          rclone copy /tmp/boutique_pedals/04_BOUTIQUE_PEDALS_NAM gdrive2:IR_DEF_REPOSITORY/04_BOUTIQUE_PEDALS_NAM \
+          rclone copy /tmp/boutique_pedals/Boutique_Pedals_NAM gdrive2:IR_DEF_REPOSITORY/04_BOUTIQUE_PEDALS_NAM \
             --transfers 8 --checkers 16 --drive-chunk-size 64M \
             --fast-list --stats 30s --log-level INFO --stats-one-line \
             --exclude ".*" --exclude "*.log"

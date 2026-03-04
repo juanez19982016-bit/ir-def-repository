@@ -52,6 +52,6 @@ jobs:
     - name: Upload Massive Vault to Google Drive (via Rclone)
       run: |
         echo "Uploading 15GB payload to Drive..."
-        # Using the same remote named 'drive' that we used for IRs
+        # Using the same remote named 'gdrive2' that we used for IRs
         # Adjust flags for a massive upload
-        rclone copy God_Tier_Dev_Vault drive:God_Tier_Dev_Vault -v --stats 1m --drive-chunk-size 128M --transfers 8 --checkers 8
+        rclone copy God_Tier_Dev_Vault gdrive2:God_Tier_Dev_Vault -v --stats 1m --drive-chunk-size 128M --transfers 8 --checkers 8

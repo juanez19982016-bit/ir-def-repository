@@ -50,37 +50,57 @@ jobs:
     - name: Generate Welcome README
       run: |
         cat > God_Tier_Dev_Vault/README.md << 'DEVEOF'
-        # 🏆 DevVault Pro 2026
+        # 🏆 DevVault Pro 2026 — V2.0
 
         **La librería privada más completa para desarrolladores web.**
+        **150+ proyectos profesionales · 16 categorías · 20 guías de referencia**
 
         ## 📖 Cómo Usar Este Vault
 
         1. Abre `CATALOG.md` para ver el catálogo completo con todos los proyectos y su stack tecnológico.
         2. Cada carpeta de categoría tiene un `INDICE.md` con el listado detallado.
-        3. Copia la carpeta del proyecto que necesites a tu workspace y personalízalo.
-        4. Revisa la carpeta `[BONUS] Cheat_Sheets_2026/` para guías rápidas de las tecnologías incluidas.
+        3. Cada proyecto tiene un `PROJECT_INFO.md` con instrucciones de uso.
+        4. Copia la carpeta del proyecto que necesites y ejecuta `npm install && npm run dev`.
+        5. Revisa `[BONUS] Cheat_Sheets_2026/` para 20 guías de referencia rápida.
 
-        ## 📂 Categorías
+        ## 📂 Categorías (16)
 
+        ### Frameworks & SaaS
         - **Premium SaaS Boilerplates** → Next.js 15 + Stripe + Auth + Supabase
-        - **Shadcn UI Blocks & Kits** → Componentes UI profesionales
+        - **Fullstack Production Apps** → Apps completas listas para deploy
+        - **Ecommerce Starter Kits** → Tiendas online con carrito y pagos
+
+        ### UI & Design
+        - **Shadcn UI Blocks & Kits** → 80K+ estrellas, componentes premium
+        - **Tailwind Component Libraries** → DaisyUI, Flowbite, NextUI, HeadlessUI
         - **Framer Motion UI Kits** → Animaciones y micro-interacciones
-        - **React Admin Dashboards** → Paneles con métricas y tablas
-        - **AI SaaS & Chatbots** → Starters con OpenAI/GPT integrado
-        - **E-commerce Starter Kits** → Tiendas online listas para producción
-        - **Portfolio & Blog Templates** → Sitios personales modernos
-        - **CRM & Business Tools** → Herramientas empresariales
-        - **Auth & Payment Modules** → Autenticación y cobros
-        - **Landing Pages High Conversion** → Páginas de venta profesionales
-        - **Tailwind Component Libraries** → Librerías de componentes
-        - **[BONUS] Cheat Sheets 2026** → Guías rápidas de referencia
+        - **Landing Pages High Conversion** → Páginas de venta optimizadas
+
+        ### AI & Chatbots
+        - **AI SaaS & Chatbots** → OpenAI, LangChain, LobeChat, Flowise
+
+        ### Business
+        - **React Admin Dashboards** → Paneles con gráficos y tablas
+        - **CRM & Business Tools** → Twenty CRM, Trigger.dev, OpenStatus
+        - **Auth & Payment Modules** → NextAuth, Lucia, Clerk, Stripe
+
+        ### Portfolio & Content
+        - **Portfolio & Blog Templates** → Sitios personales + blogs MDX
+
+        ### Mobile & Tools
+        - **React Native Mobile Starters** → Expo, NativeWind, Tamagui
+        - **Email Templates & Systems** → React Email + Resend
+        - **Developer Tools & Utilities** → Zustand, Zod, React Query, dnd-kit
+        - **Chrome Extensions & Browser** → Extensiones listas para publicar
+
+        ### 🎁 BONUS
+        - **20 Cheat Sheets** → Next.js, React, TypeScript, Tailwind, Shadcn, Stripe, Supabase, Prisma, OpenAI, Docker, Git, y más
 
         ## ⚖️ Licencia
-        Todos los proyectos incluidos utilizan **Licencia MIT**: uso comercial libre, modificación y redistribución permitida.
+        Todos los proyectos incluidos son **open-source con licencias permisivas** (MIT/ISC/Apache): uso comercial libre.
 
         ---
-        *DevVault Pro 2026 — Ahorra meses de trabajo. Entrega proyectos en días.*
+        *DevVault Pro 2026 V2.0 — Ahorra meses de trabajo. Entrega proyectos en días.*
         DEVEOF
 
     - name: Report Vault Size

@@ -138,8 +138,12 @@ jobs:
 
     - name: Upload Archives to Google Drive (FAST)
       run: |
-        echo "Uploading both archives..."
-        rclone copy DevVault_Pro_2026.zip gdrive2:DevVault_Pro/ -v --stats 10s
-        rclone copy DevVault_Pro_2026.tar.gz gdrive2:DevVault_Pro/ -v --stats 10s
+        echo "Uploading .zip archive..."
+        rclone copy DevVault_Pro_2026.zip gdrive2:DevVault_Pro/ -v --stats 10s --retries 5 --retries-sleep 30s --low-level-retries 10
+        echo "Waiting 60s before next upload to avoid rate limits..."
+        sleep 60
+        echo "Uploading .tar.gz archive..."
+        rclone copy DevVault_Pro_2026.tar.gz gdrive2:DevVault_Pro/ -v --stats 10s --retries 5 --retries-sleep 30s --low-level-retries 10
         echo "Upload complete!"
         rclone size gdrive2:DevVault_Pro/ || true
+

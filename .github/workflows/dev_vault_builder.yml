@@ -27,7 +27,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "Running V2 Ultra-Premium Scraper..."
+        echo "Running V3 Ultra-Premium Scraper..."
         python scripts/github_code_scraper.py
 
     - name: Download & Extract Boilerplates
@@ -37,16 +37,62 @@ jobs:
           --json github_dev_assets.json \
           --output God_Tier_Dev_Vault
 
+    - name: Generate Category Indices & Master Catalog
+      run: |
+        echo "Generating INDICE.md per category and CATALOG.md..."
+        python scripts/generate_vault_catalog.py God_Tier_Dev_Vault github_dev_assets.json
+
+    - name: Generate Bonus Cheat Sheets
+      run: |
+        echo "Creating premium cheat sheets..."
+        python scripts/generate_cheat_sheets.py God_Tier_Dev_Vault
+
+    - name: Generate Welcome README
+      run: |
+        cat > God_Tier_Dev_Vault/README.md << 'DEVEOF'
+        # 🏆 DevVault Pro 2026
+
+        **La librería privada más completa para desarrolladores web.**
+
+        ## 📖 Cómo Usar Este Vault
+
+        1. Abre `CATALOG.md` para ver el catálogo completo con todos los proyectos y su stack tecnológico.
+        2. Cada carpeta de categoría tiene un `INDICE.md` con el listado detallado.
+        3. Copia la carpeta del proyecto que necesites a tu workspace y personalízalo.
+        4. Revisa la carpeta `[BONUS] Cheat_Sheets_2026/` para guías rápidas de las tecnologías incluidas.
+
+        ## 📂 Categorías
+
+        - **Premium SaaS Boilerplates** → Next.js 15 + Stripe + Auth + Supabase
+        - **Shadcn UI Blocks & Kits** → Componentes UI profesionales
+        - **Framer Motion UI Kits** → Animaciones y micro-interacciones
+        - **React Admin Dashboards** → Paneles con métricas y tablas
+        - **AI SaaS & Chatbots** → Starters con OpenAI/GPT integrado
+        - **E-commerce Starter Kits** → Tiendas online listas para producción
+        - **Portfolio & Blog Templates** → Sitios personales modernos
+        - **CRM & Business Tools** → Herramientas empresariales
+        - **Auth & Payment Modules** → Autenticación y cobros
+        - **Landing Pages High Conversion** → Páginas de venta profesionales
+        - **Tailwind Component Libraries** → Librerías de componentes
+        - **[BONUS] Cheat Sheets 2026** → Guías rápidas de referencia
+
+        ## ⚖️ Licencia
+        Todos los proyectos incluidos utilizan **Licencia MIT**: uso comercial libre, modificación y redistribución permitida.
+
+        ---
+        *DevVault Pro 2026 — Ahorra meses de trabajo. Entrega proyectos en días.*
+        DEVEOF
+
     - name: Report Vault Size
       run: |
         echo "=== VAULT SIZE REPORT ==="
         du -sh God_Tier_Dev_Vault/ || true
-        echo "Total folders:"
-        ls God_Tier_Dev_Vault/ | wc -l || true
-        echo "Total files:"
-        find God_Tier_Dev_Vault/ -type f | wc -l || true
         echo "=== BY CATEGORY ==="
         du -sh God_Tier_Dev_Vault/*/ || true
+        echo "=== TOTAL FILES ==="
+        find God_Tier_Dev_Vault/ -type f | wc -l || true
+        echo "=== DOCUMENTATION FILES ==="
+        find God_Tier_Dev_Vault/ -name "INDICE.md" -o -name "CATALOG.md" -o -name "README.md" | head -20
 
     - name: Compress Vault into Single Archive
       run: |
@@ -68,7 +114,7 @@ jobs:
 
     - name: Upload Single Archive to Google Drive (FAST)
       run: |
-        echo "Uploading compressed archive (should take ~2 min)..."
+        echo "Uploading compressed archive..."
         rclone copy DevVault_Pro_2026.tar.gz gdrive2:DevVault_Pro/ -v --stats 10s
         echo "Upload complete!"
         rclone size gdrive2:DevVault_Pro/ || true

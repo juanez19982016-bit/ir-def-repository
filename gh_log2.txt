@@ -1,0 +1,8 @@
+﻿gh : run 22681770380 is still in progress; logs will be available when it is complete
+At line:1 char:1
++ gh run view 22681770380 --log 2>&1 | Out-File -FilePath "C:\Users\Adm ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (run 22681770380... it is complete:String) [], RemoteE 
+   xception
+    + FullyQualifiedErrorId : NativeCommandError
+ 

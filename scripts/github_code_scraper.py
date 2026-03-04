@@ -8,7 +8,7 @@ import time
 # These are downloaded DIRECTLY, no search needed. Guaranteed high quality.
 # =============================================================================
 CURATED_REPOS = [
-    # --- SHADCN / UI SYSTEMS ---
+    # --- SHADCN / UI SYSTEMS (all MIT) ---
     {"repo_name": "shadcn-ui/ui", "category": "Shadcn_UI_Blocks_and_Kits", "stars": 80000},
     {"repo_name": "shadcn-ui/taxonomy", "category": "Premium_SaaS_Boilerplates", "stars": 18000},
     {"repo_name": "shadcn-ui/next-template", "category": "Premium_SaaS_Boilerplates", "stars": 5000},
@@ -16,55 +16,50 @@ CURATED_REPOS = [
     {"repo_name": "sadmann7/shadcn-table", "category": "Shadcn_UI_Blocks_and_Kits", "stars": 3000},
     {"repo_name": "tremorlabs/tremor", "category": "React_Admin_Dashboards", "stars": 16000},
     {"repo_name": "pacocoursey/cmdk", "category": "Shadcn_UI_Blocks_and_Kits", "stars": 9000},
-    # --- NEXT.JS BOILERPLATES & SAAS ---
+    # --- NEXT.JS BOILERPLATES (MIT only) ---
     {"repo_name": "steven-tey/dub", "category": "Premium_SaaS_Boilerplates", "stars": 18000},
-    {"repo_name": "calcom/cal.com", "category": "Premium_SaaS_Boilerplates", "stars": 32000},
     {"repo_name": "vercel/commerce", "category": "Ecommerce_Starter_Kits", "stars": 11000},
     {"repo_name": "vercel/platforms", "category": "Premium_SaaS_Boilerplates", "stars": 5000},
     {"repo_name": "vercel/ai-chatbot", "category": "AI_SaaS_and_Chatbots", "stars": 7000},
     {"repo_name": "mckaywrigley/chatbot-ui", "category": "AI_SaaS_and_Chatbots", "stars": 28000},
-    {"repo_name": "Chatbot-Arena/chatbot-arena", "category": "AI_SaaS_and_Chatbots", "stars": 5000},
     {"repo_name": "leerob/leerob.io", "category": "Portfolio_and_Blog_Templates", "stars": 7000},
     {"repo_name": "timlrx/tailwind-nextjs-starter-blog", "category": "Portfolio_and_Blog_Templates", "stars": 8000},
     {"repo_name": "chronark/highstorm", "category": "Premium_SaaS_Boilerplates", "stars": 3000},
     {"repo_name": "sadmann7/skateshop", "category": "Ecommerce_Starter_Kits", "stars": 3500},
     {"repo_name": "ixartz/SaaS-Boilerplate", "category": "Premium_SaaS_Boilerplates", "stars": 4000},
     {"repo_name": "ixartz/Next-js-Boilerplate", "category": "Premium_SaaS_Boilerplates", "stars": 9000},
-    # --- DASHBOARDS ---
-    {"repo_name": "Jeeva-Developer/admin-dashboard", "category": "React_Admin_Dashboards", "stars": 500},
+    {"repo_name": "Blazity/next-enterprise", "category": "Premium_SaaS_Boilerplates", "stars": 6000},
+    {"repo_name": "t3-oss/create-t3-app", "category": "Premium_SaaS_Boilerplates", "stars": 25000},
+    # --- DASHBOARDS (MIT) ---
     {"repo_name": "horizon-ui/horizon-ui-chakra", "category": "React_Admin_Dashboards", "stars": 2500},
     {"repo_name": "marmelab/react-admin", "category": "React_Admin_Dashboards", "stars": 25000},
     {"repo_name": "refinedev/refine", "category": "React_Admin_Dashboards", "stars": 28000},
     {"repo_name": "TanStack/table", "category": "React_Admin_Dashboards", "stars": 25000},
-    # --- FRAMER MOTION / ANIMATIONS ---
+    # --- FRAMER MOTION / ANIMATIONS (MIT) ---
     {"repo_name": "framer/motion", "category": "Framer_Motion_UI_Kits", "stars": 24000},
     {"repo_name": "ibelick/motion-primitives", "category": "Framer_Motion_UI_Kits", "stars": 3000},
-    {"repo_name": "aceternity/aceternity-ui", "category": "Framer_Motion_UI_Kits", "stars": 2000},
     {"repo_name": "magicuidesign/magicui", "category": "Framer_Motion_UI_Kits", "stars": 5000},
-    # --- TAILWIND COMPONENT LIBRARIES ---
+    # --- TAILWIND COMPONENT LIBRARIES (MIT) ---
     {"repo_name": "saadeghi/daisyui", "category": "Tailwind_Component_Libraries", "stars": 33000},
     {"repo_name": "preline/preline", "category": "Tailwind_Component_Libraries", "stars": 5000},
     {"repo_name": "themesberg/flowbite", "category": "Tailwind_Component_Libraries", "stars": 8000},
     {"repo_name": "konstaui/konsta", "category": "Tailwind_Component_Libraries", "stars": 3000},
     {"repo_name": "sailboatui/sailboatui", "category": "Tailwind_Component_Libraries", "stars": 1500},
     {"repo_name": "creativetimofficial/material-tailwind", "category": "Tailwind_Component_Libraries", "stars": 4000},
-    # --- E-COMMERCE ---
+    # --- E-COMMERCE (MIT only) ---
     {"repo_name": "medusajs/medusa", "category": "Ecommerce_Starter_Kits", "stars": 25000},
-    {"repo_name": "saleor/saleor", "category": "Ecommerce_Starter_Kits", "stars": 21000},
-    {"repo_name": "payloadcms/payload", "category": "Ecommerce_Starter_Kits", "stars": 24000},
-    # --- PORTFOLIO / BLOG ---
+    {"repo_name": "vercel/commerce", "category": "Ecommerce_Starter_Kits", "stars": 11000},
+    # --- PORTFOLIO / BLOG (MIT) ---
     {"repo_name": "craftzdog/craftzdog-homepage", "category": "Portfolio_and_Blog_Templates", "stars": 5000},
-    {"repo_name": "chronark/chronark.com", "category": "Portfolio_and_Blog_Templates", "stars": 1500},
     {"repo_name": "dillionverma/portfolio", "category": "Portfolio_and_Blog_Templates", "stars": 2000},
-    # --- CRM / BUSINESS TOOLS ---
+    {"repo_name": "chronark/chronark.com", "category": "Portfolio_and_Blog_Templates", "stars": 1500},
+    # --- CRM / BUSINESS (MIT) ---
     {"repo_name": "twentyhq/twenty", "category": "CRM_and_Business_Tools", "stars": 20000},
     {"repo_name": "documenso/documenso", "category": "CRM_and_Business_Tools", "stars": 8000},
-    {"repo_name": "invoiceninja/invoiceninja", "category": "CRM_and_Business_Tools", "stars": 8000},
-    # --- AUTH / PAYMENTS ---
+    # --- AUTH (MIT/ISC) ---
     {"repo_name": "nextauthjs/next-auth", "category": "Auth_and_Payment_Modules", "stars": 24000},
-    {"repo_name": "supabase/supabase", "category": "Auth_and_Payment_Modules", "stars": 72000},
     {"repo_name": "lucia-auth/lucia", "category": "Auth_and_Payment_Modules", "stars": 9000},
-    # --- LANDING PAGES ---
+    # --- LANDING PAGES (MIT) ---
     {"repo_name": "cruip/open-react-template", "category": "Landing_Pages_High_Conversion", "stars": 2500},
     {"repo_name": "cruip/tailwind-landing-page-template", "category": "Landing_Pages_High_Conversion", "stars": 3000},
 ]

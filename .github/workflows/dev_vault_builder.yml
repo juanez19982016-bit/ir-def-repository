@@ -40,7 +40,7 @@ jobs:
     - name: Generate Category Indices & Master Catalog
       run: |
         echo "Generating INDICE.md per category and CATALOG.md..."
-        python scripts/generate_vault_catalog.py God_Tier_Dev_Vault github_dev_assets.json
+        python scripts/generate_vault_catalog.py God_Tier_Dev_Vault name_mapping.json
 
     - name: Generate Bonus Cheat Sheets
       run: |
@@ -94,12 +94,16 @@ jobs:
         echo "=== DOCUMENTATION FILES ==="
         find God_Tier_Dev_Vault/ -name "INDICE.md" -o -name "CATALOG.md" -o -name "README.md" | head -20
 
-    - name: Compress Vault into Single Archive
+    - name: Compress Vault into Archives
       run: |
-        echo "Compressing entire vault into single .tar.gz..."
+        echo "Creating .zip (Windows-friendly)..."
+        apt-get -qq install -y zip > /dev/null 2>&1 || true
+        cd God_Tier_Dev_Vault && zip -r -q ../DevVault_Pro_2026.zip . && cd ..
+        ls -lh DevVault_Pro_2026.zip
+        echo "Creating .tar.gz (Mac/Linux)..."
         tar -czf DevVault_Pro_2026.tar.gz God_Tier_Dev_Vault/
         ls -lh DevVault_Pro_2026.tar.gz
-        echo "Compression complete!"
+        echo "Both archives ready!"
 
     - name: Install rclone
       run: curl -fsSL https://rclone.org/install.sh | sudo bash
@@ -112,9 +116,10 @@ jobs:
         echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
         rclone listremotes
 
-    - name: Upload Single Archive to Google Drive (FAST)
+    - name: Upload Archives to Google Drive (FAST)
       run: |
-        echo "Uploading compressed archive..."
+        echo "Uploading both archives..."
+        rclone copy DevVault_Pro_2026.zip gdrive2:DevVault_Pro/ -v --stats 10s
         rclone copy DevVault_Pro_2026.tar.gz gdrive2:DevVault_Pro/ -v --stats 10s
         echo "Upload complete!"
         rclone size gdrive2:DevVault_Pro/ || true

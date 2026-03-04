@@ -7,7 +7,7 @@ jobs:
   build_vault:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # Need to explicitly provide token access
+      contents: read
 
     steps:
     - name: Checkout Repository
@@ -25,18 +25,35 @@ jobs:
 
     - name: Search and Scrape Elite Repos
       env:
-        # Utilize internal token for code search
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "Running God-Tier Dev Scraper..."
+        echo "Running V2 Ultra-Premium Scraper..."
         python scripts/github_code_scraper.py
-        
+
     - name: Download & Extract Boilerplates
       run: |
-        echo "Processor Running..."
+        echo "Downloading all repos..."
         python scripts/mega_processor_dev.py \
           --json github_dev_assets.json \
           --output God_Tier_Dev_Vault
+
+    - name: Report Vault Size
+      run: |
+        echo "=== VAULT SIZE REPORT ==="
+        du -sh God_Tier_Dev_Vault/ || true
+        echo "Total folders:"
+        ls God_Tier_Dev_Vault/ | wc -l || true
+        echo "Total files:"
+        find God_Tier_Dev_Vault/ -type f | wc -l || true
+        echo "=== BY CATEGORY ==="
+        du -sh God_Tier_Dev_Vault/*/ || true
+
+    - name: Compress Vault into Single Archive
+      run: |
+        echo "Compressing entire vault into single .tar.gz..."
+        tar -czf DevVault_Pro_2026.tar.gz God_Tier_Dev_Vault/
+        ls -lh DevVault_Pro_2026.tar.gz
+        echo "Compression complete!"
 
     - name: Install rclone
       run: curl -fsSL https://rclone.org/install.sh | sudo bash
@@ -49,9 +66,9 @@ jobs:
         echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
         rclone listremotes
 
-    - name: Upload Massive Vault to Google Drive (via Rclone)
+    - name: Upload Single Archive to Google Drive (FAST)
       run: |
-        echo "Uploading 15GB payload to Drive..."
-        # Using the same remote named 'gdrive2' that we used for IRs
-        # Adjust flags for a massive upload
-        rclone copy God_Tier_Dev_Vault gdrive2:God_Tier_Dev_Vault -v --stats 1m --drive-chunk-size 128M --transfers 8 --checkers 8
+        echo "Uploading compressed archive (should take ~2 min)..."
+        rclone copy DevVault_Pro_2026.tar.gz gdrive2:DevVault_Pro/ -v --stats 10s
+        echo "Upload complete!"
+        rclone size gdrive2:DevVault_Pro/ || true

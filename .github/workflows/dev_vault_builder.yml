@@ -1,4 +1,4 @@
-name: Build 10x Developer Vault
+name: Build God-Tier Developer Vault 2026
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ jobs:
   build_vault:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # Explicitly request token permissions if needed
+      contents: read # Need to explicitly provide token access
 
     steps:
     - name: Checkout Repository
@@ -23,28 +23,29 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests
 
-    - name: Search and Scrape Repos
+    - name: Search and Scrape Elite Repos
       env:
-        # We uniquely use the default GitHub Action token to bypass rate limits!
+        # Utilize internal token for code search
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "Running Dev Scraper..."
-        python Developer_Vault/scripts/github_code_scraper.py
+        echo "Running God-Tier Dev Scraper..."
+        python scripts/github_code_scraper.py
         
     - name: Download & Extract Boilerplates
       run: |
         echo "Processor Running..."
-        python Developer_Vault/scripts/mega_processor_dev.py \
+        python scripts/mega_processor_dev.py \
           --json github_dev_assets.json \
-          --output Developer_Vault_Build
+          --output God_Tier_Dev_Vault
 
-    - name: Zip The Complete Vault
-      run: |
-        # Since it's lightweight logic, zip it all for direct download!
-        zip -r 10x_Developer_Vault.zip Developer_Vault_Build/
-
-    - name: Upload as GitHub Release Artifact
-      uses: actions/upload-artifact@v4
+    - name: Setup Rclone
+      uses: animeta/setup-rclone@v1
       with:
-        name: 10x_Developer_Vault_ZIP
-        path: 10x_Developer_Vault.zip
+        rclone_config: ${{ secrets.RCLONE_CONF }}
+
+    - name: Upload Massive Vault to Google Drive (via Rclone)
+      run: |
+        echo "Uploading 15GB payload to Drive..."
+        # Using the same remote named 'drive' that we used for IRs
+        # Adjust flags for a massive upload
+        rclone copy God_Tier_Dev_Vault drive:God_Tier_Dev_Vault -v --stats 1m --drive-chunk-size 128M --transfers 8 --checkers 8

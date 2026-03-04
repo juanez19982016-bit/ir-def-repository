@@ -38,10 +38,16 @@ jobs:
           --json github_dev_assets.json \
           --output God_Tier_Dev_Vault
 
-    - name: Setup Rclone
-      uses: animeta/setup-rclone@v1
-      with:
-        rclone_config: ${{ secrets.RCLONE_CONF }}
+    - name: Install rclone
+      run: curl -fsSL https://rclone.org/install.sh | sudo bash
+
+    - name: Configure rclone
+      env:
+        RCLONE_CONFIG_B64: ${{ secrets.RCLONE_CONF }}
+      run: |
+        mkdir -p ~/.config/rclone
+        echo "$RCLONE_CONFIG_B64" | base64 -d > ~/.config/rclone/rclone.conf
+        rclone listremotes
 
     - name: Upload Massive Vault to Google Drive (via Rclone)
       run: |

@@ -1,0 +1,50 @@
+name: Build 10x Developer Vault
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_vault:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Explicitly request token permissions if needed
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Search and Scrape Repos
+      env:
+        # We uniquely use the default GitHub Action token to bypass rate limits!
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "Running Dev Scraper..."
+        python Developer_Vault/scripts/github_code_scraper.py
+        
+    - name: Download & Extract Boilerplates
+      run: |
+        echo "Processor Running..."
+        python Developer_Vault/scripts/mega_processor_dev.py \
+          --json github_dev_assets.json \
+          --output Developer_Vault_Build
+
+    - name: Zip The Complete Vault
+      run: |
+        # Since it's lightweight logic, zip it all for direct download!
+        zip -r 10x_Developer_Vault.zip Developer_Vault_Build/
+
+    - name: Upload as GitHub Release Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: 10x_Developer_Vault_ZIP
+        path: 10x_Developer_Vault.zip

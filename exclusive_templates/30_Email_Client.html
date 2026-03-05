@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InboxPro — Email Client</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #09090b;
+            --card: #111115;
+            --border: rgba(255, 255, 255, .06);
+            --accent: #3b82f6;
+            --text: #fafafa;
+            --muted: #71717a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden
+        }
+
+        .sidebar {
+            width: 200px;
+            background: #0c0c10;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            flex-shrink: 0
+        }
+
+        .sb-logo {
+            font-weight: 800;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 1rem;
+            padding: 4px
+        }
+
+        .sb-compose {
+            padding: 10px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            font-size: .85rem;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Inter';
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px
+        }
+
+        .sb-link {
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .85rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all .12s;
+            color: var(--muted);
+            margin-bottom: 1px
+        }
+
+        .sb-link:hover {
+            background: rgba(255, 255, 255, .03);
+            color: var(--text)
+        }
+
+        .sb-link.active {
+            background: rgba(59, 130, 246, .08);
+            color: var(--accent)
+        }
+
+        .sb-link .icon {
+            width: 16px;
+            text-align: center;
+            font-size: .85rem
+        }
+
+        .sb-link .count {
+            margin-left: auto;
+            font-size: .72rem;
+            font-weight: 600
+        }
+
+        .sb-label {
+            font-size: .68rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            padding: 12px 10px 6px;
+            font-weight: 500
+        }
+
+        .sb-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0
+        }
+
+        .list {
+            width: 340px;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0
+        }
+
+        .list-header {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .list-header h2 {
+            font-size: .92rem;
+            font-weight: 700
+        }
+
+        .list-search {
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .list-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: .82rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .list-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .lt {
+            flex: 1;
+            padding: 8px;
+            text-align: center;
+            font-size: .78rem;
+            cursor: pointer;
+            color: var(--muted);
+            transition: all .12s;
+            position: relative
+        }
+
+        .lt.active {
+            color: var(--text);
+            font-weight: 600
+        }
+
+        .lt.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 1px
+        }
+
+        .emails {
+            flex: 1;
+            overflow-y: auto
+        }
+
+        .emails::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .emails::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .06);
+            border-radius: 2px
+        }
+
+        .email {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background .1s;
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .email:hover {
+            background: rgba(255, 255, 255, .015)
+        }
+
+        .email.active {
+            background: rgba(59, 130, 246, .05);
+            border-left: 2px solid var(--accent)
+        }
+
+        .email.unread .email-from {
+            font-weight: 700;
+            color: var(--text)
+        }
+
+        .email.unread .email-subject {
+            color: var(--text)
+        }
+
+        .email-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .email-from {
+            font-size: .85rem;
+            color: var(--muted)
+        }
+
+        .email-time {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .email-subject {
+            font-size: .85rem;
+            color: var(--muted);
+            font-weight: 500
+        }
+
+        .email-preview {
+            font-size: .78rem;
+            color: var(--muted);
+            opacity: .6;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .email-tags {
+            display: flex;
+            gap: 4px;
+            margin-top: 2px
+        }
+
+        .etag {
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: .65rem;
+            font-weight: 600
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        .msg-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .msg-subject {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px
+        }
+
+        .msg-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .msg-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .8rem;
+            flex-shrink: 0
+        }
+
+        .msg-from-name {
+            font-size: .88rem;
+            font-weight: 600
+        }
+
+        .msg-from-email {
+            font-size: .78rem;
+            color: var(--muted)
+        }
+
+        .msg-to {
+            font-size: .78rem;
+            color: var(--muted)
+        }
+
+        .msg-date {
+            margin-left: auto;
+            font-size: .78rem;
+            color: var(--muted)
+        }
+
+        .msg-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 4px
+        }
+
+        .ma-btn {
+            padding: 6px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: .85rem;
+            transition: background .12s
+        }
+
+        .ma-btn:hover {
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .msg-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            font-size: .92rem;
+            line-height: 1.7;
+            color: var(--muted)
+        }
+
+        .msg-body::-webkit-scrollbar {
+            width: 6px
+        }
+
+        .msg-body::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .06);
+            border-radius: 3px
+        }
+
+        .msg-body p {
+            margin-bottom: 1rem
+        }
+
+        .msg-body .sig {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: .82rem;
+            color: var(--muted);
+            opacity: .6
+        }
+
+        .msg-reply {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .msg-reply input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: .85rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .reply-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            font-size: .85rem;
+            cursor: pointer;
+            font-family: 'Inter'
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sb-logo">📬 InboxPro</div>
+        <button class="sb-compose">✏️ Compose</button>
+        <div class="sb-link active"><span class="icon">📥</span>Inbox<span class="count"
+                style="color:var(--accent)">12</span></div>
+        <div class="sb-link"><span class="icon">⭐</span>Starred<span class="count">3</span></div>
+        <div class="sb-link"><span class="icon">📤</span>Sent</div>
+        <div class="sb-link"><span class="icon">📝</span>Drafts<span class="count">2</span></div>
+        <div class="sb-link"><span class="icon">📁</span>Archive</div>
+        <div class="sb-link"><span class="icon">🗑️</span>Trash</div>
+        <div class="sb-link"><span class="icon">⚠️</span>Spam</div>
+        <div class="sb-label">Labels</div>
+        <div class="sb-link">
+            <div class="sb-dot" style="background:#ef4444"></div>Urgent
+        </div>
+        <div class="sb-link">
+            <div class="sb-dot" style="background:#22c55e"></div>Personal
+        </div>
+        <div class="sb-link">
+            <div class="sb-dot" style="background:#3b82f6"></div>Work
+        </div>
+        <div class="sb-link">
+            <div class="sb-dot" style="background:#f59e0b"></div>Finance
+        </div>
+    </aside>
+    <div class="list">
+        <div class="list-header">
+            <h2>Inbox</h2><span style="font-size:.82rem;color:var(--muted)">12 messages</span>
+        </div>
+        <div class="list-search"><input placeholder="🔍 Search email..."></div>
+        <div class="list-tabs">
+            <div class="lt active">All</div>
+            <div class="lt">Unread</div>
+            <div class="lt">Starred</div>
+        </div>
+        <div class="emails">
+            <div class="email active unread">
+                <div class="email-top"><span class="email-from">Sarah Chen</span><span class="email-time">2:30 PM</span>
+                </div>
+                <div class="email-subject">Re: Dashboard v2 — Final Review</div>
+                <div class="email-preview">Hey! I just finished reviewing the dashboard. Everything looks great, but I
+                    have a few suggestions for the chart...</div>
+                <div class="email-tags"><span class="etag"
+                        style="background:rgba(59,130,246,.1);color:#60a5fa">Work</span></div>
+            </div>
+            <div class="email unread">
+                <div class="email-top"><span class="email-from">Stripe</span><span class="email-time">1:15 PM</span>
+                </div>
+                <div class="email-subject">Payment received: $149.00</div>
+                <div class="email-preview">You received a payment of $149.00 from john@example.com for DevVault Pro...
+                </div>
+                <div class="email-tags"><span class="etag"
+                        style="background:rgba(245,158,11,.1);color:#fbbf24">Finance</span></div>
+            </div>
+            <div class="email unread">
+                <div class="email-top"><span class="email-from">Mike Johnson</span><span class="email-time">11:42
+                        AM</span></div>
+                <div class="email-subject">Quick question about the API</div>
+                <div class="email-preview">Hey, I was looking at the Stripe integration and had a question about webhook
+                    verification...</div>
+            </div>
+            <div class="email">
+                <div class="email-top"><span class="email-from">Vercel</span><span class="email-time">10:00 AM</span>
+                </div>
+                <div class="email-subject">Deployment successful ✅</div>
+                <div class="email-preview">Your project devvault-pro was deployed successfully to production...</div>
+            </div>
+            <div class="email">
+                <div class="email-top"><span class="email-from">Alex Rivera</span><span
+                        class="email-time">Yesterday</span></div>
+                <div class="email-subject">Re: Meeting notes from standup</div>
+                <div class="email-preview">Thanks for sharing. I'll follow up on the auth issues we discussed...</div>
+            </div>
+            <div class="email">
+                <div class="email-top"><span class="email-from">Newsletter</span><span
+                        class="email-time">Yesterday</span></div>
+                <div class="email-subject">This Week in React — March 2026</div>
+                <div class="email-preview">React 20 RC is here! Plus: Server Components best practices, new hooks...
+                </div>
+            </div>
+            <div class="email">
+                <div class="email-top"><span class="email-from">GitHub</span><span class="email-time">Mar 2</span></div>
+                <div class="email-subject">[devvault-pro] Pull request merged</div>
+                <div class="email-preview">Pull request #47 "Add Stripe webhook retry" was merged by sarahchen...</div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="msg-header">
+            <div class="msg-subject">Re: Dashboard v2 — Final Review</div>
+            <div class="msg-meta">
+                <div class="msg-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">SC</div>
+                <div>
+                    <div class="msg-from-name">Sarah Chen</div>
+                    <div class="msg-from-email">sarah@acmecorp.com</div>
+                </div>
+                <div class="msg-actions"><span class="ma-btn">↩️</span><span class="ma-btn">↪️</span><span
+                        class="ma-btn">⭐</span><span class="ma-btn">🗑️</span><span class="ma-btn">⋯</span></div>
+            </div>
+        </div>
+        <div class="msg-body">
+            <p>Hey! 👋</p>
+            <p>I just finished reviewing the dashboard and overall it looks <strong>amazing</strong>. The new chart
+                components are really clean, and the real-time data updates are buttery smooth.</p>
+            <p>A few suggestions:</p>
+            <p>1. The revenue chart could use a tooltip on hover showing the exact amount.<br>2. The "Export Report"
+                button should also support CSV format (currently only PDF).<br>3. Can we add a date range picker to the
+                top bar? Being locked to "Last 30 days" is limiting.</p>
+            <p>I also noticed the mobile responsive layout breaks a bit on the stats cards — they overlap at around
+                640px width. Should be a quick Tailwind fix.</p>
+            <p>Other than that, I think we're good to ship! 🚀 Let me know when you push the fixes and I'll do a final
+                review.</p>
+            <div class="sig">
+                <strong>Sarah Chen</strong><br>
+                Senior Frontend Engineer @ Acme Corp<br>
+                sarah@acmecorp.com
+            </div>
+        </div>
+        <div class="msg-reply"><input placeholder="Reply to Sarah Chen..."><button class="reply-btn">Send ↗</button>
+        </div>
+    </div>
+</body>
+
+</html>

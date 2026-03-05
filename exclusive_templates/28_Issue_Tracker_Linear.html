@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackIt — Issue Tracker (Linear-style)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #09090b;
+            --card: #111115;
+            --border: rgba(255, 255, 255, .06);
+            --accent: #5e6ad2;
+            --green: #22c55e;
+            --amber: #f59e0b;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --text: #fafafa;
+            --muted: #71717a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden
+        }
+
+        .sidebar {
+            width: 220px;
+            background: #0c0c10;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            flex-shrink: 0
+        }
+
+        .sb-team {
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: .92rem;
+            margin-bottom: 12px
+        }
+
+        .sb-team .dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .6rem;
+            font-weight: 800
+        }
+
+        .sb-link {
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .85rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background .12s;
+            color: var(--muted);
+            margin-bottom: 1px
+        }
+
+        .sb-link:hover {
+            background: rgba(255, 255, 255, .03);
+            color: var(--text)
+        }
+
+        .sb-link.active {
+            background: rgba(94, 106, 210, .1);
+            color: var(--accent)
+        }
+
+        .sb-link .icon {
+            width: 16px;
+            text-align: center;
+            font-size: .9rem
+        }
+
+        .sb-link .badge {
+            margin-left: auto;
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .sb-section {
+            font-size: .68rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            padding: 12px 10px 6px;
+            font-weight: 500
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        .topbar {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .topbar h1 {
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .tb-filters {
+            margin-left: auto;
+            display: flex;
+            gap: 6px
+        }
+
+        .tf {
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: .78rem;
+            cursor: pointer;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            background: none;
+            font-family: 'Inter';
+            transition: all .12s
+        }
+
+        .tf:hover {
+            color: var(--text);
+            border-color: rgba(255, 255, 255, .12)
+        }
+
+        .tf.active {
+            background: rgba(94, 106, 210, .1);
+            color: var(--accent);
+            border-color: rgba(94, 106, 210, .2)
+        }
+
+        .issue-group {
+            border-bottom: 1px solid var(--border)
+        }
+
+        .group-header {
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .12s;
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 1
+        }
+
+        .group-header:hover {
+            background: rgba(255, 255, 255, .01)
+        }
+
+        .group-header .arrow {
+            font-size: .7rem;
+            color: var(--muted)
+        }
+
+        .group-header .count {
+            margin-left: auto;
+            font-size: .72rem;
+            color: var(--muted);
+            font-weight: 400
+        }
+
+        .status-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid;
+            flex-shrink: 0
+        }
+
+        .issues {
+            flex: 1;
+            overflow-y: auto
+        }
+
+        .issues::-webkit-scrollbar {
+            width: 6px
+        }
+
+        .issues::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .06);
+            border-radius: 3px
+        }
+
+        .issue {
+            padding: 8px 20px 8px 52px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background .1s;
+            border-bottom: 1px solid rgba(255, 255, 255, .02)
+        }
+
+        .issue:hover {
+            background: rgba(255, 255, 255, .015)
+        }
+
+        .issue-id {
+            font-size: .78rem;
+            color: var(--muted);
+            font-family: monospace;
+            width: 52px;
+            flex-shrink: 0
+        }
+
+        .issue-title {
+            font-size: .88rem;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .priority {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            border-radius: 3px;
+            flex-shrink: 0
+        }
+
+        .p-urgent {
+            background: rgba(239, 68, 68, .15);
+            color: var(--red)
+        }
+
+        .p-high {
+            background: rgba(245, 158, 11, .15);
+            color: var(--amber)
+        }
+
+        .p-medium {
+            background: rgba(59, 130, 246, .15);
+            color: var(--blue)
+        }
+
+        .p-low {
+            background: rgba(255, 255, 255, .06);
+            color: var(--muted)
+        }
+
+        .label {
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-size: .68rem;
+            font-weight: 600;
+            flex-shrink: 0
+        }
+
+        .l-bug {
+            background: rgba(239, 68, 68, .1);
+            color: #f87171
+        }
+
+        .l-feature {
+            background: rgba(99, 102, 241, .1);
+            color: #a5b4fc
+        }
+
+        .l-improve {
+            background: rgba(34, 197, 94, .1);
+            color: #4ade80
+        }
+
+        .l-docs {
+            background: rgba(245, 158, 11, .1);
+            color: #fbbf24
+        }
+
+        .assignee {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .55rem;
+            font-weight: 700;
+            flex-shrink: 0
+        }
+
+        .due {
+            font-size: .72rem;
+            color: var(--muted);
+            flex-shrink: 0;
+            width: 56px;
+            text-align: right
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sb-team">
+            <div class="dot" style="background:var(--accent);color:#fff">A</div>Acme Inc
+        </div>
+        <div class="sb-link"><span class="icon">📥</span>Inbox<span class="badge">4</span></div>
+        <div class="sb-link"><span class="icon">📋</span>My Issues<span class="badge">12</span></div>
+        <div class="sb-link"><span class="icon">📐</span>Views</div>
+        <div class="sb-section">Workspace</div>
+        <div class="sb-link active"><span class="icon">🔵</span>All Issues<span class="badge">47</span></div>
+        <div class="sb-link"><span class="icon">📊</span>Active<span class="badge">18</span></div>
+        <div class="sb-link"><span class="icon">📋</span>Backlog<span class="badge">22</span></div>
+        <div class="sb-section">Projects</div>
+        <div class="sb-link"><span class="icon">🚀</span>Dashboard v2</div>
+        <div class="sb-link"><span class="icon">🔐</span>Auth Refactor</div>
+        <div class="sb-link"><span class="icon">📱</span>Mobile App</div>
+        <div class="sb-section">Teams</div>
+        <div class="sb-link"><span class="icon">💻</span>Engineering</div>
+        <div class="sb-link"><span class="icon">🎨</span>Design</div>
+    </aside>
+    <div class="main">
+        <div class="topbar">
+            <h1>📋 All Issues</h1>
+            <div class="tb-filters"><button class="tf active">All</button><button class="tf">Bugs</button><button
+                    class="tf">Features</button><button class="tf">Group by status ▾</button></div>
+        </div>
+        <div class="issues">
+            <div class="issue-group">
+                <div class="group-header"><span class="arrow">▸</span>
+                    <div class="status-dot" style="border-color:var(--amber)"></div>In Progress<span class="count">5
+                        issues</span>
+                </div>
+                <div class="issue"><span class="issue-id">ACM-42</span>
+                    <div class="priority p-urgent">!</div><span class="issue-title">Fix authentication race condition on
+                        token refresh</span><span class="label l-bug">Bug</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff">SK</div>
+                    <span class="due">Today</span>
+                </div>
+                <div class="issue"><span class="issue-id">ACM-41</span>
+                    <div class="priority p-high">↑</div><span class="issue-title">Implement dashboard real-time data
+                        streaming</span><span class="label l-feature">Feature</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR</div>
+                    <span class="due">Mar 6</span>
+                </div>
+                <div class="issue"><span class="issue-id">ACM-39</span>
+                    <div class="priority p-medium">—</div><span class="issue-title">Add Stripe webhook retry
+                        mechanism</span><span class="label l-improve">Improvement</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">AL</div>
+                    <span class="due">Mar 8</span>
+                </div>
+                <div class="issue"><span class="issue-id">ACM-38</span>
+                    <div class="priority p-medium">—</div><span class="issue-title">Redesign settings page with tab
+                        navigation</span><span class="label l-feature">Feature</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">JD</div>
+                    <span class="due">Mar 10</span>
+                </div>
+                <div class="issue"><span class="issue-id">ACM-37</span>
+                    <div class="priority p-low">↓</div><span class="issue-title">Update API documentation for v2
+                        endpoints</span><span class="label l-docs">Docs</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff">LR</div>
+                    <span class="due">Mar 12</span>
+                </div>
+            </div>
+            <div class="issue-group">
+                <div class="group-header"><span class="arrow">▸</span>
+                    <div class="status-dot" style="border-color:var(--blue)"></div>Todo<span class="count">4
+                        issues</span>
+                </div>
+                <div class="issue"><span class="issue-id">ACM-36</span>
+                    <div class="priority p-high">↑</div><span class="issue-title">Add rate limiting to public API
+                        endpoints</span><span class="label l-feature">Feature</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff">SK</div>
+                    <span class="due">Mar 14</span>
+                </div>
+                <div class="issue"><span class="issue-id">ACM-35</span>
+                    <div class="priority p-medium">—</div><span class="issue-title">Implement file upload with S3
+                        presigned URLs</span><span class="label l-feature">Feature</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR</div>
+                    <span class="due">Mar 16</span>
+                </div>
+                <div class="issue"><span class="issue-id">ACM-34</span>
+                    <div class="priority p-low">↓</div><span class="issue-title">Add dark mode toggle with system
+                        preference detection</span><span class="label l-improve">Improvement</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">AL</div>
+                    <span class="due">Mar 18</span>
+                </div>
+                <div class="issue"><span class="issue-id">ACM-33</span>
+                    <div class="priority p-low">↓</div><span class="issue-title">Create onboarding flow for new
+                        users</span><span class="label l-feature">Feature</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">JD</div>
+                    <span class="due">Mar 20</span>
+                </div>
+            </div>
+            <div class="issue-group">
+                <div class="group-header"><span class="arrow">▸</span>
+                    <div class="status-dot" style="border-color:var(--green)"></div>Done<span class="count">3
+                        issues</span>
+                </div>
+                <div class="issue" style="opacity:.6"><span class="issue-id">ACM-32</span>
+                    <div class="priority p-urgent">!</div><span class="issue-title"
+                        style="text-decoration:line-through">Fix CORS headers for production deployment</span><span
+                        class="label l-bug">Bug</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff">SK</div>
+                    <span class="due">Done</span>
+                </div>
+                <div class="issue" style="opacity:.6"><span class="issue-id">ACM-31</span>
+                    <div class="priority p-high">↑</div><span class="issue-title"
+                        style="text-decoration:line-through">Migrate database to PostgreSQL 16</span><span
+                        class="label l-improve">Improvement</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR</div>
+                    <span class="due">Done</span>
+                </div>
+                <div class="issue" style="opacity:.6"><span class="issue-id">ACM-30</span>
+                    <div class="priority p-medium">—</div><span class="issue-title"
+                        style="text-decoration:line-through">Add email verification flow</span><span
+                        class="label l-feature">Feature</span>
+                    <div class="assignee" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">AL</div>
+                    <span class="due">Done</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

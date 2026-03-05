@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VaultDrive — File Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #09090b;
+            --card: #111115;
+            --border: rgba(255, 255, 255, .06);
+            --accent: #3b82f6;
+            --text: #fafafa;
+            --muted: #71717a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden
+        }
+
+        .sidebar {
+            width: 240px;
+            background: #0c0c10;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            flex-shrink: 0
+        }
+
+        .sb-logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.5rem
+        }
+
+        .sb-btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            font-size: .85rem;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter';
+            margin-bottom: 1.5rem
+        }
+
+        .sb-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 2px
+        }
+
+        .sb-link {
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: .88rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background .15s;
+            color: var(--muted)
+        }
+
+        .sb-link:hover {
+            background: rgba(255, 255, 255, .03);
+            color: var(--text)
+        }
+
+        .sb-link.active {
+            background: rgba(59, 130, 246, .1);
+            color: var(--accent)
+        }
+
+        .sb-link .icon {
+            width: 18px;
+            text-align: center
+        }
+
+        .sb-link .count {
+            margin-left: auto;
+            font-size: .75rem
+        }
+
+        .sb-section {
+            margin-top: 1.5rem;
+            margin-bottom: .5rem;
+            font-size: .72rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            font-weight: 500;
+            padding: 0 12px
+        }
+
+        .storage {
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid var(--border)
+        }
+
+        .storage-label {
+            font-size: .82rem;
+            font-weight: 500;
+            margin-bottom: 6px
+        }
+
+        .storage-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, .06);
+            border-radius: 100px;
+            overflow: hidden;
+            margin-bottom: 4px
+        }
+
+        .storage-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 100px
+        }
+
+        .storage-text {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        .topbar {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .88rem
+        }
+
+        .breadcrumb span {
+            cursor: pointer;
+            color: var(--muted);
+            transition: color .15s
+        }
+
+        .breadcrumb span:hover {
+            color: var(--text)
+        }
+
+        .breadcrumb span.current {
+            color: var(--text);
+            font-weight: 600
+        }
+
+        .tb-right {
+            margin-left: auto;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .tb-search {
+            padding: 8px 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: .82rem;
+            outline: none;
+            font-family: 'Inter';
+            width: 200px
+        }
+
+        .tb-btn {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: .82rem
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px
+        }
+
+        .content::-webkit-scrollbar {
+            width: 6px
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .06);
+            border-radius: 3px
+        }
+
+        .section-label {
+            font-size: .82rem;
+            color: var(--muted);
+            font-weight: 500;
+            margin-bottom: 12px
+        }
+
+        .folder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 2rem
+        }
+
+        .folder {
+            padding: 14px;
+            border-radius: 10px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .folder:hover {
+            border-color: rgba(255, 255, 255, .1);
+            transform: translateY(-2px)
+        }
+
+        .folder-icon {
+            font-size: 1.5rem
+        }
+
+        .folder-name {
+            font-size: .85rem;
+            font-weight: 500
+        }
+
+        .folder-count {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .file-table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        .file-table th {
+            text-align: left;
+            padding: 10px 16px;
+            font-size: .78rem;
+            color: var(--muted);
+            font-weight: 500;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--bg)
+        }
+
+        .file-table td {
+            padding: 10px 16px;
+            font-size: .85rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .file-table tr:hover td {
+            background: rgba(255, 255, 255, .02)
+        }
+
+        .file-table tr {
+            cursor: pointer
+        }
+
+        .file-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500
+        }
+
+        .file-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center
+        }
+
+        .file-badge {
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-size: .68rem;
+            font-weight: 600
+        }
+
+        .fb-shared {
+            background: rgba(59, 130, 246, .1);
+            color: #60a5fa
+        }
+
+        .fb-recent {
+            background: rgba(34, 197, 94, .1);
+            color: #4ade80
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity .15s
+        }
+
+        tr:hover .file-actions {
+            opacity: 1
+        }
+
+        .fa-btn {
+            padding: 4px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: .8rem;
+            transition: background .15s
+        }
+
+        .fa-btn:hover {
+            background: rgba(255, 255, 255, .06)
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sb-logo">📁 VaultDrive</div>
+        <button class="sb-btn">+ Upload</button>
+        <div class="sb-nav">
+            <div class="sb-link active"><span class="icon">🏠</span>My Files<span class="count">248</span></div>
+            <div class="sb-link"><span class="icon">⭐</span>Starred<span class="count">12</span></div>
+            <div class="sb-link"><span class="icon">🔄</span>Recent<span class="count">24</span></div>
+            <div class="sb-link"><span class="icon">👥</span>Shared<span class="count">8</span></div>
+            <div class="sb-link"><span class="icon">🗑️</span>Trash<span class="count">3</span></div>
+        </div>
+        <div class="sb-section">Tags</div>
+        <div class="sb-nav">
+            <div class="sb-link"><span class="icon" style="color:#ef4444">●</span>Important</div>
+            <div class="sb-link"><span class="icon" style="color:#f59e0b">●</span>Work</div>
+            <div class="sb-link"><span class="icon" style="color:#22c55e">●</span>Personal</div>
+            <div class="sb-link"><span class="icon" style="color:#3b82f6">●</span>Projects</div>
+        </div>
+        <div class="storage">
+            <div class="storage-label">Storage</div>
+            <div class="storage-bar">
+                <div class="storage-fill" style="width:68%"></div>
+            </div>
+            <div class="storage-text">6.8 GB of 10 GB used</div>
+        </div>
+    </aside>
+    <div class="main">
+        <div class="topbar">
+            <div class="breadcrumb"><span>My Files</span><span>›</span><span>Projects</span><span>›</span><span
+                    class="current">DevVault Pro</span></div>
+            <div class="tb-right"><input class="tb-search" placeholder="🔍 Search files..."><button class="tb-btn">🔲
+                    Grid</button><button class="tb-btn">📋 List</button></div>
+        </div>
+        <div class="content">
+            <div class="section-label">Folders (4)</div>
+            <div class="folder-grid">
+                <div class="folder"><span class="folder-icon">📁</span>
+                    <div>
+                        <div class="folder-name">src</div>
+                        <div class="folder-count">42 files</div>
+                    </div>
+                </div>
+                <div class="folder"><span class="folder-icon">📁</span>
+                    <div>
+                        <div class="folder-name">components</div>
+                        <div class="folder-count">28 files</div>
+                    </div>
+                </div>
+                <div class="folder"><span class="folder-icon">📁</span>
+                    <div>
+                        <div class="folder-name">templates</div>
+                        <div class="folder-count">25 files</div>
+                    </div>
+                </div>
+                <div class="folder"><span class="folder-icon">📁</span>
+                    <div>
+                        <div class="folder-name">public</div>
+                        <div class="folder-count">15 files</div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-label">Files (8)</div>
+            <table class="file-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Modified</th>
+                        <th>Size</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="file-name"><span class="file-icon">📄</span>package.json</div>
+                        </td>
+                        <td>Today, 2:30 PM</td>
+                        <td>2.1 KB</td>
+                        <td><span class="file-badge fb-recent">Modified</span></td>
+                        <td>
+                            <div class="file-actions"><span class="fa-btn">⬇️</span><span class="fa-btn">✏️</span><span
+                                    class="fa-btn">⋯</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="file-name"><span class="file-icon">⚛️</span>app.tsx</div>
+                        </td>
+                        <td>Today, 1:15 PM</td>
+                        <td>4.8 KB</td>
+                        <td><span class="file-badge fb-recent">Modified</span></td>
+                        <td>
+                            <div class="file-actions"><span class="fa-btn">⬇️</span><span class="fa-btn">✏️</span><span
+                                    class="fa-btn">⋯</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="file-name"><span class="file-icon">🔧</span>next.config.ts</div>
+                        </td>
+                        <td>Mar 3, 4:20 PM</td>
+                        <td>1.2 KB</td>
+                        <td></td>
+                        <td>
+                            <div class="file-actions"><span class="fa-btn">⬇️</span><span class="fa-btn">✏️</span><span
+                                    class="fa-btn">⋯</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="file-name"><span class="file-icon">🐳</span>Dockerfile</div>
+                        </td>
+                        <td>Mar 2, 10:00 AM</td>
+                        <td>856 B</td>
+                        <td><span class="file-badge fb-shared">Shared</span></td>
+                        <td>
+                            <div class="file-actions"><span class="fa-btn">⬇️</span><span class="fa-btn">✏️</span><span
+                                    class="fa-btn">⋯</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="file-name"><span class="file-icon">📝</span>README.md</div>
+                        </td>
+                        <td>Mar 1, 6:45 PM</td>
+                        <td>3.4 KB</td>
+                        <td><span class="file-badge fb-shared">Shared</span></td>
+                        <td>
+                            <div class="file-actions"><span class="fa-btn">⬇️</span><span class="fa-btn">✏️</span><span
+                                    class="fa-btn">⋯</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="file-name"><span class="file-icon">🔒</span>.env.example</div>
+                        </td>
+                        <td>Feb 28, 3:30 PM</td>
+                        <td>512 B</td>
+                        <td></td>
+                        <td>
+                            <div class="file-actions"><span class="fa-btn">⬇️</span><span class="fa-btn">✏️</span><span
+                                    class="fa-btn">⋯</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="file-name"><span class="file-icon">🎨</span>tailwind.config.ts</div>
+                        </td>
+                        <td>Feb 27, 11:00 AM</td>
+                        <td>1.8 KB</td>
+                        <td></td>
+                        <td>
+                            <div class="file-actions"><span class="fa-btn">⬇️</span><span class="fa-btn">✏️</span><span
+                                    class="fa-btn">⋯</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="file-name"><span class="file-icon">📊</span>prisma.schema</div>
+                        </td>
+                        <td>Feb 25, 9:15 AM</td>
+                        <td>2.6 KB</td>
+                        <td><span class="file-badge fb-shared">Shared</span></td>
+                        <td>
+                            <div class="file-actions"><span class="fa-btn">⬇️</span><span class="fa-btn">✏️</span><span
+                                    class="fa-btn">⋯</span></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

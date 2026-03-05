@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialPulse — Social Media Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #09090b;
+            --card: #111115;
+            --border: rgba(255, 255, 255, .06);
+            --accent: #8b5cf6;
+            --green: #22c55e;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --pink: #ec4899;
+            --text: #fafafa;
+            --muted: #71717a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 2rem;
+            overflow-x: hidden
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .header-right {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .h-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: .85rem;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--text);
+            font-family: 'Inter'
+        }
+
+        .h-btn-p {
+            background: var(--accent);
+            border: none;
+            color: #fff;
+            font-weight: 600
+        }
+
+        .platforms {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 2rem
+        }
+
+        .plat {
+            padding: 8px 20px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            font-size: .85rem;
+            cursor: pointer;
+            background: none;
+            color: var(--muted);
+            font-family: 'Inter';
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .15s
+        }
+
+        .plat.active {
+            background: rgba(139, 92, 246, .1);
+            color: var(--accent);
+            border-color: rgba(139, 92, 246, .2)
+        }
+
+        .plat:hover:not(.active) {
+            border-color: rgba(255, 255, 255, .12)
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem
+        }
+
+        .stat {
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: .8rem
+        }
+
+        .stat-label {
+            font-size: .82rem;
+            color: var(--muted)
+        }
+
+        .stat-period {
+            font-size: .72rem;
+            color: var(--muted);
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, .03)
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800
+        }
+
+        .stat-change {
+            font-size: .78rem;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .stat-change.up {
+            color: var(--green)
+        }
+
+        .stat-change.down {
+            color: var(--red)
+        }
+
+        .stat-sparkline {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 32px;
+            margin-top: 8px
+        }
+
+        .spark {
+            flex: 1;
+            border-radius: 2px 2px 0 0;
+            min-height: 2px;
+            transition: height .3s
+        }
+
+        .charts {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem
+        }
+
+        .chart-card {
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .chart-card h3 {
+            font-size: .92rem;
+            font-weight: 600;
+            margin-bottom: 1rem
+        }
+
+        .engagement-chart {
+            height: 180px;
+            display: flex;
+            align-items: flex-end;
+            gap: 6px
+        }
+
+        .eng-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px
+        }
+
+        .eng-group .bars {
+            display: flex;
+            gap: 2px;
+            align-items: flex-end;
+            width: 100%;
+            height: 150px
+        }
+
+        .eng-bar {
+            flex: 1;
+            border-radius: 3px 3px 0 0;
+            min-height: 2px
+        }
+
+        .eng-label {
+            font-size: .68rem;
+            color: var(--muted)
+        }
+
+        .top-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .post {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .02);
+            transition: background .15s;
+            cursor: pointer
+        }
+
+        .post:hover {
+            background: rgba(255, 255, 255, .04)
+        }
+
+        .post-rank {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--accent);
+            width: 28px;
+            text-align: center;
+            flex-shrink: 0
+        }
+
+        .post-content {
+            flex: 1;
+            min-width: 0
+        }
+
+        .post-text {
+            font-size: .85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .post-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: .72rem;
+            color: var(--muted);
+            margin-top: 4px
+        }
+
+        .audience {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem
+        }
+
+        .aud-card {
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .aud-card h3 {
+            font-size: .92rem;
+            font-weight: 600;
+            margin-bottom: 1rem
+        }
+
+        .demo-bar {
+            margin-bottom: 8px
+        }
+
+        .demo-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: .78rem;
+            margin-bottom: 4px
+        }
+
+        .demo-label span:last-child {
+            color: var(--muted)
+        }
+
+        .demo-track {
+            height: 6px;
+            background: rgba(255, 255, 255, .04);
+            border-radius: 100px;
+            overflow: hidden
+        }
+
+        .demo-fill {
+            height: 100%;
+            border-radius: 100px
+        }
+
+        .geo-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .geo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .82rem
+        }
+
+        .geo-flag {
+            font-size: 1.1rem
+        }
+
+        .geo-pct {
+            margin-left: auto;
+            color: var(--muted);
+            font-size: .78rem
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px
+        }
+
+        .time-cell {
+            aspect-ratio: 1;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: opacity .15s
+        }
+
+        .time-cell:hover {
+            opacity: .8
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            font-size: .75rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            margin-top: 2rem
+        }
+
+        @media(max-width:768px) {
+
+            .stats,
+            .charts,
+            .audience {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>📊 SocialPulse</h1>
+        <div class="header-right"><button class="h-btn">📅 Last 30 days</button><button class="h-btn h-btn-p">📥 Export
+                Report</button></div>
+    </div>
+    <div class="platforms"><button class="plat active">📊 All Platforms</button><button class="plat">🐦
+            Twitter</button><button class="plat">📸 Instagram</button><button class="plat">💼 LinkedIn</button><button
+            class="plat">🎵 TikTok</button></div>
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-header"><span class="stat-label">Total Followers</span><span class="stat-period">30d</span>
+            </div>
+            <div class="stat-value">124.5K</div>
+            <div class="stat-change up">↑ +2,340 (1.9%)</div>
+            <div class="stat-sparkline">
+                <div class="spark" style="height:40%;background:var(--accent)"></div>
+                <div class="spark" style="height:45%;background:var(--accent)"></div>
+                <div class="spark" style="height:50%;background:var(--accent)"></div>
+                <div class="spark" style="height:48%;background:var(--accent)"></div>
+                <div class="spark" style="height:55%;background:var(--accent)"></div>
+                <div class="spark" style="height:60%;background:var(--accent)"></div>
+                <div class="spark" style="height:58%;background:var(--accent)"></div>
+                <div class="spark" style="height:65%;background:var(--accent)"></div>
+                <div class="spark" style="height:70%;background:var(--accent)"></div>
+                <div class="spark" style="height:75%;background:var(--accent)"></div>
+                <div class="spark" style="height:80%;background:var(--accent)"></div>
+                <div class="spark" style="height:85%;background:var(--accent)"></div>
+            </div>
+        </div>
+        <div class="stat">
+            <div class="stat-header"><span class="stat-label">Engagement Rate</span><span class="stat-period">30d</span>
+            </div>
+            <div class="stat-value">4.8%</div>
+            <div class="stat-change up">↑ +0.6% vs last month</div>
+            <div class="stat-sparkline">
+                <div class="spark" style="height:30%;background:var(--green)"></div>
+                <div class="spark" style="height:45%;background:var(--green)"></div>
+                <div class="spark" style="height:35%;background:var(--green)"></div>
+                <div class="spark" style="height:50%;background:var(--green)"></div>
+                <div class="spark" style="height:65%;background:var(--green)"></div>
+                <div class="spark" style="height:55%;background:var(--green)"></div>
+                <div class="spark" style="height:70%;background:var(--green)"></div>
+                <div class="spark" style="height:60%;background:var(--green)"></div>
+                <div class="spark" style="height:75%;background:var(--green)"></div>
+                <div class="spark" style="height:80%;background:var(--green)"></div>
+                <div class="spark" style="height:72%;background:var(--green)"></div>
+                <div class="spark" style="height:85%;background:var(--green)"></div>
+            </div>
+        </div>
+        <div class="stat">
+            <div class="stat-header"><span class="stat-label">Total Impressions</span><span
+                    class="stat-period">30d</span></div>
+            <div class="stat-value">2.1M</div>
+            <div class="stat-change up">↑ +340K (19.3%)</div>
+            <div class="stat-sparkline">
+                <div class="spark" style="height:50%;background:var(--blue)"></div>
+                <div class="spark" style="height:55%;background:var(--blue)"></div>
+                <div class="spark" style="height:45%;background:var(--blue)"></div>
+                <div class="spark" style="height:60%;background:var(--blue)"></div>
+                <div class="spark" style="height:70%;background:var(--blue)"></div>
+                <div class="spark" style="height:65%;background:var(--blue)"></div>
+                <div class="spark" style="height:75%;background:var(--blue)"></div>
+                <div class="spark" style="height:80%;background:var(--blue)"></div>
+                <div class="spark" style="height:72%;background:var(--blue)"></div>
+                <div class="spark" style="height:85%;background:var(--blue)"></div>
+                <div class="spark" style="height:90%;background:var(--blue)"></div>
+                <div class="spark" style="height:95%;background:var(--blue)"></div>
+            </div>
+        </div>
+        <div class="stat">
+            <div class="stat-header"><span class="stat-label">Link Clicks</span><span class="stat-period">30d</span>
+            </div>
+            <div class="stat-value">18.2K</div>
+            <div class="stat-change down">↓ -2.1% vs last month</div>
+            <div class="stat-sparkline">
+                <div class="spark" style="height:80%;background:var(--pink)"></div>
+                <div class="spark" style="height:75%;background:var(--pink)"></div>
+                <div class="spark" style="height:70%;background:var(--pink)"></div>
+                <div class="spark" style="height:72%;background:var(--pink)"></div>
+                <div class="spark" style="height:65%;background:var(--pink)"></div>
+                <div class="spark" style="height:68%;background:var(--pink)"></div>
+                <div class="spark" style="height:60%;background:var(--pink)"></div>
+                <div class="spark" style="height:62%;background:var(--pink)"></div>
+                <div class="spark" style="height:55%;background:var(--pink)"></div>
+                <div class="spark" style="height:58%;background:var(--pink)"></div>
+                <div class="spark" style="height:50%;background:var(--pink)"></div>
+                <div class="spark" style="height:52%;background:var(--pink)"></div>
+            </div>
+        </div>
+    </div>
+    <div class="charts">
+        <div class="chart-card">
+            <h3>Engagement by Day</h3>
+            <div class="engagement-chart">
+                <div class="eng-group">
+                    <div class="bars">
+                        <div class="eng-bar" style="height:40%;background:var(--accent)"></div>
+                        <div class="eng-bar" style="height:30%;background:var(--blue)"></div>
+                    </div>
+                    <div class="eng-label">Mon</div>
+                </div>
+                <div class="eng-group">
+                    <div class="bars">
+                        <div class="eng-bar" style="height:55%;background:var(--accent)"></div>
+                        <div class="eng-bar" style="height:45%;background:var(--blue)"></div>
+                    </div>
+                    <div class="eng-label">Tue</div>
+                </div>
+                <div class="eng-group">
+                    <div class="bars">
+                        <div class="eng-bar" style="height:70%;background:var(--accent)"></div>
+                        <div class="eng-bar" style="height:50%;background:var(--blue)"></div>
+                    </div>
+                    <div class="eng-label">Wed</div>
+                </div>
+                <div class="eng-group">
+                    <div class="bars">
+                        <div class="eng-bar" style="height:60%;background:var(--accent)"></div>
+                        <div class="eng-bar" style="height:40%;background:var(--blue)"></div>
+                    </div>
+                    <div class="eng-label">Thu</div>
+                </div>
+                <div class="eng-group">
+                    <div class="bars">
+                        <div class="eng-bar" style="height:85%;background:var(--accent)"></div>
+                        <div class="eng-bar" style="height:65%;background:var(--blue)"></div>
+                    </div>
+                    <div class="eng-label">Fri</div>
+                </div>
+                <div class="eng-group">
+                    <div class="bars">
+                        <div class="eng-bar" style="height:45%;background:var(--accent)"></div>
+                        <div class="eng-bar" style="height:35%;background:var(--blue)"></div>
+                    </div>
+                    <div class="eng-label">Sat</div>
+                </div>
+                <div class="eng-group">
+                    <div class="bars">
+                        <div class="eng-bar" style="height:35%;background:var(--accent)"></div>
+                        <div class="eng-bar" style="height:25%;background:var(--blue)"></div>
+                    </div>
+                    <div class="eng-label">Sun</div>
+                </div>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h3>Top Posts</h3>
+            <div class="top-posts">
+                <div class="post"><span class="post-rank">1</span>
+                    <div class="post-content">
+                        <div class="post-text">Just launched our new dashboard 🚀 Check it out!</div>
+                        <div class="post-stats"><span>❤️ 2,340</span><span>🔄 892</span><span>💬 127</span></div>
+                    </div>
+                </div>
+                <div class="post"><span class="post-rank">2</span>
+                    <div class="post-content">
+                        <div class="post-text">Hot take: most devs over-engineer their auth</div>
+                        <div class="post-stats"><span>❤️ 1,856</span><span>🔄 634</span><span>💬 89</span></div>
+                    </div>
+                </div>
+                <div class="post"><span class="post-rank">3</span>
+                    <div class="post-content">
+                        <div class="post-text">Day 47 of building my SaaS in public 🧵</div>
+                        <div class="post-stats"><span>❤️ 1,234</span><span>🔄 456</span><span>💬 67</span></div>
+                    </div>
+                </div>
+                <div class="post"><span class="post-rank">4</span>
+                    <div class="post-content">
+                        <div class="post-text">Free resource: Complete Docker cheat sheet 🐳</div>
+                        <div class="post-stats"><span>❤️ 987</span><span>🔄 1,023</span><span>💬 34</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="audience">
+        <div class="aud-card">
+            <h3>Age Demographics</h3>
+            <div class="demo-bar">
+                <div class="demo-label"><span>18-24</span><span>28%</span></div>
+                <div class="demo-track">
+                    <div class="demo-fill" style="width:28%;background:var(--accent)"></div>
+                </div>
+            </div>
+            <div class="demo-bar">
+                <div class="demo-label"><span>25-34</span><span>42%</span></div>
+                <div class="demo-track">
+                    <div class="demo-fill" style="width:42%;background:var(--accent)"></div>
+                </div>
+            </div>
+            <div class="demo-bar">
+                <div class="demo-label"><span>35-44</span><span>18%</span></div>
+                <div class="demo-track">
+                    <div class="demo-fill" style="width:18%;background:var(--accent)"></div>
+                </div>
+            </div>
+            <div class="demo-bar">
+                <div class="demo-label"><span>45-54</span><span>8%</span></div>
+                <div class="demo-track">
+                    <div class="demo-fill" style="width:8%;background:var(--accent)"></div>
+                </div>
+            </div>
+            <div class="demo-bar">
+                <div class="demo-label"><span>55+</span><span>4%</span></div>
+                <div class="demo-track">
+                    <div class="demo-fill" style="width:4%;background:var(--accent)"></div>
+                </div>
+            </div>
+        </div>
+        <div class="aud-card">
+            <h3>Top Locations</h3>
+            <div class="geo-list">
+                <div class="geo"><span class="geo-flag">🇺🇸</span>United States<span class="geo-pct">34%</span></div>
+                <div class="geo"><span class="geo-flag">🇬🇧</span>United Kingdom<span class="geo-pct">12%</span></div>
+                <div class="geo"><span class="geo-flag">🇮🇳</span>India<span class="geo-pct">10%</span></div>
+                <div class="geo"><span class="geo-flag">🇩🇪</span>Germany<span class="geo-pct">8%</span></div>
+                <div class="geo"><span class="geo-flag">🇧🇷</span>Brazil<span class="geo-pct">7%</span></div>
+                <div class="geo"><span class="geo-flag">🇨🇦</span>Canada<span class="geo-pct">6%</span></div>
+            </div>
+        </div>
+        <div class="aud-card">
+            <h3>Best Time to Post</h3>
+            <div class="time-grid">
+                <div class="time-cell" style="background:rgba(139,92,246,.05)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.1)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.2)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.15)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.25)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.1)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.05)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.1)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.3)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.5)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.4)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.6)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.2)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.1)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.15)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.4)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.7)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.5)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.8)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.3)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.1)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.2)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.5)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.9)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.7)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,1)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.4)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.15)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.1)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.3)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.5)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.35)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.45)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.2)"></div>
+                <div class="time-cell" style="background:rgba(139,92,246,.08)"></div>
+            </div>
+        </div>
+    </div>
+    <footer>© 2026 SocialPulse — Built with DevVault Pro Templates</footer>
+</body>
+
+</html>

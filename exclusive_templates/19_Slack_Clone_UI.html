@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slack Clone — Team Chat</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <title>TeamChat — Workspace Messaging</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,209 +16,249 @@
         :root {
             --bg: #1a1d21;
             --sidebar: #19171d;
-            --main: #1a1d21;
-            --border: rgba(255, 255, 255, 0.08);
-            --accent: #4a154b;
-            --green: #007a5a;
+            --workspace: #4a154b;
+            --channel: #222529;
             --text: #d1d2d3;
             --muted: #9a9b9d;
-            --white: #fff;
-            --hover: rgba(255, 255, 255, 0.04)
+            --border: #35373b;
+            --accent: #1264a3;
+            --green: #2bac76;
+            --hover: rgba(255, 255, 255, .04)
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--text);
-            display: flex;
             height: 100vh;
+            display: flex;
             overflow: hidden
         }
 
-        .workspace-bar {
-            width: 68px;
-            background: #3f0e40;
+        .ws-bar {
+            width: 64px;
+            background: var(--workspace);
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 8px 0;
-            gap: 4px;
-            flex-shrink: 0
+            gap: 8px
         }
 
         .ws-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            overflow: hidden;
             cursor: pointer;
-            transition: all 0.2s;
-            border: 2px solid transparent
+            transition: border-radius .2s;
+            opacity: .6
         }
 
+        .ws-icon:hover,
         .ws-icon.active {
-            border-color: var(--white);
-            border-radius: 10px
+            opacity: 1;
+            border-radius: 12px
         }
 
-        .ws-icon:hover {
-            border-radius: 8px
-        }
-
-        .ws-divider {
-            width: 32px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.2);
-            margin: 4px 0;
-            border-radius: 2px
+        .ws-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .ws-add {
-            width: 44px;
-            height: 44px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
+            border: 1px dashed rgba(255, 255, 255, .3);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
             cursor: pointer;
-            border: 2px dashed rgba(255, 255, 255, 0.3);
-            color: rgba(255, 255, 255, 0.5)
+            color: rgba(255, 255, 255, .5);
+            font-size: .9rem;
+            transition: all .12s
+        }
+
+        .ws-add:hover {
+            border-color: #fff;
+            color: #fff
         }
 
         .sidebar {
-            width: 260px;
+            width: 240px;
             background: var(--sidebar);
             display: flex;
             flex-direction: column;
-            flex-shrink: 0;
-            border-right: 1px solid var(--border)
+            flex-shrink: 0
         }
 
-        .sb-header {
+        .s-header {
             padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid var(--border)
+            border-bottom: 1px solid var(--border);
+            cursor: pointer
         }
 
-        .sb-team {
-            font-weight: 700;
+        .s-name {
+            font-weight: 900;
             font-size: 1rem;
-            color: var(--white)
+            color: #fff
         }
 
-        .sb-compose {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: var(--white);
-            color: var(--sidebar);
+        .s-pencil {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .1);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: .7rem;
             cursor: pointer;
-            font-size: 1rem
+            transition: background .1s
         }
 
-        .sb-search {
-            margin: 8px 12px;
-            padding: 6px 10px;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-size: 0.85rem;
-            outline: none;
-            font-family: 'Inter'
+        .s-pencil:hover {
+            background: rgba(255, 255, 255, .2)
         }
 
-        .sb-section {
-            padding: 8px 12px 4px;
-            font-size: 0.82rem;
-            color: var(--muted);
-            display: flex;
-            align-items: center;
-            justify-content: space-between
+        .s-nav {
+            padding: 8px 0
         }
 
-        .sb-channel {
-            padding: 4px 12px 4px 20px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background 0.1s;
-            border-radius: 0;
-            color: var(--muted)
-        }
-
-        .sb-channel:hover {
-            background: rgba(255, 255, 255, 0.04)
-        }
-
-        .sb-channel.active {
-            background: rgba(18, 100, 163, 0.2);
-            color: var(--white)
-        }
-
-        .sb-channel .hash {
-            font-size: 1rem;
-            opacity: 0.6;
-            width: 16px
-        }
-
-        .sb-channel .badge {
-            margin-left: auto;
-            padding: 0 6px;
-            border-radius: 10px;
-            background: var(--accent);
-            color: var(--white);
-            font-size: 0.7rem;
-            font-weight: 700;
-            min-width: 18px;
-            text-align: center
-        }
-
-        .sb-dm {
-            padding: 4px 12px 4px 20px;
+        .s-link {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9rem;
+            padding: 4px 16px;
+            font-size: .88rem;
             cursor: pointer;
-            transition: background 0.1s
+            transition: background .08s;
+            color: var(--muted)
         }
 
-        .sb-dm:hover {
-            background: rgba(255, 255, 255, 0.04)
+        .s-link:hover {
+            background: var(--hover)
+        }
+
+        .s-link.active {
+            background: rgba(18, 100, 163, .3);
+            color: #fff
+        }
+
+        .s-section {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px 2px;
+            font-size: .78rem;
+            color: var(--muted);
+            cursor: pointer;
+            font-weight: 500
+        }
+
+        .s-section:hover {
+            color: var(--text)
+        }
+
+        .ch-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 16px 3px 24px;
+            font-size: .85rem;
+            cursor: pointer;
+            transition: background .08s;
+            color: var(--muted)
+        }
+
+        .ch-link:hover {
+            background: var(--hover);
+            color: var(--text)
+        }
+
+        .ch-link.active {
+            background: rgba(18, 100, 163, .3);
+            color: #fff;
+            font-weight: 500
+        }
+
+        .ch-link.unread {
+            color: #fff;
+            font-weight: 600
+        }
+
+        .ch-badge {
+            margin-left: auto;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            border-radius: 10px;
+            background: var(--accent);
+            color: #fff;
+            font-size: .65rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700
+        }
+
+        .dm-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 16px 4px 24px;
+            font-size: .85rem;
+            cursor: pointer;
+            transition: background .08s;
+            color: var(--muted)
+        }
+
+        .dm-link:hover {
+            background: var(--hover);
+            color: var(--text)
         }
 
         .dm-av {
             width: 20px;
             height: 20px;
             border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.5rem;
-            font-weight: 700;
-            position: relative
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0
         }
 
-        .dm-av .status {
+        .dm-av img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .dm-status {
             position: absolute;
-            bottom: -2px;
-            right: -2px;
+            bottom: -1px;
+            right: -1px;
             width: 8px;
             height: 8px;
             border-radius: 50%;
             border: 2px solid var(--sidebar)
+        }
+
+        .dm-status.online {
+            background: var(--green)
+        }
+
+        .dm-status.away {
+            background: #e8912d
+        }
+
+        .dm-status.offline {
+            background: transparent;
+            border-color: var(--muted)
         }
 
         .main {
@@ -229,389 +268,352 @@
         }
 
         .ch-header {
-            padding: 10px 20px;
+            padding: 8px 20px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid var(--border);
-            background: var(--main)
+            gap: 8px
         }
 
-        .ch-header h2 {
-            font-size: 1rem;
+        .ch-title {
             font-weight: 700;
-            color: var(--white)
+            font-size: .95rem;
+            color: #fff
         }
 
-        .ch-header .ch-topic {
-            font-size: 0.82rem;
+        .ch-topic {
+            font-size: .78rem;
             color: var(--muted);
-            margin-left: 8px;
+            border-left: 1px solid var(--border);
             padding-left: 8px;
-            border-left: 1px solid var(--border)
+            margin-left: 4px
         }
 
-        .ch-header .ch-right {
+        .ch-header-right {
             margin-left: auto;
             display: flex;
             gap: 8px;
-            align-items: center
-        }
-
-        .ch-btn {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            cursor: pointer;
             color: var(--muted);
-            transition: background 0.15s
+            font-size: .9rem
         }
 
-        .ch-btn:hover {
+        .ch-header-right span {
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background .1s
+        }
+
+        .ch-header-right span:hover {
             background: var(--hover)
         }
 
         .messages {
             flex: 1;
             overflow-y: auto;
-            padding: 0 20px
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px
         }
 
         .messages::-webkit-scrollbar {
-            width: 6px
+            width: 4px
         }
 
         .messages::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px
+            background: rgba(255, 255, 255, .06);
+            border-radius: 2px
+        }
+
+        .msg-group {
+            display: flex;
+            gap: 8px;
+            padding: 4px 0;
+            margin-top: 8px
+        }
+
+        .msg-group:hover {
+            background: var(--hover);
+            border-radius: 4px
+        }
+
+        .mg-av {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        .mg-av img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .mg-header {
+            display: flex;
+            align-items: baseline;
+            gap: 6px
+        }
+
+        .mg-name {
+            font-weight: 700;
+            font-size: .88rem;
+            color: #fff;
+            cursor: pointer
+        }
+
+        .mg-name:hover {
+            text-decoration: underline
+        }
+
+        .mg-time {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .mg-text {
+            font-size: .88rem;
+            line-height: 1.5;
+            margin-top: 2px
+        }
+
+        .mg-text code {
+            background: rgba(255, 255, 255, .06);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: .82rem;
+            font-family: monospace
+        }
+
+        .mg-react {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: .78rem;
+            margin-top: 4px;
+            transition: border-color .1s
+        }
+
+        .mg-react:hover {
+            border-color: var(--accent);
+            background: rgba(18, 100, 163, .08)
         }
 
         .msg-date {
             text-align: center;
-            padding: 16px 0 8px;
+            margin: 12px 0;
             position: relative
         }
 
         .msg-date::before {
             content: '';
             position: absolute;
-            top: 50%;
             left: 0;
             right: 0;
+            top: 50%;
             height: 1px;
             background: var(--border)
         }
 
         .msg-date span {
-            position: relative;
-            background: var(--main);
+            background: var(--bg);
             padding: 0 12px;
-            font-size: 0.78rem;
+            font-size: .72rem;
             color: var(--muted);
-            font-weight: 500;
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            display: inline-block
+            position: relative;
+            font-weight: 600
         }
 
-        .msg {
-            display: flex;
-            gap: 10px;
-            padding: 8px 0;
-            margin: 0
-        }
-
-        .msg:hover {
-            background: var(--hover);
-            margin: 0 -20px;
-            padding: 8px 20px
-        }
-
-        .msg-av {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 700;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .msg-content {
-            flex: 1;
-            min-width: 0
-        }
-
-        .msg-header {
-            display: flex;
-            align-items: baseline;
-            gap: 8px
-        }
-
-        .msg-name {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--white);
-            cursor: pointer
-        }
-
-        .msg-name:hover {
-            text-decoration: underline
-        }
-
-        .msg-time {
-            font-size: 0.72rem;
-            color: var(--muted)
-        }
-
-        .msg-text {
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-top: 2px
-        }
-
-        .msg-text code {
-            padding: 2px 4px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.06);
-            font-size: 0.85rem;
-            color: #e06c75
-        }
-
-        .msg-text a {
-            color: #1d9bd1
-        }
-
-        .msg-reactions {
-            display: flex;
-            gap: 4px;
-            margin-top: 6px
-        }
-
-        .reaction {
-            padding: 2px 8px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border);
-            font-size: 0.8rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px
-        }
-
-        .reaction:hover {
-            border-color: rgba(29, 155, 240, 0.3);
-            background: rgba(29, 155, 240, 0.05)
-        }
-
-        .reaction .r-count {
-            font-size: 0.75rem;
-            color: var(--muted)
-        }
-
-        .msg-code-block {
-            margin: 8px 0;
-            padding: 12px;
-            border-radius: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-            font-family: monospace;
-            font-size: 0.85rem;
-            overflow-x: auto;
-            white-space: pre;
-            color: #abb2bf
-        }
-
-        .compose-area {
-            padding: 12px 20px;
-            border-top: 1px solid var(--border)
+        .compose {
+            padding: 0 20px 16px
         }
 
         .compose-box {
+            background: var(--channel);
             border: 1px solid var(--border);
             border-radius: 8px;
             overflow: hidden
         }
 
-        .compose-bar {
-            display: flex;
-            padding: 4px 8px;
-            border-bottom: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.02)
-        }
-
-        .fmt-btn {
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            color: var(--muted);
-            transition: background 0.15s
-        }
-
-        .fmt-btn:hover {
-            background: var(--hover)
-        }
-
-        .compose-text {
-            padding: 10px 12px;
+        .compose-box textarea {
+            width: 100%;
+            padding: 10px 16px;
             background: none;
             border: none;
             color: var(--text);
-            font-size: 0.9rem;
+            font-size: .88rem;
             outline: none;
-            width: 100%;
             resize: none;
-            min-height: 40px;
-            font-family: 'Inter'
+            font-family: 'Inter';
+            line-height: 1.4
         }
 
-        .compose-text::placeholder {
+        .compose-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-top: 1px solid var(--border)
+        }
+
+        .compose-toolbar span {
+            padding: 4px 6px;
+            cursor: pointer;
+            font-size: .85rem;
+            border-radius: 4px;
+            transition: background .1s;
             color: var(--muted)
         }
 
-        .compose-bottom {
-            display: flex;
-            justify-content: space-between;
-            padding: 4px 8px;
-            align-items: center
+        .compose-toolbar span:hover {
+            background: var(--hover)
         }
 
-        .attach-icons {
+        .compose-send {
+            margin-left: auto;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            background: var(--accent);
+            color: #fff;
             display: flex;
-            gap: 2px
-        }
-
-        .send-btn {
-            padding: 6px 10px;
-            border-radius: 6px;
-            background: var(--green);
-            color: var(--white);
-            border: none;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            font-size: 0.85rem;
-            font-family: 'Inter';
-            opacity: 0.4
+            border: none;
+            font-size: .7rem;
+            transition: all .1s;
+            opacity: .5
+        }
+
+        .compose-send.active {
+            opacity: 1
+        }
+
+        .compose-send:hover {
+            background: #1077c0
         }
     </style>
 </head>
 
 <body>
-    <div class="workspace-bar">
-        <div class="ws-icon active" style="background:linear-gradient(135deg,#4a154b,#611f69)">A</div>
-        <div class="ws-icon" style="background:linear-gradient(135deg,#1264a3,#0b4f8a)">D</div>
-        <div class="ws-icon" style="background:linear-gradient(135deg,#007a5a,#005e47)">P</div>
-        <div class="ws-divider"></div>
+    <div class="ws-bar">
+        <div class="ws-icon active"><img src="https://picsum.photos/seed/ws1/72/72" alt="Workspace"></div>
+        <div class="ws-icon"><img src="https://picsum.photos/seed/ws2/72/72" alt="Workspace"></div>
+        <div class="ws-icon"><img src="https://picsum.photos/seed/ws3/72/72" alt="Workspace"></div>
         <div class="ws-add">+</div>
     </div>
-    <aside class="sidebar">
-        <div class="sb-header"><span class="sb-team">Acme Inc</span>
-            <div class="sb-compose">✏️</div>
+    <div class="sidebar">
+        <div class="s-header"><span class="s-name">DevTeam HQ</span><span class="s-pencil">✏️</span></div>
+        <div class="s-nav">
+            <div class="s-link" onclick="setLink(this)"><span>💬</span>Threads</div>
+            <div class="s-link" onclick="setLink(this)"><span>📨</span>Drafts & Sent</div>
+            <div class="s-link" onclick="setLink(this)"><span>🔖</span>Saved items</div>
         </div>
-        <input class="sb-search" placeholder="🔍 Search Acme Inc">
-        <div class="sb-section"><span>Channels</span><span style="cursor:pointer">+</span></div>
-        <div class="sb-channel active"><span class="hash">#</span>general</div>
-        <div class="sb-channel"><span class="hash">#</span>engineering<span class="badge">3</span></div>
-        <div class="sb-channel"><span class="hash">#</span>design</div>
-        <div class="sb-channel"><span class="hash">#</span>random</div>
-        <div class="sb-channel"><span class="hash">#</span>announcements</div>
-        <div class="sb-channel"><span class="hash">#</span>devops</div>
-        <div class="sb-section"><span>Direct Messages</span><span style="cursor:pointer">+</span></div>
-        <div class="sb-dm">
-            <div class="dm-av" style="background:#e0a030">
-                <div class="status" style="background:#007a5a"></div>SK
-            </div>Sarah Kim
-        </div>
-        <div class="sb-dm">
-            <div class="dm-av" style="background:#6b82f6">
-                <div class="status" style="background:#007a5a"></div>MR
-            </div>Mike Ross
-        </div>
-        <div class="sb-dm">
-            <div class="dm-av" style="background:#ec4899">
-                <div class="status" style="background:var(--muted)"></div>AL
-            </div>Alex Liu
-        </div>
-    </aside>
-    <div class="main">
-        <div class="ch-header"><span>#</span>
-            <h2>general</h2><span class="ch-topic">Company-wide announcements and updates</span>
-            <div class="ch-right"><span class="ch-btn">👤 24</span><span class="ch-btn">📌</span><span
-                    class="ch-btn">🔍</span></div>
-        </div>
-        <div class="messages">
-            <div class="msg-date"><span>Monday, March 3</span></div>
-            <div class="msg">
-                <div class="msg-av" style="background:linear-gradient(135deg,#e0a030,#c9890a)">SK</div>
-                <div class="msg-content">
-                    <div class="msg-header"><span class="msg-name">Sarah Kim</span><span class="msg-time">9:15 AM</span>
-                    </div>
-                    <div class="msg-text">Good morning team! 👋 Quick update: the v2 migration is complete. All services
-                        are now running on the new infrastructure. Performance improvements are already visible — avg
-                        response time dropped from 180ms to 42ms 🚀</div>
-                    <div class="msg-reactions"><span class="reaction">🎉 <span class="r-count">8</span></span><span
-                            class="reaction">🚀 <span class="r-count">5</span></span><span class="reaction">🔥 <span
-                                class="r-count">3</span></span></div>
-                </div>
+        <div class="s-section"
+            onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+            ▾ Channels</div>
+        <div>
+            <div class="ch-link active" onclick="setCh(this)"><span>#</span>general</div>
+            <div class="ch-link unread" onclick="setCh(this)"><span>#</span>frontend<span class="ch-badge">5</span>
             </div>
-            <div class="msg">
-                <div class="msg-av" style="background:linear-gradient(135deg,#6b82f6,#4f46e5)">MR</div>
-                <div class="msg-content">
-                    <div class="msg-header"><span class="msg-name">Mike Ross</span><span class="msg-time">9:32 AM</span>
-                    </div>
-                    <div class="msg-text">That's incredible! The <code>loadDashboard()</code> function went from 3.2s to
-                        400ms. Users are going to love this.<br><br>I've already pushed the monitoring dashboards
-                        update: <a>grafana.acme.dev/v2-perf</a></div>
-                </div>
-            </div>
-            <div class="msg">
-                <div class="msg-av" style="background:linear-gradient(135deg,#ec4899,#db2777)">AL</div>
-                <div class="msg-content">
-                    <div class="msg-header"><span class="msg-name">Alex Liu</span><span class="msg-time">10:05 AM</span>
-                    </div>
-                    <div class="msg-text">Design team has the new component library ready. Here's a sneak peek of the
-                        updated dashboard:<div class="msg-code-block">// New API hook pattern
-                            const { data, isLoading } = useQuery({
-                            queryKey: ['dashboard', userId],
-                            queryFn: () => fetchDashboard(userId),
-                            staleTime: 5 * 60 * 1000,
-                            });</div>
-                    </div>
-                    <div class="msg-reactions"><span class="reaction">👀 <span class="r-count">4</span></span><span
-                            class="reaction">💯 <span class="r-count">6</span></span></div>
-                </div>
-            </div>
-            <div class="msg-date"><span>Today</span></div>
-            <div class="msg">
-                <div class="msg-av" style="background:linear-gradient(135deg,#22c55e,#16a34a)">JD</div>
-                <div class="msg-content">
-                    <div class="msg-header"><span class="msg-name">John Doe</span><span class="msg-time">8:45 AM</span>
-                    </div>
-                    <div class="msg-text">@channel Reminder: Sprint review at 2pm today. Please have your demos ready.
-                        We'll be showcasing the new features to stakeholders. 🎯</div>
-                    <div class="msg-reactions"><span class="reaction">👍 <span class="r-count">12</span></span><span
-                            class="reaction">✅ <span class="r-count">8</span></span></div>
-                </div>
-            </div>
+            <div class="ch-link" onclick="setCh(this)"><span>#</span>backend</div>
+            <div class="ch-link unread" onclick="setCh(this)"><span>#</span>design<span class="ch-badge">2</span></div>
+            <div class="ch-link" onclick="setCh(this)"><span>#</span>devops</div>
+            <div class="ch-link" onclick="setCh(this)"><span>#</span>random</div>
         </div>
-        <div class="compose-area">
-            <div class="compose-box">
-                <div class="compose-bar"><span class="fmt-btn"><b>B</b></span><span class="fmt-btn"><i>I</i></span><span
-                        class="fmt-btn"><s>S</s></span><span class="fmt-btn">🔗</span><span
-                        class="fmt-btn">📋</span><span class="fmt-btn"><code>&lt;/&gt;</code></span></div><textarea
-                    class="compose-text" placeholder="Message #general"></textarea>
-                <div class="compose-bottom">
-                    <div class="attach-icons"><span class="fmt-btn">📎</span><span class="fmt-btn">📷</span><span
-                            class="fmt-btn">😀</span><span class="fmt-btn">@</span></div><button
-                        class="send-btn">➤</button>
-                </div>
+        <div class="s-section">▾ Direct messages</div>
+        <div>
+            <div class="dm-link" onclick="setLink(this)">
+                <div class="dm-av"><img src="https://i.pravatar.cc/40?img=1">
+                    <div class="dm-status online"></div>
+                </div>Sarah Chen
+            </div>
+            <div class="dm-link" onclick="setLink(this)">
+                <div class="dm-av"><img src="https://i.pravatar.cc/40?img=5">
+                    <div class="dm-status online"></div>
+                </div>Alex Rivera
+            </div>
+            <div class="dm-link" onclick="setLink(this)">
+                <div class="dm-av"><img src="https://i.pravatar.cc/40?img=9">
+                    <div class="dm-status away"></div>
+                </div>Emma Wilson
+            </div>
+            <div class="dm-link" onclick="setLink(this)">
+                <div class="dm-av"><img src="https://i.pravatar.cc/40?img=8">
+                    <div class="dm-status offline"></div>
+                </div>Tom King
             </div>
         </div>
     </div>
+    <div class="main">
+        <div class="ch-header"><span class="ch-title"># general</span><span class="ch-topic">Company-wide updates and
+                announcements</span>
+            <div class="ch-header-right"><span>📞</span><span>📌</span><span>🔍</span><span>👤</span></div>
+        </div>
+        <div class="messages" id="messages"></div>
+        <div class="compose">
+            <div class="compose-box">
+                <textarea rows="1" placeholder="Message #general" id="msgInput"
+                    oninput="document.querySelector('.compose-send').classList.toggle('active',this.value.length>0)"
+                    onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea>
+                <div class="compose-toolbar">
+                    <span>➕</span><span>📎</span><span>😊</span><span>@</span><span>📝</span><span>🎧</span><button
+                        class="compose-send" onclick="sendMsg()">➤</button></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const msgs = [
+            { date: 'Tuesday, March 4, 2026' },
+            { name: 'Sarah Chen', avatar: 'https://i.pravatar.cc/72?img=1', time: '9:15 AM', texts: ['Good morning team! 🌅', 'Just pushed the new design system to staging. Check it out when you get a chance.'], reacts: ['🎉 3', '👀 2'] },
+            { name: 'Alex Rivera', avatar: 'https://i.pravatar.cc/72?img=5', time: '9:32 AM', texts: ['Looks amazing @Sarah! The glassmorphism components are 🔥', 'Quick question — are the `dark:` variants ready?'] },
+            { name: 'Sarah Chen', avatar: 'https://i.pravatar.cc/72?img=1', time: '9:45 AM', texts: ['Yes! Full dark mode support. Used CSS variables so it switches instantly.'] },
+            { date: 'Today' },
+            { name: 'Tom King', avatar: 'https://i.pravatar.cc/72?img=8', time: '10:02 AM', texts: ['Heads up: deploying v2.4.0 at noon today. Here\'s the changelog:', '• New auth system with 2FA\n• WebSocket real-time notifications\n• Performance improvements (30% faster)'], reacts: ['🚀 5', '👏 4'] },
+            { name: 'Emma Wilson', avatar: 'https://i.pravatar.cc/72?img=9', time: '10:15 AM', texts: ['The new auth flow looks great! Tested it this morning — smooth as butter 🧈'] },
+            { name: 'Alex Rivera', avatar: 'https://i.pravatar.cc/72?img=5', time: '10:30 AM', texts: ['Speaking of auth, has anyone tried the DevVault Pro auth system? Their `10_complete_auth_system.ts` has everything built in — 2FA, RBAC, sessions, the works.'], reacts: ['💯 2'] },
+        ];
+
+        function renderMsgs() {
+            document.getElementById('messages').innerHTML = msgs.map(m => {
+                if (m.date) return `<div class="msg-date"><span>${m.date}</span></div>`;
+                return `<div class="msg-group"><div class="mg-av"><img src="${m.avatar}" alt="${m.name}"></div><div><div class="mg-header"><span class="mg-name">${m.name}</span><span class="mg-time">${m.time}</span></div>${m.texts.map(t => `<div class="mg-text">${t.replace(/`([^`]+)`/g, '<code>$1</code>').replace(/@(\w+)/g, '<span style="color:#1264a3;background:rgba(18,100,163,.1);padding:1px 3px;border-radius:3px;cursor:pointer">@$1</span>').replace(/\n/g, '<br>')}</div>`).join('')}${m.reacts ? m.reacts.map(r => `<span class="mg-react" onclick="bumpReact(this)">${r}</span>`).join(' ') : ''}</div></div>`;
+            }).join('');
+            const el = document.getElementById('messages');
+            el.scrollTop = el.scrollHeight;
+        }
+
+        function sendMsg() {
+            const input = document.getElementById('msgInput');
+            if (!input.value.trim()) return;
+            const now = new Date();
+            msgs.push({ name: 'John Dev', avatar: 'https://i.pravatar.cc/72?img=11', time: now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }), texts: [input.value] });
+            input.value = ''; renderMsgs();
+        }
+
+        function bumpReact(el) {
+            const parts = el.textContent.trim().split(' ');
+            const count = parseInt(parts[parts.length - 1]) + 1;
+            parts[parts.length - 1] = count;
+            el.textContent = parts.join(' ');
+            el.style.borderColor = 'var(--accent)'; el.style.background = 'rgba(18,100,163,.08)';
+        }
+
+        function setLink(el) { document.querySelectorAll('.s-link,.dm-link').forEach(l => l.classList.remove('active')); el.classList.add('active') }
+        function setCh(el) { document.querySelectorAll('.ch-link').forEach(l => l.classList.remove('active')); el.classList.add('active'); el.classList.remove('unread'); const b = el.querySelector('.ch-badge'); if (b) b.remove() }
+
+        renderMsgs();
+    </script>
 </body>
 
 </html>

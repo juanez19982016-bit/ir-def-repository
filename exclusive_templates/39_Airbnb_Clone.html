@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StayNow — Rental Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <title>StayNow — Vacation Rentals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,11 +15,11 @@
 
         :root {
             --bg: #fff;
-            --card: #fff;
+            --text: #222;
+            --muted: #717171;
             --border: #ddd;
             --accent: #ff385c;
-            --text: #222;
-            --muted: #717171
+            --card: #fff
         }
 
         body {
@@ -30,119 +29,113 @@
         }
 
         nav {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            background: #fff;
+            background: var(--bg);
             z-index: 10;
-            padding: 16px 40px;
-            display: flex;
-            align-items: center;
             border-bottom: 1px solid var(--border);
-            height: 80px
+            padding: 16px 48px
         }
 
-        .logo {
+        .n-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px
+        }
+
+        .n-logo {
             font-weight: 900;
             font-size: 1.3rem;
             color: var(--accent);
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 4px
+            gap: 6px
         }
 
-        .search-bar {
+        .n-search {
             display: flex;
             align-items: center;
             border: 1px solid var(--border);
-            border-radius: 40px;
-            margin: 0 auto;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
-            overflow: hidden
-        }
-
-        .sb-item {
-            padding: 12px 24px;
+            border-radius: 100px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+            font-size: .85rem;
+            overflow: hidden;
             cursor: pointer;
-            position: relative;
-            font-size: .85rem
+            transition: box-shadow .15s
         }
 
-        .sb-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 25%;
-            height: 50%;
-            width: 1px;
-            background: var(--border)
+        .n-search:hover {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .15)
         }
 
-        .sb-label {
-            font-size: .72rem;
-            font-weight: 600
+        .n-search span {
+            padding: 10px 16px;
+            white-space: nowrap;
+            font-weight: 500;
+            border-right: 1px solid var(--border)
         }
 
-        .sb-value {
-            color: var(--muted);
-            font-size: .82rem
+        .n-search span:last-child {
+            border: none;
+            color: var(--muted)
         }
 
-        .sb-btn {
-            width: 40px;
-            height: 40px;
+        .n-search-icon {
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: var(--accent);
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-size: 1rem;
             margin: 4px;
-            cursor: pointer;
-            border: none
+            font-size: .8rem
         }
 
-        .nav-right {
+        .n-right {
             display: flex;
+            gap: 8px;
             align-items: center;
-            gap: 16px
+            font-size: .85rem
         }
 
         .n-link {
-            font-size: .85rem;
+            padding: 8px 12px;
+            border-radius: 100px;
+            cursor: pointer;
             font-weight: 500;
-            cursor: pointer
+            transition: background .1s
+        }
+
+        .n-link:hover {
+            background: #f7f7f7
         }
 
         .n-avatar {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            border: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .65rem;
-            font-weight: 700;
+            overflow: hidden;
+            border: 1px solid var(--border);
             cursor: pointer
         }
 
+        .n-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
         .categories {
-            position: fixed;
-            top: 80px;
-            left: 0;
-            right: 0;
-            background: #fff;
-            z-index: 5;
-            padding: 12px 40px;
             display: flex;
             gap: 24px;
             overflow-x: auto;
-            border-bottom: 1px solid var(--border);
-            scrollbar-width: none
+            padding: 8px 0;
+            scrollbar-width: none;
+            align-items: center
         }
 
         .categories::-webkit-scrollbar {
@@ -155,11 +148,12 @@
             align-items: center;
             gap: 4px;
             cursor: pointer;
-            flex-shrink: 0;
             opacity: .6;
-            transition: opacity .15s;
+            transition: all .12s;
             padding-bottom: 8px;
-            border-bottom: 2px solid transparent
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+            flex-shrink: 0
         }
 
         .cat:hover {
@@ -168,7 +162,7 @@
 
         .cat.active {
             opacity: 1;
-            border-bottom-color: var(--text)
+            border-color: var(--text)
         }
 
         .cat-icon {
@@ -177,45 +171,37 @@
 
         .cat-name {
             font-size: .72rem;
-            font-weight: 500;
-            white-space: nowrap
-        }
-
-        .main {
-            margin-top: 160px;
-            padding: 0 40px 40px
+            font-weight: 500
         }
 
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px
+            gap: 24px;
+            padding: 24px 48px 48px
         }
 
         .listing {
-            cursor: pointer
+            cursor: pointer;
+            transition: transform .15s
         }
 
-        .listing:hover .l-img {
-            transform: scale(1.02)
+        .listing:hover {
+            transform: translateY(-2px)
         }
 
-        .l-img-wrap {
+        .l-imgs {
             position: relative;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            aspect-ratio: 1;
-            margin-bottom: 8px
+            aspect-ratio: 1
         }
 
-        .l-img {
+        .l-imgs img {
             width: 100%;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            transition: transform .3s
+            object-fit: cover;
+            transition: opacity .3s
         }
 
         .l-fav {
@@ -224,76 +210,130 @@
             right: 12px;
             font-size: 1.2rem;
             cursor: pointer;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, .3)
+            filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .3));
+            z-index: 2;
+            transition: transform .12s
         }
 
-        .l-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: #fff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: .72rem;
-            font-weight: 600
+        .l-fav:hover {
+            transform: scale(1.15)
         }
 
         .l-dots {
             position: absolute;
-            bottom: 12px;
+            bottom: 8px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 4px
+            gap: 4px;
+            z-index: 2
         }
 
         .l-dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, .5)
+            background: rgba(255, 255, 255, .5);
+            transition: background .2s
         }
 
         .l-dot.active {
             background: #fff
         }
 
-        .l-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start
+        .l-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: .72rem;
+            font-weight: 600;
+            background: #fff;
+            color: var(--text);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .1)
         }
 
-        .l-location {
-            font-size: .88rem;
-            font-weight: 500
+        .l-arrows {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 8px;
+            opacity: 0;
+            transition: opacity .2s
+        }
+
+        .listing:hover .l-arrows {
+            opacity: 1
+        }
+
+        .l-arrow {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: .7rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+            border: none;
+            transition: transform .12s
+        }
+
+        .l-arrow:hover {
+            transform: scale(1.1)
+        }
+
+        .l-info {
+            padding: 8px 0
+        }
+
+        .l-top {
+            display: flex;
+            justify-content: space-between
+        }
+
+        .l-name {
+            font-weight: 500;
+            font-size: .88rem
+        }
+
+        .l-rating {
+            font-size: .82rem;
+            display: flex;
+            align-items: center;
+            gap: 2px
         }
 
         .l-distance {
-            font-size: .85rem;
+            font-size: .82rem;
             color: var(--muted)
         }
 
         .l-dates {
-            font-size: .85rem;
+            font-size: .82rem;
             color: var(--muted)
         }
 
         .l-price {
             font-size: .88rem;
-            margin-top: 2px
+            margin-top: 4px
         }
 
         .l-price strong {
             font-weight: 600
         }
 
-        .l-rating {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: .85rem;
-            font-weight: 500
+        .l-price-total {
+            font-size: .78rem;
+            color: var(--muted);
+            text-decoration: underline;
+            cursor: pointer
         }
 
         .map-btn {
@@ -301,181 +341,103 @@
             bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 12px 24px;
-            border-radius: 24px;
+            padding: 12px 20px;
+            border-radius: 100px;
             background: #222;
             color: #fff;
-            font-weight: 600;
-            font-size: .88rem;
-            cursor: pointer;
             border: none;
+            font-weight: 600;
+            font-size: .85rem;
+            cursor: pointer;
             font-family: 'Inter';
             display: flex;
             align-items: center;
             gap: 6px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
-            z-index: 5
+            z-index: 10;
+            transition: transform .12s
+        }
+
+        .map-btn:hover {
+            transform: translateX(-50%) scale(1.05)
         }
     </style>
 </head>
 
 <body>
     <nav>
-        <div class="logo">🏠 StayNow</div>
-        <div class="search-bar">
-            <div class="sb-item">
-                <div class="sb-label">Where</div>
-                <div class="sb-value">Search destinations</div>
+        <div class="n-top">
+            <div class="n-logo">🏠 staynow</div>
+            <div class="n-search"><span>Anywhere</span><span>Any week</span><span>Add guests</span>
+                <div class="n-search-icon">🔍</div>
             </div>
-            <div class="sb-item">
-                <div class="sb-label">Check in</div>
-                <div class="sb-value">Add dates</div>
+            <div class="n-right"><span class="n-link">Become a host</span><span class="n-link">🌐</span>
+                <div class="n-avatar"><img src="https://i.pravatar.cc/64?img=11"></div>
             </div>
-            <div class="sb-item">
-                <div class="sb-label">Check out</div>
-                <div class="sb-value">Add dates</div>
-            </div>
-            <div class="sb-item">
-                <div class="sb-label">Who</div>
-                <div class="sb-value">Add guests</div>
-            </div><button class="sb-btn">🔍</button>
         </div>
-        <div class="nav-right"><span class="n-link">Become a Host</span><span>🌐</span>
-            <div class="n-avatar" style="background:#f1f1f1;color:#222">☰</div>
-        </div>
+        <div class="categories" id="categories"></div>
     </nav>
-    <div class="categories">
-        <div class="cat active"><span class="cat-icon">✨</span><span class="cat-name">All</span></div>
-        <div class="cat"><span class="cat-icon">🏖️</span><span class="cat-name">Beachfront</span></div>
-        <div class="cat"><span class="cat-icon">🏔️</span><span class="cat-name">Mountains</span></div>
-        <div class="cat"><span class="cat-icon">🏡</span><span class="cat-name">Cabins</span></div>
-        <div class="cat"><span class="cat-icon">🏰</span><span class="cat-name">Castles</span></div>
-        <div class="cat"><span class="cat-icon">🌊</span><span class="cat-name">Lakefront</span></div>
-        <div class="cat"><span class="cat-icon">🏗️</span><span class="cat-name">Design</span></div>
-        <div class="cat"><span class="cat-icon">🌴</span><span class="cat-name">Tropical</span></div>
-        <div class="cat"><span class="cat-icon">🏕️</span><span class="cat-name">Camping</span></div>
-        <div class="cat"><span class="cat-icon">🌳</span><span class="cat-name">Treehouses</span></div>
-        <div class="cat"><span class="cat-icon">🏊</span><span class="cat-name">Amazing pools</span></div>
-        <div class="cat"><span class="cat-icon">🎿</span><span class="cat-name">Skiing</span></div>
-    </div>
-    <div class="main">
-        <div class="grid">
-            <div class="listing">
-                <div class="l-img-wrap">
-                    <div class="l-img" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">🏖️</div><span
-                        class="l-fav">🤍</span><span class="l-badge">Guest favorite</span>
-                    <div class="l-dots">
-                        <div class="l-dot active"></div>
-                        <div class="l-dot"></div>
-                        <div class="l-dot"></div>
-                        <div class="l-dot"></div>
-                    </div>
-                </div>
-                <div class="l-info">
-                    <div>
-                        <div class="l-location">Malibu, California</div>
-                        <div class="l-distance">Beach house · Ocean view</div>
-                        <div class="l-dates">Mar 10 – 15</div>
-                        <div class="l-price"><strong>$348</strong> night</div>
-                    </div>
-                    <div class="l-rating">⭐ 4.92</div>
-                </div>
-            </div>
-            <div class="listing">
-                <div class="l-img-wrap">
-                    <div class="l-img" style="background:linear-gradient(135deg,#059669,#047857)">🏔️</div><span
-                        class="l-fav">🤍</span>
-                    <div class="l-dots">
-                        <div class="l-dot active"></div>
-                        <div class="l-dot"></div>
-                        <div class="l-dot"></div>
-                    </div>
-                </div>
-                <div class="l-info">
-                    <div>
-                        <div class="l-location">Aspen, Colorado</div>
-                        <div class="l-distance">Mountain cabin · Ski-in/out</div>
-                        <div class="l-dates">Mar 15 – 22</div>
-                        <div class="l-price"><strong>$520</strong> night</div>
-                    </div>
-                    <div class="l-rating">⭐ 4.97</div>
-                </div>
-            </div>
-            <div class="listing">
-                <div class="l-img-wrap">
-                    <div class="l-img" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">🏰</div><span
-                        class="l-fav">❤️</span><span class="l-badge">Superhost</span>
-                    <div class="l-dots">
-                        <div class="l-dot active"></div>
-                        <div class="l-dot"></div>
-                        <div class="l-dot"></div>
-                        <div class="l-dot"></div>
-                        <div class="l-dot"></div>
-                    </div>
-                </div>
-                <div class="l-info">
-                    <div>
-                        <div class="l-location">Tuscany, Italy</div>
-                        <div class="l-distance">Historic villa · Vineyard</div>
-                        <div class="l-dates">Apr 1 – 7</div>
-                        <div class="l-price"><strong>$275</strong> night</div>
-                    </div>
-                    <div class="l-rating">⭐ 4.89</div>
-                </div>
-            </div>
-            <div class="listing">
-                <div class="l-img-wrap">
-                    <div class="l-img" style="background:linear-gradient(135deg,#d97706,#b45309)">🌴</div><span
-                        class="l-fav">🤍</span>
-                    <div class="l-dots">
-                        <div class="l-dot active"></div>
-                        <div class="l-dot"></div>
-                        <div class="l-dot"></div>
-                    </div>
-                </div>
-                <div class="l-info">
-                    <div>
-                        <div class="l-location">Bali, Indonesia</div>
-                        <div class="l-distance">Tropical villa · Private pool</div>
-                        <div class="l-dates">Mar 20 – 28</div>
-                        <div class="l-price"><strong>$185</strong> night</div>
-                    </div>
-                    <div class="l-rating">⭐ 4.95</div>
-                </div>
-            </div>
-            <div class="listing">
-                <div class="l-img-wrap">
-                    <div class="l-img" style="background:linear-gradient(135deg,#1e3a5f,#4a7c59)">🌳</div><span
-                        class="l-fav">🤍</span><span class="l-badge">New</span>
-                </div>
-                <div class="l-info">
-                    <div>
-                        <div class="l-location">Portland, Oregon</div>
-                        <div class="l-distance">Treehouse · Forest retreat</div>
-                        <div class="l-dates">Apr 5 – 10</div>
-                        <div class="l-price"><strong>$165</strong> night</div>
-                    </div>
-                    <div class="l-rating">⭐ 5.0</div>
-                </div>
-            </div>
-            <div class="listing">
-                <div class="l-img-wrap">
-                    <div class="l-img" style="background:linear-gradient(135deg,#1e40af,#1d4ed8)">🏊</div><span
-                        class="l-fav">🤍</span><span class="l-badge">Guest favorite</span>
-                </div>
-                <div class="l-info">
-                    <div>
-                        <div class="l-location">Miami Beach, Florida</div>
-                        <div class="l-distance">Luxury condo · Infinity pool</div>
-                        <div class="l-dates">Mar 12 – 18</div>
-                        <div class="l-price"><strong>$420</strong> night</div>
-                    </div>
-                    <div class="l-rating">⭐ 4.88</div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="grid" id="grid"></div>
     <button class="map-btn">🗺️ Show map</button>
+
+    <script>
+        const cats = [
+            { icon: '🏠', name: 'Rooms' }, { icon: '🏡', name: 'Countryside' }, { icon: '🌊', name: 'Beach' }, { icon: '⛰️', name: 'Mountains' },
+            { icon: '🏢', name: 'City' }, { icon: '🏰', name: 'Castles' }, { icon: '🛖', name: 'Cabins' }, { icon: '🪵', name: 'Treehouses' },
+            { icon: '🏊', name: 'Pools' }, { icon: '🎿', name: 'Skiing' }, { icon: '🌴', name: 'Tropical' }, { icon: '🏕️', name: 'Camping' },
+            { icon: '🍷', name: 'Vineyards' }, { icon: '🎨', name: 'Design' }, { icon: '🔥', name: 'Trending' },
+        ];
+        const listings = [
+            { name: 'Malibu Beach House', location: 'Malibu, California', distance: '2,456 miles away', dates: 'Mar 15-20', price: 285, total: 1425, rating: 4.96, badge: 'Guest favorite', imgs: ['https://picsum.photos/seed/ab1/600/600', 'https://picsum.photos/seed/ab1b/600/600', 'https://picsum.photos/seed/ab1c/600/600'] },
+            { name: 'Cozy Mountain Cabin', location: 'Aspen, Colorado', distance: '1,890 miles away', dates: 'Mar 8-14', price: 195, total: 1365, rating: 4.92, imgs: ['https://picsum.photos/seed/ab2/600/600', 'https://picsum.photos/seed/ab2b/600/600'] },
+            { name: 'Modern Loft Downtown', location: 'Manhattan, New York', distance: '245 miles away', dates: 'Apr 1-5', price: 350, total: 1400, rating: 4.88, badge: 'Superhost', imgs: ['https://picsum.photos/seed/ab3/600/600', 'https://picsum.photos/seed/ab3b/600/600', 'https://picsum.photos/seed/ab3c/600/600'] },
+            { name: 'Lakeside Retreat', location: 'Lake Tahoe, Nevada', distance: '2,100 miles away', dates: 'Mar 22-28', price: 225, total: 1350, rating: 4.94, imgs: ['https://picsum.photos/seed/ab4/600/600', 'https://picsum.photos/seed/ab4b/600/600'] },
+            { name: 'Villa with Pool', location: 'Tulum, Mexico', distance: '3,200 miles away', dates: 'Apr 10-17', price: 180, total: 1260, rating: 4.97, badge: 'Guest favorite', imgs: ['https://picsum.photos/seed/ab5/600/600', 'https://picsum.photos/seed/ab5b/600/600', 'https://picsum.photos/seed/ab5c/600/600'] },
+            { name: 'Penthouse Suite', location: 'Miami Beach, Florida', distance: '1,100 miles away', dates: 'Mar 28-Apr 2', price: 420, total: 2100, rating: 4.85, imgs: ['https://picsum.photos/seed/ab6/600/600', 'https://picsum.photos/seed/ab6b/600/600'] },
+            { name: 'Countryside Cottage', location: 'Cotswolds, UK', distance: '5,400 miles away', dates: 'May 1-7', price: 165, total: 990, rating: 4.91, imgs: ['https://picsum.photos/seed/ab7/600/600', 'https://picsum.photos/seed/ab7b/600/600', 'https://picsum.photos/seed/ab7c/600/600'] },
+            { name: 'Treehouse Experience', location: 'Portland, Oregon', distance: '2,800 miles away', dates: 'Apr 15-20', price: 275, total: 1375, rating: 4.98, badge: 'Superhost', imgs: ['https://picsum.photos/seed/ab8/600/600', 'https://picsum.photos/seed/ab8b/600/600'] },
+        ];
+
+        let activeCat = 0;
+        function renderCats() { document.getElementById('categories').innerHTML = cats.map((c, i) => `<div class="cat${i === activeCat ? ' active' : ''}" onclick="activeCat=${i};renderCats()"><span class="cat-icon">${c.icon}</span><span class="cat-name">${c.name}</span></div>`).join('') }
+
+        function renderListings() {
+            document.getElementById('grid').innerHTML = listings.map((l, i) => `
+    <div class="listing">
+      <div class="l-imgs" id="listing${i}"><img src="${l.imgs[0]}" alt="${l.name}">
+        ${l.badge ? `<span class="l-badge">${l.badge}</span>` : ''}
+        <span class="l-fav" onclick="event.stopPropagation();toggleFav(this)">🤍</span>
+        <div class="l-dots">${l.imgs.map((_, di) => `<span class="l-dot${di === 0 ? ' active' : ''}" data-idx="${di}"></span>`).join('')}</div>
+        <div class="l-arrows">
+          <button class="l-arrow" onclick="event.stopPropagation();slideImg(${i},-1)">‹</button>
+          <button class="l-arrow" onclick="event.stopPropagation();slideImg(${i},1)">›</button>
+        </div>
+      </div>
+      <div class="l-info">
+        <div class="l-top"><span class="l-name">${l.location}</span><span class="l-rating">⭐ ${l.rating}</span></div>
+        <div class="l-distance">${l.distance}</div>
+        <div class="l-dates">${l.dates}</div>
+        <div class="l-price"><strong>$${l.price}</strong> night · <span class="l-price-total">$${l.total.toLocaleString()} total</span></div>
+      </div>
+    </div>
+  `).join('');
+        }
+
+        const imgIdx = {};
+        function slideImg(i, dir) {
+            const l = listings[i];
+            imgIdx[i] = (imgIdx[i] || 0) + dir;
+            if (imgIdx[i] < 0) imgIdx[i] = l.imgs.length - 1;
+            if (imgIdx[i] >= l.imgs.length) imgIdx[i] = 0;
+            const container = document.getElementById('listing' + i);
+            container.querySelector('img').src = l.imgs[imgIdx[i]];
+            container.querySelectorAll('.l-dot').forEach((d, di) => d.classList.toggle('active', di === imgIdx[i]));
+        }
+
+        function toggleFav(el) { el.textContent = el.textContent === '🤍' ? '❤️' : '🤍' }
+
+        renderCats(); renderListings();
+    </script>
 </body>
 
 </html>

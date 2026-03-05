@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayNow — Rental Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #fff;
+            --card: #fff;
+            --border: #ddd;
+            --accent: #ff385c;
+            --text: #222;
+            --muted: #717171
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text)
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            z-index: 10;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            height: 80px
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.3rem;
+            color: var(--accent);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            margin: 0 auto;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+            overflow: hidden
+        }
+
+        .sb-item {
+            padding: 12px 24px;
+            cursor: pointer;
+            position: relative;
+            font-size: .85rem
+        }
+
+        .sb-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 25%;
+            height: 50%;
+            width: 1px;
+            background: var(--border)
+        }
+
+        .sb-label {
+            font-size: .72rem;
+            font-weight: 600
+        }
+
+        .sb-value {
+            color: var(--muted);
+            font-size: .82rem
+        }
+
+        .sb-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1rem;
+            margin: 4px;
+            cursor: pointer;
+            border: none
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px
+        }
+
+        .n-link {
+            font-size: .85rem;
+            font-weight: 500;
+            cursor: pointer
+        }
+
+        .n-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .65rem;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .categories {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: #fff;
+            z-index: 5;
+            padding: 12px 40px;
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border);
+            scrollbar-width: none
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none
+        }
+
+        .cat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+            opacity: .6;
+            transition: opacity .15s;
+            padding-bottom: 8px;
+            border-bottom: 2px solid transparent
+        }
+
+        .cat:hover {
+            opacity: 1
+        }
+
+        .cat.active {
+            opacity: 1;
+            border-bottom-color: var(--text)
+        }
+
+        .cat-icon {
+            font-size: 1.3rem
+        }
+
+        .cat-name {
+            font-size: .72rem;
+            font-weight: 500;
+            white-space: nowrap
+        }
+
+        .main {
+            margin-top: 160px;
+            padding: 0 40px 40px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px
+        }
+
+        .listing {
+            cursor: pointer
+        }
+
+        .listing:hover .l-img {
+            transform: scale(1.02)
+        }
+
+        .l-img-wrap {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            margin-bottom: 8px
+        }
+
+        .l-img {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            transition: transform .3s
+        }
+
+        .l-fav {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, .3)
+        }
+
+        .l-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: .72rem;
+            font-weight: 600
+        }
+
+        .l-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px
+        }
+
+        .l-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .5)
+        }
+
+        .l-dot.active {
+            background: #fff
+        }
+
+        .l-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start
+        }
+
+        .l-location {
+            font-size: .88rem;
+            font-weight: 500
+        }
+
+        .l-distance {
+            font-size: .85rem;
+            color: var(--muted)
+        }
+
+        .l-dates {
+            font-size: .85rem;
+            color: var(--muted)
+        }
+
+        .l-price {
+            font-size: .88rem;
+            margin-top: 2px
+        }
+
+        .l-price strong {
+            font-weight: 600
+        }
+
+        .l-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: .85rem;
+            font-weight: 500
+        }
+
+        .map-btn {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 24px;
+            background: #222;
+            color: #fff;
+            font-weight: 600;
+            font-size: .88rem;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter';
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+            z-index: 5
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">🏠 StayNow</div>
+        <div class="search-bar">
+            <div class="sb-item">
+                <div class="sb-label">Where</div>
+                <div class="sb-value">Search destinations</div>
+            </div>
+            <div class="sb-item">
+                <div class="sb-label">Check in</div>
+                <div class="sb-value">Add dates</div>
+            </div>
+            <div class="sb-item">
+                <div class="sb-label">Check out</div>
+                <div class="sb-value">Add dates</div>
+            </div>
+            <div class="sb-item">
+                <div class="sb-label">Who</div>
+                <div class="sb-value">Add guests</div>
+            </div><button class="sb-btn">🔍</button>
+        </div>
+        <div class="nav-right"><span class="n-link">Become a Host</span><span>🌐</span>
+            <div class="n-avatar" style="background:#f1f1f1;color:#222">☰</div>
+        </div>
+    </nav>
+    <div class="categories">
+        <div class="cat active"><span class="cat-icon">✨</span><span class="cat-name">All</span></div>
+        <div class="cat"><span class="cat-icon">🏖️</span><span class="cat-name">Beachfront</span></div>
+        <div class="cat"><span class="cat-icon">🏔️</span><span class="cat-name">Mountains</span></div>
+        <div class="cat"><span class="cat-icon">🏡</span><span class="cat-name">Cabins</span></div>
+        <div class="cat"><span class="cat-icon">🏰</span><span class="cat-name">Castles</span></div>
+        <div class="cat"><span class="cat-icon">🌊</span><span class="cat-name">Lakefront</span></div>
+        <div class="cat"><span class="cat-icon">🏗️</span><span class="cat-name">Design</span></div>
+        <div class="cat"><span class="cat-icon">🌴</span><span class="cat-name">Tropical</span></div>
+        <div class="cat"><span class="cat-icon">🏕️</span><span class="cat-name">Camping</span></div>
+        <div class="cat"><span class="cat-icon">🌳</span><span class="cat-name">Treehouses</span></div>
+        <div class="cat"><span class="cat-icon">🏊</span><span class="cat-name">Amazing pools</span></div>
+        <div class="cat"><span class="cat-icon">🎿</span><span class="cat-name">Skiing</span></div>
+    </div>
+    <div class="main">
+        <div class="grid">
+            <div class="listing">
+                <div class="l-img-wrap">
+                    <div class="l-img" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">🏖️</div><span
+                        class="l-fav">🤍</span><span class="l-badge">Guest favorite</span>
+                    <div class="l-dots">
+                        <div class="l-dot active"></div>
+                        <div class="l-dot"></div>
+                        <div class="l-dot"></div>
+                        <div class="l-dot"></div>
+                    </div>
+                </div>
+                <div class="l-info">
+                    <div>
+                        <div class="l-location">Malibu, California</div>
+                        <div class="l-distance">Beach house · Ocean view</div>
+                        <div class="l-dates">Mar 10 – 15</div>
+                        <div class="l-price"><strong>$348</strong> night</div>
+                    </div>
+                    <div class="l-rating">⭐ 4.92</div>
+                </div>
+            </div>
+            <div class="listing">
+                <div class="l-img-wrap">
+                    <div class="l-img" style="background:linear-gradient(135deg,#059669,#047857)">🏔️</div><span
+                        class="l-fav">🤍</span>
+                    <div class="l-dots">
+                        <div class="l-dot active"></div>
+                        <div class="l-dot"></div>
+                        <div class="l-dot"></div>
+                    </div>
+                </div>
+                <div class="l-info">
+                    <div>
+                        <div class="l-location">Aspen, Colorado</div>
+                        <div class="l-distance">Mountain cabin · Ski-in/out</div>
+                        <div class="l-dates">Mar 15 – 22</div>
+                        <div class="l-price"><strong>$520</strong> night</div>
+                    </div>
+                    <div class="l-rating">⭐ 4.97</div>
+                </div>
+            </div>
+            <div class="listing">
+                <div class="l-img-wrap">
+                    <div class="l-img" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">🏰</div><span
+                        class="l-fav">❤️</span><span class="l-badge">Superhost</span>
+                    <div class="l-dots">
+                        <div class="l-dot active"></div>
+                        <div class="l-dot"></div>
+                        <div class="l-dot"></div>
+                        <div class="l-dot"></div>
+                        <div class="l-dot"></div>
+                    </div>
+                </div>
+                <div class="l-info">
+                    <div>
+                        <div class="l-location">Tuscany, Italy</div>
+                        <div class="l-distance">Historic villa · Vineyard</div>
+                        <div class="l-dates">Apr 1 – 7</div>
+                        <div class="l-price"><strong>$275</strong> night</div>
+                    </div>
+                    <div class="l-rating">⭐ 4.89</div>
+                </div>
+            </div>
+            <div class="listing">
+                <div class="l-img-wrap">
+                    <div class="l-img" style="background:linear-gradient(135deg,#d97706,#b45309)">🌴</div><span
+                        class="l-fav">🤍</span>
+                    <div class="l-dots">
+                        <div class="l-dot active"></div>
+                        <div class="l-dot"></div>
+                        <div class="l-dot"></div>
+                    </div>
+                </div>
+                <div class="l-info">
+                    <div>
+                        <div class="l-location">Bali, Indonesia</div>
+                        <div class="l-distance">Tropical villa · Private pool</div>
+                        <div class="l-dates">Mar 20 – 28</div>
+                        <div class="l-price"><strong>$185</strong> night</div>
+                    </div>
+                    <div class="l-rating">⭐ 4.95</div>
+                </div>
+            </div>
+            <div class="listing">
+                <div class="l-img-wrap">
+                    <div class="l-img" style="background:linear-gradient(135deg,#1e3a5f,#4a7c59)">🌳</div><span
+                        class="l-fav">🤍</span><span class="l-badge">New</span>
+                </div>
+                <div class="l-info">
+                    <div>
+                        <div class="l-location">Portland, Oregon</div>
+                        <div class="l-distance">Treehouse · Forest retreat</div>
+                        <div class="l-dates">Apr 5 – 10</div>
+                        <div class="l-price"><strong>$165</strong> night</div>
+                    </div>
+                    <div class="l-rating">⭐ 5.0</div>
+                </div>
+            </div>
+            <div class="listing">
+                <div class="l-img-wrap">
+                    <div class="l-img" style="background:linear-gradient(135deg,#1e40af,#1d4ed8)">🏊</div><span
+                        class="l-fav">🤍</span><span class="l-badge">Guest favorite</span>
+                </div>
+                <div class="l-info">
+                    <div>
+                        <div class="l-location">Miami Beach, Florida</div>
+                        <div class="l-distance">Luxury condo · Infinity pool</div>
+                        <div class="l-dates">Mar 12 – 18</div>
+                        <div class="l-price"><strong>$420</strong> night</div>
+                    </div>
+                    <div class="l-rating">⭐ 4.88</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="map-btn">🗺️ Show map</button>
+</body>
+
+</html>

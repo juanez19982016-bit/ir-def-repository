@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesignPro — Design Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #1e1e1e;
+            --toolbar: #2c2c2c;
+            --panel: #252526;
+            --border: #3e3e3e;
+            --accent: #a259ff;
+            --blue: #24a0ed;
+            --text: #e8e8e8;
+            --muted: #888
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        .topbar {
+            height: 40px;
+            background: var(--toolbar);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0
+        }
+
+        .tb-logo {
+            font-weight: 800;
+            font-size: .85rem;
+            color: var(--accent);
+            margin-right: 8px
+        }
+
+        .tb-menu {
+            display: flex;
+            gap: 0
+        }
+
+        .tb-item {
+            padding: 4px 10px;
+            font-size: .78rem;
+            color: var(--muted);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all .1s
+        }
+
+        .tb-item:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .tb-center {
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: .82rem
+        }
+
+        .tb-filename {
+            font-weight: 600
+        }
+
+        .tb-saved {
+            color: var(--muted);
+            font-size: .72rem
+        }
+
+        .tb-right {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .share-btn {
+            padding: 4px 12px;
+            border-radius: 6px;
+            background: var(--accent);
+            color: #fff;
+            font-size: .78rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter'
+        }
+
+        .tb-av {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .5rem;
+            font-weight: 700
+        }
+
+        .toolbar {
+            position: fixed;
+            left: 8px;
+            top: 56px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            background: var(--panel);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            padding: 4px;
+            z-index: 5
+        }
+
+        .t-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: .85rem;
+            transition: all .1s;
+            color: var(--muted)
+        }
+
+        .t-btn:hover {
+            background: rgba(255, 255, 255, .06);
+            color: var(--text)
+        }
+
+        .t-btn.active {
+            background: rgba(162, 89, 255, .15);
+            color: var(--accent)
+        }
+
+        .canvas {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            cursor: crosshair
+        }
+
+        .canvas-bg {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px);
+            background-size: 20px 20px
+        }
+
+        .frame {
+            position: absolute;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, .1)
+        }
+
+        .frame-label {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            font-size: .72rem;
+            color: var(--accent);
+            font-weight: 500
+        }
+
+        .el {
+            position: absolute;
+            cursor: move
+        }
+
+        .el-selected {
+            outline: 1px solid var(--accent);
+            outline-offset: 2px
+        }
+
+        .resize-handle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 1px
+        }
+
+        .rh-tl {
+            top: -3px;
+            left: -3px;
+            cursor: nw-resize
+        }
+
+        .rh-tr {
+            top: -3px;
+            right: -3px;
+            cursor: ne-resize
+        }
+
+        .rh-bl {
+            bottom: -3px;
+            left: -3px;
+            cursor: sw-resize
+        }
+
+        .rh-br {
+            bottom: -3px;
+            right: -3px;
+            cursor: se-resize
+        }
+
+        .properties {
+            width: 260px;
+            background: var(--panel);
+            border-left: 1px solid var(--border);
+            flex-shrink: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column
+        }
+
+        .properties::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .properties::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .06);
+            border-radius: 2px
+        }
+
+        .prop-section {
+            padding: 12px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .prop-title {
+            font-size: .72rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            font-weight: 600;
+            margin-bottom: 8px
+        }
+
+        .prop-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 6px;
+            align-items: center
+        }
+
+        .prop-label {
+            font-size: .75rem;
+            color: var(--muted);
+            width: 14px;
+            text-align: center;
+            flex-shrink: 0
+        }
+
+        .prop-input {
+            flex: 1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: .78rem;
+            font-family: 'Inter';
+            outline: none;
+            text-align: center
+        }
+
+        .prop-input:focus {
+            border-color: var(--accent)
+        }
+
+        .color-swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid var(--border)
+        }
+
+        .color-input {
+            flex: 1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: .78rem;
+            font-family: 'Inter';
+            outline: none
+        }
+
+        .layers {
+            width: 240px;
+            background: var(--panel);
+            border-right: 1px solid var(--border);
+            flex-shrink: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column
+        }
+
+        .layers::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .layers::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .06);
+            border-radius: 2px
+        }
+
+        .layer-header {
+            padding: 8px 12px;
+            font-size: .72rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between
+        }
+
+        .layer {
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .82rem;
+            cursor: pointer;
+            transition: background .08s
+        }
+
+        .layer:hover {
+            background: rgba(255, 255, 255, .03)
+        }
+
+        .layer.active {
+            background: rgba(162, 89, 255, .08)
+        }
+
+        .layer-icon {
+            font-size: .75rem;
+            color: var(--muted);
+            width: 16px;
+            text-align: center
+        }
+
+        .layer-vis {
+            margin-left: auto;
+            font-size: .7rem;
+            color: var(--muted);
+            cursor: pointer
+        }
+
+        .layer-indent {
+            padding-left: 28px
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            overflow: hidden
+        }
+
+        .zoom-controls {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px;
+            background: var(--panel);
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            padding: 4px;
+            z-index: 5
+        }
+
+        .z-btn {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: .75rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-family: 'Inter'
+        }
+
+        .z-btn:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, .05)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topbar">
+        <span class="tb-logo">🎨 DesignPro</span>
+        <div class="tb-menu"><span class="tb-item">File</span><span class="tb-item">Edit</span><span
+                class="tb-item">View</span><span class="tb-item">Object</span><span class="tb-item">Plugins</span></div>
+        <div class="tb-center"><span class="tb-filename">Dashboard UI</span><span class="tb-saved">· Saved</span></div>
+        <div class="tb-right">
+            <div class="tb-av" style="background:#ef4444;color:#fff;margin-right:-4px">SC</div>
+            <div class="tb-av" style="background:#22c55e;color:#fff">MR</div><button class="share-btn">Share</button>
+        </div>
+    </div>
+    <div class="main-area">
+        <div class="layers">
+            <div class="layer-header">Layers <span>+</span></div>
+            <div class="layer"><span class="layer-icon">📄</span>Desktop — 1440×900</div>
+            <div class="layer layer-indent"><span class="layer-icon">□</span>Sidebar</div>
+            <div class="layer layer-indent"><span class="layer-icon">□</span>Top Nav</div>
+            <div class="layer layer-indent active"><span class="layer-icon">□</span>Stats Card<span
+                    class="layer-vis">👁</span></div>
+            <div class="layer layer-indent"><span class="layer-icon">□</span>Revenue Chart</div>
+            <div class="layer layer-indent"><span class="layer-icon">□</span>User Table</div>
+            <div class="layer layer-indent"><span class="layer-icon">T</span>Title Text</div>
+            <div class="layer"><span class="layer-icon">📄</span>Mobile — 390×844</div>
+            <div class="layer layer-indent"><span class="layer-icon">□</span>Bottom Nav</div>
+            <div class="layer layer-indent"><span class="layer-icon">□</span>Stats Card (m)</div>
+            <div class="layer"><span class="layer-icon">📄</span>Components</div>
+            <div class="layer layer-indent"><span class="layer-icon">◆</span>Button / Primary</div>
+            <div class="layer layer-indent"><span class="layer-icon">◆</span>Button / Secondary</div>
+            <div class="layer layer-indent"><span class="layer-icon">◆</span>Input / Default</div>
+        </div>
+        <div class="canvas">
+            <div class="canvas-bg"></div>
+            <div class="toolbar">
+                <div class="t-btn active">↖</div>
+                <div class="t-btn">□</div>
+                <div class="t-btn">○</div>
+                <div class="t-btn">━</div>
+                <div class="t-btn">T</div>
+                <div class="t-btn">✏️</div>
+                <div class="t-btn">🖼</div>
+                <div class="t-btn">💬</div>
+            </div>
+            <div class="frame" style="left:180px;top:40px;width:600px;height:400px;background:#111115">
+                <div class="frame-label">Desktop — 1440×900</div>
+                <div class="el el-selected"
+                    style="left:20px;top:20px;width:140px;height:80px;background:linear-gradient(135deg,#6366f1,#4f46e5);border-radius:10px;padding:12px">
+                    <div style="font-size:.55rem;color:rgba(255,255,255,.7)">REVENUE</div>
+                    <div style="font-size:1rem;font-weight:800;color:#fff;margin-top:2px">$48.2K</div>
+                    <div style="font-size:.5rem;color:#86efac;margin-top:2px">↑ 12.5%</div>
+                    <div class="resize-handle rh-tl"></div>
+                    <div class="resize-handle rh-tr"></div>
+                    <div class="resize-handle rh-bl"></div>
+                    <div class="resize-handle rh-br"></div>
+                </div>
+                <div class="el"
+                    style="left:170px;top:20px;width:140px;height:80px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px">
+                    <div style="font-size:.55rem;color:rgba(255,255,255,.5)">USERS</div>
+                    <div style="font-size:1rem;font-weight:800;color:#fff;margin-top:2px">12.8K</div>
+                    <div style="font-size:.5rem;color:#86efac;margin-top:2px">↑ 8.3%</div>
+                </div>
+                <div class="el"
+                    style="left:320px;top:20px;width:140px;height:80px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px">
+                    <div style="font-size:.55rem;color:rgba(255,255,255,.5)">CONVERSION</div>
+                    <div style="font-size:1rem;font-weight:800;color:#fff;margin-top:2px">3.24%</div>
+                    <div style="font-size:.5rem;color:#f87171;margin-top:2px">↓ 0.8%</div>
+                </div>
+                <div class="el"
+                    style="left:20px;top:120px;width:440px;height:160px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px">
+                </div>
+            </div>
+            <div class="zoom-controls"><span class="z-btn">−</span><span class="z-btn">100%</span><span
+                    class="z-btn">+</span><span class="z-btn">Fit</span></div>
+        </div>
+        <div class="properties">
+            <div class="prop-section">
+                <div class="prop-title">Design</div>
+                <div class="prop-row"><span class="prop-label">X</span><input class="prop-input" value="20"><span
+                        class="prop-label">Y</span><input class="prop-input" value="20"></div>
+                <div class="prop-row"><span class="prop-label">W</span><input class="prop-input" value="140"><span
+                        class="prop-label">H</span><input class="prop-input" value="80"></div>
+                <div class="prop-row"><span class="prop-label">↻</span><input class="prop-input" value="0°"><span
+                        class="prop-label">R</span><input class="prop-input" value="10"></div>
+            </div>
+            <div class="prop-section">
+                <div class="prop-title">Fill</div>
+                <div class="prop-row">
+                    <div class="color-swatch" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"></div><input
+                        class="color-input" value="Linear Gradient">
+                </div>
+                <div class="prop-row" style="padding-left:30px">
+                    <div class="color-swatch" style="background:#6366f1;width:18px;height:18px"></div><input
+                        class="color-input" value="#6366F1" style="font-size:.72rem">
+                </div>
+                <div class="prop-row" style="padding-left:30px">
+                    <div class="color-swatch" style="background:#4f46e5;width:18px;height:18px"></div><input
+                        class="color-input" value="#4F46E5" style="font-size:.72rem">
+                </div>
+            </div>
+            <div class="prop-section">
+                <div class="prop-title">Stroke</div>
+                <div class="prop-row">
+                    <div class="color-swatch" style="background:transparent;border:1px dashed var(--border)"></div>
+                    <input class="color-input" value="None">
+                </div>
+            </div>
+            <div class="prop-section">
+                <div class="prop-title">Effects</div>
+                <div class="prop-row" style="font-size:.78rem;color:var(--muted)">Drop Shadow · 0 4 12 rgba(0,0,0,.25)
+                </div>
+            </div>
+            <div class="prop-section">
+                <div class="prop-title">Export</div>
+                <div class="prop-row"><input class="prop-input" value="1x" style="width:40px"><input class="prop-input"
+                        value="PNG" style="width:50px"><span
+                        style="font-size:.72rem;color:var(--accent);cursor:pointer;margin-left:auto">+ Add</span></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

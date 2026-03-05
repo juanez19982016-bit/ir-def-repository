@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InstaView — Photo Social Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #000;
+            --card: #121212;
+            --border: rgba(255, 255, 255, .1);
+            --text: #fafafa;
+            --muted: #a8a8a8;
+            --pink: #e1306c;
+            --purple: #833ab4;
+            --gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text)
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg);
+            z-index: 10;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            height: 60px
+        }
+
+        .n-logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            font-style: italic;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .n-center {
+            display: flex;
+            gap: 24px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.3rem;
+            color: var(--muted)
+        }
+
+        .n-center span {
+            cursor: pointer;
+            padding: 4px
+        }
+
+        .n-center span.active {
+            color: var(--text)
+        }
+
+        .n-right {
+            margin-left: auto;
+            display: flex;
+            gap: 18px;
+            font-size: 1.2rem;
+            align-items: center;
+            color: var(--text)
+        }
+
+        .n-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer
+        }
+
+        .container {
+            max-width: 935px;
+            margin: 80px auto 0;
+            display: flex;
+            gap: 32px;
+            padding: 0 20px
+        }
+
+        .feed {
+            flex: 1;
+            max-width: 470px;
+            margin: 0 auto
+        }
+
+        .stories {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            overflow-x: auto;
+            scrollbar-width: none
+        }
+
+        .stories::-webkit-scrollbar {
+            display: none
+        }
+
+        .story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            flex-shrink: 0
+        }
+
+        .story-ring {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            padding: 3px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .story-ring.seen {
+            background: var(--border)
+        }
+
+        .story-av {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            font-weight: 700
+        }
+
+        .story-name {
+            font-size: .72rem;
+            max-width: 64px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: center
+        }
+
+        .post {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 16px;
+            background: var(--bg)
+        }
+
+        .post-header {
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .post-av {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .6rem;
+            font-weight: 700;
+            flex-shrink: 0
+        }
+
+        .post-user {
+            font-size: .85rem;
+            font-weight: 600
+        }
+
+        .post-loc {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .post-more {
+            margin-left: auto;
+            font-size: 1rem;
+            color: var(--text);
+            cursor: pointer
+        }
+
+        .post-img {
+            width: 100%;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            overflow: hidden
+        }
+
+        .post-actions {
+            padding: 10px 12px;
+            display: flex;
+            gap: 14px;
+            font-size: 1.3rem;
+            align-items: center
+        }
+
+        .post-actions span {
+            cursor: pointer;
+            transition: transform .15s
+        }
+
+        .post-actions span:hover {
+            transform: scale(1.1)
+        }
+
+        .post-save {
+            margin-left: auto
+        }
+
+        .post-likes {
+            padding: 0 12px;
+            font-size: .85rem;
+            font-weight: 600;
+            margin-bottom: 4px
+        }
+
+        .post-caption {
+            padding: 0 12px;
+            font-size: .85rem;
+            margin-bottom: 4px;
+            line-height: 1.4
+        }
+
+        .post-caption strong {
+            font-weight: 600;
+            cursor: pointer
+        }
+
+        .post-comments {
+            padding: 0 12px;
+            font-size: .82rem;
+            color: var(--muted);
+            cursor: pointer;
+            margin-bottom: 4px
+        }
+
+        .post-time {
+            padding: 0 12px 12px;
+            font-size: .72rem;
+            color: var(--muted);
+            text-transform: uppercase
+        }
+
+        .post-add-comment {
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-top: 1px solid var(--border)
+        }
+
+        .post-add-comment input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: .85rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .post-add-comment button {
+            background: none;
+            border: none;
+            color: #0095f6;
+            font-weight: 600;
+            font-size: .85rem;
+            cursor: pointer;
+            font-family: 'Inter'
+        }
+
+        .sidebar-fixed {
+            position: fixed;
+            right: calc(50% - 467px - 32px - 280px);
+            width: 280px
+        }
+
+        .sidebar-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 0
+        }
+
+        .sp-av {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .85rem
+        }
+
+        .sp-name {
+            font-size: .85rem;
+            font-weight: 600
+        }
+
+        .sp-fullname {
+            font-size: .82rem;
+            color: var(--muted)
+        }
+
+        .sp-switch {
+            margin-left: auto;
+            font-size: .72rem;
+            color: #0095f6;
+            cursor: pointer;
+            font-weight: 600
+        }
+
+        .suggest-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0
+        }
+
+        .suggest-header span:first-child {
+            font-size: .82rem;
+            color: var(--muted);
+            font-weight: 600
+        }
+
+        .suggest-header span:last-child {
+            font-size: .72rem;
+            cursor: pointer;
+            font-weight: 600
+        }
+
+        .suggest-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0
+        }
+
+        .si-av {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .55rem;
+            font-weight: 700;
+            flex-shrink: 0
+        }
+
+        .si-name {
+            font-size: .82rem;
+            font-weight: 600
+        }
+
+        .si-reason {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .si-follow {
+            margin-left: auto;
+            font-size: .72rem;
+            color: #0095f6;
+            cursor: pointer;
+            font-weight: 600
+        }
+
+        .footer-links {
+            padding: 16px 0;
+            font-size: .68rem;
+            color: var(--muted);
+            line-height: 1.8
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <span class="n-logo">InstaView</span>
+        <div class="n-center"><span class="active">🏠</span><span>🔍</span><span>🧭</span><span>🎬</span><span>💬</span>
+        </div>
+        <div class="n-right"><span>❤️</span>
+            <div class="n-avatar"
+                style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:700">
+                JD</div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="feed">
+            <div class="stories">
+                <div class="story">
+                    <div class="story-ring">
+                        <div class="story-av" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">SC
+                        </div>
+                    </div>
+                    <div class="story-name">sarah_chen</div>
+                </div>
+                <div class="story">
+                    <div class="story-ring">
+                        <div class="story-av" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR
+                        </div>
+                    </div>
+                    <div class="story-name">mike.ross</div>
+                </div>
+                <div class="story">
+                    <div class="story-ring">
+                        <div class="story-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">AL
+                        </div>
+                    </div>
+                    <div class="story-name">alex_liu</div>
+                </div>
+                <div class="story">
+                    <div class="story-ring seen">
+                        <div class="story-av" style="background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff">LR
+                        </div>
+                    </div>
+                    <div class="story-name">lisa.ray</div>
+                </div>
+                <div class="story">
+                    <div class="story-ring">
+                        <div class="story-av" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff">TK
+                        </div>
+                    </div>
+                    <div class="story-name">tom_king</div>
+                </div>
+                <div class="story">
+                    <div class="story-ring seen">
+                        <div class="story-av" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff">NP
+                        </div>
+                    </div>
+                    <div class="story-name">nina_patel</div>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-av" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">SC</div>
+                    <div>
+                        <div class="post-user">sarah_chen</div>
+                        <div class="post-loc">San Francisco, CA</div>
+                    </div><span class="post-more">⋯</span>
+                </div>
+                <div class="post-img" style="background:linear-gradient(135deg,#1e1b4b,#4338ca)">🌆</div>
+                <div class="post-actions"><span style="color:#ed4956">❤️</span><span>💬</span><span>➤</span><span
+                        class="post-save">🔖</span></div>
+                <div class="post-likes">2,847 likes</div>
+                <div class="post-caption"><strong>sarah_chen</strong> Golden hour in SF never gets old 🌅 Working on
+                    something exciting — can't wait to share! #buildinpublic #devlife</div>
+                <div class="post-comments">View all 42 comments</div>
+                <div class="post-time">3 hours ago</div>
+                <div class="post-add-comment"><span>😊</span><input placeholder="Add a comment..."><button>Post</button>
+                </div>
+            </div>
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-av" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR</div>
+                    <div>
+                        <div class="post-user">mike.ross</div>
+                        <div class="post-loc">New York, NY</div>
+                    </div><span class="post-more">⋯</span>
+                </div>
+                <div class="post-img" style="background:linear-gradient(135deg,#0c4a6e,#0284c7)">💻</div>
+                <div class="post-actions"><span>🤍</span><span>💬</span><span>➤</span><span class="post-save">🔖</span>
+                </div>
+                <div class="post-likes">1,234 likes</div>
+                <div class="post-caption"><strong>mike.ross</strong> Just shipped a new feature using Next.js 15 Server
+                    Actions 🚀 The DX is incredible. Performance gains are insane!</div>
+                <div class="post-comments">View all 18 comments</div>
+                <div class="post-time">8 hours ago</div>
+                <div class="post-add-comment"><span>😊</span><input placeholder="Add a comment..."><button>Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

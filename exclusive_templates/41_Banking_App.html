@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoBank — Digital Banking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #09090b;
+            --card: #111115;
+            --border: rgba(255, 255, 255, .06);
+            --accent: #6366f1;
+            --green: #22c55e;
+            --red: #ef4444;
+            --text: #fafafa;
+            --muted: #71717a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden
+        }
+
+        .sidebar {
+            width: 240px;
+            background: rgba(17, 17, 21, .95);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 12px;
+            flex-shrink: 0
+        }
+
+        .s-logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 0 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .s-link {
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: .88rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all .12s;
+            color: var(--muted);
+            margin-bottom: 2px
+        }
+
+        .s-link:hover {
+            background: rgba(255, 255, 255, .03);
+            color: var(--text)
+        }
+
+        .s-link.active {
+            background: rgba(99, 102, 241, .08);
+            color: var(--accent)
+        }
+
+        .s-link .icon {
+            width: 18px;
+            text-align: center
+        }
+
+        .s-section {
+            font-size: .68rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            padding: 16px 12px 6px;
+            font-weight: 500
+        }
+
+        .main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 32px
+        }
+
+        .main::-webkit-scrollbar {
+            width: 6px
+        }
+
+        .main::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .06);
+            border-radius: 3px
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px
+        }
+
+        .header h1 {
+            font-size: 1.3rem;
+            font-weight: 700
+        }
+
+        .header-right {
+            display: flex;
+            gap: 8px
+        }
+
+        .h-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: .85rem;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--text);
+            font-family: 'Inter'
+        }
+
+        .h-btn-p {
+            background: var(--accent);
+            border: none;
+            color: #fff;
+            font-weight: 600
+        }
+
+        .card-section {
+            margin-bottom: 24px
+        }
+
+        .cards-row {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 8px
+        }
+
+        .cards-row::-webkit-scrollbar {
+            display: none
+        }
+
+        .bank-card {
+            min-width: 320px;
+            padding: 24px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0
+        }
+
+        .bc-chip {
+            font-size: 1.5rem;
+            margin-bottom: 24px
+        }
+
+        .bc-number {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: .15em;
+            margin-bottom: 16px;
+            font-family: monospace
+        }
+
+        .bc-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end
+        }
+
+        .bc-name {
+            font-size: .82rem;
+            font-weight: 500
+        }
+
+        .bc-exp-label {
+            font-size: .62rem;
+            color: rgba(255, 255, 255, .6)
+        }
+
+        .bc-exp {
+            font-size: .82rem
+        }
+
+        .bc-brand {
+            font-size: 2rem;
+            opacity: .8
+        }
+
+        .bc-pattern {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .bc-pattern2 {
+            position: absolute;
+            bottom: -30px;
+            right: 40px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .03)
+        }
+
+        .balance-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px
+        }
+
+        .bal-card {
+            padding: 16px;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .bal-label {
+            font-size: .78rem;
+            color: var(--muted);
+            margin-bottom: 4px
+        }
+
+        .bal-value {
+            font-size: 1.3rem;
+            font-weight: 700
+        }
+
+        .bal-change {
+            font-size: .75rem;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 3px
+        }
+
+        .txn-section {
+            margin-bottom: 24px
+        }
+
+        .txn-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px
+        }
+
+        .txn-header h2 {
+            font-size: 1rem;
+            font-weight: 600
+        }
+
+        .txn-filter {
+            display: flex;
+            gap: 6px
+        }
+
+        .tf {
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: .78rem;
+            cursor: pointer;
+            background: rgba(255, 255, 255, .04);
+            color: var(--muted);
+            border: none;
+            font-family: 'Inter'
+        }
+
+        .tf.active {
+            background: rgba(99, 102, 241, .1);
+            color: var(--accent)
+        }
+
+        .txn-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px
+        }
+
+        .txn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            transition: background .1s;
+            cursor: pointer
+        }
+
+        .txn:hover {
+            background: rgba(255, 255, 255, .02)
+        }
+
+        .txn-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0
+        }
+
+        .txn-info {
+            flex: 1
+        }
+
+        .txn-name {
+            font-size: .88rem;
+            font-weight: 500
+        }
+
+        .txn-cat {
+            font-size: .75rem;
+            color: var(--muted)
+        }
+
+        .txn-amount {
+            text-align: right;
+            font-weight: 600;
+            font-size: .88rem
+        }
+
+        .txn-date {
+            font-size: .72rem;
+            color: var(--muted);
+            text-align: right
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px
+        }
+
+        .qa {
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            text-align: center;
+            cursor: pointer;
+            transition: all .15s
+        }
+
+        .qa:hover {
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, .03)
+        }
+
+        .qa-icon {
+            font-size: 1.5rem;
+            margin-bottom: 6px
+        }
+
+        .qa-name {
+            font-size: .82rem;
+            font-weight: 500
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="s-logo">🏦 NeoBank</div>
+        <div class="s-link active"><span class="icon">🏠</span>Dashboard</div>
+        <div class="s-link"><span class="icon">💳</span>Cards</div>
+        <div class="s-link"><span class="icon">🔄</span>Transfers</div>
+        <div class="s-link"><span class="icon">📊</span>Analytics</div>
+        <div class="s-link"><span class="icon">💰</span>Savings</div>
+        <div class="s-link"><span class="icon">📱</span>Investments</div>
+        <div class="s-section">Activity</div>
+        <div class="s-link"><span class="icon">🕐</span>History</div>
+        <div class="s-link"><span class="icon">📄</span>Statements</div>
+        <div class="s-link"><span class="icon">🔔</span>Notifications</div>
+        <div class="s-section">Settings</div>
+        <div class="s-link"><span class="icon">👤</span>Profile</div>
+        <div class="s-link"><span class="icon">🔒</span>Security</div>
+        <div class="s-link"><span class="icon">⚙️</span>Settings</div>
+    </aside>
+    <div class="main">
+        <div class="header">
+            <h1>Good evening, John 👋</h1>
+            <div class="header-right"><button class="h-btn">📥 Download</button><button class="h-btn h-btn-p">+ New
+                    Transfer</button></div>
+        </div>
+        <div class="card-section">
+            <div class="cards-row">
+                <div class="bank-card" style="background:linear-gradient(135deg,#4338ca,#6366f1)">
+                    <div class="bc-pattern"></div>
+                    <div class="bc-pattern2"></div>
+                    <div class="bc-chip">💳</div>
+                    <div class="bc-number">4242 •••• •••• 8845</div>
+                    <div class="bc-bottom">
+                        <div>
+                            <div class="bc-name">JOHN DEVELOPER</div>
+                        </div>
+                        <div>
+                            <div class="bc-exp-label">VALID THRU</div>
+                            <div class="bc-exp">12/28</div>
+                        </div>
+                        <div class="bc-brand">💎</div>
+                    </div>
+                </div>
+                <div class="bank-card" style="background:linear-gradient(135deg,#0f766e,#14b8a6)">
+                    <div class="bc-pattern"></div>
+                    <div class="bc-chip">💳</div>
+                    <div class="bc-number">5412 •••• •••• 3301</div>
+                    <div class="bc-bottom">
+                        <div>
+                            <div class="bc-name">JOHN DEVELOPER</div>
+                        </div>
+                        <div>
+                            <div class="bc-exp-label">VALID THRU</div>
+                            <div class="bc-exp">06/27</div>
+                        </div>
+                        <div class="bc-brand">🌐</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="balance-row">
+            <div class="bal-card">
+                <div class="bal-label">Total Balance</div>
+                <div class="bal-value">$24,580.42</div>
+                <div class="bal-change" style="color:var(--green)">↑ 12.5% this month</div>
+            </div>
+            <div class="bal-card">
+                <div class="bal-label">Income</div>
+                <div class="bal-value" style="color:var(--green)">+$8,240.00</div>
+                <div class="bal-change" style="color:var(--green)">↑ 8.3%</div>
+            </div>
+            <div class="bal-card">
+                <div class="bal-label">Expenses</div>
+                <div class="bal-value" style="color:var(--red)">-$3,120.50</div>
+                <div class="bal-change" style="color:var(--green)">↓ 4.2%</div>
+            </div>
+        </div>
+        <div class="quick-actions">
+            <div class="qa">
+                <div class="qa-icon">📤</div>
+                <div class="qa-name">Send</div>
+            </div>
+            <div class="qa">
+                <div class="qa-icon">📥</div>
+                <div class="qa-name">Receive</div>
+            </div>
+            <div class="qa">
+                <div class="qa-icon">📊</div>
+                <div class="qa-name">Invest</div>
+            </div>
+            <div class="qa">
+                <div class="qa-icon">💱</div>
+                <div class="qa-name">Exchange</div>
+            </div>
+        </div>
+        <div class="txn-section">
+            <div class="txn-header">
+                <h2>Recent Transactions</h2>
+                <div class="txn-filter"><button class="tf active">All</button><button class="tf">Income</button><button
+                        class="tf">Expenses</button></div>
+            </div>
+            <div class="txn-list">
+                <div class="txn">
+                    <div class="txn-icon" style="background:rgba(34,197,94,.1)">💰</div>
+                    <div class="txn-info">
+                        <div class="txn-name">Salary Deposit</div>
+                        <div class="txn-cat">Income · Direct Deposit</div>
+                    </div>
+                    <div>
+                        <div class="txn-amount" style="color:var(--green)">+$4,500.00</div>
+                        <div class="txn-date">Today</div>
+                    </div>
+                </div>
+                <div class="txn">
+                    <div class="txn-icon" style="background:rgba(239,68,68,.1)">🛒</div>
+                    <div class="txn-info">
+                        <div class="txn-name">Amazon Purchase</div>
+                        <div class="txn-cat">Shopping · Online</div>
+                    </div>
+                    <div>
+                        <div class="txn-amount">-$89.99</div>
+                        <div class="txn-date">Yesterday</div>
+                    </div>
+                </div>
+                <div class="txn">
+                    <div class="txn-icon" style="background:rgba(139,92,246,.1)">🎵</div>
+                    <div class="txn-info">
+                        <div class="txn-name">Spotify Premium</div>
+                        <div class="txn-cat">Subscription · Monthly</div>
+                    </div>
+                    <div>
+                        <div class="txn-amount">-$14.99</div>
+                        <div class="txn-date">Mar 1</div>
+                    </div>
+                </div>
+                <div class="txn">
+                    <div class="txn-icon" style="background:rgba(59,130,246,.1)">☁️</div>
+                    <div class="txn-info">
+                        <div class="txn-name">Vercel Pro</div>
+                        <div class="txn-cat">Subscription · Monthly</div>
+                    </div>
+                    <div>
+                        <div class="txn-amount">-$20.00</div>
+                        <div class="txn-date">Mar 1</div>
+                    </div>
+                </div>
+                <div class="txn">
+                    <div class="txn-icon" style="background:rgba(34,197,94,.1)">💵</div>
+                    <div class="txn-info">
+                        <div class="txn-name">Client Payment — Acme</div>
+                        <div class="txn-cat">Freelance · Invoice #47</div>
+                    </div>
+                    <div>
+                        <div class="txn-amount" style="color:var(--green)">+$2,400.00</div>
+                        <div class="txn-date">Feb 28</div>
+                    </div>
+                </div>
+                <div class="txn">
+                    <div class="txn-icon" style="background:rgba(245,158,11,.1)">☕</div>
+                    <div class="txn-info">
+                        <div class="txn-name">Starbucks</div>
+                        <div class="txn-cat">Food & Drink · In-store</div>
+                    </div>
+                    <div>
+                        <div class="txn-amount">-$6.50</div>
+                        <div class="txn-date">Feb 27</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

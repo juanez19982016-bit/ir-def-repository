@@ -15,12 +15,13 @@
         }
 
         :root {
-            --bg: #09090b;
-            --card: #111115;
-            --border: rgba(255, 255, 255, .06);
-            --accent: #22c55e;
-            --text: #fafafa;
-            --muted: #71717a
+            --bg: #000;
+            --card: #1a1a1a;
+            --text: #fff;
+            --muted: #999;
+            --border: #333;
+            --accent: #276ef1;
+            --green: #06c167
         }
 
         body {
@@ -28,211 +29,163 @@
             background: var(--bg);
             color: var(--text);
             height: 100vh;
-            display: flex;
-            overflow: hidden
+            display: flex
         }
 
-        .map {
-            flex: 1;
-            background: linear-gradient(135deg, #0c1220, #131a2e);
-            position: relative;
-            overflow: hidden
-        }
-
-        .map-grid {
-            position: absolute;
-            inset: 0;
-            background-image: linear-gradient(rgba(255, 255, 255, .015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .015) 1px, transparent 1px);
-            background-size: 60px 60px
-        }
-
-        .road-h,
-        .road-v {
-            position: absolute;
-            background: rgba(255, 255, 255, .04)
-        }
-
-        .road-h {
-            height: 2px;
-            left: 0;
-            right: 0
-        }
-
-        .road-v {
-            width: 2px;
-            top: 0;
-            bottom: 0
-        }
-
-        .car-dot {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent)
-        }
-
-        .route-line {
-            position: absolute;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 2px;
-            opacity: .5
-        }
-
-        .pin {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .85rem
-        }
-
-        .pin-pulse {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            opacity: .3;
-            animation: pulse 2s infinite
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(.8);
-                opacity: .5
-            }
-
-            100% {
-                transform: scale(1.5);
-                opacity: 0
-            }
-        }
-
-        .panel {
+        .sidebar {
             width: 420px;
-            background: var(--card);
-            border-left: 1px solid var(--border);
+            background: var(--bg);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            flex-shrink: 0
-        }
-
-        .p-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border)
-        }
-
-        .p-logo {
-            font-weight: 800;
-            font-size: 1.2rem;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 6px
-        }
-
-        .location-inputs {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
+            z-index: 2;
             position: relative
         }
 
-        .loc-dot {
-            position: absolute;
-            left: 14px;
+        .s-header {
+            padding: 16px 20px;
             display: flex;
-            flex-direction: column;
-            gap: 4px;
-            top: 16px
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border)
         }
 
-        .loc-circle {
+        .s-logo {
+            font-weight: 900;
+            font-size: 1.3rem;
+            cursor: pointer
+        }
+
+        .s-menu {
+            margin-left: auto;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background .1s
+        }
+
+        .s-menu:hover {
+            background: rgba(255, 255, 255, .1)
+        }
+
+        .s-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .s-tab {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            font-size: .85rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--muted);
+            border-bottom: 2px solid transparent;
+            transition: all .15s
+        }
+
+        .s-tab:hover {
+            color: var(--text)
+        }
+
+        .s-tab.active {
+            color: var(--text);
+            border-color: var(--text)
+        }
+
+        .s-body {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto
+        }
+
+        .input-group {
+            margin-bottom: 16px
+        }
+
+        .ig-label {
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 4px
+        }
+
+        .ig-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: text
+        }
+
+        .ig-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
+            flex-shrink: 0
+        }
+
+        .ig-dot.pickup {
+            background: var(--text)
+        }
+
+        .ig-dot.dest {
             background: var(--accent)
         }
 
-        .loc-line {
-            width: 1px;
-            height: 24px;
-            background: var(--border);
-            margin-left: 3px
-        }
-
-        .loc-square {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 1px
-        }
-
-        .loc-input {
-            padding: 12px 12px 12px 32px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, .04);
-            border: 1px solid var(--border);
+        .ig-input input {
+            flex: 1;
+            background: none;
+            border: none;
             color: var(--text);
             font-size: .88rem;
-            font-family: 'Inter';
-            outline: none
+            outline: none;
+            font-family: 'Inter'
         }
 
-        .loc-input:focus {
-            border-color: var(--accent)
+        .ig-line {
+            width: 2px;
+            height: 20px;
+            background: var(--border);
+            margin-left: 23px
         }
 
-        .p-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px
-        }
-
-        .p-content::-webkit-scrollbar {
-            width: 4px
-        }
-
-        .p-content::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .06);
-            border-radius: 2px
-        }
-
-        .ride-options h3 {
-            font-size: .92rem;
-            font-weight: 600;
-            margin-bottom: 12px
+        .rides {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 16px
         }
 
         .ride {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             padding: 14px;
             border-radius: 12px;
+            border: 2px solid var(--border);
             cursor: pointer;
-            transition: all .12s;
-            border: 1px solid transparent;
-            margin-bottom: 8px
+            transition: all .12s
         }
 
         .ride:hover {
-            background: rgba(255, 255, 255, .02)
+            border-color: var(--muted)
         }
 
         .ride.selected {
-            border-color: var(--accent);
-            background: rgba(34, 197, 94, .03)
+            border-color: var(--text);
+            background: rgba(255, 255, 255, .03)
         }
 
-        .ride-icon {
-            font-size: 2rem;
+        .ride-img {
+            font-size: 2.5rem;
+            width: 60px;
+            text-align: center;
             flex-shrink: 0
         }
 
@@ -241,17 +194,11 @@
         }
 
         .ride-name {
+            font-weight: 700;
             font-size: .92rem;
-            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 6px
-        }
-
-        .ride-desc {
-            font-size: .78rem;
-            color: var(--muted);
-            margin-top: 2px
         }
 
         .ride-eta {
@@ -259,191 +206,298 @@
             color: var(--muted)
         }
 
-        .ride-price {
-            text-align: right;
-            font-weight: 700
+        .ride-desc {
+            font-size: .75rem;
+            color: var(--muted);
+            margin-top: 2px
         }
 
-        .ride-surge {
-            font-size: .68rem;
-            color: #f59e0b;
-            margin-top: 2px
+        .ride-price {
+            font-weight: 700;
+            font-size: 1rem;
+            text-align: right
+        }
+
+        .ride-price-surge {
+            font-size: .72rem;
+            color: var(--muted);
+            text-decoration: line-through
         }
 
         .promo {
             display: flex;
             align-items: center;
             gap: 8px;
+            margin-top: 16px;
             padding: 12px;
+            background: var(--card);
             border-radius: 8px;
-            background: rgba(34, 197, 94, .05);
-            border: 1px solid rgba(34, 197, 94, .1);
-            margin: 16px 0;
-            font-size: .82rem
+            cursor: pointer
+        }
+
+        .promo-icon {
+            font-size: 1.1rem
+        }
+
+        .promo-text {
+            flex: 1;
+            font-size: .85rem;
+            font-weight: 500
+        }
+
+        .promo-arrow {
+            color: var(--muted)
+        }
+
+        .book-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter';
+            transition: all .12s;
+            background: var(--text);
+            color: var(--bg)
+        }
+
+        .book-btn:hover {
+            opacity: .9
+        }
+
+        .book-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border)
         }
 
         .payment {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 16px 0;
-            border-top: 1px solid var(--border);
-            margin-top: 8px
-        }
-
-        .pay-icon {
-            font-size: 1.2rem
-        }
-
-        .pay-info {
-            flex: 1;
-            font-size: .85rem
-        }
-
-        .pay-change {
-            font-size: .82rem;
-            color: var(--accent);
-            cursor: pointer
-        }
-
-        .p-footer {
-            padding: 16px 20px;
-            border-top: 1px solid var(--border)
-        }
-
-        .ride-btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            background: var(--accent);
-            color: #000;
-            font-weight: 700;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            font-family: 'Inter';
-            transition: background .15s
-        }
-
-        .ride-btn:hover {
-            background: #16a34a
-        }
-
-        .est-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
+            gap: 8px;
             font-size: .85rem;
-            color: var(--muted)
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background .1s;
+            margin-bottom: 12px
+        }
+
+        .payment:hover {
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .map {
+            flex: 1;
+            background: #1a2332;
+            position: relative;
+            overflow: hidden
+        }
+
+        .map-roads {
+            position: absolute;
+            inset: 0
+        }
+
+        .map-road {
+            position: absolute;
+            background: rgba(255, 255, 255, .08)
+        }
+
+        .map-road.h {
+            height: 3px;
+            left: 0;
+            right: 0
+        }
+
+        .map-road.v {
+            width: 3px;
+            top: 0;
+            bottom: 0
+        }
+
+        .map-road.main.h {
+            height: 5px;
+            background: rgba(255, 255, 255, .12)
+        }
+
+        .map-road.main.v {
+            width: 5px;
+            background: rgba(255, 255, 255, .12)
+        }
+
+        .map-route {
+            position: absolute;
+            top: 35%;
+            left: 30%;
+            width: 200px;
+            height: 120px;
+            border: 3px solid var(--accent);
+            border-radius: 0;
+            border-top: none;
+            border-right: none;
+            opacity: .6
+        }
+
+        .map-pin {
+            position: absolute;
+            font-size: 1.5rem;
+            z-index: 2
+        }
+
+        .map-pin.pickup {
+            top: 33%;
+            left: 28%
+        }
+
+        .map-pin.dest {
+            top: 60%;
+            left: 55%
+        }
+
+        .map-car {
+            position: absolute;
+            font-size: 1.3rem;
+            z-index: 2;
+            animation: carMove 8s ease infinite
+        }
+
+        @keyframes carMove {
+            0% {
+                top: 40%;
+                left: 32%
+            }
+
+            25% {
+                top: 45%;
+                left: 38%
+            }
+
+            50% {
+                top: 50%;
+                left: 44%
+            }
+
+            75% {
+                top: 55%;
+                left: 50%
+            }
+
+            100% {
+                top: 40%;
+                left: 32%
+            }
+        }
+
+        .map-pulse {
+            position: absolute;
+            top: 33%;
+            left: 28%;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(39, 110, 241, .3);
+            animation: pulse 2s ease infinite
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: .5
+            }
+
+            100% {
+                transform: scale(3);
+                opacity: 0
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="sidebar">
+        <div class="s-header"><span class="s-logo">RideGo</span><span class="s-menu">☰</span></div>
+        <div class="s-tabs">
+            <div class="s-tab active" onclick="setTab(this)">🚗 Ride</div>
+            <div class="s-tab" onclick="setTab(this)">📦 Package</div>
+            <div class="s-tab" onclick="setTab(this)">🚐 Rent</div>
+        </div>
+        <div class="s-body">
+            <div class="input-group">
+                <div class="ig-input">
+                    <div class="ig-dot pickup"></div><input value="123 Market Street" placeholder="Pickup location">
+                </div>
+            </div>
+            <div class="ig-line"></div>
+            <div class="input-group">
+                <div class="ig-input">
+                    <div class="ig-dot dest"></div><input value="456 Mission Bay Blvd" placeholder="Where to?">
+                </div>
+            </div>
+            <div class="rides" id="rides"></div>
+            <div class="promo"><span class="promo-icon">🎟️</span><span class="promo-text">Add promo code</span><span
+                    class="promo-arrow">›</span></div>
+        </div>
+        <div class="book-footer">
+            <div class="payment">💳 Visa ••4829 <span style="margin-left:auto;color:var(--muted)">›</span></div>
+            <button class="book-btn" id="bookBtn" onclick="bookRide()">Request RideGo X</button>
+        </div>
+    </div>
     <div class="map">
-        <div class="map-grid"></div>
-        <div class="road-h" style="top:25%"></div>
-        <div class="road-h" style="top:50%"></div>
-        <div class="road-h" style="top:75%"></div>
-        <div class="road-v" style="left:20%"></div>
-        <div class="road-v" style="left:40%"></div>
-        <div class="road-v" style="left:60%"></div>
-        <div class="road-v" style="left:80%"></div>
-        <div class="route-line" style="top:50%;left:25%;width:40%;transform:rotate(0deg)"></div>
-        <div class="car-dot" style="top:30%;left:35%"></div>
-        <div class="car-dot" style="top:55%;left:55%"></div>
-        <div class="car-dot" style="top:42%;left:28%"></div>
-        <div class="car-dot" style="top:68%;left:72%"></div>
-        <div class="car-dot" style="top:38%;left:48%"></div>
-        <div class="pin" style="top:48%;left:25%">📍<div class="pin-pulse"></div>
+        <div class="map-roads">
+            <div class="map-road h main" style="top:35%"></div>
+            <div class="map-road h main" style="top:60%"></div>
+            <div class="map-road v main" style="left:30%"></div>
+            <div class="map-road v main" style="left:55%"></div>
+            <div class="map-road h" style="top:20%"></div>
+            <div class="map-road h" style="top:45%"></div>
+            <div class="map-road h" style="top:75%"></div>
+            <div class="map-road h" style="top:85%"></div>
+            <div class="map-road v" style="left:15%"></div>
+            <div class="map-road v" style="left:42%"></div>
+            <div class="map-road v" style="left:68%"></div>
+            <div class="map-road v" style="left:85%"></div>
         </div>
-        <div class="pin" style="top:52%;left:65%">🏁</div>
+        <div class="map-route"></div>
+        <div class="map-pulse"></div>
+        <div class="map-pin pickup">📍</div>
+        <div class="map-pin dest">🏁</div>
+        <div class="map-car">🚗</div>
     </div>
-    <div class="panel">
-        <div class="p-header">
-            <div class="p-logo">🚗 RideGo</div>
-            <div class="location-inputs">
-                <div class="loc-dot">
-                    <div class="loc-circle"></div>
-                    <div class="loc-line"></div>
-                    <div class="loc-square"></div>
-                </div>
-                <input class="loc-input" value="📍 350 5th Avenue, Manhattan" placeholder="Pickup location">
-                <input class="loc-input" value="🏁 JFK International Airport" placeholder="Drop-off location">
-            </div>
-        </div>
-        <div class="p-content">
-            <div class="ride-options">
-                <h3>Choose a ride</h3>
-                <div class="ride selected">
-                    <div class="ride-icon">🚗</div>
-                    <div class="ride-info">
-                        <div class="ride-name">RideGo X</div>
-                        <div class="ride-desc">Affordable, everyday rides</div>
-                        <div class="ride-eta">3 min away</div>
-                    </div>
-                    <div>
-                        <div class="ride-price">$42.50</div>
-                    </div>
-                </div>
-                <div class="ride">
-                    <div class="ride-icon">🚙</div>
-                    <div class="ride-info">
-                        <div class="ride-name">Comfort</div>
-                        <div class="ride-desc">Newer cars with extra legroom</div>
-                        <div class="ride-eta">5 min away</div>
-                    </div>
-                    <div>
-                        <div class="ride-price">$58.00</div>
-                    </div>
-                </div>
-                <div class="ride">
-                    <div class="ride-icon">🖤</div>
-                    <div class="ride-info">
-                        <div class="ride-name">Black <span
-                                style="font-size:.65rem;padding:1px 6px;border-radius:4px;background:rgba(255,255,255,.08)">Premium</span>
-                        </div>
-                        <div class="ride-desc">Luxury rides with top drivers</div>
-                        <div class="ride-eta">7 min away</div>
-                    </div>
-                    <div>
-                        <div class="ride-price">$85.00</div>
-                    </div>
-                </div>
-                <div class="ride">
-                    <div class="ride-icon">👥</div>
-                    <div class="ride-info">
-                        <div class="ride-name">Share</div>
-                        <div class="ride-desc">Share your ride, save money</div>
-                        <div class="ride-eta">4 min away</div>
-                    </div>
-                    <div>
-                        <div class="ride-price">$28.75</div>
-                    </div>
-                </div>
-                <div class="ride">
-                    <div class="ride-icon">📦</div>
-                    <div class="ride-info">
-                        <div class="ride-name">Package</div>
-                        <div class="ride-desc">Send packages across the city</div>
-                        <div class="ride-eta">8 min away</div>
-                    </div>
-                    <div>
-                        <div class="ride-price">$18.00</div>
-                    </div>
-                </div>
-            </div>
-            <div class="promo">🎁 Apply promo code <strong
-                    style="margin-left:auto;color:var(--accent);cursor:pointer">Add →</strong></div>
-            <div class="payment"><span class="pay-icon">💳</span>
-                <div class="pay-info">Visa •••• 4242</div><span class="pay-change">Change</span>
-            </div>
-        </div>
-        <div class="p-footer">
-            <div class="est-info"><span>Estimated time: 35 min</span><span>Distance: 18.4 mi</span></div>
-            <button class="ride-btn">Request RideGo X — $42.50</button>
-        </div>
+
+    <script>
+        const rides = [
+            { name: 'RideGo X', eta: '4 min away', desc: 'Affordable, everyday rides', price: '$18.50', icon: '🚗', selected: true },
+            { name: 'Comfort', eta: '6 min away', desc: 'Newer cars, extra legroom', price: '$24.00', icon: '🚙' },
+            { name: 'RideGo XL', eta: '8 min away', desc: 'Affordable rides for groups up to 6', price: '$32.00', icon: '🚐' },
+            { name: 'Black', eta: '3 min away', desc: 'Premium rides in luxury cars', price: '$48.50', icon: '🖤', surge: '$42.00' },
+        ];
+
+        function renderRides() {
+            document.getElementById('rides').innerHTML = rides.map((r, i) => `
+    <div class="ride${r.selected ? ' selected' : ''}" onclick="selectRide(${i})">
+      <div class="ride-img">${r.icon}</div>
+      <div class="ride-info"><div class="ride-name">${r.name}</div><div class="ride-eta">${r.eta}</div><div class="ride-desc">${r.desc}</div></div>
+      <div style="text-align:right"><div class="ride-price">${r.price}</div>${r.surge ? `<div class="ride-price-surge">${r.surge}</div>` : ''}</div>
     </div>
+  `).join('');
+        }
+
+        function selectRide(i) {
+            rides.forEach((r, ri) => r.selected = ri === i);
+            document.getElementById('bookBtn').textContent = 'Request ' + rides[i].name;
+            renderRides();
+        }
+
+        function bookRide() {
+            const r = rides.find(r => r.selected);
+            alert(`🚗 Requesting ${r.name}...\n📍 ETA: ${r.eta}\n💰 Price: ${r.price}`);
+        }
+
+        function setTab(el) { document.querySelectorAll('.s-tab').forEach(t => t.classList.remove('active')); el.classList.add('active') }
+        renderRides();
+    </script>
 </body>
 
 </html>

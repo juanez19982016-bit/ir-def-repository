@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WeatherVault — Weather Dashboard</title>
+    <title>WeatherNow — Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <style>
@@ -15,99 +15,123 @@
         }
 
         :root {
-            --text: #fff;
-            --muted: rgba(255, 255, 255, .6)
+            --bg: #0f172a;
+            --card: rgba(255, 255, 255, .05);
+            --border: rgba(255, 255, 255, .08);
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --warm: #f97316;
+            --cold: #06b6d4
         }
 
         body {
             font-family: 'Inter', sans-serif;
+            background: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            background: linear-gradient(135deg, #0f172a, #1e3a5f, #0c4a6e);
-            padding: 24px
+            background-image: linear-gradient(180deg, #0f172a 0%, #1e293b 100%)
         }
 
         .container {
-            max-width: 1100px;
-            margin: 0 auto
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 32px 24px
         }
 
         .header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             margin-bottom: 24px
         }
 
-        .header h1 {
-            font-size: 1.3rem;
-            font-weight: 700;
+        .h-left {
             display: flex;
             align-items: center;
-            gap: 8px
+            gap: 12px
+        }
+
+        .h-logo {
+            font-weight: 900;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 6px
         }
 
         .search {
             display: flex;
-            gap: 8px
+            align-items: center;
+            gap: 8px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 8px 16px
         }
 
         .search input {
-            padding: 8px 16px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, .08);
-            border: 1px solid rgba(255, 255, 255, .1);
-            color: #fff;
-            font-size: .85rem;
-            width: 240px;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: .88rem;
             outline: none;
             font-family: 'Inter';
-            backdrop-filter: blur(10px)
-        }
-
-        .search input:focus {
-            border-color: rgba(255, 255, 255, .3)
+            width: 200px
         }
 
         .search button {
-            padding: 8px 16px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, .1);
+            background: none;
             border: none;
-            color: #fff;
             cursor: pointer;
-            font-family: 'Inter'
+            font-size: .9rem
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px
+        .h-right {
+            display: flex;
+            gap: 8px
         }
 
-        .card {
-            background: rgba(255, 255, 255, .06);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, .08);
-            padding: 20px;
-            transition: background .2s
+        .h-btn {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: .82rem;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--muted);
+            font-family: 'Inter';
+            transition: all .1s
         }
 
-        .card:hover {
-            background: rgba(255, 255, 255, .08)
+        .h-btn:hover {
+            color: var(--text);
+            background: var(--card)
+        }
+
+        .h-btn.active {
+            color: var(--text);
+            background: var(--card)
         }
 
         .current {
-            grid-column: 1/3;
-            grid-row: 1/3;
-            padding: 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px
+        }
+
+        .current-main {
+            background: linear-gradient(135deg, rgba(56, 189, 248, .15), rgba(6, 182, 212, .05));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
             display: flex;
             flex-direction: column
         }
 
-        .cur-location {
-            font-size: .92rem;
+        .cm-location {
+            font-size: .88rem;
             color: var(--muted);
             margin-bottom: 4px;
             display: flex;
@@ -115,247 +139,217 @@
             gap: 4px
         }
 
-        .cur-temp {
+        .cm-temp {
             font-size: 5rem;
             font-weight: 900;
-            letter-spacing: -4px;
-            line-height: 1
+            line-height: 1;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
         }
 
-        .cur-desc {
+        .cm-desc {
             font-size: 1.1rem;
-            margin-top: 8px;
-            font-weight: 500
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px
         }
 
-        .cur-feels {
+        .cm-feels {
             font-size: .85rem;
-            color: var(--muted);
-            margin-top: 4px
+            color: var(--muted)
         }
 
-        .cur-icon {
-            font-size: 6rem;
-            margin-left: auto;
-            margin-top: -60px
-        }
-
-        .cur-details {
+        .cm-details {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-top: auto;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, .08)
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: auto
         }
 
-        .cur-detail {
-            text-align: center
-        }
-
-        .cd-label {
-            font-size: .72rem;
-            color: var(--muted);
-            margin-bottom: 4px
-        }
-
-        .cd-value {
-            font-size: 1rem;
-            font-weight: 600
-        }
-
-        .cd-icon {
-            font-size: 1.3rem;
-            margin-bottom: 4px
-        }
-
-        .forecast h3 {
-            font-size: .85rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--muted)
-        }
-
-        .f-item {
+        .cm-detail {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, .04)
-        }
-
-        .f-item:last-child {
-            border: none
-        }
-
-        .f-day {
-            font-size: .85rem;
-            width: 40px
-        }
-
-        .f-icon {
-            font-size: 1.2rem;
-            width: 30px;
-            text-align: center
-        }
-
-        .f-desc {
-            flex: 1;
-            font-size: .78rem;
-            color: var(--muted)
-        }
-
-        .f-temps {
-            display: flex;
             gap: 6px;
-            align-items: center;
-            font-size: .85rem
-        }
-
-        .f-high {
-            font-weight: 600
-        }
-
-        .f-low {
+            font-size: .82rem;
             color: var(--muted)
         }
 
-        .hourly h3 {
-            font-size: .85rem;
+        .cm-detail span {
             font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--muted)
+            color: var(--text)
         }
 
-        .h-scroll {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-            scrollbar-width: none
-        }
-
-        .h-scroll::-webkit-scrollbar {
-            display: none
-        }
-
-        .h-item {
+        .current-side {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            min-width: 52px;
-            padding: 12px 8px;
+            gap: 12px
+        }
+
+        .cs-card {
+            background: var(--card);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            transition: background .15s
+            padding: 14px;
+            flex: 1
         }
 
-        .h-item.now {
-            background: rgba(255, 255, 255, .1)
-        }
-
-        .h-time {
+        .cs-title {
             font-size: .72rem;
-            color: var(--muted)
-        }
-
-        .h-icon {
-            font-size: 1.3rem
-        }
-
-        .h-temp {
-            font-size: .85rem;
-            font-weight: 600
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px
         }
 
         .uv-bar {
             height: 6px;
             border-radius: 100px;
-            background: linear-gradient(90deg, #22c55e 0%, #f59e0b 40%, #ef4444 70%, #7c3aed 100%);
-            position: relative;
-            margin-top: 12px
+            background: linear-gradient(to right, #22c55e, #eab308, #ef4444, #9333ea);
+            margin: 6px 0;
+            position: relative
         }
 
-        .uv-marker {
-            position: absolute;
+        .uv-dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
             background: #fff;
+            border: 2px solid #333;
+            position: absolute;
             top: -2px;
-            border: 2px solid rgba(0, 0, 0, .3)
+            box-shadow: 0 0 4px rgba(0, 0, 0, .3)
         }
 
-        .air-quality {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 12px
+        .cs-value {
+            font-size: 1.3rem;
+            font-weight: 700
         }
 
-        .aq-bar {
-            flex: 1;
-            height: 8px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, .06);
-            overflow: hidden
+        .cs-note {
+            font-size: .78rem;
+            color: var(--muted);
+            margin-top: 2px
         }
 
-        .aq-fill {
-            height: 100%;
-            border-radius: 100px
+        .hourly {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px
         }
 
-        .aq-label {
+        .hourly-title {
             font-size: .82rem;
-            font-weight: 600
+            font-weight: 600;
+            margin-bottom: 8px
         }
 
-        .sun-times {
+        .hourly-scroll {
             display: flex;
-            justify-content: space-between;
-            margin-top: 12px
+            gap: 20px;
+            overflow-x: auto;
+            padding: 8px 0;
+            scrollbar-width: none
         }
 
-        .sun-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px
+        .hourly-scroll::-webkit-scrollbar {
+            display: none
         }
 
-        .sun-icon {
-            font-size: 1.5rem
+        .hour {
+            text-align: center;
+            flex-shrink: 0;
+            min-width: 50px
         }
 
-        .sun-time {
+        .hour-time {
+            font-size: .72rem;
+            color: var(--muted);
+            margin-bottom: 4px
+        }
+
+        .hour-icon {
+            font-size: 1.5rem;
+            margin-bottom: 4px
+        }
+
+        .hour-temp {
             font-size: .88rem;
             font-weight: 600
         }
 
-        .sun-label {
-            font-size: .72rem;
+        .daily {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px
+        }
+
+        .daily-title {
+            font-size: .82rem;
+            font-weight: 600;
+            margin-bottom: 8px
+        }
+
+        .day {
+            display: flex;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .day:last-child {
+            border: none
+        }
+
+        .day-name {
+            width: 100px;
+            font-size: .85rem;
+            font-weight: 500
+        }
+
+        .day-name.today {
+            color: var(--accent)
+        }
+
+        .day-icon {
+            font-size: 1.2rem;
+            width: 40px;
+            text-align: center
+        }
+
+        .day-bar {
+            flex: 1;
+            height: 4px;
+            border-radius: 100px;
+            background: linear-gradient(to right, var(--cold), var(--warm));
+            margin: 0 12px;
+            position: relative;
+            opacity: .3
+        }
+
+        .day-temps {
+            display: flex;
+            gap: 8px;
+            font-size: .82rem;
+            width: 80px;
+            justify-content: flex-end
+        }
+
+        .day-low {
             color: var(--muted)
         }
 
-        .sun-arc {
-            height: 60px;
-            margin-top: 12px;
-            border-radius: 60px 60px 0 0;
-            border: 2px solid rgba(245, 158, 11, .2);
-            border-bottom: none;
-            position: relative
-        }
-
-        .sun-dot {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #f59e0b;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #f59e0b;
-            top: 10px;
-            left: 65%
+        .day-high {
+            font-weight: 600
         }
     </style>
 </head>
@@ -363,127 +357,85 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🌤️ WeatherVault</h1>
-            <div class="search"><input placeholder="Search city..."><button>📍</button></div>
+            <div class="h-left"><span class="h-logo">🌤️ WeatherNow</span>
+                <div class="search"><input placeholder="Search location..." id="searchInput"><button
+                        onclick="searchCity()">🔍</button></div>
+            </div>
+            <div class="h-right"><button class="h-btn active" onclick="setUnit(this,'°F')">°F</button><button
+                    class="h-btn" onclick="setUnit(this,'°C')">°C</button></div>
         </div>
-        <div class="grid">
-            <div class="card current">
-                <div class="cur-location">📍 San Francisco, CA</div>
-                <div style="display:flex;align-items:flex-start">
-                    <div>
-                        <div class="cur-temp">18°</div>
-                        <div class="cur-desc">Partly Cloudy</div>
-                        <div class="cur-feels">Feels like 16° · AQI 42</div>
-                    </div>
-                    <div class="cur-icon">⛅</div>
-                </div>
-                <div class="cur-details">
-                    <div class="cur-detail">
-                        <div class="cd-icon">💨</div>
-                        <div class="cd-label">Wind</div>
-                        <div class="cd-value">12 km/h</div>
-                    </div>
-                    <div class="cur-detail">
-                        <div class="cd-icon">💧</div>
-                        <div class="cd-label">Humidity</div>
-                        <div class="cd-value">68%</div>
-                    </div>
-                    <div class="cur-detail">
-                        <div class="cd-icon">👁️</div>
-                        <div class="cd-label">Visibility</div>
-                        <div class="cd-value">10 km</div>
-                    </div>
-                    <div class="cur-detail">
-                        <div class="cd-icon">🌡️</div>
-                        <div class="cd-label">Pressure</div>
-                        <div class="cd-value">1013 hPa</div>
-                    </div>
+
+        <div class="current">
+            <div class="current-main">
+                <div class="cm-location">📍 San Francisco, California</div>
+                <div class="cm-temp" id="mainTemp">68°</div>
+                <div class="cm-desc">☀️ Mostly Sunny</div>
+                <div class="cm-feels">Feels like 65° · H: 72° L: 54°</div>
+                <div class="cm-details">
+                    <div class="cm-detail">💧 Humidity: <span>45%</span></div>
+                    <div class="cm-detail">💨 Wind: <span>12 mph</span></div>
+                    <div class="cm-detail">👁️ Visibility: <span>10 mi</span></div>
+                    <div class="cm-detail">🌡️ Pressure: <span>30.1 in</span></div>
                 </div>
             </div>
-            <div class="card forecast">
-                <h3>7-Day Forecast</h3>
-                <div class="f-item"><span class="f-day">Today</span><span class="f-icon">⛅</span><span
-                        class="f-desc">Partly cloudy</span>
-                    <div class="f-temps"><span class="f-high">18°</span><span class="f-low">12°</span></div>
+            <div class="current-side">
+                <div class="cs-card">
+                    <div class="cs-title">☀️ UV INDEX</div>
+                    <div class="cs-value">5</div>
+                    <div class="uv-bar">
+                        <div class="uv-dot" style="left:40%"></div>
+                    </div>
+                    <div class="cs-note">Moderate — Sunscreen recommended</div>
                 </div>
-                <div class="f-item"><span class="f-day">Wed</span><span class="f-icon">🌤️</span><span
-                        class="f-desc">Mostly sunny</span>
-                    <div class="f-temps"><span class="f-high">21°</span><span class="f-low">14°</span></div>
+                <div class="cs-card">
+                    <div class="cs-title">🌅 SUNRISE & SUNSET</div>
+                    <div class="cs-value">6:42 AM ↔ 6:18 PM</div>
+                    <div class="cs-note">11h 36m of daylight remaining</div>
                 </div>
-                <div class="f-item"><span class="f-day">Thu</span><span class="f-icon">☀️</span><span
-                        class="f-desc">Clear</span>
-                    <div class="f-temps"><span class="f-high">23°</span><span class="f-low">15°</span></div>
-                </div>
-                <div class="f-item"><span class="f-day">Fri</span><span class="f-icon">🌧️</span><span
-                        class="f-desc">Light rain</span>
-                    <div class="f-temps"><span class="f-high">16°</span><span class="f-low">11°</span></div>
-                </div>
-                <div class="f-item"><span class="f-day">Sat</span><span class="f-icon">⛈️</span><span
-                        class="f-desc">Thunderstorm</span>
-                    <div class="f-temps"><span class="f-high">14°</span><span class="f-low">10°</span></div>
-                </div>
-                <div class="f-item"><span class="f-day">Sun</span><span class="f-icon">🌤️</span><span
-                        class="f-desc">Partly cloudy</span>
-                    <div class="f-temps"><span class="f-high">19°</span><span class="f-low">13°</span></div>
-                </div>
-                <div class="f-item"><span class="f-day">Mon</span><span class="f-icon">☀️</span><span
-                        class="f-desc">Sunny</span>
-                    <div class="f-temps"><span class="f-high">22°</span><span class="f-low">15°</span></div>
+                <div class="cs-card">
+                    <div class="cs-title">🌧️ PRECIPITATION</div>
+                    <div class="cs-value">0%</div>
+                    <div class="cs-note">No rain expected today</div>
                 </div>
             </div>
-            <div class="card forecast" style="grid-column:3">
-                <h3>UV Index & Air Quality</h3>
-                <div style="font-size:2rem;font-weight:800;margin:8px 0">4</div>
-                <div style="font-size:.85rem;color:var(--muted)">Moderate</div>
-                <div class="uv-bar">
-                    <div class="uv-marker" style="left:35%"></div>
-                </div>
-                <h3 style="margin-top:20px">Air Quality — Good</h3>
-                <div class="air-quality">
-                    <div class="aq-bar">
-                        <div class="aq-fill" style="width:42%;background:linear-gradient(90deg,#22c55e,#86efac)"></div>
-                    </div><span class="aq-label">42 AQI</span>
-                </div>
-            </div>
-            <div class="card" style="grid-column:1/3">
-                <h3 style="font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:12px">Hourly Forecast</h3>
-                <div class="h-scroll">
-                    <div class="h-item now"><span class="h-time">Now</span><span class="h-icon">⛅</span><span
-                            class="h-temp">18°</span></div>
-                    <div class="h-item"><span class="h-time">1 PM</span><span class="h-icon">🌤️</span><span
-                            class="h-temp">19°</span></div>
-                    <div class="h-item"><span class="h-time">2 PM</span><span class="h-icon">☀️</span><span
-                            class="h-temp">20°</span></div>
-                    <div class="h-item"><span class="h-time">3 PM</span><span class="h-icon">☀️</span><span
-                            class="h-temp">21°</span></div>
-                    <div class="h-item"><span class="h-time">4 PM</span><span class="h-icon">🌤️</span><span
-                            class="h-temp">20°</span></div>
-                    <div class="h-item"><span class="h-time">5 PM</span><span class="h-icon">⛅</span><span
-                            class="h-temp">18°</span></div>
-                    <div class="h-item"><span class="h-time">6 PM</span><span class="h-icon">🌅</span><span
-                            class="h-temp">17°</span></div>
-                    <div class="h-item"><span class="h-time">7 PM</span><span class="h-icon">🌙</span><span
-                            class="h-temp">15°</span></div>
-                    <div class="h-item"><span class="h-time">8 PM</span><span class="h-icon">🌙</span><span
-                            class="h-temp">14°</span></div>
-                    <div class="h-item"><span class="h-time">9 PM</span><span class="h-icon">🌙</span><span
-                            class="h-temp">13°</span></div>
-                </div>
-            </div>
-            <div class="card">
-                <h3 style="font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:12px">Sunrise & Sunset</h3>
-                <div class="sun-arc">
-                    <div class="sun-dot"></div>
-                </div>
-                <div class="sun-times">
-                    <div class="sun-item"><span class="sun-icon">🌅</span><span class="sun-time">6:42 AM</span><span
-                            class="sun-label">Sunrise</span></div>
-                    <div class="sun-item"><span class="sun-icon">🌇</span><span class="sun-time">6:18 PM</span><span
-                            class="sun-label">Sunset</span></div>
-                </div>
-            </div>
+        </div>
+
+        <div class="hourly">
+            <div class="hourly-title">Hourly Forecast</div>
+            <div class="hourly-scroll" id="hourly"></div>
+        </div>
+        <div class="daily">
+            <div class="daily-title">10-Day Forecast</div>
+            <div id="daily"></div>
         </div>
     </div>
+
+    <script>
+        const hours = [
+            { time: 'Now', icon: '☀️', temp: 68 }, { time: '1PM', icon: '☀️', temp: 70 }, { time: '2PM', icon: '⛅', temp: 72 },
+            { time: '3PM', icon: '⛅', temp: 71 }, { time: '4PM', icon: '☁️', temp: 69 }, { time: '5PM', icon: '☁️', temp: 67 },
+            { time: '6PM', icon: '🌅', temp: 64 }, { time: '7PM', icon: '🌙', temp: 61 }, { time: '8PM', icon: '🌙', temp: 59 },
+            { time: '9PM', icon: '🌙', temp: 57 }, { time: '10PM', icon: '🌙', temp: 56 }, { time: '11PM', icon: '🌙', temp: 55 },
+        ];
+        const days = [
+            { name: 'Today', icon: '☀️', low: 54, high: 72 },
+            { name: 'Wed', icon: '⛅', low: 52, high: 68 },
+            { name: 'Thu', icon: '🌧️', low: 50, high: 62 },
+            { name: 'Fri', icon: '🌧️', low: 48, high: 58 },
+            { name: 'Sat', icon: '⛅', low: 51, high: 64 },
+            { name: 'Sun', icon: '☀️', low: 53, high: 70 },
+            { name: 'Mon', icon: '☀️', low: 55, high: 73 },
+            { name: 'Tue', icon: '⛅', low: 54, high: 69 },
+            { name: 'Wed', icon: '🌥️', low: 52, high: 66 },
+            { name: 'Thu', icon: '☀️', low: 56, high: 74 },
+        ];
+
+        document.getElementById('hourly').innerHTML = hours.map(h => `<div class="hour"><div class="hour-time">${h.time}</div><div class="hour-icon">${h.icon}</div><div class="hour-temp">${h.temp}°</div></div>`).join('');
+        document.getElementById('daily').innerHTML = days.map(d => `<div class="day"><span class="day-name${d.name === 'Today' ? ' today' : ''}">${d.name}</span><span class="day-icon">${d.icon}</span><div class="day-bar"></div><div class="day-temps"><span class="day-low">${d.low}°</span><span class="day-high">${d.high}°</span></div></div>`).join('');
+
+        function setUnit(el, unit) { document.querySelectorAll('.h-btn').forEach(b => b.classList.remove('active')); el.classList.add('active') }
+        function searchCity() { const v = document.getElementById('searchInput').value; if (v) alert('🌍 Searching for: ' + v) }
+    </script>
 </body>
 
 </html>

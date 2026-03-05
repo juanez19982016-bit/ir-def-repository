@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MeetNow — Video Conferencing</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,14 +14,14 @@
         }
 
         :root {
-            --bg: #1a1a1a;
-            --card: #242424;
-            --border: rgba(255, 255, 255, .08);
+            --bg: #1a1a2e;
+            --card: rgba(255, 255, 255, .05);
+            --text: #fff;
+            --muted: #8b8fa3;
             --accent: #2d8cf0;
-            --green: #16a34a;
-            --red: #dc2626;
-            --text: #fafafa;
-            --muted: #999
+            --green: #28a745;
+            --red: #dc3545;
+            --border: rgba(255, 255, 255, .08)
         }
 
         body {
@@ -31,161 +30,152 @@
             color: var(--text);
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            overflow: hidden
+            flex-direction: column
         }
 
-        .topbar {
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(0, 0, 0, .3);
-            flex-shrink: 0
-        }
-
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: .85rem
-        }
-
-        .meet-id {
-            color: var(--muted);
-            font-size: .78rem
-        }
-
-        .topbar-right {
-            display: flex;
-            gap: 8px
-        }
-
-        .top-btn {
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: .78rem;
-            cursor: pointer;
-            background: none;
-            border: 1px solid var(--border);
-            color: var(--muted);
-            font-family: 'Inter'
-        }
-
-        .grid-container {
+        .meeting {
             flex: 1;
-            padding: 12px;
             display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 8px;
-            overflow: hidden
+            padding: 8px;
+            background: #111;
+            position: relative
         }
 
-        .grid-2x2 {
+        .meeting.gallery-4 {
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr
+        }
+
+        .meeting.speaker {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr auto
         }
 
         .participant {
             border-radius: 12px;
             overflow: hidden;
             position: relative;
+            background: #1e1e2e;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--card)
+            min-height: 200px
         }
 
-        .p-gradient {
+        .participant img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0
+        }
+
+        .p-overlay {
             position: absolute;
             inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center
-        }
-
-        .p-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 800
+            background: linear-gradient(transparent 60%, rgba(0, 0, 0, .7))
         }
 
         .p-name {
             position: absolute;
             bottom: 12px;
             left: 12px;
-            font-size: .85rem;
+            font-size: .82rem;
             font-weight: 500;
             display: flex;
             align-items: center;
             gap: 6px;
-            background: rgba(0, 0, 0, .5);
-            padding: 4px 10px;
-            border-radius: 6px
+            z-index: 2
         }
 
         .p-mic {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 28px;
-            height: 28px;
+            font-size: .65rem;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: .7rem;
-            background: rgba(0, 0, 0, .5)
+            justify-content: center
+        }
+
+        .p-mic.muted {
+            background: var(--red)
         }
 
         .p-speaking {
             border: 2px solid var(--green);
-            box-shadow: 0 0 0 2px rgba(22, 163, 74, .3)
+            box-shadow: 0 0 12px rgba(40, 167, 69, .3)
         }
 
         .p-pin {
             position: absolute;
-            top: 12px;
-            left: 12px;
-            padding: 3px 8px;
-            border-radius: 4px;
+            top: 8px;
+            right: 8px;
+            font-size: .75rem;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
             background: rgba(0, 0, 0, .5);
-            font-size: .72rem;
-            cursor: pointer
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity .2s;
+            z-index: 2
         }
 
-        .p-reaction {
+        .participant:hover .p-pin {
+            opacity: 1
+        }
+
+        .p-avatar {
+            font-size: 3rem;
+            z-index: 1
+        }
+
+        .p-reactions {
             position: absolute;
-            bottom: 60px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-            animation: floatUp 2s ease-out forwards
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            animation: reactionPop 2s ease forwards;
+            pointer-events: none;
+            z-index: 5
         }
 
-        @keyframes floatUp {
+        @keyframes reactionPop {
             0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(.3)
+            }
+
+            20% {
                 opacity: 1;
-                transform: translateX(-50%) translateY(0)
+                transform: translate(-50%, -50%) scale(1.2)
+            }
+
+            80% {
+                opacity: 1;
+                transform: translate(-50%, -70%) scale(1)
             }
 
             100% {
                 opacity: 0;
-                transform: translateX(-50%) translateY(-40px)
+                transform: translate(-50%, -100%) scale(.8)
             }
         }
 
         .controls {
-            padding: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: rgba(0, 0, 0, .3);
+            padding: 12px;
+            background: var(--bg);
             flex-shrink: 0
         }
 
@@ -196,249 +186,324 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
             cursor: pointer;
+            font-size: 1.1rem;
+            transition: all .15s;
             border: none;
-            background: var(--card);
             color: var(--text);
-            transition: all .15s
+            background: rgba(255, 255, 255, .1)
         }
 
         .ctrl:hover {
-            background: rgba(255, 255, 255, .12)
+            background: rgba(255, 255, 255, .2)
         }
 
-        .ctrl-danger {
+        .ctrl.active {
+            background: var(--green)
+        }
+
+        .ctrl.muted-ctrl {
             background: var(--red)
         }
 
-        .ctrl-danger:hover {
-            background: #b91c1c
-        }
-
-        .ctrl-active {
-            background: var(--accent)
-        }
-
-        .ctrl-off {
-            background: rgba(255, 255, 255, .08);
-            color: var(--red)
-        }
-
-        .chat-panel {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 340px;
-            background: var(--card);
-            border-left: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            z-index: 5
-        }
-
-        .ch-header {
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border)
-        }
-
-        .ch-header h3 {
-            font-size: .92rem;
+        .ctrl.end {
+            background: var(--red);
+            width: 64px;
+            border-radius: 24px;
+            font-size: .85rem;
             font-weight: 600
         }
 
-        .ch-close {
-            cursor: pointer;
-            padding: 4px;
-            font-size: .85rem
+        .ctrl.end:hover {
+            background: #c0392b
         }
 
-        .ch-messages {
-            flex: 1;
-            overflow-y: auto;
+        .ctrl-label {
+            font-size: .6rem;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 2px
+        }
+
+        .ctrl-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .meeting-info {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 5;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .mi-badge {
+            padding: 4px 12px;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, .6);
+            backdrop-filter: blur(8px);
+            font-size: .78rem;
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .mi-recording {
+            color: var(--red);
+            animation: blink 1s infinite
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
+
+        .chat-panel {
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 320px;
+            background: var(--bg);
+            border-left: 1px solid var(--border);
+            display: none;
+            flex-direction: column;
+            z-index: 10
+        }
+
+        .chat-panel.open {
+            display: flex
+        }
+
+        .cp-header {
             padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600
+        }
+
+        .cp-close {
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background .1s
+        }
+
+        .cp-close:hover {
+            background: rgba(255, 255, 255, .1)
+        }
+
+        .cp-msgs {
+            flex: 1;
+            padding: 12px;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 8px
         }
 
-        .ch-messages::-webkit-scrollbar {
-            width: 4px
-        }
-
-        .ch-messages::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .06);
-            border-radius: 2px
-        }
-
-        .ch-msg {
+        .cp-msg {
             font-size: .82rem
         }
 
-        .ch-msg-name {
+        .cp-msg-name {
             font-weight: 600;
-            margin-right: 6px;
-            font-size: .78rem
+            color: var(--accent);
+            font-size: .75rem
         }
 
-        .ch-msg-time {
-            color: var(--muted);
-            font-size: .68rem;
-            margin-left: 6px
+        .cp-msg-text {
+            margin-top: 2px
         }
 
-        .ch-msg-text {
-            margin-top: 2px;
-            line-height: 1.4;
-            color: rgba(255, 255, 255, .8)
-        }
-
-        .ch-compose {
-            padding: 12px 16px;
-            border-top: 1px solid var(--border);
+        .cp-input {
             display: flex;
+            padding: 8px 12px;
+            border-top: 1px solid var(--border);
             gap: 8px
         }
 
-        .ch-compose input {
+        .cp-input input {
             flex: 1;
             padding: 8px 12px;
             border-radius: 8px;
-            background: rgba(255, 255, 255, .05);
-            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, .06);
+            border: none;
             color: var(--text);
             font-size: .82rem;
             outline: none;
             font-family: 'Inter'
         }
 
-        .ch-compose button {
-            padding: 8px 16px;
+        .cp-input button {
+            padding: 8px;
             border-radius: 8px;
             background: var(--accent);
             color: #fff;
             border: none;
-            font-weight: 600;
-            font-size: .82rem;
             cursor: pointer;
-            font-family: 'Inter'
+            font-size: .8rem
         }
 
-        .participants-bar {
+        .reactions-bar {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            gap: 6px;
-            padding: 8px 12px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            background: rgba(0, 0, 0, .2);
-            flex-shrink: 0
+            gap: 4px;
+            background: rgba(0, 0, 0, .7);
+            backdrop-filter: blur(8px);
+            padding: 4px;
+            border-radius: 100px;
+            z-index: 5
         }
 
-        .mini-p {
-            width: 60px;
-            height: 44px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .6rem;
-            font-weight: 700;
+        .react-btn {
+            font-size: 1.2rem;
             cursor: pointer;
-            flex-shrink: 0;
-            border: 2px solid transparent
+            padding: 6px;
+            border-radius: 50%;
+            transition: all .12s;
+            border: none;
+            background: none
         }
 
-        .mini-p.active {
-            border-color: var(--accent)
+        .react-btn:hover {
+            background: rgba(255, 255, 255, .15);
+            transform: scale(1.2)
         }
     </style>
 </head>
 
 <body>
-    <div class="topbar">
-        <div class="topbar-left"><span style="font-weight:700">📹 MeetNow</span><span class="meet-id">Meeting:
-                dvp-247-acm · 01:23:45</span></div>
-        <div class="topbar-right"><button class="top-btn">🔐 Lock</button><button class="top-btn">📋
-                Info</button><button class="top-btn">⚙️</button></div>
+    <div class="meeting gallery-4" id="meeting">
+        <div class="meeting-info">
+            <div class="mi-badge">🔒 DevVault Team Standup</div>
+            <div class="mi-badge" id="timer">00:15:32</div>
+            <div class="mi-badge mi-recording">● REC</div>
+        </div>
     </div>
-    <div class="participants-bar">
-        <div class="mini-p active" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD</div>
-        <div class="mini-p" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">SC</div>
-        <div class="mini-p" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR</div>
-        <div class="mini-p" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">AL</div>
-    </div>
-    <div class="grid-container grid-2x2" style="position:relative">
-        <div class="participant p-speaking">
-            <div class="p-gradient" style="background:linear-gradient(135deg,#1e1b4b,#312e81)">
-                <div class="p-avatar" style="background:rgba(99,102,241,.2);color:#a5b4fc">JD</div>
-            </div>
-            <div class="p-name">John Developer (You)</div>
-            <div class="p-mic">🎤</div>
-            <div class="p-pin">📌</div>
-        </div>
-        <div class="participant">
-            <div class="p-gradient" style="background:linear-gradient(135deg,#4a1d3d,#831843)">
-                <div class="p-avatar" style="background:rgba(236,72,153,.2);color:#f9a8d4">SC</div>
-            </div>
-            <div class="p-name">Sarah Chen</div>
-            <div class="p-mic">🎤</div>
-            <div class="p-reaction">👍</div>
-        </div>
-        <div class="participant">
-            <div class="p-gradient" style="background:linear-gradient(135deg,#14352a,#166534)">
-                <div class="p-avatar" style="background:rgba(34,197,94,.2);color:#86efac">MR</div>
-            </div>
-            <div class="p-name">Mike Ross</div>
-            <div class="p-mic" style="color:var(--red)">🔇</div>
-        </div>
-        <div class="participant">
-            <div class="p-gradient" style="background:linear-gradient(135deg,#422006,#854d0e)">
-                <div class="p-avatar" style="background:rgba(245,158,11,.2);color:#fde68a">AL</div>
-            </div>
-            <div class="p-name">Alex Liu</div>
-            <div class="p-mic">🎤</div>
-        </div>
-        <div class="chat-panel">
-            <div class="ch-header">
-                <h3>💬 Chat</h3><span class="ch-close">✕</span>
-            </div>
-            <div class="ch-messages">
-                <div class="ch-msg"><span class="ch-msg-name" style="color:#a5b4fc">John Developer</span><span
-                        class="ch-msg-time">1:20 PM</span>
-                    <div class="ch-msg-text">Let's go through the sprint review items</div>
-                </div>
-                <div class="ch-msg"><span class="ch-msg-name" style="color:#f9a8d4">Sarah Chen</span><span
-                        class="ch-msg-time">1:21 PM</span>
-                    <div class="ch-msg-text">Sure! Dashboard v2 is ready for review 🚀</div>
-                </div>
-                <div class="ch-msg"><span class="ch-msg-name" style="color:#86efac">Mike Ross</span><span
-                        class="ch-msg-time">1:22 PM</span>
-                    <div class="ch-msg-text">I'll share my screen in a sec. The Stripe integration is working perfectly
-                    </div>
-                </div>
-                <div class="ch-msg"><span class="ch-msg-name" style="color:#fde68a">Alex Liu</span><span
-                        class="ch-msg-time">1:23 PM</span>
-                    <div class="ch-msg-text">Nice! Here's the link to the PR: github.com/acme/devvault/pull/47</div>
-                </div>
-            </div>
-            <div class="ch-compose"><input placeholder="Send a message..."><button>Send</button></div>
-        </div>
+    <div class="reactions-bar"><button class="react-btn" onclick="sendReaction('👍')">👍</button><button
+            class="react-btn" onclick="sendReaction('👏')">👏</button><button class="react-btn"
+            onclick="sendReaction('😂')">😂</button><button class="react-btn"
+            onclick="sendReaction('❤️')">❤️</button><button class="react-btn"
+            onclick="sendReaction('🎉')">🎉</button><button class="react-btn" onclick="sendReaction('🤔')">🤔</button>
     </div>
     <div class="controls">
-        <button class="ctrl">🎤</button>
-        <button class="ctrl">📹</button>
-        <button class="ctrl">🖥️</button>
-        <button class="ctrl">😀</button>
-        <button class="ctrl ctrl-active">💬</button>
-        <button class="ctrl">👥</button>
-        <button class="ctrl">✋</button>
-        <button class="ctrl">📋</button>
-        <button class="ctrl ctrl-danger">📞</button>
+        <div class="ctrl-group"><button class="ctrl" id="micBtn" onclick="toggleMic()">🎤</button><span
+                class="ctrl-label">Mic</span></div>
+        <div class="ctrl-group"><button class="ctrl" id="camBtn" onclick="toggleCam()">📹</button><span
+                class="ctrl-label">Camera</span></div>
+        <div class="ctrl-group"><button class="ctrl" onclick="toggleScreen()">🖥️</button><span
+                class="ctrl-label">Share</span></div>
+        <div class="ctrl-group"><button class="ctrl" onclick="toggleChat()">💬</button><span
+                class="ctrl-label">Chat</span></div>
+        <div class="ctrl-group"><button class="ctrl" onclick="sendReaction('👍')">😊</button><span
+                class="ctrl-label">React</span></div>
+        <div class="ctrl-group"><button class="ctrl" onclick="toggleView()">⊞</button><span
+                class="ctrl-label">View</span></div>
+        <div class="ctrl-group"><button class="ctrl end" onclick="endCall()">End</button></div>
     </div>
+    <div class="chat-panel" id="chatPanel">
+        <div class="cp-header">Meeting Chat<span class="cp-close" onclick="toggleChat()">✕</span></div>
+        <div class="cp-msgs" id="chatMsgs">
+            <div class="cp-msg">
+                <div class="cp-msg-name">Sarah Chen</div>
+                <div class="cp-msg-text">Hey everyone! Ready for standup? 👋</div>
+            </div>
+            <div class="cp-msg">
+                <div class="cp-msg-name">Alex Rivera</div>
+                <div class="cp-msg-text">Yes! Got some exciting updates today</div>
+            </div>
+        </div>
+        <div class="cp-input"><input placeholder="Type a message..." id="chatInput"
+                onkeydown="if(event.key==='Enter')sendChatMsg()"><button onclick="sendChatMsg()">Send</button></div>
+    </div>
+
+    <script>
+        const participants = [
+            { name: 'You', avatar: 'https://i.pravatar.cc/800?img=11', speaking: true, muted: false, hasVideo: true },
+            { name: 'Sarah Chen', avatar: 'https://i.pravatar.cc/800?img=1', speaking: false, muted: false, hasVideo: true },
+            { name: 'Alex Rivera', avatar: 'https://i.pravatar.cc/800?img=5', speaking: false, muted: true, hasVideo: true },
+            { name: 'Emma Wilson', avatar: 'https://i.pravatar.cc/800?img=9', speaking: false, muted: false, hasVideo: false },
+        ];
+
+        function renderParticipants() {
+            const meeting = document.getElementById('meeting');
+            const info = meeting.querySelector('.meeting-info');
+            meeting.innerHTML = '';
+            meeting.appendChild(info);
+            participants.forEach((p, i) => {
+                const div = document.createElement('div');
+                div.className = 'participant' + (p.speaking ? ' p-speaking' : '');
+                div.innerHTML = `${p.hasVideo ? `<img src="${p.avatar}" alt="${p.name}">` : `<span class="p-avatar">${p.name[0]}</span>`}<div class="p-overlay"></div><div class="p-name"><span class="p-mic${p.muted ? ' muted' : ''}">${p.muted ? '🔇' : '🎤'}</span>${p.name}</div><div class="p-pin">📌</div>`;
+                meeting.appendChild(div);
+            });
+        }
+
+        let micOn = true, camOn = true;
+        function toggleMic() {
+            micOn = !micOn;
+            const btn = document.getElementById('micBtn');
+            btn.textContent = micOn ? '🎤' : '🔇';
+            btn.classList.toggle('muted-ctrl', !micOn);
+            participants[0].muted = !micOn;
+            renderParticipants();
+        }
+        function toggleCam() {
+            camOn = !camOn;
+            const btn = document.getElementById('camBtn');
+            btn.textContent = camOn ? '📹' : '📷';
+            btn.classList.toggle('muted-ctrl', !camOn);
+            participants[0].hasVideo = camOn;
+            renderParticipants();
+        }
+        function toggleScreen() { alert('🖥️ Screen sharing started') }
+        function toggleChat() { document.getElementById('chatPanel').classList.toggle('open') }
+        function endCall() { if (confirm('Leave meeting?')) alert('👋 You left the meeting') }
+
+        function sendReaction(emoji) {
+            const p = document.querySelectorAll('.participant')[0];
+            const r = document.createElement('div');
+            r.className = 'p-reactions'; r.textContent = emoji;
+            p.appendChild(r); setTimeout(() => r.remove(), 2000);
+        }
+
+        function sendChatMsg() {
+            const input = document.getElementById('chatInput'); if (!input.value.trim()) return;
+            const msgs = document.getElementById('chatMsgs');
+            msgs.innerHTML += `<div class="cp-msg"><div class="cp-msg-name">You</div><div class="cp-msg-text">${input.value}</div></div>`;
+            input.value = ''; msgs.scrollTop = msgs.scrollHeight;
+        }
+
+        function toggleView() {
+            const m = document.getElementById('meeting');
+            m.classList.toggle('speaker'); m.classList.toggle('gallery-4');
+        }
+
+        // Timer
+        let sec = 932;
+        setInterval(() => { sec++; const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60; document.getElementById('timer').textContent = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}` }, 1000);
+
+        // Random speaking
+        setInterval(() => { participants.forEach(p => p.speaking = false); participants[Math.floor(Math.random() * participants.length)].speaking = true; renderParticipants() }, 3000);
+
+        renderParticipants();
+    </script>
 </body>
 
 </html>

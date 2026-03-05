@@ -15,141 +15,132 @@
         }
 
         :root {
-            --bg: #09090b;
-            --card: #111115;
+            --bg: #0a0a0f;
+            --card: #111118;
             --border: rgba(255, 255, 255, .06);
+            --text: #fafafa;
+            --muted: #71717a;
             --accent: #6366f1;
             --green: #22c55e;
-            --red: #ef4444;
-            --text: #fafafa;
-            --muted: #71717a
+            --red: #ef4444
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
-            color: var(--text);
-            display: flex;
-            height: 100vh;
-            overflow: hidden
-        }
-
-        .sidebar {
-            width: 240px;
-            background: rgba(17, 17, 21, .95);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 20px 12px;
-            flex-shrink: 0
-        }
-
-        .s-logo {
-            font-weight: 800;
-            font-size: 1.1rem;
-            padding: 0 8px 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px
-        }
-
-        .s-link {
-            padding: 10px 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: .88rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all .12s;
-            color: var(--muted);
-            margin-bottom: 2px
-        }
-
-        .s-link:hover {
-            background: rgba(255, 255, 255, .03);
             color: var(--text)
         }
 
-        .s-link.active {
-            background: rgba(99, 102, 241, .08);
+        nav {
+            padding: 16px 48px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 15, .9);
+            backdrop-filter: blur(12px);
+            z-index: 10
+        }
+
+        .n-logo {
+            font-weight: 900;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer
+        }
+
+        .n-logo span {
             color: var(--accent)
         }
 
-        .s-link .icon {
-            width: 18px;
-            text-align: center
+        .n-links {
+            display: flex;
+            gap: 8px;
+            margin-left: 32px
         }
 
-        .s-section {
-            font-size: .68rem;
+        .n-link {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: .82rem;
+            cursor: pointer;
             color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: .06em;
-            padding: 16px 12px 6px;
+            transition: all .1s;
+            border: none;
+            background: none;
+            font-family: 'Inter';
             font-weight: 500
         }
 
-        .main {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px 32px
-        }
-
-        .main::-webkit-scrollbar {
-            width: 6px
-        }
-
-        .main::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .06);
-            border-radius: 3px
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px
-        }
-
-        .header h1 {
-            font-size: 1.3rem;
-            font-weight: 700
-        }
-
-        .header-right {
-            display: flex;
-            gap: 8px
-        }
-
-        .h-btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: .85rem;
-            cursor: pointer;
-            border: 1px solid var(--border);
-            background: none;
+        .n-link:hover {
             color: var(--text);
-            font-family: 'Inter'
+            background: rgba(255, 255, 255, .04)
         }
 
-        .h-btn-p {
-            background: var(--accent);
-            border: none;
-            color: #fff;
-            font-weight: 600
+        .n-link.active {
+            color: var(--text);
+            background: rgba(255, 255, 255, .06)
         }
 
-        .card-section {
+        .n-right {
+            margin-left: auto;
+            display: flex;
+            gap: 12px;
+            align-items: center
+        }
+
+        .n-right span {
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background .1s
+        }
+
+        .n-right span:hover {
+            background: rgba(255, 255, 255, .06)
+        }
+
+        .n-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden
+        }
+
+        .n-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 32px 48px
+        }
+
+        .greeting {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 4px
+        }
+
+        .greeting-sub {
+            font-size: .88rem;
+            color: var(--muted);
             margin-bottom: 24px
         }
 
         .cards-row {
             display: flex;
             gap: 16px;
+            margin-bottom: 32px;
             overflow-x: auto;
-            scrollbar-width: none;
-            padding-bottom: 8px
+            scrollbar-width: none
         }
 
         .cards-row::-webkit-scrollbar {
@@ -158,24 +149,62 @@
 
         .bank-card {
             min-width: 320px;
-            padding: 24px;
+            height: 190px;
             border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: transform .2s;
             position: relative;
-            overflow: hidden;
-            flex-shrink: 0
+            overflow: hidden
+        }
+
+        .bank-card:hover {
+            transform: translateY(-4px)
+        }
+
+        .bank-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, .1) 0%, transparent 50%);
+            pointer-events: none
+        }
+
+        .bc-1 {
+            background: linear-gradient(135deg, #6366f1, #4f46e5)
+        }
+
+        .bc-2 {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7)
+        }
+
+        .bc-3 {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed)
+        }
+
+        .bc-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .bc-type {
+            font-size: .78rem;
+            font-weight: 600;
+            opacity: .8
         }
 
         .bc-chip {
-            font-size: 1.5rem;
-            margin-bottom: 24px
+            font-size: 1.5rem
         }
 
         .bc-number {
             font-size: 1.1rem;
-            font-weight: 500;
-            letter-spacing: .15em;
-            margin-bottom: 16px;
-            font-family: monospace
+            letter-spacing: 3px;
+            font-weight: 500
         }
 
         .bc-bottom {
@@ -189,371 +218,322 @@
             font-weight: 500
         }
 
-        .bc-exp-label {
-            font-size: .62rem;
-            color: rgba(255, 255, 255, .6)
-        }
-
         .bc-exp {
-            font-size: .82rem
+            font-size: .78rem;
+            opacity: .7
         }
 
-        .bc-brand {
-            font-size: 2rem;
-            opacity: .8
+        .bc-balance {
+            font-size: .72rem;
+            opacity: .7
         }
 
-        .bc-pattern {
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .05)
+        .bc-bal-amount {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-top: 2px
         }
 
-        .bc-pattern2 {
-            position: absolute;
-            bottom: -30px;
-            right: 40px;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .03)
-        }
-
-        .balance-row {
+        .stats {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 24px
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px
         }
 
-        .bal-card {
-            padding: 16px;
-            border-radius: 12px;
+        .stat {
             background: var(--card);
-            border: 1px solid var(--border)
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            transition: transform .15s;
+            cursor: pointer
         }
 
-        .bal-label {
+        .stat:hover {
+            transform: translateY(-2px)
+        }
+
+        .stat-label {
             font-size: .78rem;
             color: var(--muted);
             margin-bottom: 4px
         }
 
-        .bal-value {
-            font-size: 1.3rem;
-            font-weight: 700
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800
         }
 
-        .bal-change {
-            font-size: .75rem;
+        .stat-change {
+            font-size: .78rem;
             margin-top: 4px;
             display: flex;
             align-items: center;
-            gap: 3px
+            gap: 4px
         }
 
-        .txn-section {
-            margin-bottom: 24px
+        .stat-up {
+            color: var(--green)
         }
 
-        .txn-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px
+        .stat-down {
+            color: var(--red)
         }
 
-        .txn-header h2 {
-            font-size: 1rem;
-            font-weight: 600
-        }
-
-        .txn-filter {
-            display: flex;
-            gap: 6px
-        }
-
-        .tf {
-            padding: 4px 12px;
-            border-radius: 100px;
-            font-size: .78rem;
-            cursor: pointer;
-            background: rgba(255, 255, 255, .04);
-            color: var(--muted);
-            border: none;
-            font-family: 'Inter'
-        }
-
-        .tf.active {
-            background: rgba(99, 102, 241, .1);
-            color: var(--accent)
-        }
-
-        .txn-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2px
-        }
-
-        .txn {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border-radius: 10px;
-            transition: background .1s;
-            cursor: pointer
-        }
-
-        .txn:hover {
-            background: rgba(255, 255, 255, .02)
-        }
-
-        .txn-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .section-title {
             font-size: 1.1rem;
-            flex-shrink: 0
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
         }
 
-        .txn-info {
-            flex: 1
-        }
-
-        .txn-name {
-            font-size: .88rem;
+        .section-title a {
+            font-size: .82rem;
+            color: var(--accent);
+            cursor: pointer;
             font-weight: 500
         }
 
-        .txn-cat {
-            font-size: .75rem;
-            color: var(--muted)
-        }
-
-        .txn-amount {
-            text-align: right;
-            font-weight: 600;
-            font-size: .88rem
-        }
-
-        .txn-date {
-            font-size: .72rem;
-            color: var(--muted);
-            text-align: right
-        }
-
         .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
             gap: 12px;
-            margin-bottom: 24px
+            margin-bottom: 32px
         }
 
         .qa {
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
+            flex: 1;
             background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
             text-align: center;
             cursor: pointer;
             transition: all .15s
         }
 
         .qa:hover {
-            border-color: var(--accent);
-            background: rgba(99, 102, 241, .03)
+            transform: translateY(-2px);
+            border-color: var(--accent)
         }
 
         .qa-icon {
             font-size: 1.5rem;
-            margin-bottom: 6px
+            margin-bottom: 8px
         }
 
         .qa-name {
             font-size: .82rem;
-            font-weight: 500
+            font-weight: 600
+        }
+
+        .transactions {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden
+        }
+
+        .tx {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background .08s
+        }
+
+        .tx:last-child {
+            border: none
+        }
+
+        .tx:hover {
+            background: rgba(255, 255, 255, .02)
+        }
+
+        .tx-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, .04);
+            flex-shrink: 0
+        }
+
+        .tx-info {
+            flex: 1;
+            min-width: 0
+        }
+
+        .tx-name {
+            font-weight: 500;
+            font-size: .88rem
+        }
+
+        .tx-cat {
+            font-size: .75rem;
+            color: var(--muted)
+        }
+
+        .tx-amount {
+            font-weight: 700;
+            font-size: .92rem;
+            text-align: right
+        }
+
+        .tx-amount.income {
+            color: var(--green)
+        }
+
+        .tx-date {
+            font-size: .72rem;
+            color: var(--muted);
+            text-align: right
         }
     </style>
 </head>
 
 <body>
-    <aside class="sidebar">
-        <div class="s-logo">🏦 NeoBank</div>
-        <div class="s-link active"><span class="icon">🏠</span>Dashboard</div>
-        <div class="s-link"><span class="icon">💳</span>Cards</div>
-        <div class="s-link"><span class="icon">🔄</span>Transfers</div>
-        <div class="s-link"><span class="icon">📊</span>Analytics</div>
-        <div class="s-link"><span class="icon">💰</span>Savings</div>
-        <div class="s-link"><span class="icon">📱</span>Investments</div>
-        <div class="s-section">Activity</div>
-        <div class="s-link"><span class="icon">🕐</span>History</div>
-        <div class="s-link"><span class="icon">📄</span>Statements</div>
-        <div class="s-link"><span class="icon">🔔</span>Notifications</div>
-        <div class="s-section">Settings</div>
-        <div class="s-link"><span class="icon">👤</span>Profile</div>
-        <div class="s-link"><span class="icon">🔒</span>Security</div>
-        <div class="s-link"><span class="icon">⚙️</span>Settings</div>
-    </aside>
-    <div class="main">
-        <div class="header">
-            <h1>Good evening, John 👋</h1>
-            <div class="header-right"><button class="h-btn">📥 Download</button><button class="h-btn h-btn-p">+ New
-                    Transfer</button></div>
+    <nav>
+        <div class="n-logo">💳 Neo<span>Bank</span></div>
+        <div class="n-links"><button class="n-link active" onclick="setLink(this)">Dashboard</button><button
+                class="n-link" onclick="setLink(this)">Cards</button><button class="n-link"
+                onclick="setLink(this)">Transfers</button><button class="n-link"
+                onclick="setLink(this)">Analytics</button><button class="n-link"
+                onclick="setLink(this)">Settings</button></div>
+        <div class="n-right"><span>🔔</span>
+            <div class="n-avatar"><img src="https://i.pravatar.cc/64?img=11"></div>
         </div>
-        <div class="card-section">
-            <div class="cards-row">
-                <div class="bank-card" style="background:linear-gradient(135deg,#4338ca,#6366f1)">
-                    <div class="bc-pattern"></div>
-                    <div class="bc-pattern2"></div>
-                    <div class="bc-chip">💳</div>
-                    <div class="bc-number">4242 •••• •••• 8845</div>
-                    <div class="bc-bottom">
-                        <div>
-                            <div class="bc-name">JOHN DEVELOPER</div>
-                        </div>
-                        <div>
-                            <div class="bc-exp-label">VALID THRU</div>
-                            <div class="bc-exp">12/28</div>
-                        </div>
-                        <div class="bc-brand">💎</div>
+    </nav>
+    <div class="container">
+        <div class="greeting" id="greeting">Good afternoon, John</div>
+        <div class="greeting-sub">Here's your financial overview for today.</div>
+
+        <div class="cards-row">
+            <div class="bank-card bc-1">
+                <div class="bc-top"><span class="bc-type">VISA PLATINUM</span><span class="bc-chip">💳</span></div>
+                <div class="bc-number">•••• •••• •••• 4829</div>
+                <div class="bc-bottom">
+                    <div>
+                        <div class="bc-name">JOHN DEVELOPER</div>
+                        <div class="bc-exp">09/28</div>
                     </div>
-                </div>
-                <div class="bank-card" style="background:linear-gradient(135deg,#0f766e,#14b8a6)">
-                    <div class="bc-pattern"></div>
-                    <div class="bc-chip">💳</div>
-                    <div class="bc-number">5412 •••• •••• 3301</div>
-                    <div class="bc-bottom">
-                        <div>
-                            <div class="bc-name">JOHN DEVELOPER</div>
-                        </div>
-                        <div>
-                            <div class="bc-exp-label">VALID THRU</div>
-                            <div class="bc-exp">06/27</div>
-                        </div>
-                        <div class="bc-brand">🌐</div>
+                    <div style="text-align:right">
+                        <div class="bc-balance">Available Balance</div>
+                        <div class="bc-bal-amount">$24,580.00</div>
                     </div>
                 </div>
             </div>
+            <div class="bank-card bc-2">
+                <div class="bc-top"><span class="bc-type">MASTERCARD</span><span class="bc-chip">💳</span></div>
+                <div class="bc-number">•••• •••• •••• 7153</div>
+                <div class="bc-bottom">
+                    <div>
+                        <div class="bc-name">JOHN DEVELOPER</div>
+                        <div class="bc-exp">03/27</div>
+                    </div>
+                    <div style="text-align:right">
+                        <div class="bc-balance">Available Balance</div>
+                        <div class="bc-bal-amount">$8,320.50</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bank-card bc-3">
+                <div class="bc-top"><span class="bc-type">SAVINGS</span><span class="bc-chip">🏦</span></div>
+                <div class="bc-number">•••• •••• •••• 2891</div>
+                <div class="bc-bottom">
+                    <div>
+                        <div class="bc-name">JOHN DEVELOPER</div>
+                        <div class="bc-exp">Savings</div>
+                    </div>
+                    <div style="text-align:right">
+                        <div class="bc-balance">Total Saved</div>
+                        <div class="bc-bal-amount">$45,120.00</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="balance-row">
-            <div class="bal-card">
-                <div class="bal-label">Total Balance</div>
-                <div class="bal-value">$24,580.42</div>
-                <div class="bal-change" style="color:var(--green)">↑ 12.5% this month</div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">Total Balance</div>
+                <div class="stat-value">$78,020</div>
+                <div class="stat-change stat-up">↑ 12.5% vs last month</div>
             </div>
-            <div class="bal-card">
-                <div class="bal-label">Income</div>
-                <div class="bal-value" style="color:var(--green)">+$8,240.00</div>
-                <div class="bal-change" style="color:var(--green)">↑ 8.3%</div>
+            <div class="stat">
+                <div class="stat-label">Income (March)</div>
+                <div class="stat-value">$12,450</div>
+                <div class="stat-change stat-up">↑ 8.2% vs Feb</div>
             </div>
-            <div class="bal-card">
-                <div class="bal-label">Expenses</div>
-                <div class="bal-value" style="color:var(--red)">-$3,120.50</div>
-                <div class="bal-change" style="color:var(--green)">↓ 4.2%</div>
+            <div class="stat">
+                <div class="stat-label">Expenses (March)</div>
+                <div class="stat-value">$4,280</div>
+                <div class="stat-change stat-down">↑ 3.1% vs Feb</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Investments</div>
+                <div class="stat-value">$15,680</div>
+                <div class="stat-change stat-up">↑ 5.7% returns</div>
             </div>
         </div>
+
+        <div class="section-title">Quick Actions</div>
         <div class="quick-actions">
-            <div class="qa">
-                <div class="qa-icon">📤</div>
-                <div class="qa-name">Send</div>
+            <div class="qa" onclick="alert('💸 Send Money')">
+                <div class="qa-icon">💸</div>
+                <div class="qa-name">Send Money</div>
             </div>
-            <div class="qa">
+            <div class="qa" onclick="alert('📥 Request')">
                 <div class="qa-icon">📥</div>
-                <div class="qa-name">Receive</div>
+                <div class="qa-name">Request</div>
             </div>
-            <div class="qa">
-                <div class="qa-icon">📊</div>
-                <div class="qa-name">Invest</div>
-            </div>
-            <div class="qa">
+            <div class="qa" onclick="alert('💱 Exchange')">
                 <div class="qa-icon">💱</div>
                 <div class="qa-name">Exchange</div>
             </div>
-        </div>
-        <div class="txn-section">
-            <div class="txn-header">
-                <h2>Recent Transactions</h2>
-                <div class="txn-filter"><button class="tf active">All</button><button class="tf">Income</button><button
-                        class="tf">Expenses</button></div>
+            <div class="qa" onclick="alert('📊 Invest')">
+                <div class="qa-icon">📊</div>
+                <div class="qa-name">Invest</div>
             </div>
-            <div class="txn-list">
-                <div class="txn">
-                    <div class="txn-icon" style="background:rgba(34,197,94,.1)">💰</div>
-                    <div class="txn-info">
-                        <div class="txn-name">Salary Deposit</div>
-                        <div class="txn-cat">Income · Direct Deposit</div>
-                    </div>
-                    <div>
-                        <div class="txn-amount" style="color:var(--green)">+$4,500.00</div>
-                        <div class="txn-date">Today</div>
-                    </div>
-                </div>
-                <div class="txn">
-                    <div class="txn-icon" style="background:rgba(239,68,68,.1)">🛒</div>
-                    <div class="txn-info">
-                        <div class="txn-name">Amazon Purchase</div>
-                        <div class="txn-cat">Shopping · Online</div>
-                    </div>
-                    <div>
-                        <div class="txn-amount">-$89.99</div>
-                        <div class="txn-date">Yesterday</div>
-                    </div>
-                </div>
-                <div class="txn">
-                    <div class="txn-icon" style="background:rgba(139,92,246,.1)">🎵</div>
-                    <div class="txn-info">
-                        <div class="txn-name">Spotify Premium</div>
-                        <div class="txn-cat">Subscription · Monthly</div>
-                    </div>
-                    <div>
-                        <div class="txn-amount">-$14.99</div>
-                        <div class="txn-date">Mar 1</div>
-                    </div>
-                </div>
-                <div class="txn">
-                    <div class="txn-icon" style="background:rgba(59,130,246,.1)">☁️</div>
-                    <div class="txn-info">
-                        <div class="txn-name">Vercel Pro</div>
-                        <div class="txn-cat">Subscription · Monthly</div>
-                    </div>
-                    <div>
-                        <div class="txn-amount">-$20.00</div>
-                        <div class="txn-date">Mar 1</div>
-                    </div>
-                </div>
-                <div class="txn">
-                    <div class="txn-icon" style="background:rgba(34,197,94,.1)">💵</div>
-                    <div class="txn-info">
-                        <div class="txn-name">Client Payment — Acme</div>
-                        <div class="txn-cat">Freelance · Invoice #47</div>
-                    </div>
-                    <div>
-                        <div class="txn-amount" style="color:var(--green)">+$2,400.00</div>
-                        <div class="txn-date">Feb 28</div>
-                    </div>
-                </div>
-                <div class="txn">
-                    <div class="txn-icon" style="background:rgba(245,158,11,.1)">☕</div>
-                    <div class="txn-info">
-                        <div class="txn-name">Starbucks</div>
-                        <div class="txn-cat">Food & Drink · In-store</div>
-                    </div>
-                    <div>
-                        <div class="txn-amount">-$6.50</div>
-                        <div class="txn-date">Feb 27</div>
-                    </div>
-                </div>
+            <div class="qa" onclick="alert('💳 New Card')">
+                <div class="qa-icon">💳</div>
+                <div class="qa-name">New Card</div>
             </div>
         </div>
+
+        <div class="section-title">Recent Transactions <a>See all →</a></div>
+        <div class="transactions" id="transactions"></div>
     </div>
+
+    <script>
+        const txs = [
+            { icon: '🛒', name: 'Amazon.com', cat: 'Shopping', amount: -124.99, date: 'Today, 2:34 PM' },
+            { icon: '💰', name: 'Salary — Acme Corp', cat: 'Income', amount: 8500.00, date: 'Today, 9:00 AM' },
+            { icon: '☕', name: 'Starbucks', cat: 'Food & Drink', amount: -6.50, date: 'Yesterday' },
+            { icon: '🏠', name: 'Rent Payment', cat: 'Housing', amount: -2200.00, date: 'Mar 1' },
+            { icon: '📱', name: 'App Store', cat: 'Subscriptions', amount: -14.99, date: 'Mar 1' },
+            { icon: '💻', name: 'Freelance Payment', cat: 'Income', amount: 3200.00, date: 'Feb 28' },
+            { icon: '🚗', name: 'Uber', cat: 'Transport', amount: -23.40, date: 'Feb 27' },
+            { icon: '🎮', name: 'Steam', cat: 'Entertainment', amount: -59.99, date: 'Feb 26' },
+        ];
+
+        function renderTxs() {
+            document.getElementById('transactions').innerHTML = txs.map(t => `
+    <div class="tx"><div class="tx-icon">${t.icon}</div><div class="tx-info"><div class="tx-name">${t.name}</div><div class="tx-cat">${t.cat}</div></div><div><div class="tx-amount${t.amount > 0 ? ' income' : ''}">${t.amount > 0 ? '+' : ''}$${Math.abs(t.amount).toFixed(2)}</div><div class="tx-date">${t.date}</div></div></div>
+  `).join('');
+        }
+
+        const h = new Date().getHours();
+        document.getElementById('greeting').textContent = `Good ${h < 12 ? 'morning' : h < 18 ? 'afternoon' : 'evening'}, John`;
+        renderTxs();
+        function setLink(el) { document.querySelectorAll('.n-link').forEach(l => l.classList.remove('active')); el.classList.add('active') }
+    </script>
 </body>
 
 </html>

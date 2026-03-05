@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Rivera — Creative Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #0a0a0b;
+            --card: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.06);
+            --accent: #10b981;
+            --accent2: #6366f1;
+            --text: #f0f0f5;
+            --muted: #6b7280
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem
+        }
+
+        nav {
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto
+        }
+
+        .nav-name {
+            font-weight: 800;
+            font-size: 1.1rem
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.85rem;
+            color: var(--muted)
+        }
+
+        .nav-links a:hover {
+            color: var(--text)
+        }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--accent)
+        }
+
+        .nav-status .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.4
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .hero {
+            padding: 8rem 0 5rem
+        }
+
+        .hero-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.8s ease
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.8s ease 0.1s both
+        }
+
+        .hero h1 .grad {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--muted);
+            max-width: 500px;
+            line-height: 1.7;
+            animation: fadeUp 0.8s ease 0.2s both
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            animation: fadeUp 0.8s ease 0.3s both
+        }
+
+        .hero-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            color: var(--muted);
+            transition: color 0.2s
+        }
+
+        .hero-link:hover {
+            color: var(--accent)
+        }
+
+        .section {
+            padding: 4rem 0
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .project-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem
+        }
+
+        .project {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            border-radius: 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            transition: all 0.4s
+        }
+
+        .project:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px)
+        }
+
+        .proj-img {
+            aspect-ratio: 16/10;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative
+        }
+
+        .proj-img-bg {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem
+        }
+
+        .proj-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center
+        }
+
+        .proj-year {
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem
+        }
+
+        .proj-info h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem
+        }
+
+        .proj-info p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 1rem
+        }
+
+        .proj-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 1rem
+        }
+
+        .proj-tag {
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--accent);
+            font-size: 0.7rem;
+            font-weight: 500;
+            border: 1px solid rgba(16, 185, 129, 0.1)
+        }
+
+        .proj-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.2s
+        }
+
+        .proj-link:hover {
+            color: var(--accent)
+        }
+
+        .exp-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .exp {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            transition: all 0.3s
+        }
+
+        .exp:hover {
+            border-color: var(--accent)
+        }
+
+        .exp-date {
+            font-size: 0.8rem;
+            color: var(--muted);
+            min-width: 120px;
+            padding-top: 3px
+        }
+
+        .exp-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem
+        }
+
+        .exp-info .company {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem
+        }
+
+        .exp-info p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        .stack-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem
+        }
+
+        .stack-item {
+            padding: 10px 18px;
+            border-radius: 10px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            transition: all 0.2s
+        }
+
+        .stack-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px)
+        }
+
+        .contact {
+            padding: 4rem 0 6rem;
+            text-align: center
+        }
+
+        .contact h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem
+        }
+
+        .contact p {
+            color: var(--muted);
+            margin-bottom: 2rem
+        }
+
+        .contact-btn {
+            padding: 14px 36px;
+            border-radius: 12px;
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s
+        }
+
+        .contact-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px)
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border)
+        }
+
+        @media(max-width:768px) {
+            .project {
+                grid-template-columns: 1fr
+            }
+
+            .exp {
+                flex-direction: column;
+                gap: 0.5rem
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <span class="nav-name">Alex Rivera</span>
+        <div class="nav-links"><a href="#work">Work</a><a href="#exp">Experience</a><a href="#contact">Contact</a></div>
+        <div class="nav-status"><span class="dot"></span> Available for work</div>
+    </nav>
+    <div class="container">
+        <section class="hero">
+            <div class="hero-label">Full-Stack Developer & Designer</div>
+            <h1>I build <span class="grad">digital products</span><br>that people love.</h1>
+            <p>Specialized in React, Next.js, and TypeScript. Currently crafting beautiful, performant web experiences
+                at the intersection of design and engineering.</p>
+            <div class="hero-links">
+                <a class="hero-link" href="#">GitHub →</a>
+                <a class="hero-link" href="#">LinkedIn →</a>
+                <a class="hero-link" href="#">Twitter →</a>
+            </div>
+        </section>
+
+        <section class="section" id="work">
+            <div class="section-title">Selected Work</div>
+            <div class="project-grid">
+                <div class="project">
+                    <div class="proj-img">
+                        <div class="proj-img-bg" style="background:linear-gradient(135deg,#0f1922,#1a2d3d)">📊</div>
+                    </div>
+                    <div class="proj-info">
+                        <div class="proj-year">2026</div>
+                        <h3>Analytics Dashboard</h3>
+                        <p>Real-time analytics platform with custom visualizations and automated reporting for SaaS
+                            companies.</p>
+                        <div class="proj-tags"><span class="proj-tag">Next.js 15</span><span
+                                class="proj-tag">Tremor</span><span class="proj-tag">Supabase</span></div>
+                        <a class="proj-link" href="#">View Project →</a>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="proj-img">
+                        <div class="proj-img-bg" style="background:linear-gradient(135deg,#1a0f22,#2d1a3d)">🤖</div>
+                    </div>
+                    <div class="proj-info">
+                        <div class="proj-year">2025</div>
+                        <h3>AI Content Studio</h3>
+                        <p>Content generation platform powered by GPT-4, featuring real-time collaboration and template
+                            management.</p>
+                        <div class="proj-tags"><span class="proj-tag">React</span><span
+                                class="proj-tag">OpenAI</span><span class="proj-tag">Prisma</span></div>
+                        <a class="proj-link" href="#">View Project →</a>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="proj-img">
+                        <div class="proj-img-bg" style="background:linear-gradient(135deg,#0f2218,#1a3d28)">🛒</div>
+                    </div>
+                    <div class="proj-info">
+                        <div class="proj-year">2025</div>
+                        <h3>Organic Market</h3>
+                        <p>Full-stack e-commerce platform for a sustainable food brand with subscriptions and delivery
+                            tracking.</p>
+                        <div class="proj-tags"><span class="proj-tag">Next.js</span><span
+                                class="proj-tag">Stripe</span><span class="proj-tag">Medusa</span></div>
+                        <a class="proj-link" href="#">View Project →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="exp">
+            <div class="section-title">Experience</div>
+            <div class="exp-list">
+                <div class="exp">
+                    <div class="exp-date">2024 — Present</div>
+                    <div class="exp-info">
+                        <h3>Senior Frontend Engineer</h3>
+                        <div class="company">Vercel</div>
+                        <p>Leading the development of internal tools and contributing to the Next.js framework. Building
+                            design systems for enterprise clients.</p>
+                    </div>
+                </div>
+                <div class="exp">
+                    <div class="exp-date">2022 — 2024</div>
+                    <div class="exp-info">
+                        <h3>Full-Stack Developer</h3>
+                        <div class="company">Linear</div>
+                        <p>Built key features for the project management platform including real-time sync, keyboard
+                            shortcuts, and the command palette.</p>
+                    </div>
+                </div>
+                <div class="exp">
+                    <div class="exp-date">2020 — 2022</div>
+                    <div class="exp-info">
+                        <h3>Frontend Developer</h3>
+                        <div class="company">Stripe</div>
+                        <p>Developed checkout components and payment form templates used by millions of merchants
+                            worldwide.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title">Tech Stack</div>
+            <div class="stack-grid">
+                <span class="stack-item">TypeScript</span><span class="stack-item">React</span><span
+                    class="stack-item">Next.js</span><span class="stack-item">Tailwind CSS</span><span
+                    class="stack-item">Node.js</span><span class="stack-item">PostgreSQL</span><span
+                    class="stack-item">Prisma</span><span class="stack-item">Supabase</span><span
+                    class="stack-item">Stripe</span><span class="stack-item">Framer Motion</span><span
+                    class="stack-item">Docker</span><span class="stack-item">Vercel</span>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <h2>Let's work together</h2>
+            <p>Have a project in mind? I'd love to hear about it.</p>
+            <button class="contact-btn">Get in Touch →</button>
+        </section>
+    </div>
+    <footer>© 2026 Alex Rivera. Built with DevVault Pro Templates</footer>
+</body>
+
+</html>

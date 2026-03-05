@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowBoard — CRM Kanban Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #0a0a0f;
+            --sidebar: #0d0d14;
+            --col: #111118;
+            --card: #161622;
+            --border: rgba(255, 255, 255, 0.06);
+            --accent: #8b5cf6;
+            --blue: #3b82f6;
+            --green: #22c55e;
+            --amber: #f59e0b;
+            --pink: #ec4899;
+            --text: #f0f0f5;
+            --muted: #6b7280
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden
+        }
+
+        .sidebar {
+            width: 240px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0
+        }
+
+        .sb-header {
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .sb-header span {
+            background: linear-gradient(135deg, var(--accent), var(--blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .sb-section {
+            padding: 0.5rem 0.8rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-top: 1rem
+        }
+
+        .sb-item {
+            padding: 8px 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 8px;
+            margin: 0 0.5rem
+        }
+
+        .sb-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text)
+        }
+
+        .sb-item.active {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--accent)
+        }
+
+        .sb-item .badge {
+            margin-left: auto;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent);
+            font-size: 0.7rem;
+            font-weight: 600
+        }
+
+        .sb-bottom {
+            margin-top: auto;
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .sb-av {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600
+        }
+
+        .sb-name {
+            font-size: 0.85rem;
+            font-weight: 500
+        }
+
+        .sb-role {
+            font-size: 0.7rem;
+            color: var(--muted)
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        .topbar {
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .tb-left h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 2px
+        }
+
+        .tb-left p {
+            font-size: 0.8rem;
+            color: var(--muted)
+        }
+
+        .tb-right {
+            display: flex;
+            gap: 8px
+        }
+
+        .tb-btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif
+        }
+
+        .tb-btn-s {
+            background: var(--col);
+            border: 1px solid var(--border);
+            color: var(--text)
+        }
+
+        .tb-btn-s:hover {
+            border-color: var(--accent)
+        }
+
+        .tb-btn-p {
+            background: var(--accent);
+            border: none;
+            color: #fff;
+            font-weight: 600
+        }
+
+        .tb-search {
+            padding: 8px 14px;
+            border-radius: 8px;
+            background: var(--col);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.82rem;
+            width: 200px;
+            outline: none;
+            font-family: 'Inter', sans-serif
+        }
+
+        .tb-search:focus {
+            border-color: var(--accent)
+        }
+
+        .board {
+            flex: 1;
+            display: flex;
+            gap: 1.2rem;
+            padding: 1.2rem;
+            overflow-x: auto
+        }
+
+        .board::-webkit-scrollbar {
+            height: 6px
+        }
+
+        .board::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 6px
+        }
+
+        .column {
+            min-width: 290px;
+            max-width: 290px;
+            display: flex;
+            flex-direction: column
+        }
+
+        .col-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem
+        }
+
+        .col-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600
+        }
+
+        .col-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%
+        }
+
+        .col-count {
+            padding: 2px 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 0.7rem;
+            color: var(--muted)
+        }
+
+        .col-add {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: var(--col);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 1rem
+        }
+
+        .col-cards {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            overflow-y: auto;
+            padding-right: 4px
+        }
+
+        .col-cards::-webkit-scrollbar {
+            width: 3px
+        }
+
+        .col-cards::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px
+        }
+
+        .card {
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px)
+        }
+
+        .card-labels {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px
+        }
+
+        .card-label {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600
+        }
+
+        .card h4 {
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.3
+        }
+
+        .card p {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.5;
+            margin-bottom: 10px
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .card-avatars {
+            display: flex
+        }
+
+        .card-av {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.55rem;
+            font-weight: 600;
+            margin-left: -4px;
+            border: 2px solid var(--card)
+        }
+
+        .card-av:first-child {
+            margin-left: 0
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 10px;
+            font-size: 0.75rem;
+            color: var(--muted)
+        }
+
+        .card-priority {
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            display: inline-block;
+            margin-right: 2px
+        }
+
+        footer {
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.7rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border)
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sb-header">◆ <span>FlowBoard</span></div>
+        <div class="sb-section">Workspace</div>
+        <div class="sb-item active">📋 Board <span class="badge">24</span></div>
+        <div class="sb-item">📊 Analytics</div>
+        <div class="sb-item">📅 Calendar</div>
+        <div class="sb-item">📁 Files</div>
+        <div class="sb-section">Teams</div>
+        <div class="sb-item">🎨 Design</div>
+        <div class="sb-item">⚙️ Engineering</div>
+        <div class="sb-item">📈 Marketing</div>
+        <div class="sb-section">Settings</div>
+        <div class="sb-item">👥 Members</div>
+        <div class="sb-item">🔧 Preferences</div>
+        <div class="sb-bottom">
+            <div class="sb-av">JD</div>
+            <div>
+                <div class="sb-name">John Doe</div>
+                <div class="sb-role">Admin</div>
+            </div>
+        </div>
+    </aside>
+    <div class="main">
+        <div class="topbar">
+            <div class="tb-left">
+                <h1>Product Launch Q1</h1>
+                <p>Sprint 12 · 8 tasks remaining</p>
+            </div>
+            <div class="tb-right">
+                <input class="tb-search" placeholder="🔍 Search tasks...">
+                <button class="tb-btn tb-btn-s">⚡ Filter</button>
+                <button class="tb-btn tb-btn-p">+ Add Task</button>
+            </div>
+        </div>
+        <div class="board">
+            <div class="column">
+                <div class="col-header">
+                    <div class="col-title"><span class="col-dot" style="background:var(--muted)"></span>Backlog <span
+                            class="col-count">4</span></div><span class="col-add">+</span>
+                </div>
+                <div class="col-cards">
+                    <div class="card">
+                        <div class="card-labels"><span class="card-label"
+                                style="background:rgba(139,92,246,0.1);color:var(--accent)">Feature</span></div>
+                        <h4>Implement dark mode toggle in settings</h4>
+                        <p>Add system/light/dark theme options with persistence</p>
+                        <div class="card-footer">
+                            <div class="card-avatars">
+                                <div class="card-av"
+                                    style="background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff">SK
+                                </div>
+                            </div>
+                            <div class="card-meta"><span><span class="card-priority"
+                                        style="background:var(--amber)"></span>Medium</span><span>💬 3</span></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-labels"><span class="card-label"
+                                style="background:rgba(59,130,246,0.1);color:var(--blue)">Enhancement</span></div>
+                        <h4>Keyboard shortcuts for common actions</h4>
+                        <p>Cmd+K search, Cmd+N new task, etc.</p>
+                        <div class="card-footer">
+                            <div class="card-avatars">
+                                <div class="card-av"
+                                    style="background:linear-gradient(135deg,var(--green),#16a34a);color:#fff">MR</div>
+                            </div>
+                            <div class="card-meta"><span><span class="card-priority"
+                                        style="background:var(--muted)"></span>Low</span><span>💬 1</span></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-labels"><span class="card-label"
+                                style="background:rgba(236,72,153,0.1);color:var(--pink)">Design</span></div>
+                        <h4>Update empty states illustrations</h4>
+                        <p>Create friendly illustrations for empty boards/lists</p>
+                        <div class="card-footer">
+                            <div class="card-avatars">
+                                <div class="card-av"
+                                    style="background:linear-gradient(135deg,var(--pink),#db2777);color:#fff">AL</div>
+                            </div>
+                            <div class="card-meta"><span><span class="card-priority"
+                                        style="background:var(--muted)"></span>Low</span><span>📎 2</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="col-header">
+                    <div class="col-title"><span class="col-dot" style="background:var(--blue)"></span>In Progress <span
+                            class="col-count">3</span></div><span class="col-add">+</span>
+                </div>
+                <div class="col-cards">
+                    <div class="card">
+                        <div class="card-labels"><span class="card-label"
+                                style="background:rgba(239,68,68,0.1);color:#ef4444">Bug</span><span class="card-label"
+                                style="background:rgba(139,92,246,0.1);color:var(--accent)">Urgent</span></div>
+                        <h4>Fix payment webhook timeout issues</h4>
+                        <p>Stripe webhooks failing after 30s on large orders</p>
+                        <div class="card-footer">
+                            <div class="card-avatars">
+                                <div class="card-av"
+                                    style="background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff">SK
+                                </div>
+                                <div class="card-av"
+                                    style="background:linear-gradient(135deg,var(--amber),#d97706);color:#fff">TK</div>
+                            </div>
+                            <div class="card-meta"><span><span class="card-priority"
+                                        style="background:#ef4444"></span>Critical</span><span>💬 7</span></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-labels"><span class="card-label"
+                                style="background:rgba(139,92,246,0.1);color:var(--accent)">Feature</span></div>
+                        <h4>Real-time collaboration on boards</h4>
+                        <p>WebSocket integration for live cursor and editing</p>
+                        <div class="card-footer">
+                            <div class="card-avatars">
+                                <div class="card-av"
+                                    style="background:linear-gradient(135deg,var(--green),#16a34a);color:#fff">MR</div>
+                            </div>
+                            <div class="card-meta"><span><span class="card-priority"
+                                        style="background:var(--amber)"></span>High</span><span>💬 5</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="col-header">
+                    <div class="col-title"><span class="col-dot" style="background:var(--amber)"></span>Review <span
+                            class="col-count">2</span></div><span class="col-add">+</span>
+                </div>
+                <div class="col-cards">
+                    <div class="card">
+                        <div class="card-labels"><span class="card-label"
+                                style="background:rgba(34,197,94,0.1);color:var(--green)">API</span></div>
+                        <h4>OAuth2 integration for third-party apps</h4>
+                        <p>Google, GitHub, Slack authentication providers</p>
+                        <div class="card-footer">
+                            <div class="card-avatars">
+                                <div class="card-av"
+                                    style="background:linear-gradient(135deg,var(--amber),#d97706);color:#fff">TK</div>
+                                <div class="card-av"
+                                    style="background:linear-gradient(135deg,var(--pink),#db2777);color:#fff">AL</div>
+                            </div>
+                            <div class="card-meta"><span><span class="card-priority"
+                                        style="background:var(--amber)"></span>High</span><span>📎 4</span></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-labels"><span class="card-label"
+                                style="background:rgba(236,72,153,0.1);color:var(--pink)">Design</span></div>
+                        <h4>Mobile responsive navigation redesign</h4>
+                        <p>Bottom tab bar with gesture navigation</p>
+                        <div class="card-footer">
+                            <div class="card-avatars">
+                                <div class="card-av"
+                                    style="background:linear-gradient(135deg,var(--pink),#db2777);color:#fff">AL</div>
+                            </div>
+                            <div class="card-meta"><span><span class="card-priority"
+                                        style="background:var(--amber)"></span>Medium</span><span>💬 2</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="col-header">
+                    <div class="col-title"><span class="col-dot" style="background:var(--green)"></span>Done <span
+                            class="col-count">5</span></div><span class="col-add">+</span>
+                </div>
+                <div class="col-cards">
+                    <div class="card" style="opacity:0.6">
+                        <div class="card-labels"><span class="card-label"
+                                style="background:rgba(34,197,94,0.1);color:var(--green)">API</span></div>
+                        <h4>REST API rate limiting middleware</h4>
+                        <p>Token bucket algorithm with Redis</p>
+                        <div class="card-footer">
+                            <div class="card-avatars">
+                                <div class="card-av"
+                                    style="background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff">SK
+                                </div>
+                            </div>
+                            <div class="card-meta"><span>✅ Done</span></div>
+                        </div>
+                    </div>
+                    <div class="card" style="opacity:0.6">
+                        <div class="card-labels"><span class="card-label"
+                                style="background:rgba(139,92,246,0.1);color:var(--accent)">Feature</span></div>
+                        <h4>Email notification preferences</h4>
+                        <p>Per-board notification settings</p>
+                        <div class="card-footer">
+                            <div class="card-avatars">
+                                <div class="card-av"
+                                    style="background:linear-gradient(135deg,var(--green),#16a34a);color:#fff">MR</div>
+                            </div>
+                            <div class="card-meta"><span>✅ Done</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>© 2026 FlowBoard — Built with DevVault Pro Templates</footer>
+    </div>
+</body>
+
+</html>

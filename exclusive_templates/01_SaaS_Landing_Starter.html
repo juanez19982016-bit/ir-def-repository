@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex — SaaS Landing Page Starter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #050508;
+            --card: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.06);
+            --accent: #7c3aed;
+            --accent2: #06b6d4;
+            --text: #f0f0f5;
+            --muted: #6b7280
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(20px);
+            background: rgba(5, 5, 8, 0.8);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .nav-logo span {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.9rem;
+            color: var(--muted)
+        }
+
+        .nav-links a:hover {
+            color: var(--text)
+        }
+
+        .nav-cta {
+            padding: 10px 24px;
+            border-radius: 10px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s
+        }
+
+        .nav-cta:hover {
+            opacity: 0.9;
+            transform: translateY(-1px)
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.12), transparent 70%);
+            pointer-events: none
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.08), transparent 70%);
+            pointer-events: none
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            animation: fadeDown 0.8s ease
+        }
+
+        .chip .dot {
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: blink 2s infinite
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.3
+            }
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-15px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+            animation: fadeDown 1s ease
+        }
+
+        .hero h1 .grad {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--muted);
+            max-width: 550px;
+            margin: 0 auto;
+            animation: fadeUp 1s ease 0.2s both
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2.5rem;
+            animation: fadeUp 1s ease 0.4s both
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s
+        }
+
+        .btn-p {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 25px rgba(124, 58, 237, 0.3)
+        }
+
+        .btn-p:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(124, 58, 237, 0.4)
+        }
+
+        .btn-s {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border)
+        }
+
+        .btn-s:hover {
+            border-color: var(--accent)
+        }
+
+        .hero-img {
+            margin-top: 4rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            background: var(--card);
+            padding: 2px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeUp 1.2s ease 0.6s both;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5)
+        }
+
+        .hero-img .mockup {
+            width: 100%;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #0f0f1a, #1a1025);
+            padding: 2rem;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .mockup-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 1rem;
+            width: 100%
+        }
+
+        .mock-sidebar {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .mock-nav {
+            height: 10px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            width: 70%
+        }
+
+        .mock-nav.active {
+            background: rgba(124, 58, 237, 0.3);
+            width: 85%
+        }
+
+        .mock-main {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .mock-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px
+        }
+
+        .mock-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 1rem;
+            height: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.04)
+        }
+
+        .mock-card .mc-num {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .mock-card .mc-label {
+            font-size: 0.65rem;
+            color: var(--muted)
+        }
+
+        .mock-chart {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 1rem;
+            height: 150px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            position: relative;
+            overflow: hidden
+        }
+
+        .mock-chart::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.1));
+            border-radius: 0 0 10px 10px
+        }
+
+        /* LOGOS */
+        .logos {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .logos p {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 1.5rem
+        }
+
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            opacity: 0.4;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 0.02em
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 6rem 2rem
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto
+        }
+
+        .section-head {
+            text-align: center;
+            margin-bottom: 4rem
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -0.02em
+        }
+
+        .section-head p {
+            color: var(--muted);
+            margin-top: 0.8rem;
+            font-size: 1.05rem
+        }
+
+        .feat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem
+        }
+
+        .feat {
+            padding: 2rem;
+            border-radius: 16px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            transition: all 0.3s
+        }
+
+        .feat:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px)
+        }
+
+        .feat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem
+        }
+
+        .feat h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem
+        }
+
+        .feat p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        /* PRICING */
+        .pricing {
+            padding: 6rem 2rem;
+            background: rgba(255, 255, 255, 0.01)
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto
+        }
+
+        .price {
+            padding: 2.5rem;
+            border-radius: 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s
+        }
+
+        .price.pop {
+            border-color: var(--accent);
+            background: rgba(124, 58, 237, 0.05);
+            transform: scale(1.02);
+            position: relative
+        }
+
+        .price.pop::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 16px;
+            border-radius: 100px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em
+        }
+
+        .price h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem
+        }
+
+        .price .amt {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 1rem 0
+        }
+
+        .price .amt small {
+            font-size: 0.9rem;
+            color: var(--muted);
+            font-weight: 400
+        }
+
+        .price ul {
+            list-style: none;
+            text-align: left;
+            margin: 1.5rem 0
+        }
+
+        .price li {
+            padding: 6px 0;
+            font-size: 0.88rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .price li::before {
+            content: '✓';
+            color: #22c55e;
+            font-weight: 700
+        }
+
+        .price .btn {
+            width: 100%;
+            display: block;
+            text-align: center;
+            margin-top: 1rem
+        }
+
+        /* CTA */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.08), transparent 70%)
+        }
+
+        .cta h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem
+        }
+
+        .cta p {
+            color: var(--muted);
+            margin-bottom: 2rem;
+            font-size: 1.05rem
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border)
+        }
+
+        @media(max-width:768px) {
+
+            .feat-grid,
+            .price-grid {
+                grid-template-columns: 1fr
+            }
+
+            .nav-links {
+                display: none
+            }
+
+            .mockup-grid {
+                grid-template-columns: 1fr
+            }
+
+            .mock-sidebar {
+                display: none
+            }
+
+            .price.pop {
+                transform: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-logo">◆ <span>Apex</span></div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#">Docs</a>
+            <a href="#">Blog</a>
+        </div>
+        <button class="nav-cta">Get Started Free</button>
+    </nav>
+
+    <section class="hero">
+        <div>
+            <div class="chip"><span class="dot"></span> Now in public beta</div>
+            <h1>Build your next<br>SaaS product<br><span class="grad">10x faster.</span></h1>
+            <p>The modern full-stack framework with auth, payments, and analytics built-in. Ship in days, not months.
+            </p>
+            <div class="hero-btns">
+                <button class="btn btn-p">Start Building Free →</button>
+                <button class="btn btn-s">Watch Demo</button>
+            </div>
+            <div class="hero-img">
+                <div class="mockup">
+                    <div class="mockup-grid">
+                        <div class="mock-sidebar">
+                            <div class="mock-nav active"></div>
+                            <div class="mock-nav"></div>
+                            <div class="mock-nav"></div>
+                            <div class="mock-nav" style="width:50%"></div>
+                            <div class="mock-nav"></div>
+                            <div style="flex:1"></div>
+                            <div class="mock-nav" style="width:60%"></div>
+                        </div>
+                        <div class="mock-main">
+                            <div class="mock-cards">
+                                <div class="mock-card">
+                                    <div class="mc-num" style="color:var(--accent)">$24.5K</div>
+                                    <div class="mc-label">Revenue</div>
+                                </div>
+                                <div class="mock-card">
+                                    <div class="mc-num" style="color:var(--accent2)">1,847</div>
+                                    <div class="mc-label">Users</div>
+                                </div>
+                                <div class="mock-card">
+                                    <div class="mc-num" style="color:#22c55e">94.2%</div>
+                                    <div class="mc-label">Uptime</div>
+                                </div>
+                            </div>
+                            <div class="mock-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="logos">
+        <p>Trusted by developers at</p>
+        <div class="logo-row">
+            <span>Vercel</span><span>Stripe</span><span>Supabase</span><span>Linear</span><span>Resend</span>
+        </div>
+    </div>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-head">
+                <h2>Everything you need to ship fast</h2>
+                <p>Stop reinventing the wheel. We handle the boring stuff.</p>
+            </div>
+            <div class="feat-grid">
+                <div class="feat">
+                    <div class="feat-icon" style="background:rgba(124,58,237,0.1)">🔐</div>
+                    <h3>Authentication</h3>
+                    <p>Email, Google, GitHub login built-in with Auth.js. Session management, role-based access, and
+                        magic links.</p>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon" style="background:rgba(6,182,212,0.1)">💳</div>
+                    <h3>Payments</h3>
+                    <p>Stripe Checkout, subscriptions, and billing portal integrated. Accept payments from day one.</p>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon" style="background:rgba(34,197,94,0.1)">📊</div>
+                    <h3>Analytics</h3>
+                    <p>Track users, revenue, and engagement with built-in analytics dashboard. No third-party tools
+                        needed.</p>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon" style="background:rgba(251,146,60,0.1)">📧</div>
+                    <h3>Emails</h3>
+                    <p>Beautiful transactional emails with React Email + Resend. Welcome, invoice, and notification
+                        templates included.</p>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon" style="background:rgba(244,114,182,0.1)">🎨</div>
+                    <h3>Components</h3>
+                    <p>50+ UI components built with Shadcn/UI and Tailwind CSS. Dark mode, responsive, accessible.</p>
+                </div>
+                <div class="feat">
+                    <div class="feat-icon" style="background:rgba(139,92,246,0.1)">🚀</div>
+                    <h3>Deploy</h3>
+                    <p>One-click deploy to Vercel. Environment variables, domains, and SSL configured automatically.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-head">
+                <h2>Simple, transparent pricing</h2>
+                <p>No hidden fees. Cancel anytime.</p>
+            </div>
+            <div class="price-grid">
+                <div class="price">
+                    <h3>Starter</h3>
+                    <div class="amt">$0 <small>/month</small></div>
+                    <ul>
+                        <li>Up to 1,000 users</li>
+                        <li>Basic analytics</li>
+                        <li>Email support</li>
+                        <li>Community access</li>
+                    </ul>
+                    <a class="btn btn-s">Get Started</a>
+                </div>
+                <div class="price pop">
+                    <h3>Pro</h3>
+                    <div class="amt" style="color:var(--accent)">$29 <small>/month</small></div>
+                    <ul>
+                        <li>Unlimited users</li>
+                        <li>Advanced analytics</li>
+                        <li>Priority support</li>
+                        <li>Custom domains</li>
+                        <li>API access</li>
+                        <li>Team collaboration</li>
+                    </ul>
+                    <a class="btn btn-p">Start Free Trial</a>
+                </div>
+                <div class="price">
+                    <h3>Enterprise</h3>
+                    <div class="amt">Custom</div>
+                    <ul>
+                        <li>Everything in Pro</li>
+                        <li>SLA guarantee</li>
+                        <li>Dedicated support</li>
+                        <li>Custom integrations</li>
+                        <li>SSO / SAML</li>
+                    </ul>
+                    <a class="btn btn-s">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Ready to ship your app?</h2>
+        <p>Join 2,000+ developers building with Apex.</p>
+        <button class="btn btn-p" style="font-size:1.1rem;padding:16px 40px">Start Building Free →</button>
+    </section>
+
+    <footer>© 2026 Apex. All rights reserved. — Built with DevVault Pro Templates</footer>
+</body>
+
+</html>

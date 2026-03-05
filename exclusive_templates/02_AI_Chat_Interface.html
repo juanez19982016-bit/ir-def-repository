@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovAI — AI Chat Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #0a0a0f;
+            --sidebar: #0d0d14;
+            --chat: #111118;
+            --bubble: #1a1a25;
+            --accent: #8b5cf6;
+            --accent2: #06b6d4;
+            --text: #e8e8f0;
+            --muted: #6b7280;
+            --border: rgba(255, 255, 255, 0.06);
+            --user-bg: rgba(139, 92, 246, 0.1);
+            --ai-bg: rgba(6, 182, 212, 0.05)
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0
+        }
+
+        .sidebar-header {
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .sidebar-header h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .sidebar-header h2 span {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .new-chat {
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s
+        }
+
+        .new-chat:hover {
+            opacity: 0.85
+        }
+
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem
+        }
+
+        .chat-list::-webkit-scrollbar {
+            width: 3px
+        }
+
+        .chat-list::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px
+        }
+
+        .chat-item {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .chat-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text)
+        }
+
+        .chat-item.active {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--accent)
+        }
+
+        .chat-item .ic {
+            font-size: 0.9rem
+        }
+
+        .sidebar-section {
+            padding: 0.5rem 1rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-top: 0.5rem
+        }
+
+        .sidebar-footer {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .sf-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600
+        }
+
+        .sf-info {
+            flex: 1
+        }
+
+        .sf-info .name {
+            font-size: 0.85rem;
+            font-weight: 500
+        }
+
+        .sf-info .plan {
+            font-size: 0.7rem;
+            color: var(--accent)
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column
+        }
+
+        .topbar {
+            padding: 0.8rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .model-select {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: var(--bubble);
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text);
+            cursor: pointer
+        }
+
+        .model-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent)
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 8px
+        }
+
+        .top-btn {
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: var(--bubble);
+            border: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s
+        }
+
+        .top-btn:hover {
+            color: var(--text);
+            border-color: var(--accent)
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem 3rem
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px
+        }
+
+        .msg {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 12px;
+            animation: fadeIn 0.4s ease
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .msg-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-top: 4px
+        }
+
+        .msg-user .msg-avatar {
+            background: linear-gradient(135deg, var(--accent), #6d28d9)
+        }
+
+        .msg-ai .msg-avatar {
+            background: linear-gradient(135deg, var(--accent2), #0891b2);
+            font-size: 1rem
+        }
+
+        .msg-content {
+            flex: 1;
+            max-width: 700px
+        }
+
+        .msg-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 4px
+        }
+
+        .msg-user .msg-name {
+            color: var(--accent)
+        }
+
+        .msg-ai .msg-name {
+            color: var(--accent2)
+        }
+
+        .msg-text {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: var(--text)
+        }
+
+        .msg-text code {
+            background: var(--bubble);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: var(--accent)
+        }
+
+        .code-block {
+            background: #0d0d14;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden
+        }
+
+        .code-header {
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--muted)
+        }
+
+        .code-copy {
+            padding: 3px 10px;
+            border-radius: 5px;
+            background: var(--bubble);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.7rem;
+            cursor: pointer
+        }
+
+        .code-body {
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            color: #c9d1d9;
+            overflow-x: auto
+        }
+
+        .code-body .kw {
+            color: #ff7b72
+        }
+
+        .code-body .str {
+            color: #a5d6ff
+        }
+
+        .code-body .fn {
+            color: #d2a8ff
+        }
+
+        .code-body .cm {
+            color: #6b7280
+        }
+
+        .input-area {
+            padding: 1rem 3rem 1.5rem;
+            border-top: 1px solid var(--border)
+        }
+
+        .input-box {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            max-width: 750px;
+            margin: 0 auto;
+            background: var(--bubble);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 4px;
+            transition: border 0.2s
+        }
+
+        .input-box:focus-within {
+            border-color: var(--accent)
+        }
+
+        .input-box textarea {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 0.92rem;
+            padding: 12px;
+            resize: none;
+            height: 48px;
+            outline: none;
+            font-family: 'Inter', sans-serif
+        }
+
+        .send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--accent);
+            border: none;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .send-btn:hover {
+            opacity: 0.85
+        }
+
+        .input-hint {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--muted)
+        }
+
+        .typing {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            padding: 4px 0
+        }
+
+        .typing span {
+            width: 6px;
+            height: 6px;
+            background: var(--accent2);
+            border-radius: 50%;
+            animation: typing 1.4s infinite
+        }
+
+        .typing span:nth-child(2) {
+            animation-delay: 0.2s
+        }
+
+        .typing span:nth-child(3) {
+            animation-delay: 0.4s
+        }
+
+        @keyframes typing {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(0.8)
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>✦ <span>NovAI</span></h2>
+            <button class="new-chat">+ New Chat</button>
+        </div>
+        <div class="chat-list">
+            <div class="sidebar-section">Today</div>
+            <div class="chat-item active"><span class="ic">💬</span> Build a REST API in Node.js</div>
+            <div class="chat-item"><span class="ic">💬</span> React useEffect explained</div>
+            <div class="chat-item"><span class="ic">💬</span> Tailwind dark mode setup</div>
+            <div class="sidebar-section">Yesterday</div>
+            <div class="chat-item"><span class="ic">💬</span> Stripe webhook handler</div>
+            <div class="chat-item"><span class="ic">💬</span> SQL query optimization</div>
+            <div class="chat-item"><span class="ic">💬</span> Docker compose setup</div>
+            <div class="sidebar-section">Previous 7 Days</div>
+            <div class="chat-item"><span class="ic">💬</span> Next.js middleware auth</div>
+            <div class="chat-item"><span class="ic">💬</span> Prisma schema design</div>
+        </div>
+        <div class="sidebar-footer">
+            <div class="sf-avatar">JD</div>
+            <div class="sf-info">
+                <div class="name">John Doe</div>
+                <div class="plan">Pro Plan</div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="model-select"><span class="model-dot"></span> GPT-4o</div>
+            <div class="top-actions">
+                <button class="top-btn">🔗 Share</button>
+                <button class="top-btn">📋 Export</button>
+                <button class="top-btn">⚙️</button>
+            </div>
+        </div>
+
+        <div class="messages">
+            <div class="msg msg-user">
+                <div class="msg-avatar">JD</div>
+                <div class="msg-content">
+                    <div class="msg-name">You</div>
+                    <div class="msg-text">Build me a REST API endpoint in Node.js with Express that handles user
+                        registration with email validation and password hashing.</div>
+                </div>
+            </div>
+
+            <div class="msg msg-ai">
+                <div class="msg-avatar">✦</div>
+                <div class="msg-content">
+                    <div class="msg-name">NovAI</div>
+                    <div class="msg-text">
+                        Here's a complete user registration endpoint with <code>bcrypt</code> for password hashing and
+                        <code>zod</code> for input validation:
+                        <div class="code-block">
+                            <div class="code-header"><span>server.js</span><button class="code-copy">Copy</button></div>
+                            <div class="code-body">
+                                <span class="kw">import</span> express <span class="kw">from</span> <span
+                                    class="str">'express'</span>;<br>
+                                <span class="kw">import</span> bcrypt <span class="kw">from</span> <span
+                                    class="str">'bcrypt'</span>;<br>
+                                <span class="kw">import</span> { z } <span class="kw">from</span> <span
+                                    class="str">'zod'</span>;<br><br>
+                                <span class="kw">const</span> app = <span class="fn">express</span>();<br>
+                                app.<span class="fn">use</span>(express.<span class="fn">json</span>());<br><br>
+                                <span class="cm">// Validation schema</span><br>
+                                <span class="kw">const</span> registerSchema = z.<span class="fn">object</span>({<br>
+                                &nbsp;&nbsp;email: z.<span class="fn">string</span>().<span
+                                    class="fn">email</span>(),<br>
+                                &nbsp;&nbsp;password: z.<span class="fn">string</span>().<span
+                                    class="fn">min</span>(8),<br>
+                                &nbsp;&nbsp;name: z.<span class="fn">string</span>().<span class="fn">min</span>(2),<br>
+                                });<br><br>
+                                app.<span class="fn">post</span>(<span class="str">'/api/register'</span>, <span
+                                    class="kw">async</span> (req, res) => {<br>
+                                &nbsp;&nbsp;<span class="kw">const</span> result = registerSchema.<span
+                                    class="fn">safeParse</span>(req.body);<br>
+                                &nbsp;&nbsp;<span class="kw">if</span> (!result.success) {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> res.<span
+                                    class="fn">status</span>(400).<span class="fn">json</span>({ errors: result.error
+                                });<br>
+                                &nbsp;&nbsp;}<br>
+                                &nbsp;&nbsp;<span class="kw">const</span> hashed = <span class="kw">await</span>
+                                bcrypt.<span class="fn">hash</span>(result.data.password, 12);<br>
+                                &nbsp;&nbsp;<span class="cm">// Save to database...</span><br>
+                                &nbsp;&nbsp;res.<span class="fn">status</span>(201).<span class="fn">json</span>({
+                                message: <span class="str">'User created'</span> });<br>
+                                });
+                            </div>
+                        </div>
+                        Key points:
+                        <br>• Uses <code>zod</code> for type-safe validation (email format + password length)
+                        <br>• <code>bcrypt</code> with 12 salt rounds for secure password hashing
+                        <br>• Returns proper HTTP status codes (400 for validation, 201 for success)
+                        <br><br>Would you like me to add JWT token generation and a login endpoint too?
+                    </div>
+                </div>
+            </div>
+
+            <div class="msg msg-user">
+                <div class="msg-avatar">JD</div>
+                <div class="msg-content">
+                    <div class="msg-name">You</div>
+                    <div class="msg-text">Yes, add JWT authentication and a protected route example.</div>
+                </div>
+            </div>
+
+            <div class="msg msg-ai">
+                <div class="msg-avatar">✦</div>
+                <div class="msg-content">
+                    <div class="msg-name">NovAI</div>
+                    <div class="msg-text">
+                        <div class="typing"><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <div class="input-box">
+                <textarea placeholder="Message NovAI..." rows="1"></textarea>
+                <button class="send-btn">↑</button>
+            </div>
+            <div class="input-hint">NovAI can make mistakes. Verify important information.</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

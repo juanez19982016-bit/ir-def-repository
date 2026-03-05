@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe — E-Commerce Product Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #0a0a0d;
+            --card: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.06);
+            --accent: #d4a574;
+            --text: #f5f5f0;
+            --muted: #888
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text)
+        }
+
+        nav {
+            padding: 1.2rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .nav-l {
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase
+        }
+
+        .nav-c {
+            display: flex;
+            gap: 2.5rem;
+            font-size: 0.85rem;
+            color: var(--muted)
+        }
+
+        .nav-c a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s
+        }
+
+        .nav-c a:hover {
+            color: var(--text)
+        }
+
+        .nav-r {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            font-size: 1.1rem;
+            color: var(--muted)
+        }
+
+        .cart-count {
+            background: var(--accent);
+            color: #000;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 100px;
+            font-weight: 700;
+            position: relative;
+            top: -6px
+        }
+
+        .product {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start
+        }
+
+        .gallery {
+            position: relative
+        }
+
+        .main-img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #1a1510, #0a0908);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid var(--border)
+        }
+
+        .product-visual {
+            width: 70%;
+            height: 70%;
+            background: linear-gradient(135deg, var(--accent), #8b6c4a);
+            border-radius: 50%;
+            opacity: 0.15;
+            filter: blur(40px);
+            position: absolute
+        }
+
+        .product-emoji {
+            font-size: 8rem;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5))
+        }
+
+        .thumbs {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem
+        }
+
+        .thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: border 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem
+        }
+
+        .thumb.active,
+        .thumb:hover {
+            border-color: var(--accent)
+        }
+
+        .badge-new {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            padding: 6px 14px;
+            border-radius: 6px;
+            background: var(--accent);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 0.05em
+        }
+
+        .info h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem
+        }
+
+        .info .subtitle {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 1.5rem
+        }
+
+        .stars {
+            color: var(--accent);
+            font-size: 0.9rem;
+            letter-spacing: 2px
+        }
+
+        .rating span {
+            font-size: 0.85rem;
+            color: var(--muted)
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 2rem
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent)
+        }
+
+        .price-old {
+            font-size: 1.2rem;
+            color: var(--muted);
+            text-decoration: line-through
+        }
+
+        .price-save {
+            padding: 4px 12px;
+            border-radius: 6px;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            font-size: 0.8rem;
+            font-weight: 600
+        }
+
+        .desc {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .options {
+            margin-bottom: 2rem
+        }
+
+        .opt-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem
+        }
+
+        .opt-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem
+        }
+
+        .opt {
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text)
+        }
+
+        .opt:hover,
+        .opt.active {
+            border-color: var(--accent);
+            background: rgba(212, 165, 116, 0.08)
+        }
+
+        .color-opt {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s
+        }
+
+        .color-opt:hover,
+        .color-opt.active {
+            border-color: var(--text);
+            transform: scale(1.1)
+        }
+
+        .qty-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem
+        }
+
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            color: var(--text)
+        }
+
+        .qty-btn:hover {
+            border-color: var(--accent)
+        }
+
+        .qty-val {
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 1rem
+        }
+
+        .add-cart {
+            flex: 1;
+            padding: 16px;
+            border-radius: 14px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 0.02em
+        }
+
+        .add-cart:hover {
+            opacity: 0.9;
+            transform: translateY(-1px)
+        }
+
+        .wish {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s
+        }
+
+        .wish:hover {
+            border-color: var(--accent);
+            color: var(--accent)
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border)
+        }
+
+        .ft {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--muted)
+        }
+
+        .ft-ico {
+            font-size: 1.2rem
+        }
+
+        .reviews {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem 4rem
+        }
+
+        .reviews h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem
+        }
+
+        .rev-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem
+        }
+
+        .rev {
+            padding: 1.5rem;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .rev .stars {
+            margin-bottom: 0.8rem
+        }
+
+        .rev p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-style: italic
+        }
+
+        .rev .author {
+            font-weight: 600;
+            font-size: 0.85rem
+        }
+
+        .rev .date {
+            font-size: 0.75rem;
+            color: var(--muted)
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border)
+        }
+
+        @media(max-width:768px) {
+            .product {
+                grid-template-columns: 1fr
+            }
+
+            .rev-grid {
+                grid-template-columns: 1fr
+            }
+
+            .nav-c {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-l">Luxe</div>
+        <div class="nav-c"><a href="#">New Arrivals</a><a href="#">Collections</a><a href="#">Men</a><a
+                href="#">Women</a><a href="#">Sale</a></div>
+        <div class="nav-r"><span style="cursor:pointer">🔍</span><span style="cursor:pointer">👤</span><span
+                style="cursor:pointer">🛒<span class="cart-count">2</span></span></div>
+    </nav>
+    <div class="product">
+        <div class="gallery">
+            <div class="main-img">
+                <span class="badge-new">New Season</span>
+                <div class="product-visual"></div>
+                <div class="product-emoji">👟</div>
+            </div>
+            <div class="thumbs">
+                <div class="thumb active">👟</div>
+                <div class="thumb">📐</div>
+                <div class="thumb">📦</div>
+                <div class="thumb">🏷️</div>
+            </div>
+        </div>
+        <div class="info">
+            <h1>Ultra Boost Pro X</h1>
+            <div class="subtitle">Premium Running Shoes — Limited Edition</div>
+            <div class="rating"><span class="stars">★★★★★</span><span>4.9 (2,847 reviews)</span></div>
+            <div class="price-row">
+                <div class="price">$189</div>
+                <div class="price-old">$249</div>
+                <div class="price-save">-24% OFF</div>
+            </div>
+            <div class="desc">Engineered with responsive cushioning that adapts to every stride. The breathable
+                Primeknit upper provides a sock-like fit while the Continental™ rubber outsole delivers exceptional grip
+                in all conditions.</div>
+            <div class="options">
+                <div class="opt-label">Color</div>
+                <div class="opt-row">
+                    <div class="color-opt active" style="background:#1a1a1a"></div>
+                    <div class="color-opt" style="background:#e8e0d4"></div>
+                    <div class="color-opt" style="background:#5a3e28"></div>
+                    <div class="color-opt" style="background:#2d3a4a"></div>
+                </div>
+                <div class="opt-label">Size</div>
+                <div class="opt-row">
+                    <div class="opt">US 7</div>
+                    <div class="opt">US 8</div>
+                    <div class="opt active">US 9</div>
+                    <div class="opt">US 10</div>
+                    <div class="opt">US 11</div>
+                    <div class="opt">US 12</div>
+                </div>
+            </div>
+            <div class="qty-row">
+                <span class="opt-label" style="margin:0">Quantity</span>
+                <button class="qty-btn">−</button>
+                <span class="qty-val">1</span>
+                <button class="qty-btn">+</button>
+            </div>
+            <div class="action-btns">
+                <button class="add-cart">Add to Cart — $189</button>
+                <button class="wish">♡</button>
+            </div>
+            <div class="features">
+                <div class="ft"><span class="ft-ico">🚚</span> Free shipping over $100</div>
+                <div class="ft"><span class="ft-ico">↩️</span> 30-day free returns</div>
+                <div class="ft"><span class="ft-ico">🛡️</span> 2-year warranty</div>
+                <div class="ft"><span class="ft-ico">📦</span> Ships in 1-2 business days</div>
+            </div>
+        </div>
+    </div>
+    <div class="reviews">
+        <h2>Customer Reviews</h2>
+        <div class="rev-grid">
+            <div class="rev">
+                <div class="stars">★★★★★</div>
+                <p>"The most comfortable running shoes I've ever worn. The cushioning is incredible and they look
+                    amazing with everything."</p>
+                <div class="author">Sarah M.</div>
+                <div class="date">Verified Purchase · 3 days ago</div>
+            </div>
+            <div class="rev">
+                <div class="stars">★★★★★</div>
+                <p>"Bought these for marathon training and they've been a game changer. Worth every penny at full price,
+                    let alone on sale."</p>
+                <div class="author">James K.</div>
+                <div class="date">Verified Purchase · 1 week ago</div>
+            </div>
+            <div class="rev">
+                <div class="stars">★★★★☆</div>
+                <p>"Great shoes overall. The fit is perfect and the design is clean. Only reason for 4 stars is I wish
+                    they had more color options."</p>
+                <div class="author">Maria L.</div>
+                <div class="date">Verified Purchase · 2 weeks ago</div>
+            </div>
+        </div>
+    </div>
+    <footer>© 2026 Luxe. All rights reserved. — Built with DevVault Pro Templates</footer>
+</body>
+
+</html>

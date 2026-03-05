@@ -104,7 +104,7 @@ Single HTML files — just open in browser. No dependencies, no build step.
 | File | Contents | Category |
 |------|----------|----------|
 | `[PRO] Full_Stack_Guides/` | **4 Complete Guides** (SaaS, AI, Marketplace, Database) | $316 Value |
-| `[PRO] Developer_Toolkits/` | **3 Kits** (Security Audit, QA Testing, Interview Prep) | $137 Value |
+| `[PRO] Developer_Toolkits/` | **5 Kits** (Sec Audit, QA, Interview, Scraper, Notion OS)| $385 Value |
 | `01_saas_boilerplate/` | **Next.js 15 SaaS Starter** — Auth.js v5, Stripe, Prisma, Zod | Foundation |
 | `02_system_design_guide.md`| Architecture, DB selection, caching, scaling | Architecture |
 | `03_react_hooks_collection`| **15 production hooks** | React |
@@ -166,11 +166,13 @@ Single HTML files — just open in browser. No dependencies, no build step.
 | Security Audit / InfoSec Kit | 1 | $39 (ref: Gumroad security guides) | **$39** |
 | QA Testing Toolkit (Playwright, Jest, RTL) | 1 | $49 (ref: Gumroad testing guides) | **$49** |
 | Interview Prep Cheat Sheet (React, Node, System Design)| 1 | $49 (ref: Gumroad interview packs) | **$49** |
+| **NEW:** Stealth Lead Gen Scraper (Playwright/Proxies)| 1 | $99 (ref: Gumroad automation scripts) | **$99** |
+| **NEW:** Founder's Notion OS (Business Management) | 1 | $149 (ref: Premium Notion templates) | **$149** |
 | 20 Developer Cheat Sheets | 1 bundle| $15 (ref: Gumroad cheat sheet bundles) | **$15** |
 | Freelancer Toolkit (contract + proposal + pricing guide) | 1 bundle| $20 (ref: Etsy/Gumroad freelance packs) | **$20** |
 | Template Explorer | 1 | — commonly included — | **$0** |
-| **VERIFIED REAL MARKET VALUE** | | | **$3,582** |
+| **VERIFIED REAL MARKET VALUE** | | | **$3,830** |
 
 ### 🏷️ Your price: $149 — ONE-TIME. LIFETIME ACCESS.
 
-> *Estarías pagando **$3,582+** si compraras este nivel de código, assets y conocimiento por separado en marketplaces hoy. Por $149, te llevas el paquete entero (alrededor de ~95% de descuento de su valor real y tangible).*
+> *Estarías pagando **$3,830+** si compraras este nivel de código, assets y conocimiento por separado en marketplaces hoy. Por $149, te llevas el paquete entero (alrededor de ~96% de descuento de su valor real y tangible).*

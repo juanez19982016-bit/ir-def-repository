@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DesignPro — Design Tool</title>
+    <title>DesignTool — Collaborative Design</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -14,14 +14,17 @@
         }
 
         :root {
-            --bg: #1e1e1e;
-            --toolbar: #2c2c2c;
-            --panel: #252526;
-            --border: #3e3e3e;
-            --accent: #a259ff;
-            --blue: #24a0ed;
-            --text: #e8e8e8;
-            --muted: #888
+            --bg: #2c2c2c;
+            --panel: #2c2c2c;
+            --canvas: #1e1e1e;
+            --text: #fff;
+            --muted: #999;
+            --accent: #0d99ff;
+            --border: #444;
+            --green: #14ae5c;
+            --red: #f24822;
+            --yellow: #ffcd29;
+            --purple: #a259ff
         }
 
         body {
@@ -31,259 +34,296 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden
+            overflow: hidden;
+            user-select: none
         }
 
-        .topbar {
-            height: 40px;
-            background: var(--toolbar);
+        .toolbar {
             display: flex;
             align-items: center;
-            padding: 0 12px;
-            gap: 8px;
+            padding: 6px 12px;
+            background: #333;
             border-bottom: 1px solid var(--border);
-            flex-shrink: 0
+            height: 40px;
+            flex-shrink: 0;
+            gap: 8px
         }
 
         .tb-logo {
             font-weight: 800;
             font-size: .85rem;
             color: var(--accent);
+            cursor: pointer;
             margin-right: 8px
         }
 
-        .tb-menu {
+        .tb-sep {
+            width: 1px;
+            height: 20px;
+            background: var(--border)
+        }
+
+        .tb-tools {
             display: flex;
-            gap: 0
+            gap: 2px
         }
 
-        .tb-item {
-            padding: 4px 10px;
-            font-size: .78rem;
-            color: var(--muted);
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all .1s
-        }
-
-        .tb-item:hover {
-            color: var(--text);
-            background: rgba(255, 255, 255, .05)
-        }
-
-        .tb-center {
-            margin: 0 auto;
+        .tb-tool {
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
-            gap: 4px;
-            font-size: .82rem
+            justify-content: center;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: .85rem;
+            transition: all .1s;
+            border: none;
+            background: none;
+            color: var(--text)
         }
 
-        .tb-filename {
-            font-weight: 600
+        .tb-tool:hover {
+            background: rgba(255, 255, 255, .08)
         }
 
-        .tb-saved {
-            color: var(--muted);
-            font-size: .72rem
+        .tb-tool.active {
+            background: var(--accent);
+            color: #fff
         }
 
         .tb-right {
+            margin-left: auto;
             display: flex;
             gap: 8px;
-            align-items: center
+            align-items: center;
+            font-size: .78rem
         }
 
-        .share-btn {
-            padding: 4px 12px;
-            border-radius: 6px;
-            background: var(--accent);
-            color: #fff;
-            font-size: .78rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            font-family: 'Inter'
+        .tb-avatars {
+            display: flex;
+            margin-left: 8px
         }
 
         .tb-av {
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .5rem;
-            font-weight: 700
+            overflow: hidden;
+            margin-left: -6px;
+            border: 2px solid #333
         }
 
-        .toolbar {
-            position: fixed;
-            left: 8px;
-            top: 56px;
+        .tb-av img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .tb-share {
+            padding: 4px 12px;
+            border-radius: 6px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            font-size: .75rem;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter'
+        }
+
+        .tb-share:hover {
+            opacity: .9
+        }
+
+        .workspace {
+            display: flex;
+            flex: 1;
+            overflow: hidden
+        }
+
+        .layers {
+            width: 240px;
+            background: var(--panel);
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            gap: 2px;
-            background: var(--panel);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            padding: 4px;
-            z-index: 5
+            flex-shrink: 0
         }
 
-        .t-btn {
-            width: 32px;
-            height: 32px;
+        .layers-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            border-radius: 6px;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .layers-title {
+            font-size: .82rem;
+            font-weight: 600
+        }
+
+        .layers-icons {
+            display: flex;
+            gap: 4px
+        }
+
+        .layers-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .layers-tab {
+            flex: 1;
+            padding: 6px;
+            text-align: center;
+            font-size: .72rem;
             cursor: pointer;
-            font-size: .85rem;
-            transition: all .1s;
+            color: var(--muted);
+            border-bottom: 2px solid transparent;
+            transition: all .1s
+        }
+
+        .layers-tab.active {
+            color: var(--text);
+            border-color: var(--accent)
+        }
+
+        .layer {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: background .08s;
+            font-size: .78rem;
             color: var(--muted)
         }
 
-        .t-btn:hover {
-            background: rgba(255, 255, 255, .06);
+        .layer:hover {
+            background: rgba(255, 255, 255, .04)
+        }
+
+        .layer.selected {
+            background: rgba(13, 153, 255, .15);
             color: var(--text)
         }
 
-        .t-btn.active {
-            background: rgba(162, 89, 255, .15);
-            color: var(--accent)
+        .layer-icon {
+            width: 14px;
+            text-align: center;
+            font-size: .7rem
+        }
+
+        .layer-vis {
+            margin-left: auto;
+            font-size: .6rem;
+            cursor: pointer;
+            opacity: .5;
+            transition: opacity .1s
+        }
+
+        .layer-vis:hover {
+            opacity: 1
         }
 
         .canvas {
             flex: 1;
-            overflow: hidden;
+            background: var(--canvas);
             position: relative;
+            overflow: hidden;
             cursor: crosshair
         }
 
-        .canvas-bg {
+        .canvas-grid {
             position: absolute;
             inset: 0;
-            background-image: radial-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px);
+            background-image: radial-gradient(circle, rgba(255, 255, 255, .05) 1px, transparent 1px);
             background-size: 20px 20px
         }
 
-        .frame {
+        .design-el {
             position: absolute;
-            background: #fff;
-            border-radius: 4px;
-            box-shadow: 0 0 0 1px rgba(0, 0, 0, .1)
+            cursor: move;
+            transition: box-shadow .2s
         }
 
-        .frame-label {
-            position: absolute;
-            top: -20px;
-            left: 0;
-            font-size: .72rem;
-            color: var(--accent);
-            font-weight: 500
+        .design-el.selected {
+            box-shadow: 0 0 0 2px var(--accent)
         }
 
-        .el {
+        .design-el .resize {
             position: absolute;
-            cursor: move
-        }
-
-        .el-selected {
-            outline: 1px solid var(--accent);
-            outline-offset: 2px
-        }
-
-        .resize-handle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
+            bottom: -4px;
+            right: -4px;
+            width: 8px;
+            height: 8px;
             background: var(--accent);
-            border-radius: 1px
+            border: 1px solid #fff;
+            cursor: se-resize;
+            opacity: 0;
+            transition: opacity .1s
         }
 
-        .rh-tl {
-            top: -3px;
-            left: -3px;
-            cursor: nw-resize
+        .design-el.selected .resize {
+            opacity: 1
         }
 
-        .rh-tr {
-            top: -3px;
-            right: -3px;
-            cursor: ne-resize
-        }
-
-        .rh-bl {
-            bottom: -3px;
-            left: -3px;
-            cursor: sw-resize
-        }
-
-        .rh-br {
-            bottom: -3px;
-            right: -3px;
-            cursor: se-resize
-        }
-
-        .properties {
+        .props {
             width: 260px;
             background: var(--panel);
             border-left: 1px solid var(--border);
-            flex-shrink: 0;
+            padding: 12px;
             overflow-y: auto;
-            display: flex;
-            flex-direction: column
+            flex-shrink: 0
         }
 
-        .properties::-webkit-scrollbar {
+        .props::-webkit-scrollbar {
             width: 4px
         }
 
-        .properties::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .06);
+        .props::-webkit-scrollbar-thumb {
+            background: #555;
             border-radius: 2px
         }
 
         .prop-section {
-            padding: 12px;
-            border-bottom: 1px solid var(--border)
+            margin-bottom: 16px
         }
 
         .prop-title {
             font-size: .72rem;
+            font-weight: 600;
             color: var(--muted);
             text-transform: uppercase;
-            letter-spacing: .04em;
-            font-weight: 600;
+            letter-spacing: .5px;
             margin-bottom: 8px
         }
 
         .prop-row {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             margin-bottom: 6px;
             align-items: center
         }
 
         .prop-label {
-            font-size: .75rem;
+            font-size: .72rem;
             color: var(--muted);
-            width: 14px;
-            text-align: center;
-            flex-shrink: 0
+            min-width: 24px
         }
 
         .prop-input {
             flex: 1;
             padding: 4px 8px;
             border-radius: 4px;
-            background: rgba(255, 255, 255, .04);
+            background: rgba(255, 255, 255, .06);
             border: 1px solid var(--border);
             color: var(--text);
             font-size: .78rem;
-            font-family: 'Inter';
             outline: none;
+            font-family: 'Inter';
             text-align: center
         }
 
@@ -291,249 +331,164 @@
             border-color: var(--accent)
         }
 
+        .color-row {
+            display: flex;
+            gap: 4px
+        }
+
         .color-swatch {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             border-radius: 4px;
             cursor: pointer;
+            transition: transform .1s;
             border: 1px solid var(--border)
         }
 
-        .color-input {
-            flex: 1;
-            padding: 4px 8px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, .04);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-size: .78rem;
-            font-family: 'Inter';
-            outline: none
+        .color-swatch:hover {
+            transform: scale(1.15)
         }
 
-        .layers {
-            width: 240px;
-            background: var(--panel);
-            border-right: 1px solid var(--border);
-            flex-shrink: 0;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column
-        }
-
-        .layers::-webkit-scrollbar {
-            width: 4px
-        }
-
-        .layers::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .06);
-            border-radius: 2px
-        }
-
-        .layer-header {
-            padding: 8px 12px;
-            font-size: .72rem;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: .04em;
-            font-weight: 600;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between
-        }
-
-        .layer {
-            padding: 6px 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: .82rem;
-            cursor: pointer;
-            transition: background .08s
-        }
-
-        .layer:hover {
-            background: rgba(255, 255, 255, .03)
-        }
-
-        .layer.active {
-            background: rgba(162, 89, 255, .08)
-        }
-
-        .layer-icon {
-            font-size: .75rem;
-            color: var(--muted);
-            width: 16px;
-            text-align: center
-        }
-
-        .layer-vis {
-            margin-left: auto;
-            font-size: .7rem;
-            color: var(--muted);
+        .prop-slider {
+            width: 100%;
+            height: 4px;
+            border-radius: 100px;
+            background: #444;
+            appearance: none;
+            outline: none;
             cursor: pointer
         }
 
-        .layer-indent {
-            padding-left: 28px
-        }
-
-        .main-area {
-            flex: 1;
-            display: flex;
-            overflow: hidden
-        }
-
-        .zoom-controls {
-            position: fixed;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 4px;
-            background: var(--panel);
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            padding: 4px;
-            z-index: 5
-        }
-
-        .z-btn {
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: .75rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--muted);
-            font-family: 'Inter'
-        }
-
-        .z-btn:hover {
-            color: var(--text);
-            background: rgba(255, 255, 255, .05)
+        .prop-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer
         }
     </style>
 </head>
 
 <body>
-    <div class="topbar">
-        <span class="tb-logo">🎨 DesignPro</span>
-        <div class="tb-menu"><span class="tb-item">File</span><span class="tb-item">Edit</span><span
-                class="tb-item">View</span><span class="tb-item">Object</span><span class="tb-item">Plugins</span></div>
-        <div class="tb-center"><span class="tb-filename">Dashboard UI</span><span class="tb-saved">· Saved</span></div>
+    <div class="toolbar">
+        <span class="tb-logo">🎨 DesignTool</span>
+        <div class="tb-sep"></div>
+        <div class="tb-tools">
+            <button class="tb-tool" onclick="setTool(this)" title="Move">↕</button>
+            <button class="tb-tool active" onclick="setTool(this)" title="Frame">⬜</button>
+            <button class="tb-tool" onclick="setTool(this)" title="Rectangle">▬</button>
+            <button class="tb-tool" onclick="setTool(this)" title="Ellipse">◯</button>
+            <button class="tb-tool" onclick="setTool(this)" title="Text">T</button>
+            <button class="tb-tool" onclick="setTool(this)" title="Pen">✏️</button>
+            <button class="tb-tool" onclick="setTool(this)" title="Hand">✋</button>
+        </div>
         <div class="tb-right">
-            <div class="tb-av" style="background:#ef4444;color:#fff;margin-right:-4px">SC</div>
-            <div class="tb-av" style="background:#22c55e;color:#fff">MR</div><button class="share-btn">Share</button>
+            <span style="cursor:pointer">100%</span>
+            <div class="tb-avatars">
+                <div class="tb-av"><img src="https://i.pravatar.cc/48?img=11"></div>
+                <div class="tb-av"><img src="https://i.pravatar.cc/48?img=1"></div>
+                <div class="tb-av"><img src="https://i.pravatar.cc/48?img=5"></div>
+            </div>
+            <button class="tb-share">Share</button>
         </div>
     </div>
-    <div class="main-area">
+    <div class="workspace">
         <div class="layers">
-            <div class="layer-header">Layers <span>+</span></div>
-            <div class="layer"><span class="layer-icon">📄</span>Desktop — 1440×900</div>
-            <div class="layer layer-indent"><span class="layer-icon">□</span>Sidebar</div>
-            <div class="layer layer-indent"><span class="layer-icon">□</span>Top Nav</div>
-            <div class="layer layer-indent active"><span class="layer-icon">□</span>Stats Card<span
-                    class="layer-vis">👁</span></div>
-            <div class="layer layer-indent"><span class="layer-icon">□</span>Revenue Chart</div>
-            <div class="layer layer-indent"><span class="layer-icon">□</span>User Table</div>
-            <div class="layer layer-indent"><span class="layer-icon">T</span>Title Text</div>
-            <div class="layer"><span class="layer-icon">📄</span>Mobile — 390×844</div>
-            <div class="layer layer-indent"><span class="layer-icon">□</span>Bottom Nav</div>
-            <div class="layer layer-indent"><span class="layer-icon">□</span>Stats Card (m)</div>
-            <div class="layer"><span class="layer-icon">📄</span>Components</div>
-            <div class="layer layer-indent"><span class="layer-icon">◆</span>Button / Primary</div>
-            <div class="layer layer-indent"><span class="layer-icon">◆</span>Button / Secondary</div>
-            <div class="layer layer-indent"><span class="layer-icon">◆</span>Input / Default</div>
-        </div>
-        <div class="canvas">
-            <div class="canvas-bg"></div>
-            <div class="toolbar">
-                <div class="t-btn active">↖</div>
-                <div class="t-btn">□</div>
-                <div class="t-btn">○</div>
-                <div class="t-btn">━</div>
-                <div class="t-btn">T</div>
-                <div class="t-btn">✏️</div>
-                <div class="t-btn">🖼</div>
-                <div class="t-btn">💬</div>
+            <div class="layers-header"><span class="layers-title">Layers</span></div>
+            <div class="layers-tabs">
+                <div class="layers-tab active" onclick="setLayerTab(this)">Layers</div>
+                <div class="layers-tab" onclick="setLayerTab(this)">Assets</div>
             </div>
-            <div class="frame" style="left:180px;top:40px;width:600px;height:400px;background:#111115">
-                <div class="frame-label">Desktop — 1440×900</div>
-                <div class="el el-selected"
-                    style="left:20px;top:20px;width:140px;height:80px;background:linear-gradient(135deg,#6366f1,#4f46e5);border-radius:10px;padding:12px">
-                    <div style="font-size:.55rem;color:rgba(255,255,255,.7)">REVENUE</div>
-                    <div style="font-size:1rem;font-weight:800;color:#fff;margin-top:2px">$48.2K</div>
-                    <div style="font-size:.5rem;color:#86efac;margin-top:2px">↑ 12.5%</div>
-                    <div class="resize-handle rh-tl"></div>
-                    <div class="resize-handle rh-tr"></div>
-                    <div class="resize-handle rh-bl"></div>
-                    <div class="resize-handle rh-br"></div>
-                </div>
-                <div class="el"
-                    style="left:170px;top:20px;width:140px;height:80px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px">
-                    <div style="font-size:.55rem;color:rgba(255,255,255,.5)">USERS</div>
-                    <div style="font-size:1rem;font-weight:800;color:#fff;margin-top:2px">12.8K</div>
-                    <div style="font-size:.5rem;color:#86efac;margin-top:2px">↑ 8.3%</div>
-                </div>
-                <div class="el"
-                    style="left:320px;top:20px;width:140px;height:80px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px">
-                    <div style="font-size:.55rem;color:rgba(255,255,255,.5)">CONVERSION</div>
-                    <div style="font-size:1rem;font-weight:800;color:#fff;margin-top:2px">3.24%</div>
-                    <div style="font-size:.5rem;color:#f87171;margin-top:2px">↓ 0.8%</div>
-                </div>
-                <div class="el"
-                    style="left:20px;top:120px;width:440px;height:160px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px">
-                </div>
-            </div>
-            <div class="zoom-controls"><span class="z-btn">−</span><span class="z-btn">100%</span><span
-                    class="z-btn">+</span><span class="z-btn">Fit</span></div>
+            <div id="layersList"></div>
         </div>
-        <div class="properties">
+        <div class="canvas" id="canvas" onclick="deselectAll(event)">
+            <div class="canvas-grid"></div>
+        </div>
+        <div class="props">
             <div class="prop-section">
-                <div class="prop-title">Design</div>
-                <div class="prop-row"><span class="prop-label">X</span><input class="prop-input" value="20"><span
-                        class="prop-label">Y</span><input class="prop-input" value="20"></div>
-                <div class="prop-row"><span class="prop-label">W</span><input class="prop-input" value="140"><span
-                        class="prop-label">H</span><input class="prop-input" value="80"></div>
-                <div class="prop-row"><span class="prop-label">↻</span><input class="prop-input" value="0°"><span
-                        class="prop-label">R</span><input class="prop-input" value="10"></div>
+                <div class="prop-title">Position</div>
+                <div class="prop-row"><span class="prop-label">X</span><input class="prop-input" value="120" id="propX"
+                        onchange="updateProp()"><span class="prop-label">Y</span><input class="prop-input" value="80"
+                        id="propY" onchange="updateProp()"></div>
+                <div class="prop-row"><span class="prop-label">W</span><input class="prop-input" value="360" id="propW"
+                        onchange="updateProp()"><span class="prop-label">H</span><input class="prop-input" value="240"
+                        id="propH" onchange="updateProp()"></div>
             </div>
             <div class="prop-section">
                 <div class="prop-title">Fill</div>
-                <div class="prop-row">
-                    <div class="color-swatch" style="background:linear-gradient(135deg,#6366f1,#4f46e5)"></div><input
-                        class="color-input" value="Linear Gradient">
-                </div>
-                <div class="prop-row" style="padding-left:30px">
-                    <div class="color-swatch" style="background:#6366f1;width:18px;height:18px"></div><input
-                        class="color-input" value="#6366F1" style="font-size:.72rem">
-                </div>
-                <div class="prop-row" style="padding-left:30px">
-                    <div class="color-swatch" style="background:#4f46e5;width:18px;height:18px"></div><input
-                        class="color-input" value="#4F46E5" style="font-size:.72rem">
+                <div class="color-row">
+                    <div class="color-swatch" style="background:var(--accent)" onclick="setColor(this)"></div>
+                    <div class="color-swatch" style="background:var(--green)" onclick="setColor(this)"></div>
+                    <div class="color-swatch" style="background:var(--red)" onclick="setColor(this)"></div>
+                    <div class="color-swatch" style="background:var(--yellow)" onclick="setColor(this)"></div>
+                    <div class="color-swatch" style="background:var(--purple)" onclick="setColor(this)"></div>
+                    <div class="color-swatch" style="background:#fff" onclick="setColor(this)"></div>
                 </div>
             </div>
             <div class="prop-section">
-                <div class="prop-title">Stroke</div>
-                <div class="prop-row">
-                    <div class="color-swatch" style="background:transparent;border:1px dashed var(--border)"></div>
-                    <input class="color-input" value="None">
-                </div>
+                <div class="prop-title">Opacity</div><input type="range" class="prop-slider" min="0" max="100"
+                    value="100" oninput="setOpacity(this.value)">
             </div>
             <div class="prop-section">
-                <div class="prop-title">Effects</div>
-                <div class="prop-row" style="font-size:.78rem;color:var(--muted)">Drop Shadow · 0 4 12 rgba(0,0,0,.25)
-                </div>
-            </div>
-            <div class="prop-section">
-                <div class="prop-title">Export</div>
-                <div class="prop-row"><input class="prop-input" value="1x" style="width:40px"><input class="prop-input"
-                        value="PNG" style="width:50px"><span
-                        style="font-size:.72rem;color:var(--accent);cursor:pointer;margin-left:auto">+ Add</span></div>
+                <div class="prop-title">Corner Radius</div>
+                <div class="prop-row"><input class="prop-input" value="8" id="propR" onchange="updateRadius()"></div>
             </div>
         </div>
     </div>
+
+    <script>
+        const elements = [
+            { id: 'frame1', type: 'frame', x: 100, y: 60, w: 360, h: 640, color: '#1e1e1e', radius: 8, label: '📱 Mobile Frame', children: [] },
+            { id: 'header', type: 'rect', x: 100, y: 60, w: 360, h: 60, color: '#0d99ff', radius: 0, label: '▬ Header' },
+            { id: 'card1', type: 'rect', x: 120, y: 140, w: 320, h: 120, color: '#2c2c2c', radius: 12, label: '▬ Card 1' },
+            { id: 'card2', type: 'rect', x: 120, y: 280, w: 320, h: 120, color: '#2c2c2c', radius: 12, label: '▬ Card 2' },
+            { id: 'btn', type: 'rect', x: 120, y: 420, w: 320, h: 48, color: '#14ae5c', radius: 24, label: '▬ Button' },
+            { id: 'circle1', type: 'ellipse', x: 260, y: 500, w: 80, h: 80, color: '#a259ff', radius: 50, label: '◯ Avatar' },
+            { id: 'text1', type: 'text', x: 140, y: 160, w: 200, h: 30, color: 'transparent', radius: 0, label: 'T "Welcome"', text: 'Welcome Back!' },
+        ];
+
+        let selectedId = 'frame1';
+
+        function renderCanvas() {
+            const canvas = document.getElementById('canvas');
+            canvas.querySelectorAll('.design-el').forEach(e => e.remove());
+            elements.forEach(el => {
+                const div = document.createElement('div');
+                div.className = 'design-el' + (el.id === selectedId ? ' selected' : '');
+                div.style.cssText = `left:${el.x}px;top:${el.y}px;width:${el.w}px;height:${el.h}px;background:${el.color};border-radius:${el.radius}px;`;
+                if (el.type === 'ellipse') div.style.borderRadius = '50%';
+                if (el.text) div.innerHTML = `<span style="color:#fff;font-size:1.1rem;font-weight:700;padding:4px 8px;display:block">${el.text}</span>`;
+                div.innerHTML += `<div class="resize"></div>`;
+                div.onclick = (e) => { e.stopPropagation(); selectEl(el.id) };
+
+                // Drag
+                let startX, startY, origX, origY;
+                div.onmousedown = (e) => {
+                    if (e.target.classList.contains('resize')) return; startX = e.clientX; startY = e.clientY; origX = el.x; origY = el.y;
+                    const move = (ev) => { el.x = origX + (ev.clientX - startX); el.y = origY + (ev.clientY - startY); div.style.left = el.x + 'px'; div.style.top = el.y + 'px'; document.getElementById('propX').value = el.x; document.getElementById('propY').value = el.y };
+                    const up = () => { document.removeEventListener('mousemove', move); document.removeEventListener('mouseup', up) };
+                    document.addEventListener('mousemove', move); document.addEventListener('mouseup', up);
+                };
+                canvas.appendChild(div);
+            });
+        }
+
+        function renderLayers() {
+            document.getElementById('layersList').innerHTML = elements.slice().reverse().map(el => `<div class="layer${el.id === selectedId ? ' selected' : ''}" onclick="selectEl('${el.id}')"><span class="layer-icon">${el.label.split(' ')[0]}</span>${el.label.split(' ').slice(1).join(' ')}<span class="layer-vis">👁️</span></div>`).join('');
+        }
+
+        function selectEl(id) { selectedId = id; const el = elements.find(e => e.id === id); if (el) { document.getElementById('propX').value = el.x; document.getElementById('propY').value = el.y; document.getElementById('propW').value = el.w; document.getElementById('propH').value = el.h; document.getElementById('propR').value = el.radius } renderCanvas(); renderLayers() }
+        function deselectAll(e) { if (e.target.classList.contains('canvas-grid')) { selectedId = null; renderCanvas(); renderLayers() } }
+        function updateProp() { const el = elements.find(e => e.id === selectedId); if (!el) return; el.x = +document.getElementById('propX').value; el.y = +document.getElementById('propY').value; el.w = +document.getElementById('propW').value; el.h = +document.getElementById('propH').value; renderCanvas() }
+        function updateRadius() { const el = elements.find(e => e.id === selectedId); if (!el) return; el.radius = +document.getElementById('propR').value; renderCanvas() }
+        function setColor(swatch) { const el = elements.find(e => e.id === selectedId); if (!el) return; el.color = swatch.style.background; renderCanvas() }
+        function setOpacity(v) { const els = document.querySelectorAll('.design-el'); els.forEach(e => e.style.opacity = v / 100) }
+        function setTool(el) { document.querySelectorAll('.tb-tool').forEach(t => t.classList.remove('active')); el.classList.add('active') }
+        function setLayerTab(el) { document.querySelectorAll('.layers-tab').forEach(t => t.classList.remove('active')); el.classList.add('active') }
+
+        renderCanvas(); renderLayers(); selectEl('frame1');
+    </script>
 </body>
 
 </html>

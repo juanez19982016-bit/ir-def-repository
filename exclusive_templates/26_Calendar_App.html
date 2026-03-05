@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CalendarPro — Smart Calendar App</title>
+    <title>CalendarPro — Schedule Manager</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -14,177 +14,151 @@
         }
 
         :root {
-            --bg: #09090b;
-            --card: #111115;
-            --border: rgba(255, 255, 255, .06);
-            --accent: #6366f1;
+            --bg: #111;
+            --card: #1a1a1a;
+            --border: #2a2a2a;
+            --text: #e5e5e5;
+            --muted: #777;
+            --accent: #3b82f6;
             --green: #22c55e;
-            --blue: #3b82f6;
+            --purple: #8b5cf6;
             --red: #ef4444;
-            --amber: #f59e0b;
-            --text: #fafafa;
-            --muted: #71717a
+            --yellow: #eab308;
+            --today: rgba(59, 130, 246, .15)
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--text);
-            display: flex;
             height: 100vh;
+            display: flex;
             overflow: hidden
         }
 
         .sidebar {
-            width: 260px;
-            background: #0c0c10;
+            width: 240px;
+            background: var(--card);
             border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            flex-shrink: 0;
-            padding: 16px
-        }
-
-        .sb-logo {
-            font-weight: 800;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 1.5rem
-        }
-
-        .sb-btn {
-            padding: 10px 16px;
-            border-radius: 8px;
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            font-weight: 600;
-            font-size: .88rem;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Inter';
-            margin-bottom: 1.5rem
-        }
-
-        .sb-section {
-            margin-bottom: 1.5rem
-        }
-
-        .sb-label {
-            font-size: .72rem;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: .06em;
-            margin-bottom: 8px;
-            font-weight: 500
-        }
-
-        .sb-cal {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 8px;
-            border-radius: 6px;
-            font-size: .85rem;
-            cursor: pointer;
-            transition: background .15s;
-            margin-bottom: 2px
-        }
-
-        .sb-cal:hover {
-            background: rgba(255, 255, 255, .03)
-        }
-
-        .sb-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 3px;
+            padding: 16px;
             flex-shrink: 0
         }
 
-        .mini-cal {
-            margin-top: auto;
-            border-top: 1px solid var(--border);
-            padding-top: 16px
+        .s-logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px
         }
 
-        .mini-header {
+        .s-new-btn {
+            padding: 10px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #fff;
+            text-align: center;
+            font-weight: 600;
+            font-size: .85rem;
+            cursor: pointer;
+            margin-bottom: 16px;
+            border: none;
+            width: 100%;
+            font-family: 'Inter';
+            transition: opacity .1s
+        }
+
+        .s-new-btn:hover {
+            opacity: .9
+        }
+
+        .mini-cal {
+            margin-bottom: 16px
+        }
+
+        .mc-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            font-size: .85rem;
+            margin-bottom: 8px;
+            font-size: .82rem;
             font-weight: 600
         }
 
-        .mini-nav {
-            display: flex;
-            gap: 4px
-        }
-
-        .mini-nav span {
+        .mc-nav {
             cursor: pointer;
-            padding: 2px 6px;
+            padding: 4px 8px;
             border-radius: 4px;
-            font-size: .8rem;
+            transition: background .1s;
             color: var(--muted)
         }
 
-        .mini-nav span:hover {
-            background: rgba(255, 255, 255, .04)
+        .mc-nav:hover {
+            background: rgba(255, 255, 255, .06)
         }
 
-        .mini-grid {
+        .mc-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 2px;
             text-align: center;
-            font-size: .75rem
+            font-size: .72rem
         }
 
-        .mini-grid .day-label {
+        .mc-day-header {
             color: var(--muted);
-            padding: 4px 0;
-            font-weight: 500
+            font-weight: 600;
+            padding: 2px 0
         }
 
-        .mini-grid .day {
-            padding: 4px 0;
+        .mc-day {
+            padding: 4px;
             border-radius: 4px;
             cursor: pointer;
+            transition: background .1s;
             color: var(--muted)
         }
 
-        .mini-grid .day:hover {
-            background: rgba(255, 255, 255, .04)
+        .mc-day:hover {
+            background: rgba(255, 255, 255, .06)
         }
 
-        .mini-grid .day.today {
+        .mc-day.current {
             background: var(--accent);
             color: #fff;
-            font-weight: 600
+            font-weight: 700
         }
 
-        .mini-grid .day.has-event {
-            position: relative
+        .mc-day.other {
+            opacity: .3
         }
 
-        .mini-grid .day.has-event::after {
-            content: '';
-            position: absolute;
-            bottom: 1px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: var(--accent)
+        .s-section {
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            color: var(--muted);
+            font-weight: 600;
+            margin: 12px 0 6px
+        }
+
+        .s-cal {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+            font-size: .82rem;
+            cursor: pointer
+        }
+
+        .s-cal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            flex-shrink: 0
         }
 
         .main {
@@ -194,110 +168,158 @@
             overflow: hidden
         }
 
-        .topbar {
-            padding: 12px 24px;
+        .main-header {
             display: flex;
             align-items: center;
-            gap: 16px;
-            border-bottom: 1px solid var(--border)
+            padding: 12px 24px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+            gap: 12px
         }
 
-        .topbar h1 {
-            font-size: 1.3rem;
-            font-weight: 700
+        .mh-today {
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--text);
+            font-size: .82rem;
+            cursor: pointer;
+            font-family: 'Inter';
+            font-weight: 500;
+            transition: background .1s
         }
 
-        .topbar .today-label {
-            font-size: .85rem;
+        .mh-today:hover {
+            background: rgba(255, 255, 255, .04)
+        }
+
+        .mh-nav {
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            color: var(--muted);
+            transition: background .1s
+        }
+
+        .mh-nav:hover {
+            background: rgba(255, 255, 255, .06)
+        }
+
+        .mh-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex: 1
+        }
+
+        .mh-views {
+            display: flex;
+            gap: 4px
+        }
+
+        .mh-view {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: .78rem;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--muted);
+            font-family: 'Inter';
+            transition: all .1s
+        }
+
+        .mh-view.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent)
+        }
+
+        .mh-view:hover:not(.active) {
+            background: rgba(255, 255, 255, .04)
+        }
+
+        .week-header {
+            display: grid;
+            grid-template-columns: 60px repeat(7, 1fr);
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0
+        }
+
+        .wh-time {
+            padding: 8px;
+            font-size: .7rem;
             color: var(--muted)
         }
 
-        .view-toggle {
-            margin-left: auto;
-            display: flex;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden
-        }
-
-        .v-btn {
-            padding: 6px 14px;
-            font-size: .8rem;
-            cursor: pointer;
-            transition: all .15s;
-            border: none;
-            background: none;
-            color: var(--muted);
-            font-family: 'Inter'
-        }
-
-        .v-btn.active {
-            background: var(--accent);
-            color: #fff
-        }
-
-        .calendar {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden
-        }
-
-        .cal-header {
-            display: grid;
-            grid-template-columns: 60px repeat(7, 1fr);
-            border-bottom: 1px solid var(--border)
-        }
-
-        .cal-header .col {
-            padding: 12px 8px;
+        .wh-day {
+            padding: 8px;
             text-align: center;
-            font-size: .78rem;
+            border-left: 1px solid var(--border)
+        }
+
+        .wh-day-name {
+            font-size: .7rem;
             color: var(--muted);
-            font-weight: 500
+            font-weight: 600;
+            text-transform: uppercase
         }
 
-        .cal-header .col.today-col {
-            color: var(--accent);
-            font-weight: 700
+        .wh-day-num {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 2px
         }
 
-        .cal-body {
-            flex: 1;
+        .wh-day.today .wh-day-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2px auto 0
+        }
+
+        .week-grid {
             display: grid;
             grid-template-columns: 60px repeat(7, 1fr);
+            flex: 1;
             overflow-y: auto
         }
 
-        .cal-body::-webkit-scrollbar {
-            width: 6px
+        .week-grid::-webkit-scrollbar {
+            width: 4px
         }
 
-        .cal-body::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .06);
-            border-radius: 3px
+        .week-grid::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 2px
         }
 
         .time-slot {
             padding: 4px 8px;
-            font-size: .7rem;
+            font-size: .65rem;
             color: var(--muted);
             text-align: right;
-            border-right: 1px solid var(--border);
             height: 60px;
-            border-bottom: 1px solid rgba(255, 255, 255, .02)
+            border-bottom: 1px solid var(--border)
         }
 
         .day-col {
-            border-right: 1px solid rgba(255, 255, 255, .03);
-            height: 60px;
-            border-bottom: 1px solid rgba(255, 255, 255, .02);
-            position: relative;
-            cursor: pointer
+            border-left: 1px solid var(--border);
+            position: relative
         }
 
-        .day-col:hover {
-            background: rgba(255, 255, 255, .01)
+        .day-col .hour-line {
+            height: 60px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .day-col.today {
+            background: var(--today)
         }
 
         .event {
@@ -306,240 +328,184 @@
             right: 2px;
             border-radius: 4px;
             padding: 4px 6px;
-            font-size: .72rem;
-            font-weight: 500;
+            font-size: .7rem;
             cursor: pointer;
             overflow: hidden;
-            z-index: 1;
-            border-left: 3px solid
+            transition: opacity .12s;
+            z-index: 2;
+            font-weight: 500
         }
 
-        .event-title {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis
+        .event:hover {
+            opacity: .85
         }
 
-        .event-time {
-            font-size: .65rem;
-            opacity: .7
+        .event-blue {
+            background: rgba(59, 130, 246, .2);
+            border-left: 3px solid var(--accent);
+            color: var(--accent)
+        }
+
+        .event-green {
+            background: rgba(34, 197, 94, .2);
+            border-left: 3px solid var(--green);
+            color: var(--green)
+        }
+
+        .event-purple {
+            background: rgba(139, 92, 246, .2);
+            border-left: 3px solid var(--purple);
+            color: var(--purple)
+        }
+
+        .event-red {
+            background: rgba(239, 68, 68, .2);
+            border-left: 3px solid var(--red);
+            color: var(--red)
+        }
+
+        .event-yellow {
+            background: rgba(234, 179, 8, .2);
+            border-left: 3px solid var(--yellow);
+            color: var(--yellow)
+        }
+
+        .now-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--red);
+            z-index: 3
+        }
+
+        .now-dot {
+            position: absolute;
+            left: -4px;
+            top: -3px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--red)
         }
     </style>
 </head>
 
 <body>
-    <aside class="sidebar">
-        <div class="sb-logo">📅 CalendarPro</div>
-        <button class="sb-btn">+ New Event</button>
-        <div class="sb-section">
-            <div class="sb-label">My Calendars</div>
-            <div class="sb-cal">
-                <div class="sb-dot" style="background:var(--accent)"></div>Personal
-            </div>
-            <div class="sb-cal">
-                <div class="sb-dot" style="background:var(--green)"></div>Work
-            </div>
-            <div class="sb-cal">
-                <div class="sb-dot" style="background:var(--amber)"></div>Meetings
-            </div>
-            <div class="sb-cal">
-                <div class="sb-dot" style="background:var(--red)"></div>Deadlines
-            </div>
-        </div>
-        <div class="sb-section">
-            <div class="sb-label">Shared</div>
-            <div class="sb-cal">
-                <div class="sb-dot" style="background:var(--blue)"></div>Team Sprint
-            </div>
-            <div class="sb-cal">
-                <div class="sb-dot" style="background:#8b5cf6"></div>Design Reviews
-            </div>
-        </div>
+    <div class="sidebar">
+        <div class="s-logo">📅 CalendarPro</div>
+        <button class="s-new-btn" onclick="addEvent()">+ New Event</button>
         <div class="mini-cal">
-            <div class="mini-header"><span>March 2026</span>
-                <div class="mini-nav"><span>‹</span><span>›</span></div>
-            </div>
-            <div class="mini-grid">
-                <span class="day-label">Su</span><span class="day-label">Mo</span><span class="day-label">Tu</span><span
-                    class="day-label">We</span><span class="day-label">Th</span><span class="day-label">Fr</span><span
-                    class="day-label">Sa</span>
-                <span class="day">1</span><span class="day">2</span><span class="day">3</span><span
-                    class="day today">4</span><span class="day has-event">5</span><span class="day">6</span><span
-                    class="day">7</span>
-                <span class="day has-event">8</span><span class="day">9</span><span class="day has-event">10</span><span
-                    class="day">11</span><span class="day">12</span><span class="day">13</span><span
-                    class="day">14</span>
-                <span class="day">15</span><span class="day has-event">16</span><span class="day">17</span><span
-                    class="day">18</span><span class="day">19</span><span class="day">20</span><span
-                    class="day">21</span>
-                <span class="day">22</span><span class="day">23</span><span class="day">24</span><span
-                    class="day has-event">25</span><span class="day">26</span><span class="day">27</span><span
-                    class="day">28</span>
-                <span class="day">29</span><span class="day">30</span><span class="day">31</span>
-            </div>
+            <div class="mc-header"><span class="mc-nav" onclick="changeMonth(-1)">‹</span><span id="miniMonth">March
+                    2026</span><span class="mc-nav" onclick="changeMonth(1)">›</span></div>
+            <div class="mc-grid" id="miniGrid"></div>
         </div>
-    </aside>
-    <div class="main">
-        <div class="topbar">
-            <h1>March 4, 2026</h1><span class="today-label">Tuesday</span>
-            <div class="view-toggle"><button class="v-btn">Day</button><button class="v-btn active">Week</button><button
-                    class="v-btn">Month</button></div>
+        <div class="s-section">My Calendars</div>
+        <div class="s-cal">
+            <div class="s-cal-dot" style="background:var(--accent)"></div>Work
         </div>
-        <div class="calendar">
-            <div class="cal-header">
-                <div class="col"></div>
-                <div class="col">Sun 1</div>
-                <div class="col">Mon 2</div>
-                <div class="col">Tue 3</div>
-                <div class="col today-col">Wed 4</div>
-                <div class="col">Thu 5</div>
-                <div class="col">Fri 6</div>
-                <div class="col">Sat 7</div>
-            </div>
-            <div class="cal-body">
-                <div class="time-slot">8 AM</div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(34,197,94,.12);border-color:var(--green);height:55px">
-                        <div class="event-title">☕ Morning Standup</div>
-                        <div class="event-time">8:00 - 8:30</div>
-                    </div>
-                </div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="time-slot">9 AM</div>
-                <div class="day-col"></div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(99,102,241,.12);border-color:var(--accent);height:115px">
-                        <div class="event-title">🎨 Design Sprint</div>
-                        <div class="event-time">9:00 - 11:00</div>
-                    </div>
-                </div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(245,158,11,.12);border-color:var(--amber);height:55px">
-                        <div class="event-title">📊 Sprint Review</div>
-                        <div class="event-time">9:00 - 10:00</div>
-                    </div>
-                </div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="time-slot">10 AM</div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(59,130,246,.12);border-color:var(--blue);height:55px">
-                        <div class="event-title">💻 Code Review</div>
-                        <div class="event-time">10:00 - 11:00</div>
-                    </div>
-                </div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(239,68,68,.12);border-color:var(--red);height:55px">
-                        <div class="event-title">⚠️ Deploy Deadline</div>
-                        <div class="event-time">10:00 - 11:00</div>
-                    </div>
-                </div>
-                <div class="day-col"></div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(139,92,246,.12);border-color:#8b5cf6;height:55px">
-                        <div class="event-title">🎯 1:1 with Manager</div>
-                        <div class="event-time">10:00 - 10:30</div>
-                    </div>
-                </div>
-                <div class="day-col"></div>
-                <div class="time-slot">11 AM</div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="time-slot">12 PM</div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(34,197,94,.12);border-color:var(--green);height:55px">
-                        <div class="event-title">🍕 Team Lunch</div>
-                        <div class="event-time">12:00 - 1:00</div>
-                    </div>
-                </div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="time-slot">1 PM</div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(99,102,241,.12);border-color:var(--accent);height:115px">
-                        <div class="event-title">📝 Product Planning</div>
-                        <div class="event-time">1:00 - 3:00</div>
-                    </div>
-                </div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="time-slot">2 PM</div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(245,158,11,.12);border-color:var(--amber);height:55px">
-                        <div class="event-title">📞 Client Call</div>
-                        <div class="event-time">2:00 - 2:30</div>
-                    </div>
-                </div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(59,130,246,.12);border-color:var(--blue);height:115px">
-                        <div class="event-title">🧪 QA Testing</div>
-                        <div class="event-time">2:00 - 4:00</div>
-                    </div>
-                </div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="time-slot">3 PM</div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(239,68,68,.12);border-color:var(--red);height:55px">
-                        <div class="event-title">🔥 Hotfix Deploy</div>
-                        <div class="event-time">3:00 - 3:30</div>
-                    </div>
-                </div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="time-slot">4 PM</div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col">
-                    <div class="event" style="background:rgba(34,197,94,.12);border-color:var(--green);height:55px">
-                        <div class="event-title">🎉 Team Happy Hour</div>
-                        <div class="event-time">4:00 - 5:00</div>
-                    </div>
-                </div>
-                <div class="day-col"></div>
-                <div class="time-slot">5 PM</div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-                <div class="day-col"></div>
-            </div>
+        <div class="s-cal">
+            <div class="s-cal-dot" style="background:var(--green)"></div>Personal
+        </div>
+        <div class="s-cal">
+            <div class="s-cal-dot" style="background:var(--purple)"></div>Meetings
+        </div>
+        <div class="s-cal">
+            <div class="s-cal-dot" style="background:var(--red)"></div>Deadlines
+        </div>
+        <div class="s-cal">
+            <div class="s-cal-dot" style="background:var(--yellow)"></div>Reminders
         </div>
     </div>
+    <div class="main">
+        <div class="main-header">
+            <button class="mh-today" onclick="goToday()">Today</button>
+            <span class="mh-nav" onclick="changeWeek(-1)">‹</span><span class="mh-nav" onclick="changeWeek(1)">›</span>
+            <span class="mh-title" id="weekTitle">March 3 – 9, 2026</span>
+            <div class="mh-views"><button class="mh-view" onclick="setView(this)">Day</button><button
+                    class="mh-view active" onclick="setView(this)">Week</button><button class="mh-view"
+                    onclick="setView(this)">Month</button></div>
+        </div>
+        <div class="week-header" id="weekHeader"></div>
+        <div class="week-grid" id="weekGrid"></div>
+    </div>
+
+    <script>
+        const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+        const events = [
+            { day: 1, start: 9, duration: 1.5, title: 'Team Standup', color: 'blue' },
+            { day: 1, start: 14, duration: 2, title: 'Sprint Planning', color: 'purple' },
+            { day: 2, start: 10, duration: 1, title: 'Design Review', color: 'green' },
+            { day: 2, start: 15, duration: 1, title: '1:1 with Manager', color: 'blue' },
+            { day: 3, start: 9, duration: 1.5, title: 'Team Standup', color: 'blue' },
+            { day: 3, start: 11, duration: 2, title: 'Code Review Session', color: 'purple' },
+            { day: 3, start: 16, duration: 1, title: 'Deadline: Auth System', color: 'red' },
+            { day: 4, start: 10, duration: 1.5, title: 'Product Demo', color: 'green' },
+            { day: 4, start: 13, duration: 1, title: 'Lunch & Learn', color: 'yellow' },
+            { day: 5, start: 9, duration: 1.5, title: 'Team Standup', color: 'blue' },
+            { day: 5, start: 14, duration: 2, title: 'Sprint Retro', color: 'purple' },
+        ];
+
+        const today = new Date();
+        const todayDow = today.getDay();
+
+        function renderMiniCal() {
+            const year = 2026, month = 2;
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            let html = dayNames.map(d => `<div class="mc-day-header">${d[0]}</div>`).join('');
+            for (let i = 0; i < firstDay; i++)html += `<div class="mc-day other">${new Date(year, month, 0).getDate() - firstDay + i + 1}</div>`;
+            for (let d = 1; d <= daysInMonth; d++)html += `<div class="mc-day${d === 5 ? ' current' : ''}">${d}</div>`;
+            document.getElementById('miniGrid').innerHTML = html;
+        }
+
+        function renderWeek() {
+            const startDate = new Date(2026, 2, 3);
+            let headerHtml = '<div class="wh-time"></div>';
+            for (let d = 0; d < 7; d++) {
+                const date = new Date(startDate); date.setDate(date.getDate() + d);
+                const isToday = d === 2;
+                headerHtml += `<div class="wh-day${isToday ? ' today' : ''}"><div class="wh-day-name">${dayNames[d]}</div><div class="wh-day-num">${date.getDate()}</div></div>`;
+            }
+            document.getElementById('weekHeader').innerHTML = headerHtml;
+
+            let gridHtml = '';
+            for (let h = 7; h <= 21; h++) {
+                gridHtml += `<div class="time-slot">${h > 12 ? h - 12 : h}${h >= 12 ? 'PM' : 'AM'}</div>`;
+                for (let d = 0; d < 7; d++) {
+                    const isToday = d === 2;
+                    let cellHtml = `<div class="day-col${isToday ? ' today' : ''}">`;
+                    cellHtml += `<div class="hour-line"></div>`;
+                    events.filter(e => e.day === d && Math.floor(e.start) === h).forEach(e => {
+                        const top = (e.start - h) * 60;
+                        cellHtml += `<div class="event event-${e.color}" style="top:${top}px;height:${e.duration * 60 - 4}px" onclick="alert('📅 ${e.title}')">${e.title}</div>`;
+                    });
+                    if (isToday && h === Math.floor(new Date().getHours() || 13)) {
+                        const mins = (new Date().getMinutes() || 30) / 60 * 60;
+                        cellHtml += `<div class="now-line" style="top:${mins}px"><div class="now-dot"></div></div>`;
+                    }
+                    cellHtml += `</div>`;
+                    gridHtml += cellHtml;
+                }
+            }
+            document.getElementById('weekGrid').innerHTML = gridHtml;
+        }
+
+        function addEvent() {
+            const title = prompt('Event title:');
+            if (!title) return;
+            events.push({ day: 2, start: 12, duration: 1, title: title, color: 'green' });
+            renderWeek();
+        }
+        function goToday() { }
+        function changeMonth() { }
+        function changeWeek() { }
+        function setView(el) { document.querySelectorAll('.mh-view').forEach(v => v.classList.remove('active')); el.classList.add('active') }
+
+        renderMiniCal(); renderWeek();
+        // Auto-scroll to 8AM
+        setTimeout(() => { const g = document.getElementById('weekGrid'); g.scrollTop = 60 }, 100);
+    </script>
 </body>
 
 </html>

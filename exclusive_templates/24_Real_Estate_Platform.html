@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real Estate — Property Listings</title>
+    <title>EstatePro — Property Listings</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -43,7 +43,8 @@
 
         .nav-logo {
             font-weight: 800;
-            font-size: 1.2rem
+            font-size: 1.2rem;
+            cursor: pointer
         }
 
         .nav-logo span {
@@ -59,11 +60,28 @@
 
         .nav-links a {
             cursor: pointer;
-            transition: color .15s
+            transition: color .15s;
+            text-decoration: none;
+            color: inherit
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--text)
+        }
+
+        .n-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer
+        }
+
+        .n-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .hero {
@@ -114,7 +132,12 @@
             font-weight: 700;
             border: none;
             cursor: pointer;
-            font-family: 'Inter'
+            font-family: 'Inter';
+            transition: opacity .1s
+        }
+
+        .search-bar button:hover {
+            opacity: .9
         }
 
         .filters {
@@ -133,7 +156,8 @@
             cursor: pointer;
             background: none;
             color: var(--muted);
-            font-family: 'Inter'
+            font-family: 'Inter';
+            transition: all .12s
         }
 
         .filter-chip.active {
@@ -141,6 +165,10 @@
             color: #000;
             border-color: var(--accent);
             font-weight: 600
+        }
+
+        .filter-chip:hover:not(.active) {
+            border-color: var(--muted)
         }
 
         .listings {
@@ -169,10 +197,18 @@
         .l-img {
             aspect-ratio: 16/10;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem
+            overflow: hidden
+        }
+
+        .l-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .3s
+        }
+
+        .listing:hover .l-img img {
+            transform: scale(1.05)
         }
 
         .l-badge {
@@ -207,7 +243,33 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: .9rem
+            font-size: .9rem;
+            transition: transform .12s;
+            z-index: 2
+        }
+
+        .l-fav:hover {
+            transform: scale(1.1)
+        }
+
+        .l-dots {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px
+        }
+
+        .l-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .4)
+        }
+
+        .l-dot.active {
+            background: #fff
         }
 
         .l-info {
@@ -260,7 +322,8 @@
 <body>
     <nav>
         <div class="nav-logo">🏠 Estate<span>Pro</span></div>
-        <div class="nav-links"><a>Buy</a><a>Rent</a><a>Sell</a><a>Agents</a></div>
+        <div class="nav-links"><a class="active">Buy</a><a>Rent</a><a>Sell</a><a>Agents</a></div>
+        <div class="n-avatar"><img src="https://i.pravatar.cc/64?img=11"></div>
     </nav>
     <section class="hero">
         <h1>Find Your Dream Home</h1>
@@ -274,74 +337,34 @@
                 <option>$100K-$500K</option>
                 <option>$500K-$1M</option>
                 <option>$1M+</option>
-            </select><button>Search</button></div>
-        <div class="filters"><button class="filter-chip active">All</button><button class="filter-chip">🏠
-                Houses</button><button class="filter-chip">🏢 Apartments</button><button class="filter-chip">🏡
-                Condos</button><button class="filter-chip">💰 Reduced</button></div>
+            </select><button onclick="alert('🔍 Searching...')">Search</button></div>
+        <div class="filters" id="filters"></div>
     </section>
-    <div class="listings">
-        <div class="listing">
-            <div class="l-img" style="background:linear-gradient(135deg,#0a1a0a,#081a10)">🏡<span
-                    class="l-badge l-badge-new">New</span><span class="l-fav">🤍</span></div>
-            <div class="l-info">
-                <div class="l-price">$485,000</div>
-                <div class="l-address">742 Evergreen Terrace</div>
-                <div class="l-city">Springfield, IL</div>
-                <div class="l-features"><span>🛏 4 Beds</span><span>🛁 3 Bath</span><span>📐 2,400 sqft</span></div>
-            </div>
-        </div>
-        <div class="listing">
-            <div class="l-img" style="background:linear-gradient(135deg,#0a0a1a,#0d0d20)">🏢<span
-                    class="l-badge l-badge-hot">Hot</span><span class="l-fav">🤍</span></div>
-            <div class="l-info">
-                <div class="l-price">$2,200/mo</div>
-                <div class="l-address">221B Baker Street</div>
-                <div class="l-city">Brooklyn, NY</div>
-                <div class="l-features"><span>🛏 2 Beds</span><span>🛁 1 Bath</span><span>📐 950 sqft</span></div>
-            </div>
-        </div>
-        <div class="listing">
-            <div class="l-img" style="background:linear-gradient(135deg,#1a0a0a,#200d0d)">🏠<span
-                    class="l-fav">❤️</span></div>
-            <div class="l-info">
-                <div class="l-price">$329,000</div>
-                <div class="l-address">1640 Riverside Dr</div>
-                <div class="l-city">Austin, TX</div>
-                <div class="l-features"><span>🛏 3 Beds</span><span>🛁 2 Bath</span><span>📐 1,800 sqft</span></div>
-            </div>
-        </div>
-        <div class="listing">
-            <div class="l-img" style="background:linear-gradient(135deg,#0d0a1a,#100d20)">🏡<span
-                    class="l-badge l-badge-new">New</span><span class="l-fav">🤍</span></div>
-            <div class="l-info">
-                <div class="l-price">$1,250,000</div>
-                <div class="l-address">10880 Malibu Point</div>
-                <div class="l-city">Malibu, CA</div>
-                <div class="l-features"><span>🛏 5 Beds</span><span>🛁 4 Bath</span><span>📐 4,200 sqft</span></div>
-            </div>
-        </div>
-        <div class="listing">
-            <div class="l-img" style="background:linear-gradient(135deg,#0a150a,#0d1a0d)">🏢<span
-                    class="l-fav">🤍</span></div>
-            <div class="l-info">
-                <div class="l-price">$3,500/mo</div>
-                <div class="l-address">350 Fifth Avenue</div>
-                <div class="l-city">Manhattan, NY</div>
-                <div class="l-features"><span>🛏 3 Beds</span><span>🛁 2 Bath</span><span>📐 1,400 sqft</span></div>
-            </div>
-        </div>
-        <div class="listing">
-            <div class="l-img" style="background:linear-gradient(135deg,#150a0a,#1a0d0d)">🏠<span
-                    class="l-badge l-badge-hot">Hot</span><span class="l-fav">🤍</span></div>
-            <div class="l-info">
-                <div class="l-price">$567,000</div>
-                <div class="l-address">31 Spooner Street</div>
-                <div class="l-city">Denver, CO</div>
-                <div class="l-features"><span>🛏 4 Beds</span><span>🛁 3 Bath</span><span>📐 2,800 sqft</span></div>
-            </div>
-        </div>
-    </div>
+    <div class="listings" id="listings"></div>
     <footer>© 2026 EstatePro — Built with DevVault Pro Templates</footer>
+
+    <script>
+        const filters = ['All', '🏠 Houses', '🏢 Apartments', '🏡 Condos', '💰 Reduced'];
+        const properties = [
+            { price: '$485,000', address: '742 Evergreen Terrace', city: 'Springfield, IL', beds: 4, bath: 3, sqft: '2,400', img: 'https://picsum.photos/seed/re1/640/400', badge: 'New' },
+            { price: '$2,200/mo', address: '221B Baker Street', city: 'Brooklyn, NY', beds: 2, bath: 1, sqft: '950', img: 'https://picsum.photos/seed/re2/640/400', badge: 'Hot' },
+            { price: '$329,000', address: '1640 Riverside Dr', city: 'Austin, TX', beds: 3, bath: 2, sqft: '1,800', img: 'https://picsum.photos/seed/re3/640/400', fav: true },
+            { price: '$1,250,000', address: '10880 Malibu Point', city: 'Malibu, CA', beds: 5, bath: 4, sqft: '4,200', img: 'https://picsum.photos/seed/re4/640/400', badge: 'New' },
+            { price: '$3,500/mo', address: '350 Fifth Avenue', city: 'Manhattan, NY', beds: 3, bath: 2, sqft: '1,400', img: 'https://picsum.photos/seed/re5/640/400' },
+            { price: '$567,000', address: '31 Spooner Street', city: 'Denver, CO', beds: 4, bath: 3, sqft: '2,800', img: 'https://picsum.photos/seed/re6/640/400', badge: 'Hot' },
+        ];
+
+        let activeFilter = 0;
+        document.getElementById('filters').innerHTML = filters.map((f, i) => `<button class="filter-chip${i === 0 ? ' active' : ''}" onclick="activeFilter=${i};renderFilters()">${f}</button>`).join('');
+        function renderFilters() { document.querySelectorAll('.filter-chip').forEach((c, i) => c.classList.toggle('active', i === activeFilter)) }
+
+        document.getElementById('listings').innerHTML = properties.map(p => `
+  <div class="listing">
+    <div class="l-img"><img src="${p.img}" alt="${p.address}" loading="lazy">${p.badge ? `<span class="l-badge l-badge-${p.badge.toLowerCase()}">${p.badge}</span>` : ''}<span class="l-fav" onclick="event.stopPropagation();this.textContent=this.textContent==='🤍'?'❤️':'🤍'">${p.fav ? '❤️' : '🤍'}</span></div>
+    <div class="l-info"><div class="l-price">${p.price}</div><div class="l-address">${p.address}</div><div class="l-city">${p.city}</div><div class="l-features"><span>🛏 ${p.beds} Beds</span><span>🛁 ${p.bath} Bath</span><span>📐 ${p.sqft} sqft</span></div></div>
+  </div>
+`).join('');
+    </script>
 </body>
 
 </html>

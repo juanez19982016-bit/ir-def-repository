@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevVault Pro — Template Explorer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #09090b;
+            --card: #111115;
+            --border: rgba(255, 255, 255, 0.06);
+            --text: #fafafa;
+            --muted: #71717a;
+            --accent: #6366f1;
+            --accent2: #8b5cf6;
+            --green: #10b981;
+            --blue: #3b82f6
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            background: linear-gradient(180deg, rgba(99, 102, 241, .08) 0%, transparent 100%)
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: .72rem;
+            font-weight: 600;
+            background: rgba(99, 102, 241, .15);
+            color: var(--accent);
+            margin-bottom: 12px;
+            border: 1px solid rgba(99, 102, 241, .2)
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff 30%, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 500px;
+            margin: 0 auto 24px;
+            font-size: .92rem;
+            line-height: 1.5
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem
+        }
+
+        .stat {
+            text-align: center
+        }
+
+        .stat-num {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent)
+        }
+
+        .stat-label {
+            font-size: .72rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .5px
+        }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 1.5rem;
+            flex-wrap: wrap
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 16px;
+            flex: 1;
+            max-width: 400px
+        }
+
+        .search input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: .88rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .chips {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap
+        }
+
+        .chip {
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: .78rem;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--muted);
+            font-family: 'Inter';
+            font-weight: 500;
+            transition: all .12s;
+            white-space: nowrap
+        }
+
+        .chip.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent)
+        }
+
+        .chip:hover:not(.active) {
+            border-color: var(--muted);
+            color: var(--text)
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem
+        }
+
+        .template-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all .25s;
+            position: relative
+        }
+
+        .template-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .3);
+            border-color: rgba(99, 102, 241, .3)
+        }
+
+        .tc-preview {
+            aspect-ratio: 16/10;
+            background: #1a1a1f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative
+        }
+
+        .tc-preview iframe {
+            width: 200%;
+            height: 200%;
+            transform: scale(.5);
+            transform-origin: top left;
+            border: none;
+            pointer-events: none
+        }
+
+        .tc-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent 60%, rgba(0, 0, 0, .8));
+            display: flex;
+            align-items: flex-end;
+            padding: 12px;
+            opacity: 0;
+            transition: opacity .2s
+        }
+
+        .template-card:hover .tc-overlay {
+            opacity: 1
+        }
+
+        .tc-open {
+            padding: 6px 16px;
+            border-radius: 6px;
+            background: var(--accent);
+            color: #fff;
+            font-size: .78rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter'
+        }
+
+        .tc-badges {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: flex;
+            gap: 4px
+        }
+
+        .tc-badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: .65rem;
+            font-weight: 700;
+            backdrop-filter: blur(8px)
+        }
+
+        .tc-badge-interactive {
+            background: rgba(16, 185, 129, .2);
+            color: var(--green);
+            border: 1px solid rgba(16, 185, 129, .3)
+        }
+
+        .tc-badge-new {
+            background: rgba(99, 102, 241, .2);
+            color: var(--accent);
+            border: 1px solid rgba(99, 102, 241, .3)
+        }
+
+        .tc-info {
+            padding: 12px 14px
+        }
+
+        .tc-num {
+            font-size: .68rem;
+            color: var(--muted);
+            font-weight: 600
+        }
+
+        .tc-name {
+            font-weight: 600;
+            font-size: .92rem;
+            margin: 2px 0
+        }
+
+        .tc-desc {
+            font-size: .78rem;
+            color: var(--muted);
+            line-height: 1.4
+        }
+
+        .tc-tags {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+            flex-wrap: wrap
+        }
+
+        .tc-tag {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: .65rem;
+            background: rgba(255, 255, 255, .04);
+            color: var(--muted)
+        }
+
+        .empty {
+            text-align: center;
+            padding: 4rem;
+            color: var(--muted);
+            font-size: 1rem
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: .72rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <div class="hero-badge">✨ DevVault Pro 2026</div>
+        <h1>Template Explorer</h1>
+        <p>Browse all 55 premium templates. Click any card to open the live preview. Every template is a self-contained
+            HTML file with zero dependencies.</p>
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-num">55</div>
+                <div class="stat-label">Templates</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">34</div>
+                <div class="stat-label">Interactive</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">20</div>
+                <div class="stat-label">Cheat Sheets</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">12</div>
+                <div class="stat-label">PRO Files</div>
+            </div>
+        </div>
+    </div>
+    <div class="toolbar">
+        <div class="search"><span>🔍</span><input placeholder="Search templates..." id="searchInput"
+                oninput="filterTemplates()"></div>
+        <div class="chips" id="chips"></div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <footer>DevVault Pro — The Ultimate Developer Template Vault · 2026 · $12,800+ value</footer>
+
+    <script>
+        const categories = ['All', '✨ Interactive', '🛒 E-commerce', '📱 App Clones', '📊 Dashboards', '🔐 Auth', '📋 Productivity', '🎨 Design', '🏠 Landing Pages'];
+        const templates = [
+            { num: 1, name: 'SaaS Landing Starter', desc: 'Complete landing page with hero, features, pricing, and CTA sections', tags: ['Landing', 'SaaS'], cat: 'Landing Pages' },
+            { num: 2, name: 'AI Chat Interface', desc: 'ChatGPT-style AI conversation UI with message bubbles', tags: ['AI', 'Chat'], cat: 'App Clones', interactive: true },
+            { num: 3, name: 'E-commerce Product Page', desc: 'Full product page with gallery, reviews, and add-to-cart', tags: ['E-commerce', 'Product'], cat: 'E-commerce' },
+            { num: 4, name: 'Developer Portfolio', desc: 'Minimal dark portfolio with projects and skills', tags: ['Portfolio', 'Personal'], cat: 'Landing Pages' },
+            { num: 5, name: 'Auth Login & Signup', desc: 'Modern auth forms with social login and validation', tags: ['Auth', 'Forms'], cat: 'Auth' },
+            { num: 6, name: 'Modern Blog Layout', desc: 'Clean blog with featured posts and sidebar', tags: ['Blog', 'Content'], cat: 'Landing Pages' },
+            { num: 7, name: 'CRM Kanban Board', desc: 'Drag-ready kanban board with cards and columns', tags: ['CRM', 'Productivity'], cat: 'Productivity' },
+            { num: 8, name: 'Fitness Landing Page', desc: 'Bold fitness/gym landing with plans and testimonials', tags: ['Fitness', 'Landing'], cat: 'Landing Pages' },
+            { num: 9, name: 'Crypto Dashboard', desc: 'Live-style crypto trading dashboard with charts', tags: ['Crypto', 'Dashboard'], cat: 'Dashboards' },
+            { num: 10, name: 'Professional Invoice', desc: 'Print-ready invoice template with line items', tags: ['Invoice', 'Business'], cat: 'Productivity' },
+            { num: 11, name: 'Agency Landing', desc: 'Minimal agency page with portfolio grid', tags: ['Agency', 'Landing'], cat: 'Landing Pages' },
+            { num: 12, name: 'Pricing Calculator', desc: 'Interactive pricing with Stripe-style tiers', tags: ['Pricing', 'SaaS'], cat: 'E-commerce' },
+            { num: 13, name: 'Email Templates', desc: 'Collection of responsive email layouts', tags: ['Email', 'Marketing'], cat: 'Landing Pages' },
+            { num: 14, name: 'Restaurant Landing', desc: 'Modern restaurant page with menu and reservation', tags: ['Restaurant', 'Landing'], cat: 'Landing Pages' },
+            { num: 15, name: 'Music Artist Page', desc: 'Band/artist page with tracks and tour dates', tags: ['Music', 'Landing'], cat: 'Landing Pages' },
+            { num: 16, name: 'Twitter/X Clone', desc: 'Full feed with compose, like/RT/bookmark, trending sidebar', tags: ['Social', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 17, name: 'Notion Clone', desc: 'Editable blocks, database table, todos, toggles, cover image', tags: ['Productivity', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 18, name: 'Netflix Clone', desc: 'Hero banner, Top 10, card hover zoom, continue watching progress', tags: ['Streaming', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 19, name: 'Slack Clone', desc: 'Workspace messaging with reactions, @mentions, status dots', tags: ['Messaging', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 20, name: 'Spotify Clone', desc: 'Music player with progress, time-based greeting, album cards', tags: ['Music', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 21, name: 'Component Library 50+', desc: '50+ ready-to-use UI components in one file', tags: ['Components', 'UI Kit'], cat: 'Design' },
+            { num: 22, name: 'Admin Dashboard', desc: 'Full admin panel with sidebar, charts, and tables', tags: ['Admin', 'Dashboard'], cat: 'Dashboards' },
+            { num: 23, name: 'Online Course Platform', desc: 'Course listing page with lessons and progress', tags: ['Education', 'Landing'], cat: 'Landing Pages' },
+            { num: 24, name: 'Real Estate Platform', desc: 'Property listings with search and filter chips', tags: ['Real Estate', 'Landing'], cat: 'Landing Pages', interactive: true, isNew: true },
+            { num: 25, name: 'Medical Dashboard', desc: 'Healthcare dashboard with patient data', tags: ['Medical', 'Dashboard'], cat: 'Dashboards' },
+            { num: 26, name: 'Calendar App', desc: 'Week view, color events, mini calendar, add events', tags: ['Calendar', 'Productivity'], cat: 'Productivity', interactive: true, isNew: true },
+            { num: 27, name: 'File Manager', desc: 'Desktop-style file browser with folders and actions', tags: ['File Manager', 'Productivity'], cat: 'Productivity' },
+            { num: 28, name: 'Issue Tracker (Linear)', desc: 'Linear-style issue tracker with priorities', tags: ['Issue Tracker', 'Productivity'], cat: 'Productivity' },
+            { num: 29, name: 'Social Analytics', desc: 'Social media analytics dashboard with charts', tags: ['Analytics', 'Dashboard'], cat: 'Dashboards' },
+            { num: 30, name: 'Email Client', desc: 'Gmail-style email client with inbox and compose', tags: ['Email', 'Productivity'], cat: 'Productivity' },
+            { num: 31, name: 'GitHub Profile', desc: 'GitHub profile clone with repos and contribution graph', tags: ['GitHub', 'App Clone'], cat: 'App Clones' },
+            { num: 32, name: 'Trello Board', desc: 'Kanban board with cards, labels, add cards inline', tags: ['Kanban', 'Productivity'], cat: 'Productivity', interactive: true, isNew: true },
+            { num: 33, name: 'Discord Clone', desc: 'Server + channels, voice users, role badges, reactions', tags: ['Chat', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 34, name: 'Checkout Flow', desc: 'Multi-step checkout with cart and payment form', tags: ['E-commerce', 'Checkout'], cat: 'E-commerce' },
+            { num: 35, name: 'DataViz Dashboard', desc: 'Data visualization dashboard with multiple chart types', tags: ['Data', 'Dashboard'], cat: 'Dashboards' },
+            { num: 36, name: 'YouTube Clone', desc: 'Video grid, thumbnails, progress bars, LIVE badge, sidebar', tags: ['Video', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 37, name: 'WhatsApp Clone', desc: 'Send messages, auto-reply, typing dots, online status', tags: ['Messaging', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 38, name: 'Instagram Clone', desc: 'Stories, double-tap ❤️, follow, real photos, comments', tags: ['Social', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 39, name: 'Airbnb Clone', desc: 'Property cards, image carousel, category bar, favorites', tags: ['Travel', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 40, name: 'VS Code Editor', desc: 'Code editor with file tree, tabs, and terminal', tags: ['Editor', 'App Clone'], cat: 'App Clones' },
+            { num: 41, name: 'Banking App', desc: 'Credit cards, transactions, stats, quick actions', tags: ['Finance', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 42, name: 'Uber Clone', desc: 'Ride selection, map with animated car, pricing, booking', tags: ['Transport', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 43, name: 'Zoom Meeting', desc: 'Video grid, mic/cam toggle, reactions, chat, timer', tags: ['Video', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 44, name: 'Figma Design Tool', desc: 'Draggable elements, layers panel, property editor, colors', tags: ['Design', 'App Clone'], cat: 'App Clones', interactive: true, isNew: true },
+            { num: 45, name: 'Weather Dashboard', desc: 'Hourly + 10-day forecast, UV index, sunrise, wind speed', tags: ['Weather', 'Dashboard'], cat: 'Dashboards', interactive: true, isNew: true },
+            { num: 46, name: 'LinkedIn Clone', desc: 'Feed, connections, job listings with real avatars', tags: ['Social', 'App Clone'], cat: 'App Clones', interactive: true },
+            { num: 47, name: 'ChatGPT Clone', desc: 'AI chat with typing animation, code blocks, model selector', tags: ['AI', 'App Clone'], cat: 'App Clones', interactive: true },
+            { num: 48, name: 'TikTok Clone', desc: 'Vertical video feed, swipe gestures, like animation', tags: ['Video', 'App Clone'], cat: 'App Clones', interactive: true },
+            { num: 49, name: 'Reddit Clone', desc: 'Posts with upvote/downvote, subreddits, comments', tags: ['Social', 'App Clone'], cat: 'App Clones', interactive: true },
+            { num: 50, name: 'Pinterest Clone', desc: 'Masonry grid, save pins, boards, search', tags: ['Social', 'App Clone'], cat: 'App Clones', interactive: true },
+            { num: 51, name: 'Amazon Clone', desc: 'Product grid, add to cart, search, deals carousel', tags: ['E-commerce', 'App Clone'], cat: 'App Clones', interactive: true },
+            { num: 52, name: 'Google Maps', desc: 'Clickable markers, place panel, search, zoom controls', tags: ['Maps', 'App Clone'], cat: 'App Clones', interactive: true },
+            { num: 53, name: 'Apple Music', desc: 'Music player, tracklist, progress bar, keyboard shortcuts', tags: ['Music', 'App Clone'], cat: 'App Clones', interactive: true },
+            { num: 54, name: 'Tinder Clone', desc: 'Swipe cards, match animation, profile details', tags: ['Social', 'App Clone'], cat: 'App Clones', interactive: true },
+            { num: 55, name: 'Google Search', desc: 'Search with suggestions, instant results, knowledge panel', tags: ['Search', 'App Clone'], cat: 'App Clones', interactive: true },
+        ];
+
+        let activeCategory = 0;
+
+        function renderChips() {
+            document.getElementById('chips').innerHTML = categories.map((c, i) => `<button class="chip${i === activeCategory ? ' active' : ''}" onclick="setCategory(${i})">${c}</button>`).join('');
+        }
+
+        function renderGrid() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const catName = categories[activeCategory].replace(/^[✨🛒📱📊🔐📋🎨🏠] /, '');
+            let filtered = templates;
+            if (activeCategory > 0) {
+                if (activeCategory === 1) filtered = templates.filter(t => t.interactive);
+                else filtered = templates.filter(t => t.cat === catName || t.tags.some(tag => catName.includes(tag)));
+            }
+            if (q) filtered = filtered.filter(t => t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q) || t.tags.some(tag => tag.toLowerCase().includes(q)));
+
+            if (filtered.length === 0) {
+                document.getElementById('grid').innerHTML = '<div class="empty">No templates found. Try a different search.</div>';
+                return;
+            }
+
+            document.getElementById('grid').innerHTML = filtered.map(t => {
+                const fileName = `${String(t.num).padStart(2, '0')}_${t.name.replace(/[ /&]/g, '_')}.html`;
+                return `<div class="template-card" onclick="window.open('${fileName}','_blank')">
+      <div class="tc-preview">
+        <iframe src="${fileName}" loading="lazy" sandbox></iframe>
+        <div class="tc-overlay"><button class="tc-open">Open Template →</button></div>
+        <div class="tc-badges">${t.interactive ? '<span class="tc-badge tc-badge-interactive">✨ Interactive</span>' : ''}${t.isNew ? '<span class="tc-badge tc-badge-new">🆕 Updated</span>' : ''}</div>
+      </div>
+      <div class="tc-info"><div class="tc-num">#${String(t.num).padStart(2, '0')}</div><div class="tc-name">${t.name}</div><div class="tc-desc">${t.desc}</div><div class="tc-tags">${t.tags.map(tag => `<span class="tc-tag">${tag}</span>`).join('')}</div></div>
+    </div>`;
+            }).join('');
+        }
+
+        function setCategory(i) { activeCategory = i; renderChips(); renderGrid() }
+        function filterTemplates() { renderGrid() }
+
+        renderChips(); renderGrid();
+    </script>
+</body>
+
+</html>

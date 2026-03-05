@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotionPro — Database Views</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #191919;
+            --card: #2f2f2f;
+            --border: #373737;
+            --text: #rgba(255, 255, 255, 0.9);
+            --muted: #9b9b9b;
+            --blue: rgba(35, 131, 226, 0.28);
+            --blue-text: #52a8ff;
+            --hover: rgba(255, 255, 255, 0.055)
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: #fff;
+            min-height: 100vh
+        }
+
+        .header {
+            padding: 32px 64px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .h-icon {
+            font-size: 3rem;
+            margin-bottom: 12px
+        }
+
+        .h-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            outline: none
+        }
+
+        .h-desc {
+            color: var(--muted);
+            font-size: .95rem;
+            max-width: 600px;
+            line-height: 1.5;
+            outline: none
+        }
+
+        .tabs {
+            display: flex;
+            align-items: center;
+            padding: 0 64px;
+            border-bottom: 1px solid var(--border);
+            gap: 4px;
+            overflow-x: auto
+        }
+
+        .tab {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: .85rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 2px solid transparent;
+            transition: all .1s;
+            white-space: nowrap
+        }
+
+        .tab:hover {
+            color: #fff;
+            background: var(--hover);
+            border-radius: 4px 4px 0 0
+        }
+
+        .tab.active {
+            color: #fff;
+            border-bottom-color: #fff;
+            font-weight: 500
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            padding: 12px 64px;
+            gap: 12px
+        }
+
+        .btn {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: .8rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .1s;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .btn:hover {
+            background: var(--hover);
+            color: #fff
+        }
+
+        .btn-primary {
+            background: #2383e2;
+            color: #fff;
+            font-weight: 500;
+            padding: 4px 12px
+        }
+
+        .btn-primary:hover {
+            background: #1a69b7
+        }
+
+        /* Table View */
+        .table-view {
+            padding: 0 64px 64px;
+            overflow-x: auto
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .85rem;
+            text-align: left
+        }
+
+        th {
+            font-weight: 500;
+            color: var(--muted);
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            white-space: nowrap;
+            user-select: none;
+            cursor: pointer
+        }
+
+        th:hover {
+            background: var(--hover)
+        }
+
+        td {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border)
+        }
+
+        tr:hover td {
+            background: var(--hover)
+        }
+
+        .th-icon {
+            opacity: .7;
+            margin-right: 6px
+        }
+
+        .cell-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500
+        }
+
+        .cell-add {
+            width: 100%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: var(--muted);
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .cell-add:hover {
+            background: var(--hover);
+            color: #fff
+        }
+
+        .status-tag {
+            display: inline-flex;
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-size: .75rem;
+            align-items: center;
+            gap: 4px
+        }
+
+        .tag-done {
+            background: rgba(46, 170, 220, 0.2);
+            color: #33b2e8
+        }
+
+        .tag-progress {
+            background: rgba(217, 115, 13, 0.2);
+            color: #e27b14
+        }
+
+        .tag-todo {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff
+        }
+
+        /* Board View */
+        .board-view {
+            padding: 24px 64px;
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            align-items: flex-start
+        }
+
+        .board-col {
+            flex: 0 0 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .bc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: .85rem;
+            font-weight: 500;
+            color: var(--muted)
+        }
+
+        .bc-card {
+            background: var(--card);
+            border-radius: 4px;
+            padding: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+            cursor: pointer;
+            transition: background .1s;
+            border: 1px solid transparent
+        }
+
+        .bc-card:hover {
+            background: #3f3f3f;
+            border-color: var(--border)
+        }
+
+        .bc-title {
+            font-size: .85rem;
+            font-weight: 500;
+            margin-bottom: 8px
+        }
+
+        .avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #555
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="h-icon">📅</div>
+        <h1 class="h-title" contenteditable="true" spellcheck="false">Product Roadmap 2026</h1>
+        <p class="h-desc" contenteditable="true" spellcheck="false">Tracking all engineering epics and marketing
+            launches for Q1 and Q2. Keep tickets updated weekly.</p>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" onclick="setTab(this,'table')">☰ Table</div>
+        <div class="tab" onclick="setTab(this,'board')">⚏ Board</div>
+        <div class="tab" onclick="setTab(this,'timeline')">► Timeline</div>
+        <div class="tab">+</div>
+    </div>
+
+    <div class="actions">
+        <div class="btn">▽ Filter</div>
+        <div class="btn">↕ Sort</div>
+        <div class="btn">🔍 Search</div>
+        <div style="margin-left:auto" class="btn btn-primary" onclick="alert('Creating new entry...')">New</div>
+    </div>
+
+    <div id="viewContainer"></div>
+
+    <script>
+        const data = [
+            { id: 'PRJ-01', name: 'Deploy AI Agents v2', status: 'In Progress', priority: 'High', date: 'Mar 14, 2026', owner: '2' },
+            { id: 'PRJ-02', name: 'Design new landing page', status: 'Done', priority: 'Medium', date: 'Mar 01, 2026', owner: '1' },
+            { id: 'PRJ-03', name: 'Migrate PG database to Vercel', status: 'Not Started', priority: 'High', date: 'Mar 30, 2026', owner: '5' },
+            { id: 'PRJ-04', name: 'Fix WebSocket disconnections', status: 'In Progress', priority: 'Urgent', date: 'Mar 10, 2026', owner: '4' },
+            { id: 'PRJ-05', name: 'Update marketing assets', status: 'Not Started', priority: 'Low', date: 'Apr 15, 2026', owner: '6' },
+        ];
+
+        function getStatusTag(s) {
+            if (s === 'Done') return '<span class="status-tag tag-done"><span style="font-size:10px">✔️</span> Done</span>';
+            if (s === 'In Progress') return '<span class="status-tag tag-progress"><span style="width:6px;height:6px;border-radius:50%;background:currentColor"></span> In Progress</span>';
+            return '<span class="status-tag tag-todo"><span style="width:6px;height:6px;border-radius:50%;border:1px solid currentColor"></span> Not Started</span>';
+        }
+
+        function renderTable() {
+            const html = `
+  <div class="table-view">
+    <table>
+      <thead><tr>
+        <th style="width:40px"></th><th style="width:30%"><span class="th-icon">Aa</span>Name</th><th><span class="th-icon">○</span>Status</th><th><span class="th-icon">👤</span>Owner</th><th><span class="th-icon">📅</span>Date</th><th><span class="th-icon">↑</span>Priority</th>
+      </tr></thead>
+      <tbody>
+        ${data.map(r => `
+          <tr>
+            <td style="text-align:center;color:var(--muted);cursor:pointer">⋮⋮</td>
+            <td><div class="cell-title">📄 ${r.name}</div></td>
+            <td style="cursor:pointer">${getStatusTag(r.status)}</td>
+            <td><div class="avatar"><img src="https://i.pravatar.cc/40?img=${r.owner}"></div></td>
+            <td>${r.date}</td>
+            <td>${r.priority}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    <div class="cell-add" onclick="alert('Adding row...')"><span>+</span> <span style="font-size:.85rem;margin-left:4px">New</span></div>
+  </div>`;
+            document.getElementById('viewContainer').innerHTML = html;
+        }
+
+        function renderBoard() {
+            const cols = ['Not Started', 'In Progress', 'Done'];
+            const html = `
+  <div class="board-view">
+    ${cols.map(c => {
+                const items = data.filter(d => d.status === c);
+                return `<div class="board-col">
+        <div class="bc-header"><div>${getStatusTag(c)}</div><div style="color:var(--muted)">${items.length}</div></div>
+        ${items.map(i => `
+          <div class="bc-card">
+            <div class="bc-title">${i.name}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:.75rem">
+              <span style="color:var(--muted)">${i.date}</span>
+              <div class="avatar"><img src="https://i.pravatar.cc/40?img=${i.owner}"></div>
+            </div>
+          </div>
+        `).join('')}
+        <div class="btn" style="width:100%;justify-content:center;margin-top:4px" onclick="alert('New card')">+ New</div>
+      </div>`;
+            }).join('')}
+  </div>`;
+            document.getElementById('viewContainer').innerHTML = html;
+        }
+
+        function setTab(el, view) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            if (view === 'table') renderTable();
+            else if (view === 'board') renderBoard();
+            else document.getElementById('viewContainer').innerHTML = '<div style="padding:64px;color:var(--muted);text-align:center">Timeline view selected (Demo)</div>';
+        }
+
+        renderTable();
+    </script>
+</body>
+
+</html>

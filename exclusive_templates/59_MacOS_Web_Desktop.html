@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebOS — Desktop Environment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop') center/cover;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            user-select: none
+        }
+
+        .menubar {
+            height: 28px;
+            background: rgba(255, 255, 255, .15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            font-size: .8rem;
+            font-weight: 500;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000
+        }
+
+        .mb-left,
+        .mb-right {
+            display: flex;
+            gap: 16px;
+            align-items: center
+        }
+
+        .mb-item {
+            cursor: pointer;
+            opacity: .9;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, .2)
+        }
+
+        .mb-item:hover {
+            opacity: 1
+        }
+
+        .mb-bold {
+            font-weight: 700
+        }
+
+        .desktop {
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            flex-wrap: wrap;
+            height: calc(100vh - 80px);
+            align-content: flex-end
+        }
+
+        .app-icon {
+            width: 64px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            text-align: center
+        }
+
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, .1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+            transition: transform .1s
+        }
+
+        .app-icon:active .icon-box {
+            transform: scale(.95)
+        }
+
+        .icon-label {
+            font-size: .75rem;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
+            background: rgba(0, 0, 0, .2);
+            padding: 2px 6px;
+            border-radius: 4px
+        }
+
+        .dock {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, .2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, .3);
+            border-radius: 24px;
+            padding: 8px 12px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .3)
+        }
+
+        .dock-icon {
+            width: 48px;
+            height: 48px;
+            background: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all .2s;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .2)
+        }
+
+        .dock-icon:hover {
+            transform: scale(1.2) translateY(-10px);
+            margin: 0 10px
+        }
+
+        .dock-icon.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%
+        }
+
+        /* Window */
+        .window {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            width: 700px;
+            height: 450px;
+            background: #f5f5f7;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .5);
+            color: #1d1d1f;
+            z-index: 100;
+            transition: transform .2s, opacity .2s;
+            transform-origin: center;
+            opacity: 0
+        }
+
+        .window.open {
+            display: flex;
+            opacity: 1;
+            animation: popIn .2s ease-out forwards
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(.95)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        .win-titlebar {
+            height: 28px;
+            background: #e8e8ed;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            position: relative;
+            cursor: default
+        }
+
+        .win-controls {
+            display: flex;
+            gap: 8px;
+            z-index: 2
+        }
+
+        .win-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer
+        }
+
+        .win-close {
+            background: #ff5f56
+        }
+
+        .win-min {
+            background: #ffbd2e
+        }
+
+        .win-max {
+            background: #27c93f
+        }
+
+        .win-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: .8rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            pointer-events: none
+        }
+
+        .win-content {
+            flex: 1;
+            background: #fff;
+            display: flex;
+            position: relative
+        }
+
+        /* Finder App specific */
+        .finder-sidebar {
+            width: 180px;
+            background: rgba(232, 232, 237, .6);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid #d2d2d7;
+            padding: 12px 0
+        }
+
+        .f-sec {
+            margin-bottom: 16px
+        }
+
+        .f-stitle {
+            font-size: .65rem;
+            font-weight: 600;
+            color: #86868b;
+            padding: 0 12px;
+            margin-bottom: 4px
+        }
+
+        .f-item {
+            padding: 4px 12px 4px 24px;
+            font-size: .8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .f-item:hover {
+            background: rgba(0, 0, 0, .05)
+        }
+
+        .f-item.active {
+            background: #0063e1;
+            color: #fff
+        }
+
+        .finder-main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            align-content: flex-start
+        }
+
+        .f-file {
+            width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            text-align: center
+        }
+
+        .f-file-icon {
+            font-size: 2.5rem
+        }
+
+        .f-file-name {
+            font-size: .75rem
+        }
+
+        /* Widget */
+        .widget {
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            width: 300px;
+            background: rgba(255, 255, 255, .2);
+            backdrop-filter: blur(30px);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+            border: 1px solid rgba(255, 255, 255, .3)
+        }
+
+        .w-clock {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 4px
+        }
+
+        .w-date {
+            font-size: .9rem;
+            font-weight: 500;
+            opacity: .9
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menubar">
+        <div class="mb-left"><span class="mb-item"></span><span class="mb-item mb-bold">Finder</span><span
+                class="mb-item">File</span><span class="mb-item">Edit</span><span class="mb-item">View</span><span
+                class="mb-item">Go</span><span class="mb-item">Window</span><span class="mb-item">Help</span></div>
+        <div class="mb-right"><span class="mb-item" onclick="alert('🔋 100%')">🔋</span><span
+                class="mb-item">🛜</span><span class="mb-item" id="menuTime">Mon 9:41 AM</span></div>
+    </div>
+
+    <div class="desktop">
+        <div class="app-icon" onclick="openFinder()">
+            <div class="icon-box" style="background:#0071e3">📁</div>
+            <div class="icon-label">Portfolio</div>
+        </div>
+        <div class="app-icon" onclick="window.open('https://github.com')">
+            <div class="icon-box" style="background:#1d1d1f">💻</div>
+            <div class="icon-label">Code</div>
+        </div>
+        <div class="app-icon" onclick="alert('Opening browser...')">
+            <div class="icon-box" style="background:gradient(...)">🌐</div>
+            <div class="icon-label">Safari</div>
+        </div>
+    </div>
+
+    <div class="widget">
+        <div class="w-clock" id="widgetTime">09:41</div>
+        <div class="w-date" id="widgetDate">Monday, March 5</div>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);display:flex;gap:12px">
+            <div style="flex:1;background:rgba(0,0,0,.2);padding:12px;border-radius:10px">
+                <div style="font-size:.7rem;font-weight:600;margin-bottom:8px">WEATHER</div>
+                <div>☀️ 72°</div>
+                <div style="font-size:.7rem;opacity:.7">San Francisco</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Finder Window -->
+    <div class="window" id="finderWin">
+        <div class="win-titlebar" id="dragHandle">
+            <div class="win-controls">
+                <div class="win-btn win-close" onclick="closeFinder()"></div>
+                <div class="win-btn win-min"></div>
+                <div class="win-btn win-max" onclick="toggleMax()"></div>
+            </div>
+            <div class="win-title">Portfolio</div>
+        </div>
+        <div class="win-content">
+            <div class="finder-sidebar">
+                <div class="f-sec">
+                    <div class="f-stitle">Favorites</div>
+                    <div class="f-item">🏠 Home</div>
+                    <div class="f-item active">📄 Documents</div>
+                    <div class="f-item">⬇️ Downloads</div>
+                    <div class="f-item">🖼️ Pictures</div>
+                </div>
+            </div>
+            <div class="finder-main">
+                <div class="f-file" onclick="alert('Opening CV.pdf')">
+                    <div class="f-file-icon">📄</div>
+                    <div class="f-file-name">CV_2026.pdf</div>
+                </div>
+                <div class="f-file" onclick="alert('Opening projects folder')">
+                    <div class="f-file-icon">📁</div>
+                    <div class="f-file-name">Projects</div>
+                </div>
+                <div class="f-file" onclick="alert('Opening profile photo')">
+                    <div class="f-file-icon">🖼️</div>
+                    <div class="f-file-name">headshot.png</div>
+                </div>
+                <div class="f-file" onclick="alert('Running script...')">
+                    <div class="f-file-icon">💻</div>
+                    <div class="f-file-name">startup.sh</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dock">
+        <div class="dock-icon active" style="background:#f5f5f7" onclick="openFinder()" title="Finder">📁</div>
+        <div class="dock-icon" style="background:#ff3b30" onclick="alert('Mail')" title="Mail">✉️</div>
+        <div class="dock-icon" style="background:#4cd964" onclick="alert('Messages')" title="Messages">💬</div>
+        <div class="dock-icon" style="background:#007aff" onclick="alert('Safari')" title="Safari">🧭</div>
+        <div class="dock-icon" style="background:#fff" onclick="alert('Settings')" title="Settings">⚙️</div>
+    </div>
+
+    <script>
+        // Time update
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('widgetTime').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            let menuTime = now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            document.getElementById('menuTime').innerText = `${days[now.getDay()]} ${menuTime}`;
+        }
+        setInterval(updateTime, 1000); updateTime();
+
+        // Window management
+        const win = document.getElementById('finderWin');
+        let isMax = false;
+        let origStyle = '';
+
+        function openFinder() { win.style.display = 'flex'; setTimeout(() => win.classList.add('open'), 10) }
+        function closeFinder() { win.classList.remove('open'); setTimeout(() => win.style.display = 'none', 200) }
+        function toggleMax() {
+            if (!isMax) {
+                origStyle = win.style.cssText;
+                win.style.left = '0'; win.style.top = '28px'; win.style.width = '100vw'; win.style.height = 'calc(100vh - 28px - 80px)'; win.style.borderRadius = '0';
+            } else {
+                win.style.cssText = origStyle;
+            }
+            isMax = !isMax;
+        }
+
+        // Dragging
+        let isDragging = false, startX, startY, origX, origY;
+        document.getElementById('dragHandle').onmousedown = function (e) {
+            if (e.target.classList.contains('win-btn') || isMax) return;
+            isDragging = true; startX = e.clientX; startY = e.clientY;
+            origX = parseInt(window.getComputedStyle(win).left, 10); origY = parseInt(window.getComputedStyle(win).top, 10);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', endDrag);
+        }
+        function drag(e) { if (isDragging) { win.style.left = (origX + (e.clientX - startX)) + 'px'; win.style.top = (origY + (e.clientY - startY)) + 'px'; } }
+        function endDrag() { isDragging = false; document.removeEventListener('mousemove', drag); document.removeEventListener('mouseup', endDrag); }
+
+        // Open by default for demo
+        setTimeout(openFinder, 500);
+    </script>
+</body>
+
+</html>

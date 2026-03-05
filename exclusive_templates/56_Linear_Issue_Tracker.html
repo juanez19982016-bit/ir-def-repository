@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinearFlow — Issue Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #121214;
+            --sidebar: #18181b;
+            --card: #1f1f23;
+            --border: #27272a;
+            --text: #fafafa;
+            --muted: #a1a1aa;
+            --accent: #5e6ad2;
+            --urgent: #e5484d;
+            --high: #f5a623;
+            --medium: #3b82f6;
+            --low: #71717a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            overflow: hidden
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 16px 12px;
+            flex-shrink: 0
+        }
+
+        .s-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 8px 16px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: .9rem
+        }
+
+        .s-wsp {
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px
+        }
+
+        .nav-section {
+            margin-bottom: 20px
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: .85rem;
+            font-weight: 500;
+            transition: all .1s
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, .05);
+            color: var(--text)
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, .08);
+            color: var(--text)
+        }
+
+        .nav-icon {
+            opacity: .7;
+            font-size: .9rem;
+            width: 16px;
+            text-align: center
+        }
+
+        .s-title {
+            font-size: .7rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            padding: 0 8px;
+            margin-bottom: 8px
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        .m-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0
+        }
+
+        .mh-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            font-weight: 600
+        }
+
+        .mh-actions {
+            display: flex;
+            gap: 12px
+        }
+
+        .btn {
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: .8rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Inter';
+            border: 1px solid transparent;
+            transition: all .1s
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff
+        }
+
+        .btn-primary:hover {
+            opacity: .9
+        }
+
+        .btn-outline {
+            background: var(--card);
+            border-color: var(--border);
+            color: var(--text)
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .board {
+            display: flex;
+            flex: 1;
+            padding: 24px 32px;
+            gap: 24px;
+            overflow-x: auto;
+            align-items: flex-start
+        }
+
+        .column {
+            width: 320px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .col-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--muted);
+            margin-bottom: 4px
+        }
+
+        .col-count {
+            background: var(--card);
+            padding: 2px 6px;
+            border-radius: 100px;
+            font-size: .7rem
+        }
+
+        .issue-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: grab;
+            transition: all .1s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .2)
+        }
+
+        .issue-card:hover {
+            border-color: rgba(255, 255, 255, .15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .3)
+        }
+
+        .issue-card:active {
+            cursor: grabbing
+        }
+
+        .ic-id {
+            font-size: .75rem;
+            color: var(--muted);
+            margin-bottom: 6px;
+            font-weight: 500
+        }
+
+        .ic-title {
+            font-size: .85rem;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            color: var(--text)
+        }
+
+        .ic-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .ic-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .ic-priority {
+            width: 14px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            font-size: 10px
+        }
+
+        .priority-urgent {
+            color: var(--urgent)
+        }
+
+        .priority-high {
+            color: var(--high)
+        }
+
+        .priority-medium {
+            color: var(--medium)
+        }
+
+        .priority-low {
+            color: var(--low)
+        }
+
+        .ic-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid var(--border)
+        }
+
+        .ic-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .ic-labels {
+            display: flex;
+            gap: 4px
+        }
+
+        .ic-label {
+            font-size: .65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, .05);
+            color: var(--muted);
+            font-weight: 500
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="s-header">
+            <div class="s-wsp">A</div>Acme Corp
+        </div>
+        <div class="nav-section">
+            <div class="nav-item"><span class="nav-icon">✏️</span>New Issue</div>
+            <div class="nav-item"><span class="nav-icon">🔍</span>Search</div>
+            <div class="nav-item"><span class="nav-icon">📥</span>Inbox</div>
+        </div>
+        <div class="nav-section">
+            <div class="s-title">Your Views</div>
+            <div class="nav-item active"><span class="nav-icon">📋</span>Active issues</div>
+            <div class="nav-item"><span class="nav-icon">⭐</span>Favorites</div>
+            <div class="nav-item"><span class="nav-icon">👤</span>Assigned to me</div>
+        </div>
+        <div class="nav-section">
+            <div class="s-title">Projects</div>
+            <div class="nav-item"><span class="nav-icon" style="color:var(--medium)">■</span>Frontend V2</div>
+            <div class="nav-item"><span class="nav-icon" style="color:var(--high)">■</span>API Gateway</div>
+            <div class="nav-item"><span class="nav-icon" style="color:var(--urgent)">■</span>Security Fixes</div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="m-header">
+            <div class="mh-title"><span style="color:var(--muted)">Frontend V2</span> / Active issues</div>
+            <div class="mh-actions"><button class="btn btn-outline" onclick="renderBoard(true)">Board</button><button
+                    class="btn btn-outline" onclick="renderBoard(false)">List</button><button class="btn btn-primary"
+                    onclick="addIssue()">New Issue</button></div>
+        </div>
+        <div class="board" id="board"></div>
+    </div>
+
+    <script>
+        const cols = [{ id: 'todo', name: 'Todo' }, { id: 'progress', name: 'In Progress' }, { id: 'review', name: 'In Review' }, { id: 'done', name: 'Done' }];
+        const issues = [
+            { id: 'FRONT-123', title: 'Implement infinite scroll on feed', status: 'todo', priority: 'high', avatar: '1', labels: ['feature', 'ui'] },
+            { id: 'FRONT-124', title: 'Fix hydration mismatch error', status: 'progress', priority: 'urgent', avatar: '2', labels: ['bug'] },
+            { id: 'FRONT-125', title: 'Update color palette to v2', status: 'review', priority: 'medium', avatar: '3', labels: ['design'] },
+            { id: 'FRONT-126', title: 'Add keyboard shortcuts for navigation', status: 'todo', priority: 'low', avatar: '4', labels: ['feature'] },
+            { id: 'API-42', title: 'Rate limiting on public endpoints', status: 'progress', priority: 'high', avatar: '5', labels: ['backend', 'security'] },
+        ];
+
+        const pIcons = { urgent: '🚨', high: '↑', medium: '=', low: '↓' };
+
+        function renderBoard(isBoard = true) {
+            const board = document.getElementById('board');
+            if (!isBoard) { board.innerHTML = '<div style="color:var(--muted);width:100%;text-align:center;padding:40px">List view implementation goes here...</div>'; return; }
+
+            board.innerHTML = cols.map(c => {
+                const colIssues = issues.filter(i => i.status === c.id);
+                return `
+    <div class="column" ondragover="event.preventDefault()" ondrop="drop(event, '${c.id}')">
+      <div class="col-header">
+        <div style="display:flex;align-items:center;gap:8px"><span style="color:${getColor(c.id)}">◓</span> ${c.name}</div>
+        <div class="col-count">${colIssues.length}</div>
+      </div>
+      ${colIssues.map(i => `
+        <div class="issue-card" draggable="true" ondragstart="drag(event, '${i.id}')" onclick="alert('Open issue: ${i.id}')">
+          <div class="ic-id">${i.id}</div>
+          <div class="ic-title">${i.title}</div>
+          <div class="ic-footer">
+            <div class="ic-meta">
+              <span class="ic-priority priority-${i.priority}" title="${i.priority}">${pIcons[i.priority]}</span>
+              <div class="ic-labels">${i.labels.map(l => `<span class="ic-label">${l}</span>`).join('')}</div>
+            </div>
+            <div class="ic-avatar"><img src="https://i.pravatar.cc/40?img=${i.avatar}"></div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `}).join('');
+        }
+
+        function getColor(status) { return { todo: '#71717a', progress: '#f5a623', review: '#3b82f6', done: '#5e6ad2' }[status] }
+        function drag(ev, id) { ev.dataTransfer.setData("id", id) }
+        function drop(ev, status) { const id = ev.dataTransfer.getData("id"); const issue = issues.find(i => i.id === id); if (issue) { issue.status = status; renderBoard() } }
+        function addIssue() {
+            const title = prompt('Issue title:'); if (!title) return;
+            issues.push({ id: `FRONT-${Math.floor(Math.random() * 100) + 200}`, title, status: 'todo', priority: 'medium', avatar: '1', labels: ['feature'] });
+            renderBoard();
+        }
+
+        renderBoard();
+    </script>
+</body>
+
+</html>

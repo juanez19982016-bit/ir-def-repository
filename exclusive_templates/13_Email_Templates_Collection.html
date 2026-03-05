@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notify — Email Template Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #080810;
+            color: #f0f0f5;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: -1rem
+        }
+
+        p.sub {
+            color: #6b7280;
+            text-align: center;
+            font-size: 0.9rem
+        }
+
+        .email {
+            max-width: 600px;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: #0c0c14
+        }
+
+        .email-label {
+            padding: 12px 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6b7280;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.01)
+        }
+
+        .email-body {
+            padding: 2.5rem
+        }
+
+        .e-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 2rem
+        }
+
+        .email-body h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem
+        }
+
+        .email-body p {
+            color: #9ca3af;
+            line-height: 1.7;
+            font-size: 0.92rem;
+            margin-bottom: 1rem
+        }
+
+        .e-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            margin: 1rem 0;
+            text-decoration: none
+        }
+
+        .e-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.06);
+            margin: 1.5rem 0
+        }
+
+        .e-code {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 0.3em;
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 1.5rem 0
+        }
+
+        .e-features {
+            list-style: none;
+            margin: 1rem 0
+        }
+
+        .e-features li {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .e-features li::before {
+            content: '✓';
+            color: #22c55e;
+            font-weight: 700
+        }
+
+        .e-footer {
+            padding: 1.5rem 2.5rem;
+            font-size: 0.8rem;
+            color: #6b7280;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.04)
+        }
+
+        .order-table {
+            width: 100%;
+            margin: 1rem 0
+        }
+
+        .order-table td {
+            padding: 8px 0;
+            font-size: 0.88rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04)
+        }
+
+        .order-table td:last-child {
+            text-align: right;
+            font-weight: 600
+        }
+
+        .order-total {
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-top: 2px solid rgba(255, 255, 255, 0.1) !important
+        }
+    </style>
+</head>
+
+<body>
+    <h1>📧 Email Template Collection</h1>
+    <p class="sub">5 ready-to-use transactional email templates</p>
+
+    <!-- 1. WELCOME EMAIL -->
+    <div class="email">
+        <div class="email-label">Template 1 — Welcome Email</div>
+        <div class="email-body">
+            <div class="e-logo" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)">◆</div>
+            <h2>Welcome to Apex! 🎉</h2>
+            <p>Hey Sarah, thanks for joining Apex! We're excited to have you on board. Your account is ready and waiting
+                for you.</p>
+            <a class="e-btn" style="background:#7c3aed;color:#fff" href="#">Go to Dashboard →</a>
+            <div class="e-divider"></div>
+            <p style="font-size:0.85rem">Here's what you can do next:</p>
+            <ul class="e-features">
+                <li>Complete your profile setup</li>
+                <li>Connect your payment methods</li>
+                <li>Invite your team members</li>
+                <li>Explore our template library</li>
+            </ul>
+        </div>
+        <div class="e-footer">© 2026 Apex · <a href="#" style="color:#7c3aed;text-decoration:none">Unsubscribe</a></div>
+    </div>
+
+    <!-- 2. VERIFICATION CODE -->
+    <div class="email">
+        <div class="email-label">Template 2 — Verification Code</div>
+        <div class="email-body">
+            <div class="e-logo" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)">◆</div>
+            <h2>Verify your email</h2>
+            <p>Enter this verification code to confirm your email address. This code expires in 10 minutes.</p>
+            <div class="e-code">847 293</div>
+            <p style="font-size:0.85rem;color:#6b7280">If you didn't request this code, please ignore this email or
+                contact support if you have concerns.</p>
+        </div>
+        <div class="e-footer">© 2026 Apex · This is an automated message</div>
+    </div>
+
+    <!-- 3. ORDER CONFIRMATION -->
+    <div class="email">
+        <div class="email-label">Template 3 — Order Confirmation</div>
+        <div class="email-body">
+            <div class="e-logo" style="background:linear-gradient(135deg,#22c55e,#10b981)">✓</div>
+            <h2>Order Confirmed! 🛍️</h2>
+            <p>Thanks for your purchase, John! Your order #ORD-2026-1847 has been confirmed and is being processed.</p>
+            <table class="order-table">
+                <tr>
+                    <td>Pro Plan — Annual</td>
+                    <td>$299.00</td>
+                </tr>
+                <tr>
+                    <td>Additional Storage (100GB)</td>
+                    <td>$49.00</td>
+                </tr>
+                <tr>
+                    <td>Discount (LAUNCH20)</td>
+                    <td style="color:#22c55e">-$69.60</td>
+                </tr>
+                <tr class="order-total">
+                    <td><strong>Total</strong></td>
+                    <td><strong>$278.40</strong></td>
+                </tr>
+            </table>
+            <a class="e-btn" style="background:#22c55e;color:#000" href="#">View Order Details →</a>
+        </div>
+        <div class="e-footer">© 2026 Apex · <a href="#" style="color:#22c55e;text-decoration:none">View in browser</a>
+        </div>
+    </div>
+
+    <!-- 4. PASSWORD RESET -->
+    <div class="email">
+        <div class="email-label">Template 4 — Password Reset</div>
+        <div class="email-body">
+            <div class="e-logo" style="background:linear-gradient(135deg,#f59e0b,#d97706)">🔒</div>
+            <h2>Reset your password</h2>
+            <p>We received a request to reset your password. Click the button below to create a new one. This link
+                expires in 1 hour.</p>
+            <a class="e-btn" style="background:#f59e0b;color:#000" href="#">Reset Password →</a>
+            <div class="e-divider"></div>
+            <p style="font-size:0.85rem;color:#6b7280">If you didn't request this, your account is still safe. No
+                changes have been made.</p>
+        </div>
+        <div class="e-footer">© 2026 Apex · <a href="#" style="color:#f59e0b;text-decoration:none">Contact Support</a>
+        </div>
+    </div>
+
+    <!-- 5. INVOICE -->
+    <div class="email">
+        <div class="email-label">Template 5 — Payment Receipt</div>
+        <div class="email-body">
+            <div class="e-logo" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">$</div>
+            <h2>Payment received 💳</h2>
+            <p>Hi Sarah, this is your receipt for the payment of <strong>$29.00</strong> made on March 4, 2026.</p>
+            <table class="order-table">
+                <tr>
+                    <td>Description</td>
+                    <td>Pro Plan — Monthly</td>
+                </tr>
+                <tr>
+                    <td>Amount</td>
+                    <td>$29.00</td>
+                </tr>
+                <tr>
+                    <td>Payment Method</td>
+                    <td>Visa ****4242</td>
+                </tr>
+                <tr>
+                    <td>Transaction ID</td>
+                    <td style="font-size:0.8rem">txn_3R8kL2m9...</td>
+                </tr>
+            </table>
+            <a class="e-btn" style="background:#3b82f6;color:#fff" href="#">Download Invoice (PDF) →</a>
+        </div>
+        <div class="e-footer">© 2026 Apex · <a href="#" style="color:#3b82f6;text-decoration:none">Manage Billing</a>
+        </div>
+    </div>
+</body>
+
+</html>

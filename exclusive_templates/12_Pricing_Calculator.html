@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelance Project Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #0a0a0f;
+            --card: #0e0e16;
+            --input: #111118;
+            --border: rgba(255, 255, 255, 0.06);
+            --accent: #7c3aed;
+            --green: #22c55e;
+            --text: #f0f0f5;
+            --muted: #6b7280
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 2rem;
+            display: flex;
+            justify-content: center
+        }
+
+        .calc {
+            max-width: 900px;
+            width: 100%
+        }
+
+        .calc-header {
+            text-align: center;
+            margin-bottom: 3rem
+        }
+
+        .calc-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem
+        }
+
+        .calc-header p {
+            color: var(--muted)
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem
+        }
+
+        .panel {
+            padding: 2rem;
+            border-radius: 20px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .panel h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .field {
+            margin-bottom: 1.5rem
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: var(--input);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.92rem;
+            outline: none;
+            font-family: 'Inter', sans-serif
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--accent)
+        }
+
+        .field select {
+            cursor: pointer;
+            appearance: none
+        }
+
+        .field .hint {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 4px
+        }
+
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem
+        }
+
+        .slider-row input[type=range] {
+            flex: 1;
+            accent-color: var(--accent);
+            height: 6px
+        }
+
+        .slider-val {
+            min-width: 60px;
+            text-align: right;
+            font-weight: 600;
+            font-size: 0.95rem
+        }
+
+        .toggle-group {
+            display: flex;
+            gap: 0.5rem
+        }
+
+        .toggle {
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: var(--input);
+            border: 1px solid var(--border);
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--muted);
+            font-family: 'Inter', sans-serif
+        }
+
+        .toggle.active {
+            background: rgba(124, 58, 237, 0.1);
+            border-color: var(--accent);
+            color: var(--accent)
+        }
+
+        .result {
+            margin-top: 1rem
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 0.92rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .result-row:last-child {
+            border: none
+        }
+
+        .result-row.highlight {
+            font-size: 1.5rem;
+            font-weight: 800;
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+            border-top: 2px solid var(--border);
+            border-bottom: none
+        }
+
+        .result-row.highlight .val {
+            color: var(--accent)
+        }
+
+        .result-label {
+            color: var(--muted)
+        }
+
+        .val {
+            font-weight: 600
+        }
+
+        .tip-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(34, 197, 94, 0.05);
+            border: 1px solid rgba(34, 197, 94, 0.1)
+        }
+
+        .tip-box h4 {
+            font-size: 0.8rem;
+            color: var(--green);
+            margin-bottom: 0.3rem
+        }
+
+        .tip-box p {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.5
+        }
+
+        .breakdown {
+            margin-top: 1.5rem
+        }
+
+        .break-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px
+        }
+
+        .break-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--input);
+            border-radius: 4px;
+            overflow: hidden
+        }
+
+        .break-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s
+        }
+
+        .break-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            min-width: 80px
+        }
+
+        .break-pct {
+            font-size: 0.8rem;
+            font-weight: 600;
+            min-width: 40px;
+            text-align: right
+        }
+    </style>
+    <script>
+        function calculate() {
+            const hourly = parseFloat(document.getElementById('hourly').value) || 0;
+            const hours = parseFloat(document.getElementById('hours').value) || 0;
+            const complexity = parseFloat(document.getElementById('complexity').value) || 1;
+            const rush = document.querySelector('.toggle.active')?.dataset.rush || 1;
+            const subtotal = hourly * hours * complexity * rush;
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+            document.getElementById('r-subtotal').textContent = '$' + subtotal.toLocaleString();
+            document.getElementById('r-tax').textContent = '$' + tax.toLocaleString();
+            document.getElementById('r-total').textContent = '$' + total.toLocaleString();
+            document.getElementById('r-deposit').textContent = '$' + (total * 0.5).toLocaleString();
+            document.getElementById('slider-val').textContent = hours + 'h';
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('input,select').forEach(el => el.addEventListener('input', calculate));
+            document.querySelectorAll('.toggle').forEach(t => t.addEventListener('click', function () {
+                document.querySelectorAll('.toggle').forEach(x => x.classList.remove('active'));
+                this.classList.add('active'); calculate();
+            }));
+            calculate();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="calc">
+        <div class="calc-header">
+            <h1>💰 Project Price Calculator</h1>
+            <p>Estimate project costs based on your hourly rate and scope</p>
+        </div>
+        <div class="calc-grid">
+            <div class="panel">
+                <h2>⚙️ Project Details</h2>
+                <div class="field"><label>Hourly Rate (USD)</label><input type="number" id="hourly" value="100"
+                        min="10">
+                    <div class="hint">Your base hourly rate before multipliers</div>
+                </div>
+                <div class="field"><label>Estimated Hours</label>
+                    <div class="slider-row"><input type="range" id="hours" value="40" min="1" max="200"><span
+                            class="slider-val" id="slider-val">40h</span></div>
+                </div>
+                <div class="field"><label>Project Complexity</label><select id="complexity">
+                        <option value="1">Standard (1x)</option>
+                        <option value="1.25">Complex (1.25x)</option>
+                        <option value="1.5" selected>Advanced (1.5x)</option>
+                        <option value="2">Enterprise (2x)</option>
+                    </select></div>
+                <div class="field"><label>Timeline</label>
+                    <div class="toggle-group">
+                        <div class="toggle active" data-rush="1">Standard</div>
+                        <div class="toggle" data-rush="1.25">Rush (+25%)</div>
+                        <div class="toggle" data-rush="1.5">Urgent (+50%)</div>
+                    </div>
+                </div>
+                <h2 style="margin-top:2rem">📊 Time Breakdown</h2>
+                <div class="breakdown">
+                    <div class="break-item"><span class="break-label">Design</span>
+                        <div class="break-bar">
+                            <div class="break-fill" style="width:25%;background:var(--accent)"></div>
+                        </div><span class="break-pct">25%</span>
+                    </div>
+                    <div class="break-item"><span class="break-label">Frontend</span>
+                        <div class="break-bar">
+                            <div class="break-fill" style="width:35%;background:#3b82f6"></div>
+                        </div><span class="break-pct">35%</span>
+                    </div>
+                    <div class="break-item"><span class="break-label">Backend</span>
+                        <div class="break-bar">
+                            <div class="break-fill" style="width:25%;background:#22c55e"></div>
+                        </div><span class="break-pct">25%</span>
+                    </div>
+                    <div class="break-item"><span class="break-label">Testing</span>
+                        <div class="break-bar">
+                            <div class="break-fill" style="width:15%;background:#f59e0b"></div>
+                        </div><span class="break-pct">15%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <h2>💵 Quote Summary</h2>
+                <div class="result">
+                    <div class="result-row"><span class="result-label">Subtotal</span><span class="val"
+                            id="r-subtotal">$6,000</span></div>
+                    <div class="result-row"><span class="result-label">Tax (10%)</span><span class="val"
+                            id="r-tax">$600</span></div>
+                    <div class="result-row highlight"><span>Total</span><span class="val" id="r-total">$6,600</span>
+                    </div>
+                    <div class="result-row"><span class="result-label">Deposit (50%)</span><span class="val"
+                            id="r-deposit">$3,300</span></div>
+                </div>
+                <div class="tip-box">
+                    <h4>💡 Pro Tip</h4>
+                    <p>Always charge a 50% deposit before starting. Use the Invoice template (included) to send
+                        professional invoices to your clients.</p>
+                </div>
+                <div class="tip-box"
+                    style="margin-top:1rem;border-color:rgba(124,58,237,0.15);background:rgba(124,58,237,0.05)">
+                    <h4 style="color:var(--accent)">📋 Next Steps</h4>
+                    <p>1. Use this estimate in your proposal<br>2. Send the Client Contract (included)<br>3. Collect 50%
+                        deposit via Stripe<br>4. Start building with DevVault Pro templates!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

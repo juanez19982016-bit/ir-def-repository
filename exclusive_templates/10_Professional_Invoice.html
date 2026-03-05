@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Invoice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #080810;
+            color: #f0f0f5;
+            padding: 2rem;
+            display: flex;
+            justify-content: center
+        }
+
+        .invoice {
+            max-width: 800px;
+            width: 100%;
+            background: #0c0c14;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5)
+        }
+
+        .inv-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem
+        }
+
+        .inv-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .inv-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 800
+        }
+
+        .inv-company {
+            font-size: 1.3rem;
+            font-weight: 800
+        }
+
+        .inv-badge {
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            height: fit-content
+        }
+
+        .inv-badge.paid {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.15)
+        }
+
+        .inv-badge.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.15)
+        }
+
+        .inv-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06)
+        }
+
+        .meta-block h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6b7280;
+            margin-bottom: 0.5rem
+        }
+
+        .meta-block p {
+            font-size: 0.92rem;
+            line-height: 1.6
+        }
+
+        .inv-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem
+        }
+
+        .inv-det {
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04)
+        }
+
+        .inv-det label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6b7280;
+            display: block;
+            margin-bottom: 4px
+        }
+
+        .inv-det span {
+            font-size: 0.95rem;
+            font-weight: 600
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem
+        }
+
+        thead th {
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #6b7280;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06)
+        }
+
+        thead th:last-child {
+            text-align: right
+        }
+
+        tbody td {
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.92rem
+        }
+
+        tbody td:last-child {
+            text-align: right;
+            font-weight: 600
+        }
+
+        .item-desc {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 2px
+        }
+
+        .totals {
+            display: flex;
+            justify-content: flex-end
+        }
+
+        .totals-box {
+            width: 300px
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.92rem
+        }
+
+        .total-row.sub {
+            color: #6b7280
+        }
+
+        .total-row.grand {
+            font-size: 1.2rem;
+            font-weight: 800;
+            padding-top: 12px;
+            margin-top: 8px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1)
+        }
+
+        .total-row.grand .amount {
+            color: #7c3aed
+        }
+
+        .inv-footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start
+        }
+
+        .inv-notes {
+            max-width: 400px
+        }
+
+        .inv-notes h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem
+        }
+
+        .inv-notes p {
+            font-size: 0.82rem;
+            color: #6b7280;
+            line-height: 1.6
+        }
+
+        .inv-actions {
+            display: flex;
+            gap: 0.5rem
+        }
+
+        .inv-btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: 'Inter', sans-serif
+        }
+
+        .inv-btn-p {
+            background: #7c3aed;
+            color: #fff
+        }
+
+        .inv-btn-s {
+            background: rgba(255, 255, 255, 0.03);
+            color: #f0f0f5;
+            border: 1px solid rgba(255, 255, 255, 0.06)
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                color: #000
+            }
+
+            .invoice {
+                box-shadow: none;
+                border: none
+            }
+
+            .inv-actions {
+                display: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice">
+        <div class="inv-header">
+            <div class="inv-brand">
+                <div class="inv-logo">◆</div><span class="inv-company">Apex Studio</span>
+            </div>
+            <div class="inv-badge paid">✓ Paid</div>
+        </div>
+        <div class="inv-meta">
+            <div class="meta-block">
+                <h4>From</h4>
+                <p><strong>Apex Studio LLC</strong><br>1234 Innovation Drive<br>San Francisco, CA
+                    94103<br>hello@apexstudio.com</p>
+            </div>
+            <div class="meta-block">
+                <h4>Bill To</h4>
+                <p><strong>DataFlow Inc.</strong><br>5678 Market Street<br>New York, NY 10001<br>billing@dataflow.io</p>
+            </div>
+        </div>
+        <div class="inv-details">
+            <div class="inv-det"><label>Invoice #</label><span>INV-2026-0042</span></div>
+            <div class="inv-det"><label>Issue Date</label><span>Mar 1, 2026</span></div>
+            <div class="inv-det"><label>Due Date</label><span>Mar 31, 2026</span></div>
+            <div class="inv-det"><label>Payment</label><span>Bank Transfer</span></div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Frontend Development — Dashboard UI<div class="item-desc">React + TypeScript + Tailwind CSS
+                            implementation</div>
+                    </td>
+                    <td>40 hrs</td>
+                    <td>$150</td>
+                    <td>$6,000</td>
+                </tr>
+                <tr>
+                    <td>Backend API Development<div class="item-desc">Node.js REST API with authentication & database
+                        </div>
+                    </td>
+                    <td>32 hrs</td>
+                    <td>$150</td>
+                    <td>$4,800</td>
+                </tr>
+                <tr>
+                    <td>UI/UX Design — Figma Prototypes<div class="item-desc">High-fidelity mockups, design system,
+                            components</div>
+                    </td>
+                    <td>24 hrs</td>
+                    <td>$120</td>
+                    <td>$2,880</td>
+                </tr>
+                <tr>
+                    <td>Deployment & DevOps Setup<div class="item-desc">Vercel deployment, CI/CD, monitoring, DNS</div>
+                    </td>
+                    <td>8 hrs</td>
+                    <td>$150</td>
+                    <td>$1,200</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="totals">
+            <div class="totals-box">
+                <div class="total-row sub"><span>Subtotal</span><span>$14,880</span></div>
+                <div class="total-row sub"><span>Tax (0%)</span><span>$0</span></div>
+                <div class="total-row sub"><span>Discount (10%)</span><span>-$1,488</span></div>
+                <div class="total-row grand"><span>Total</span><span class="amount">$13,392</span></div>
+            </div>
+        </div>
+        <div class="inv-footer">
+            <div class="inv-notes">
+                <h4>Notes</h4>
+                <p>Thank you for your business! Payment is due within 30 days. Please include the invoice number in your
+                    payment reference.</p>
+            </div>
+            <div class="inv-actions"><button class="inv-btn inv-btn-s">📥 Download PDF</button><button
+                    class="inv-btn inv-btn-p">📧 Send Invoice</button></div>
+        </div>
+    </div>
+</body>
+
+</html>

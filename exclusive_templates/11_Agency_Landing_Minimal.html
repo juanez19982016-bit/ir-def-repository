@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanta — Agency Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #030305;
+            --card: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.05);
+            --text: #f5f5f5;
+            --muted: #777
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        nav {
+            padding: 1.5rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            mix-blend-mode: difference
+        }
+
+        .nav-logo {
+            font-weight: 900;
+            font-size: 1.4rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            font-size: 0.88rem
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 4rem;
+            position: relative
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+            pointer-events: none
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 10vw, 9rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+            text-transform: uppercase
+        }
+
+        .hero h1 .outline {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            color: transparent
+        }
+
+        .hero-sub {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-top: 2rem
+        }
+
+        .hero-sub p {
+            max-width: 400px;
+            font-size: 1rem;
+            color: var(--muted);
+            line-height: 1.7
+        }
+
+        .hero-sub .scroll {
+            font-size: 0.8rem;
+            color: var(--muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent);
+            animation: scrollAnim 2s infinite
+        }
+
+        @keyframes scrollAnim {
+            0% {
+                transform: scaleY(0);
+                transform-origin: top
+            }
+
+            50% {
+                transform: scaleY(1);
+                transform-origin: top
+            }
+
+            51% {
+                transform-origin: bottom
+            }
+
+            100% {
+                transform: scaleY(0);
+                transform-origin: bottom
+            }
+        }
+
+        .section {
+            padding: 8rem 4rem
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem
+        }
+
+        .work-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            border: 1px solid var(--border)
+        }
+
+        .work-item .work-bg {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            transition: transform 0.5s
+        }
+
+        .work-item:hover .work-bg {
+            transform: scale(1.05)
+        }
+
+        .work-item .work-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s
+        }
+
+        .work-item:hover .work-overlay {
+            opacity: 1
+        }
+
+        .work-overlay h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .work-overlay p {
+            font-size: 0.85rem;
+            color: var(--muted)
+        }
+
+        .work-item:first-child {
+            grid-row: span 2;
+            aspect-ratio: auto
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            margin-bottom: 2rem
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center
+        }
+
+        .about-grid h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.03em
+        }
+
+        .about-grid p {
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 1rem
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 4rem;
+            margin-top: 3rem
+        }
+
+        .stat-item .stat-num {
+            font-size: 3rem;
+            font-weight: 900
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 4rem
+        }
+
+        .service {
+            padding: 2.5rem;
+            background: var(--bg);
+            transition: background 0.3s
+        }
+
+        .service:hover {
+            background: rgba(255, 255, 255, 0.02)
+        }
+
+        .service-num {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 1rem
+        }
+
+        .service h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem
+        }
+
+        .service p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        .cta {
+            text-align: center;
+            padding: 8rem 4rem;
+            border-top: 1px solid var(--border)
+        }
+
+        .cta h2 {
+            font-size: clamp(3rem, 6vw, 6rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+            line-height: 0.95
+        }
+
+        .cta h2 .outline {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            color: transparent
+        }
+
+        .cta-link {
+            display: inline-block;
+            margin-top: 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 16px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 100px;
+            transition: all 0.3s
+        }
+
+        .cta-link:hover {
+            background: #fff;
+            color: #000
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.75rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border)
+        }
+
+        @media(max-width:768px) {
+
+            .work-grid,
+            .services,
+            .about-grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero h1 {
+                font-size: 3.5rem
+            }
+
+            .section,
+            .hero,
+            .cta {
+                padding-left: 2rem;
+                padding-right: 2rem
+            }
+
+            nav {
+                padding: 1rem 2rem
+            }
+
+            .work-item:first-child {
+                grid-row: auto
+            }
+
+            .stats-row {
+                flex-direction: column;
+                gap: 2rem
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-logo">Vanta</div>
+        <div class="nav-links"><a>Work</a><a>About</a><a>Services</a><a>Contact</a></div>
+    </nav>
+    <section class="hero">
+        <h1>We build<br><span class="outline">digital</span><br>experiences</h1>
+        <div class="hero-sub">
+            <p>A multidisciplinary design studio crafting bold digital products for ambitious brands worldwide.</p>
+            <div class="scroll"><span>Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="section-label">Selected Work</div>
+        <div class="work-grid">
+            <div class="work-item">
+                <div class="work-bg" style="background:linear-gradient(135deg,#1a0a2e,#0a1628)">🏢</div>
+                <div class="work-overlay">
+                    <h3>DataFlow Platform</h3>
+                    <p>Enterprise SaaS · 2026</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="work-bg" style="background:linear-gradient(135deg,#0a2818,#0a1a0f)">🛍️</div>
+                <div class="work-overlay">
+                    <h3>Luxe Commerce</h3>
+                    <p>E-Commerce · 2025</p>
+                </div>
+            </div>
+            <div class="work-item">
+                <div class="work-bg" style="background:linear-gradient(135deg,#281a0a,#1a0f08)">🎵</div>
+                <div class="work-overlay">
+                    <h3>SoundWave</h3>
+                    <p>Music Platform · 2025</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" style="padding-top:0">
+        <div class="about-grid">
+            <div>
+                <div class="section-label">About Us</div>
+                <h2>Design is not just what it looks like. It's how it works.</h2>
+            </div>
+            <div>
+                <p>We're a team of designers, developers, and strategists who turn complex problems into simple,
+                    beautiful solutions. Every pixel, every interaction, every line of code is crafted with purpose.</p>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-num">150+</div>
+                        <div class="stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">40+</div>
+                        <div class="stat-label">Global Clients</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">12</div>
+                        <div class="stat-label">Team Members</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="services">
+            <div class="service">
+                <div class="service-num">01</div>
+                <h3>Brand Strategy</h3>
+                <p>We define your brand's voice, identity, and positioning in the market.</p>
+            </div>
+            <div class="service">
+                <div class="service-num">02</div>
+                <h3>UI/UX Design</h3>
+                <p>User-centered interfaces that are beautiful and intuitive.</p>
+            </div>
+            <div class="service">
+                <div class="service-num">03</div>
+                <h3>Development</h3>
+                <p>Full-stack web and mobile applications with modern tech.</p>
+            </div>
+            <div class="service">
+                <div class="service-num">04</div>
+                <h3>Growth</h3>
+                <p>SEO, analytics, and conversion optimization for results.</p>
+            </div>
+        </div>
+    </section>
+    <section class="cta">
+        <h2>Let's <span class="outline">create</span><br>something<br><span class="outline">great.</span></h2><a
+            class="cta-link" href="#">Start a Project →</a>
+    </section>
+    <footer>© 2026 Vanta Studio. Built with DevVault Pro Templates</footer>
+</body>
+
+</html>

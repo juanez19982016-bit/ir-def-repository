@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoVault — Crypto Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #06060a;
+            --sidebar: #0a0a10;
+            --card: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.05);
+            --green: #22c55e;
+            --red: #ef4444;
+            --accent: #f59e0b;
+            --blue: #3b82f6;
+            --text: #f0f0f5;
+            --muted: #6b7280
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden
+        }
+
+        .sidebar {
+            width: 72px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem 0;
+            gap: 4px
+        }
+
+        .sb-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), #d97706);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem
+        }
+
+        .sb-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--muted)
+        }
+
+        .sb-icon:hover,
+        .sb-icon.active {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent)
+        }
+
+        .sb-spacer {
+            flex: 1
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        .topbar {
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .tb-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem
+        }
+
+        .tb-left h1 {
+            font-size: 1.2rem;
+            font-weight: 700
+        }
+
+        .tb-tabs {
+            display: flex;
+            gap: 4px
+        }
+
+        .tb-tab {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s
+        }
+
+        .tb-tab.active {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent)
+        }
+
+        .tb-right {
+            display: flex;
+            gap: 10px;
+            align-items: center
+        }
+
+        .tb-bal {
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            font-size: 0.88rem
+        }
+
+        .tb-bal strong {
+            color: var(--green)
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem
+        }
+
+        .content::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem
+        }
+
+        .metric {
+            padding: 1.2rem;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .metric-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--muted)
+        }
+
+        .metric-change {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600
+        }
+
+        .metric-change.up {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--green)
+        }
+
+        .metric-change.down {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--red)
+        }
+
+        .metric-val {
+            font-size: 1.6rem;
+            font-weight: 800
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem
+        }
+
+        .chart-card {
+            padding: 1.5rem;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem
+        }
+
+        .chart-header h3 {
+            font-size: 1rem;
+            font-weight: 600
+        }
+
+        .chart-periods {
+            display: flex;
+            gap: 4px
+        }
+
+        .chart-p {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--muted);
+            cursor: pointer
+        }
+
+        .chart-p.active {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent)
+        }
+
+        .chart-body {
+            height: 200px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            padding-top: 20px
+        }
+
+        .chart-bar {
+            flex: 1;
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s;
+            min-height: 8px;
+            cursor: pointer;
+            position: relative
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8
+        }
+
+        .chart-bar.green {
+            background: linear-gradient(180deg, var(--green), rgba(34, 197, 94, 0.3))
+        }
+
+        .chart-bar.red {
+            background: linear-gradient(180deg, var(--red), rgba(239, 68, 68, 0.3))
+        }
+
+        .portfolio {
+            padding: 1.5rem;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .portfolio h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem
+        }
+
+        .port-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .port-item:last-child {
+            border: none
+        }
+
+        .port-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem
+        }
+
+        .port-info {
+            flex: 1
+        }
+
+        .port-name {
+            font-size: 0.88rem;
+            font-weight: 600
+        }
+
+        .port-sym {
+            font-size: 0.75rem;
+            color: var(--muted)
+        }
+
+        .port-val {
+            text-align: right
+        }
+
+        .port-price {
+            font-size: 0.88rem;
+            font-weight: 600
+        }
+
+        .port-change {
+            font-size: 0.75rem
+        }
+
+        .table-card {
+            padding: 1.5rem;
+            border-radius: 14px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .table-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        th {
+            text-align: left;
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        td {
+            padding: 12px 0;
+            font-size: 0.88rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .coin-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .coin-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem
+        }
+
+        .coin-name {
+            font-weight: 600
+        }
+
+        .coin-sym {
+            font-size: 0.75rem;
+            color: var(--muted)
+        }
+
+        .t-green {
+            color: var(--green)
+        }
+
+        .t-red {
+            color: var(--red)
+        }
+
+        .sparkline {
+            display: flex;
+            align-items: flex-end;
+            gap: 1px;
+            height: 30px
+        }
+
+        .spark {
+            width: 3px;
+            border-radius: 1px;
+            min-height: 3px
+        }
+
+        footer {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.7rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sb-logo">₿</div>
+        <div class="sb-icon active">📊</div>
+        <div class="sb-icon">💱</div>
+        <div class="sb-icon">📈</div>
+        <div class="sb-icon">💰</div>
+        <div class="sb-icon">🔔</div>
+        <div class="sb-spacer"></div>
+        <div class="sb-icon">⚙️</div>
+    </aside>
+    <div class="main">
+        <div class="topbar">
+            <div class="tb-left">
+                <h1>Dashboard</h1>
+                <div class="tb-tabs"><span class="tb-tab active">Overview</span><span
+                        class="tb-tab">Portfolio</span><span class="tb-tab">History</span></div>
+            </div>
+            <div class="tb-right">
+                <div class="tb-bal">Balance: <strong>$48,392.50</strong></div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-top"><span class="metric-label">Bitcoin (BTC)</span><span
+                            class="metric-change up">+5.2%</span></div>
+                    <div class="metric-val">$67,842</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-top"><span class="metric-label">Ethereum (ETH)</span><span
+                            class="metric-change up">+3.8%</span></div>
+                    <div class="metric-val">$3,542</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-top"><span class="metric-label">Solana (SOL)</span><span
+                            class="metric-change down">-2.1%</span></div>
+                    <div class="metric-val">$148.30</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-top"><span class="metric-label">Total P&L</span><span
+                            class="metric-change up">+12.4%</span></div>
+                    <div class="metric-val" style="color:var(--green)">+$5,320</div>
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Volume (24h)</h3>
+                        <div class="chart-periods"><span class="chart-p">1H</span><span class="chart-p">4H</span><span
+                                class="chart-p active">1D</span><span class="chart-p">1W</span><span
+                                class="chart-p">1M</span></div>
+                    </div>
+                    <div class="chart-body">
+                        <div class="chart-bar green" style="height:45%"></div>
+                        <div class="chart-bar red" style="height:30%"></div>
+                        <div class="chart-bar green" style="height:60%"></div>
+                        <div class="chart-bar green" style="height:75%"></div>
+                        <div class="chart-bar red" style="height:25%"></div>
+                        <div class="chart-bar green" style="height:50%"></div>
+                        <div class="chart-bar green" style="height:85%"></div>
+                        <div class="chart-bar red" style="height:40%"></div>
+                        <div class="chart-bar green" style="height:70%"></div>
+                        <div class="chart-bar green" style="height:90%"></div>
+                        <div class="chart-bar red" style="height:35%"></div>
+                        <div class="chart-bar green" style="height:65%"></div>
+                        <div class="chart-bar green" style="height:80%"></div>
+                        <div class="chart-bar red" style="height:45%"></div>
+                        <div class="chart-bar green" style="height:95%"></div>
+                        <div class="chart-bar red" style="height:50%"></div>
+                        <div class="chart-bar green" style="height:72%"></div>
+                        <div class="chart-bar green" style="height:88%"></div>
+                        <div class="chart-bar red" style="height:30%"></div>
+                        <div class="chart-bar green" style="height:55%"></div>
+                        <div class="chart-bar green" style="height:78%"></div>
+                        <div class="chart-bar red" style="height:42%"></div>
+                        <div class="chart-bar green" style="height:68%"></div>
+                        <div class="chart-bar green" style="height:100%"></div>
+                    </div>
+                </div>
+                <div class="portfolio">
+                    <h3>Your Portfolio</h3>
+                    <div class="port-item">
+                        <div class="port-icon" style="background:rgba(245,158,11,0.1)">₿</div>
+                        <div class="port-info">
+                            <div class="port-name">Bitcoin</div>
+                            <div class="port-sym">0.42 BTC</div>
+                        </div>
+                        <div class="port-val">
+                            <div class="port-price">$28,494</div>
+                            <div class="port-change t-green">+5.2%</div>
+                        </div>
+                    </div>
+                    <div class="port-item">
+                        <div class="port-icon" style="background:rgba(99,102,241,0.1)">⟠</div>
+                        <div class="port-info">
+                            <div class="port-name">Ethereum</div>
+                            <div class="port-sym">4.2 ETH</div>
+                        </div>
+                        <div class="port-val">
+                            <div class="port-price">$14,876</div>
+                            <div class="port-change t-green">+3.8%</div>
+                        </div>
+                    </div>
+                    <div class="port-item">
+                        <div class="port-icon" style="background:rgba(16,185,129,0.1)">◎</div>
+                        <div class="port-info">
+                            <div class="port-name">Solana</div>
+                            <div class="port-sym">33.8 SOL</div>
+                        </div>
+                        <div class="port-val">
+                            <div class="port-price">$5,012</div>
+                            <div class="port-change t-red">-2.1%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-card">
+                <h3>Market Overview</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Asset</th>
+                            <th>Price</th>
+                            <th>24h Change</th>
+                            <th>Market Cap</th>
+                            <th>Volume</th>
+                            <th>Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="coin-cell">
+                                    <div class="coin-icon" style="background:rgba(245,158,11,0.1)">₿</div>
+                                    <div>
+                                        <div class="coin-name">Bitcoin</div>
+                                        <div class="coin-sym">BTC</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>$67,842</td>
+                            <td class="t-green">+5.24%</td>
+                            <td>$1.33T</td>
+                            <td>$42.8B</td>
+                            <td>
+                                <div class="sparkline">
+                                    <div class="spark" style="height:40%;background:var(--green)"></div>
+                                    <div class="spark" style="height:55%;background:var(--green)"></div>
+                                    <div class="spark" style="height:35%;background:var(--green)"></div>
+                                    <div class="spark" style="height:70%;background:var(--green)"></div>
+                                    <div class="spark" style="height:85%;background:var(--green)"></div>
+                                    <div class="spark" style="height:60%;background:var(--green)"></div>
+                                    <div class="spark" style="height:100%;background:var(--green)"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="coin-cell">
+                                    <div class="coin-icon" style="background:rgba(99,102,241,0.1)">⟠</div>
+                                    <div>
+                                        <div class="coin-name">Ethereum</div>
+                                        <div class="coin-sym">ETH</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>$3,542</td>
+                            <td class="t-green">+3.81%</td>
+                            <td>$425.8B</td>
+                            <td>$18.2B</td>
+                            <td>
+                                <div class="sparkline">
+                                    <div class="spark" style="height:50%;background:var(--green)"></div>
+                                    <div class="spark" style="height:45%;background:var(--green)"></div>
+                                    <div class="spark" style="height:65%;background:var(--green)"></div>
+                                    <div class="spark" style="height:55%;background:var(--green)"></div>
+                                    <div class="spark" style="height:80%;background:var(--green)"></div>
+                                    <div class="spark" style="height:70%;background:var(--green)"></div>
+                                    <div class="spark" style="height:90%;background:var(--green)"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="coin-cell">
+                                    <div class="coin-icon" style="background:rgba(16,185,129,0.1)">◎</div>
+                                    <div>
+                                        <div class="coin-name">Solana</div>
+                                        <div class="coin-sym">SOL</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>$148.30</td>
+                            <td class="t-red">-2.14%</td>
+                            <td>$65.2B</td>
+                            <td>$3.8B</td>
+                            <td>
+                                <div class="sparkline">
+                                    <div class="spark" style="height:80%;background:var(--red)"></div>
+                                    <div class="spark" style="height:70%;background:var(--red)"></div>
+                                    <div class="spark" style="height:60%;background:var(--red)"></div>
+                                    <div class="spark" style="height:75%;background:var(--red)"></div>
+                                    <div class="spark" style="height:50%;background:var(--red)"></div>
+                                    <div class="spark" style="height:55%;background:var(--red)"></div>
+                                    <div class="spark" style="height:45%;background:var(--red)"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <footer>© 2026 CryptoVault — Built with DevVault Pro Templates</footer>
+    </div>
+</body>
+
+</html>

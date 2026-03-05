@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omakase — Restaurant Template</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #0a0908;
+            --card: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.06);
+            --accent: #d4a574;
+            --text: #f5f0eb;
+            --muted: #8a8078
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        nav {
+            padding: 1.2rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border)
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            font-size: 0.85rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase
+        }
+
+        .nav-links a:hover {
+            color: var(--accent)
+        }
+
+        .nav-cta {
+            padding: 10px 24px;
+            border-radius: 6px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: none;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s
+        }
+
+        .nav-cta:hover {
+            background: var(--accent);
+            color: #000
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(212, 165, 116, 0.04), transparent 70%)
+        }
+
+        .hero-sub {
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2rem
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            font-weight: 700
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent)
+        }
+
+        .hero p {
+            color: var(--muted);
+            font-size: 1.05rem;
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: all 0.3s
+        }
+
+        .hero-btn:hover {
+            background: var(--accent);
+            color: #000
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 3rem 0;
+            color: var(--muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            width: 60px;
+            height: 1px;
+            background: var(--border)
+        }
+
+        .section {
+            padding: 5rem 3rem
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem
+        }
+
+        .section-header p {
+            color: var(--muted);
+            margin-top: 0.5rem
+        }
+
+        .menu-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem
+        }
+
+        .menu-cat {
+            padding-right: 1rem
+        }
+
+        .menu-cat h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent)
+        }
+
+        .menu-item {
+            margin-bottom: 1.5rem
+        }
+
+        .mi-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem
+        }
+
+        .mi-top h4 {
+            font-size: 0.92rem;
+            font-weight: 600
+        }
+
+        .mi-dots {
+            flex: 1;
+            border-bottom: 1px dotted var(--border);
+            margin-bottom: 4px
+        }
+
+        .mi-price {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.92rem
+        }
+
+        .mi-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.5;
+            margin-top: 2px
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            max-width: 1000px;
+            margin: 0 auto
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            transition: transform 0.5s
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03)
+        }
+
+        .reservation {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center
+        }
+
+        .res-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem
+        }
+
+        .res-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem
+        }
+
+        .res-input {
+            padding: 14px 18px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.9rem;
+            outline: none;
+            font-family: 'Inter', sans-serif
+        }
+
+        .res-input:focus {
+            border-color: var(--accent)
+        }
+
+        .res-btn {
+            padding: 16px;
+            border: 1px solid var(--accent);
+            background: var(--accent);
+            color: #000;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 800px;
+            margin: 3rem auto 0;
+            text-align: center
+        }
+
+        .info-item h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 0.5rem
+        }
+
+        .info-item p {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            font-size: 0.75rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border)
+        }
+
+        @media(max-width:768px) {
+
+            .menu-grid,
+            .gallery-grid,
+            .res-row,
+            .info-grid {
+                grid-template-columns: 1fr
+            }
+
+            .nav-links {
+                display: none
+            }
+
+            .section {
+                padding: 3rem 2rem
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-logo">Omakase</div>
+        <div class="nav-links"><a href="#">Menu</a><a href="#">Gallery</a><a href="#">About</a><a href="#">Contact</a>
+        </div>
+        <button class="nav-cta">Reserve a Table</button>
+    </nav>
+    <section class="hero">
+        <div>
+            <div class="hero-sub">— Est. 2024 —</div>
+            <h1>A taste of<br><em>perfection.</em></h1>
+            <p>Contemporary Japanese cuisine crafted with passion, precision, and the finest seasonal ingredients.</p>
+            <a class="hero-btn" href="#">View Our Menu</a>
+        </div>
+    </section>
+    <div class="divider">Our Menu</div>
+    <section class="section" style="padding-top:0">
+        <div class="menu-grid">
+            <div class="menu-cat">
+                <h3>Starters</h3>
+                <div class="menu-item">
+                    <div class="mi-top">
+                        <h4>Wagyu Tartare</h4>
+                        <div class="mi-dots"></div><span class="mi-price">$28</span>
+                    </div>
+                    <div class="mi-desc">A5 wagyu, truffle, quail egg, shiso</div>
+                </div>
+                <div class="menu-item">
+                    <div class="mi-top">
+                        <h4>Tuna Tataki</h4>
+                        <div class="mi-dots"></div><span class="mi-price">$24</span>
+                    </div>
+                    <div class="mi-desc">Seared bluefin, ponzu, crispy garlic</div>
+                </div>
+                <div class="menu-item">
+                    <div class="mi-top">
+                        <h4>Edamame Hummus</h4>
+                        <div class="mi-dots"></div><span class="mi-price">$14</span>
+                    </div>
+                    <div class="mi-desc">Wasabi oil, togarashi, nori chips</div>
+                </div>
+                <div class="menu-item">
+                    <div class="mi-top">
+                        <h4>Miso Soup</h4>
+                        <div class="mi-dots"></div><span class="mi-price">$12</span>
+                    </div>
+                    <div class="mi-desc">White miso, silken tofu, wakame, scallion</div>
+                </div>
+            </div>
+            <div class="menu-cat">
+                <h3>Mains</h3>
+                <div class="menu-item">
+                    <div class="mi-top">
+                        <h4>Omakase Selection</h4>
+                        <div class="mi-dots"></div><span class="mi-price">$85</span>
+                    </div>
+                    <div class="mi-desc">Chef's choice, 12 pieces, seasonal</div>
+                </div>
+                <div class="menu-item">
+                    <div class="mi-top">
+                        <h4>Black Cod</h4>
+                        <div class="mi-dots"></div><span class="mi-price">$42</span>
+                    </div>
+                    <div class="mi-desc">Miso-glazed, pickled ginger, sesame</div>
+                </div>
+                <div class="menu-item">
+                    <div class="mi-top">
+                        <h4>Wagyu Ribeye</h4>
+                        <div class="mi-dots"></div><span class="mi-price">$68</span>
+                    </div>
+                    <div class="mi-desc">A5 grade, yuzu kosho, charred shishito</div>
+                </div>
+                <div class="menu-item">
+                    <div class="mi-top">
+                        <h4>Ramen</h4>
+                        <div class="mi-dots"></div><span class="mi-price">$26</span>
+                    </div>
+                    <div class="mi-desc">48hr tonkotsu broth, chashu, ajitama</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="divider">Gallery</div>
+    <section class="section" style="padding-top:0">
+        <div class="gallery-grid">
+            <div class="gallery-item" style="background:linear-gradient(135deg,#1a1508,#0d0a04)">🍣</div>
+            <div class="gallery-item" style="background:linear-gradient(135deg,#0d1108,#080a04)">🥢</div>
+            <div class="gallery-item" style="background:linear-gradient(135deg,#180d08,#0a0604)">🍜</div>
+            <div class="gallery-item" style="background:linear-gradient(135deg,#100d18,#080612)">🍶</div>
+            <div class="gallery-item" style="background:linear-gradient(135deg,#181510,#0a0904)">🔪</div>
+            <div class="gallery-item" style="background:linear-gradient(135deg,#0d1510,#060a08)">🍵</div>
+        </div>
+    </section>
+    <div class="divider">Reservations</div>
+    <section class="section" style="padding-top:0">
+        <div class="reservation">
+            <div class="section-header">
+                <h2 style="font-size:2rem">Book a Table</h2>
+                <p>For parties of 6 or more, please call us directly.</p>
+            </div>
+            <div class="res-form">
+                <input class="res-input" placeholder="Full Name">
+                <div class="res-row"><input class="res-input" type="date"><input class="res-input" type="time"></div>
+                <div class="res-row"><select class="res-input">
+                        <option>2 Guests</option>
+                        <option>3 Guests</option>
+                        <option>4 Guests</option>
+                        <option>5 Guests</option>
+                    </select><input class="res-input" type="email" placeholder="Email"></div>
+                <button class="res-btn">Reserve Now</button>
+            </div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>Hours</h4>
+                    <p>Tue-Sun<br>6:00 PM — 11:00 PM</p>
+                </div>
+                <div class="info-item">
+                    <h4>Location</h4>
+                    <p>420 Grove Street<br>San Francisco, CA</p>
+                </div>
+                <div class="info-item">
+                    <h4>Contact</h4>
+                    <p>+1 (415) 555-0142<br>hello@omakase.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>© 2026 Omakase · Built with DevVault Pro Templates</footer>
+</body>
+
+</html>

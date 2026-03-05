@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MelodyStream — Music Player</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,51 +15,75 @@
 
         :root {
             --bg: #fafafa;
-            --card: #fff;
-            --border: #e5e5e5;
+            --sidebar: #fbfbfb;
             --accent: #fa233b;
             --text: #1d1d1f;
-            --muted: #6e6e73
+            --muted: #86868b;
+            --border: #e5e5e5;
+            --player: #f5f5f7
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--text);
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh
+            overflow: hidden
+        }
+
+        .app {
+            display: flex;
+            flex: 1;
+            overflow: hidden
         }
 
         .sidebar {
             width: 240px;
-            background: var(--card);
+            background: var(--sidebar);
             border-right: 1px solid var(--border);
-            position: fixed;
-            top: 0;
-            bottom: 64px;
-            left: 0;
             display: flex;
             flex-direction: column;
-            padding: 12px
+            flex-shrink: 0;
+            overflow-y: auto;
+            padding: 12px 0
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 2px
         }
 
         .s-logo {
             font-weight: 900;
             font-size: 1.1rem;
+            padding: 8px 16px 16px;
             color: var(--accent);
-            padding: 8px 12px 20px;
             display: flex;
             align-items: center;
             gap: 6px
         }
 
+        .s-section {
+            font-size: .72rem;
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            padding: 12px 16px 4px
+        }
+
         .s-link {
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: .88rem;
+            padding: 6px 16px;
+            font-size: .85rem;
             cursor: pointer;
-            transition: background .12s;
+            transition: all .1s;
+            border-radius: 0;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -69,7 +92,8 @@
         }
 
         .s-link:hover {
-            background: #f5f5f5
+            background: rgba(0, 0, 0, .03);
+            color: var(--text)
         }
 
         .s-link.active {
@@ -78,42 +102,48 @@
         }
 
         .s-link .icon {
-            width: 20px;
-            text-align: center
+            width: 18px;
+            text-align: center;
+            font-size: .9rem
         }
 
         .s-sep {
             height: 1px;
             background: var(--border);
-            margin: 12px 0
-        }
-
-        .s-section {
-            font-size: .72rem;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: .04em;
-            padding: 6px 12px;
-            font-weight: 600
+            margin: 8px 16px
         }
 
         .s-playlist {
-            padding: 6px 12px;
-            font-size: .85rem;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 16px;
+            font-size: .82rem;
             color: var(--muted);
-            border-radius: 6px;
+            cursor: pointer;
             transition: background .1s
         }
 
         .s-playlist:hover {
-            background: #f5f5f5;
+            background: rgba(0, 0, 0, .03);
             color: var(--text)
         }
 
+        .s-pl-art {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0
+        }
+
+        .s-pl-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
         .main {
-            margin-left: 240px;
-            margin-bottom: 64px;
             flex: 1;
             overflow-y: auto;
             padding: 24px 32px
@@ -131,157 +161,165 @@
         .hero {
             display: flex;
             gap: 24px;
-            margin-bottom: 32px
+            margin-bottom: 32px;
+            align-items: flex-end
         }
 
         .hero-art {
             width: 240px;
             height: 240px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 6rem;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
             flex-shrink: 0
         }
 
+        .hero-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
         .hero-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end
+            padding-bottom: 8px
         }
 
         .hero-label {
             font-size: .72rem;
-            color: var(--muted);
             text-transform: uppercase;
-            letter-spacing: .04em;
+            color: var(--accent);
             font-weight: 600;
+            letter-spacing: 1px;
             margin-bottom: 4px
         }
 
         .hero-title {
             font-size: 2rem;
-            font-weight: 900;
+            font-weight: 800;
             line-height: 1.1;
             margin-bottom: 4px
         }
 
         .hero-artist {
-            font-size: 1rem;
+            font-size: .92rem;
             color: var(--accent);
-            font-weight: 600;
             cursor: pointer;
+            font-weight: 500;
             margin-bottom: 8px
         }
 
+        .hero-artist:hover {
+            text-decoration: underline
+        }
+
         .hero-meta {
-            font-size: .82rem;
-            color: var(--muted)
+            font-size: .78rem;
+            color: var(--muted);
+            margin-bottom: 12px
         }
 
         .hero-actions {
             display: flex;
-            gap: 8px;
-            margin-top: 16px
+            gap: 8px
         }
 
         .h-btn {
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-size: .88rem;
-            cursor: pointer;
-            font-family: 'Inter';
+            padding: 8px 24px;
+            border-radius: 100px;
+            font-size: .82rem;
             font-weight: 600;
-            border: none
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter';
+            transition: all .12s
         }
 
-        .h-primary {
+        .h-btn-play {
             background: var(--accent);
             color: #fff
         }
 
-        .h-secondary {
-            background: #f5f5f5;
+        .h-btn-play:hover {
+            background: #e01f35
+        }
+
+        .h-btn-outline {
+            background: none;
+            border: 1px solid var(--border);
             color: var(--text)
         }
 
-        .section {
+        .h-btn-outline:hover {
+            background: rgba(0, 0, 0, .03)
+        }
+
+        .tracklist {
             margin-bottom: 32px
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 700
-        }
-
-        .section-more {
-            font-size: .82rem;
-            color: var(--accent);
-            cursor: pointer;
-            font-weight: 600
-        }
-
-        .tracks {
-            display: flex;
-            flex-direction: column
         }
 
         .track {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 8px;
+            padding: 8px 12px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background .1s
+            transition: background .1s;
+            font-size: .88rem
         }
 
         .track:hover {
-            background: #f5f5f5
+            background: rgba(0, 0, 0, .04)
         }
 
         .track.playing {
-            background: rgba(250, 35, 59, .04)
+            background: rgba(250, 35, 59, .06);
+            color: var(--accent)
+        }
+
+        .track.playing .t-num {
+            color: var(--accent)
         }
 
         .t-num {
             width: 24px;
             text-align: center;
+            color: var(--muted);
             font-size: .82rem;
-            color: var(--muted)
+            font-weight: 500;
+            flex-shrink: 0
         }
 
-        .t-play {
-            display: none
+        .t-playing-icon {
+            color: var(--accent);
+            font-size: .75rem;
+            animation: eqBounce 1s ease infinite
         }
 
-        .track:hover .t-num {
-            display: none
-        }
+        @keyframes eqBounce {
 
-        .track:hover .t-play {
-            display: block;
-            font-size: .82rem
+            0%,
+            100% {
+                opacity: .5
+            }
+
+            50% {
+                opacity: 1
+            }
         }
 
         .t-art {
             width: 40px;
             height: 40px;
             border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
+            overflow: hidden;
             flex-shrink: 0
+        }
+
+        .t-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .t-info {
@@ -290,80 +328,92 @@
         }
 
         .t-name {
-            font-size: .88rem;
             font-weight: 500;
+            font-size: .88rem;
+            white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap
-        }
-
-        .track.playing .t-name {
-            color: var(--accent)
+            text-overflow: ellipsis
         }
 
         .t-artist {
-            font-size: .78rem;
+            font-size: .75rem;
             color: var(--muted)
         }
 
-        .t-album {
-            font-size: .78rem;
-            color: var(--muted);
-            width: 180px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap
+        .t-explicit {
+            font-size: .55rem;
+            background: #666;
+            color: #fff;
+            padding: 1px 4px;
+            border-radius: 2px;
+            font-weight: 700;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 4px
         }
 
-        .t-dur {
-            font-size: .82rem;
+        .t-plays {
+            font-size: .78rem;
             color: var(--muted);
-            width: 50px;
+            width: 80px;
             text-align: right
         }
 
-        .t-more {
+        .t-duration {
             font-size: .82rem;
             color: var(--muted);
-            padding: 4px;
+            width: 48px;
+            text-align: right
+        }
+
+        .t-like {
+            font-size: .85rem;
             cursor: pointer;
-            opacity: 0;
-            transition: opacity .12s
+            width: 24px;
+            text-align: center;
+            transition: transform .15s
         }
 
-        .track:hover .t-more {
-            opacity: 1
+        .t-like:hover {
+            transform: scale(1.2)
         }
 
-        .albums {
+        .t-like.liked {
+            color: var(--accent)
+        }
+
+        .albums-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 16px
+            gap: 16px;
+            margin-bottom: 32px
         }
 
-        .album {
+        .album-card {
             cursor: pointer;
             transition: transform .15s
         }
 
-        .album:hover {
-            transform: scale(1.03)
+        .album-card:hover {
+            transform: translateY(-4px)
         }
 
-        .al-art {
+        .album-art {
             width: 100%;
             aspect-ratio: 1;
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
-            margin-bottom: 8px;
-            position: relative
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .1)
         }
 
-        .al-play {
+        .album-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .album-play {
             position: absolute;
             bottom: 8px;
             right: 8px;
@@ -371,90 +421,125 @@
             height: 36px;
             border-radius: 50%;
             background: var(--accent);
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-size: 1rem;
+            font-size: .8rem;
             opacity: 0;
-            transition: opacity .2s;
-            box-shadow: 0 2px 8px rgba(250, 35, 59, .3)
+            transition: all .2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
+            border: none;
+            cursor: pointer
         }
 
-        .album:hover .al-play {
-            opacity: 1
+        .album-card:hover .album-play {
+            opacity: 1;
+            transform: translateY(-4px)
         }
 
-        .al-name {
-            font-size: .85rem;
-            font-weight: 600
+        .album-name {
+            font-size: .82rem;
+            font-weight: 600;
+            margin-top: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
         }
 
-        .al-artist {
-            font-size: .78rem;
+        .album-artist {
+            font-size: .75rem;
             color: var(--muted)
         }
 
-        .player {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 64px;
-            background: #fff;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            gap: 12px;
-            z-index: 10
-        }
-
-        .pl-art {
-            width: 44px;
-            height: 44px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .section-title {
             font-size: 1.2rem;
-            flex-shrink: 0
+            font-weight: 700;
+            margin-bottom: 12px
         }
 
-        .pl-info {
-            width: 180px
+        /* Player */
+        .player {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            background: var(--player);
+            border-top: 1px solid var(--border);
+            height: 72px;
+            flex-shrink: 0;
+            gap: 16px
         }
 
-        .pl-name {
+        .p-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 0
+        }
+
+        .p-art {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .1)
+        }
+
+        .p-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .p-info {
+            min-width: 0
+        }
+
+        .p-name {
             font-size: .82rem;
-            font-weight: 600
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
         }
 
-        .pl-artist {
+        .p-artist {
             font-size: .72rem;
             color: var(--muted)
         }
 
-        .pl-controls {
+        .p-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex: 2
+        }
+
+        .p-controls {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin: 0 auto
+            gap: 16px
         }
 
-        .pl-btn {
-            font-size: 1rem;
+        .p-ctrl {
             cursor: pointer;
-            padding: 4px;
+            font-size: 1rem;
             color: var(--muted);
-            transition: color .1s
+            transition: color .1s;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            padding: 4px
         }
 
-        .pl-btn:hover {
+        .p-ctrl:hover {
             color: var(--text)
         }
 
-        .pl-play {
+        .p-play {
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -463,60 +548,69 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
             font-size: .85rem;
-            cursor: pointer
+            border: none;
+            transition: transform .1s
         }
 
-        .pl-progress {
+        .p-play:hover {
+            transform: scale(1.05)
+        }
+
+        .p-progress {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin: 0 auto;
-            width: 40%
+            width: 100%;
+            max-width: 500px
         }
 
-        .pl-time {
+        .p-time {
             font-size: .68rem;
             color: var(--muted);
-            width: 40px;
+            min-width: 32px;
             text-align: center
         }
 
-        .pl-bar {
+        .p-bar {
             flex: 1;
             height: 4px;
-            background: #e5e5e5;
+            background: #ddd;
             border-radius: 100px;
+            cursor: pointer;
             position: relative;
-            cursor: pointer
+            overflow: hidden
         }
 
-        .pl-fill {
+        .p-fill {
             height: 100%;
             background: var(--accent);
             border-radius: 100px;
-            width: 35%
+            transition: width .3s linear
         }
 
-        .pl-right {
+        .p-right {
             display: flex;
-            gap: 12px;
             align-items: center;
-            font-size: 1rem;
-            color: var(--muted)
+            gap: 8px;
+            flex: 1;
+            justify-content: flex-end
         }
 
         .vol-bar {
             width: 80px;
-            height: 4px;
-            background: #e5e5e5;
+            height: 3px;
+            background: #ddd;
             border-radius: 100px;
-            position: relative
+            cursor: pointer;
+            position: relative;
+            overflow: hidden
         }
 
         .vol-fill {
             height: 100%;
-            background: var(--muted);
+            background: var(--text);
             border-radius: 100px;
             width: 70%
         }
@@ -524,126 +618,223 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="s-logo">🎵 MelodyStream</div>
-        <div class="s-link active"><span class="icon">🏠</span>Listen Now</div>
-        <div class="s-link"><span class="icon">🔍</span>Browse</div>
-        <div class="s-link"><span class="icon">📻</span>Radio</div>
-        <div class="s-sep"></div>
-        <div class="s-link"><span class="icon">📚</span>Library</div>
-        <div class="s-link"><span class="icon">🎵</span>Made for You</div>
-        <div class="s-link"><span class="icon">⏰</span>Recently Played</div>
-        <div class="s-sep"></div>
-        <div class="s-section">Playlists</div>
-        <div class="s-playlist">🎧 Chill Coding</div>
-        <div class="s-playlist">⚡ Focus & Flow</div>
-        <div class="s-playlist">🌙 Late Night Vibes</div>
-        <div class="s-playlist">🏃 Workout Mix</div>
-    </div>
-    <div class="main">
-        <div class="hero">
-            <div class="hero-art" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">🎵</div>
-            <div class="hero-info">
-                <div class="hero-label">Album</div>
-                <div class="hero-title">Midnight Sessions</div>
-                <div class="hero-artist">The Code Poets</div>
-                <div class="hero-meta">Electronic · 2026 · 12 songs, 48 min</div>
-                <div class="hero-actions"><button class="h-btn h-primary">▶ Play</button><button
-                        class="h-btn h-secondary">♡ Add to Library</button></div>
+    <div class="app">
+        <div class="sidebar">
+            <div class="s-logo">🎵 MelodyStream</div>
+            <div class="s-section">Library</div>
+            <div class="s-link active" onclick="setNav(this)"><span class="icon">🏠</span>Listen Now</div>
+            <div class="s-link" onclick="setNav(this)"><span class="icon">🔍</span>Browse</div>
+            <div class="s-link" onclick="setNav(this)"><span class="icon">📻</span>Radio</div>
+            <div class="s-sep"></div>
+            <div class="s-section">Playlists</div>
+            <div class="s-link" onclick="setNav(this)"><span class="icon">⭐</span>Favorites</div>
+            <div class="s-link" onclick="setNav(this)"><span class="icon">🕐</span>Recently Added</div>
+            <div class="s-sep"></div>
+            <div class="s-playlist">
+                <div class="s-pl-art"><img src="https://picsum.photos/seed/pl1/64/64" alt="Playlist"></div>Coding Focus
+                Mix
+            </div>
+            <div class="s-playlist">
+                <div class="s-pl-art"><img src="https://picsum.photos/seed/pl2/64/64" alt="Playlist"></div>Late Night
+                Vibes
+            </div>
+            <div class="s-playlist">
+                <div class="s-pl-art"><img src="https://picsum.photos/seed/pl3/64/64" alt="Playlist"></div>Morning
+                Energy
+            </div>
+            <div class="s-playlist">
+                <div class="s-pl-art"><img src="https://picsum.photos/seed/pl4/64/64" alt="Playlist"></div>Workout Power
+            </div>
+            <div class="s-playlist">
+                <div class="s-pl-art"><img src="https://picsum.photos/seed/pl5/64/64" alt="Playlist"></div>Chill
+                Electronic
             </div>
         </div>
-        <div class="section">
-            <div class="section-header"><span class="section-title">Tracklist</span></div>
-            <div class="tracks">
-                <div class="track playing"><span class="t-num">1</span><span class="t-play">▶</span>
-                    <div class="t-art" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">🎵</div>
-                    <div class="t-info">
-                        <div class="t-name">🔊 Async Dreaming</div>
-                        <div class="t-artist">The Code Poets</div>
-                    </div><span class="t-album">Midnight Sessions</span><span class="t-dur">4:21</span><span
-                        class="t-more">⋯</span>
-                </div>
-                <div class="track"><span class="t-num">2</span><span class="t-play">▶</span>
-                    <div class="t-art" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">🎵</div>
-                    <div class="t-info">
-                        <div class="t-name">Promise.resolve()</div>
-                        <div class="t-artist">The Code Poets</div>
-                    </div><span class="t-album">Midnight Sessions</span><span class="t-dur">3:45</span><span
-                        class="t-more">⋯</span>
-                </div>
-                <div class="track"><span class="t-num">3</span><span class="t-play">▶</span>
-                    <div class="t-art" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">🎵</div>
-                    <div class="t-info">
-                        <div class="t-name">Merge Conflict (feat. DevOps)</div>
-                        <div class="t-artist">The Code Poets</div>
-                    </div><span class="t-album">Midnight Sessions</span><span class="t-dur">5:12</span><span
-                        class="t-more">⋯</span>
-                </div>
-                <div class="track"><span class="t-num">4</span><span class="t-play">▶</span>
-                    <div class="t-art" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">🎵</div>
-                    <div class="t-info">
-                        <div class="t-name">404 Heart Not Found</div>
-                        <div class="t-artist">The Code Poets</div>
-                    </div><span class="t-album">Midnight Sessions</span><span class="t-dur">3:58</span><span
-                        class="t-more">⋯</span>
+
+        <div class="main">
+            <div class="hero">
+                <div class="hero-art"><img src="https://picsum.photos/seed/album1/480/480" alt="Album"></div>
+                <div class="hero-info">
+                    <div class="hero-label">Featured Album</div>
+                    <div class="hero-title">Neon Horizons</div>
+                    <div class="hero-artist">Eclipse Waves</div>
+                    <div class="hero-meta">Electronic · 2026 · 12 songs, 48 min</div>
+                    <div class="hero-actions">
+                        <button class="h-btn h-btn-play" onclick="playAlbum()">▶ Play</button>
+                        <button class="h-btn h-btn-outline" onclick="shuffleAlbum()">🔀 Shuffle</button>
+                        <button class="h-btn h-btn-outline">+ Add</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="section">
-            <div class="section-header"><span class="section-title">More Like This</span><span class="section-more">See
-                    All →</span></div>
-            <div class="albums">
-                <div class="album">
-                    <div class="al-art" style="background:linear-gradient(135deg,#0ea5e9,#6366f1)">🎧<div
-                            class="al-play">▶</div>
-                    </div>
-                    <div class="al-name">Syntax Error</div>
-                    <div class="al-artist">Lofi Runtime</div>
-                </div>
-                <div class="album">
-                    <div class="al-art" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">🔥<div
-                            class="al-play">▶</div>
-                    </div>
-                    <div class="al-name">Compile Time</div>
-                    <div class="al-artist">Binary Beat</div>
-                </div>
-                <div class="album">
-                    <div class="al-art" style="background:linear-gradient(135deg,#22c55e,#14b8a6)">🌿<div
-                            class="al-play">▶</div>
-                    </div>
-                    <div class="al-name">Deep Focus</div>
-                    <div class="al-artist">Code & Chill</div>
-                </div>
-                <div class="album">
-                    <div class="al-art" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)">💜<div
-                            class="al-play">▶</div>
-                    </div>
-                    <div class="al-name">After Deploy</div>
-                    <div class="al-artist">The Debuggers</div>
-                </div>
-            </div>
+
+            <div class="tracklist" id="tracklist"></div>
+
+            <div class="section-title">More to Listen</div>
+            <div class="albums-grid" id="albumsGrid"></div>
         </div>
     </div>
+
     <div class="player">
-        <div class="pl-art" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">🎵</div>
-        <div class="pl-info">
-            <div class="pl-name">Async Dreaming</div>
-            <div class="pl-artist">The Code Poets</div>
+        <div class="p-left">
+            <div class="p-art"><img src="https://picsum.photos/seed/album1/96/96" id="playerArt" alt="Now playing">
+            </div>
+            <div class="p-info">
+                <div class="p-name" id="playerName">Digital Sunrise</div>
+                <div class="p-artist" id="playerArtist">Eclipse Waves</div>
+            </div>
         </div>
-        <div class="pl-controls"><span class="pl-btn">🔀</span><span class="pl-btn">⏮</span>
-            <div class="pl-play">▶</div><span class="pl-btn">⏭</span><span class="pl-btn">🔁</span>
+        <div class="p-center">
+            <div class="p-controls">
+                <button class="p-ctrl" onclick="toggleShuffle()">🔀</button>
+                <button class="p-ctrl" onclick="prevTrack()">⏮</button>
+                <button class="p-play" id="playBtn" onclick="togglePlay()">▶</button>
+                <button class="p-ctrl" onclick="nextTrack()">⏭</button>
+                <button class="p-ctrl" onclick="toggleRepeat()" id="repeatBtn">🔁</button>
+            </div>
+            <div class="p-progress"><span class="p-time" id="timeNow">0:00</span>
+                <div class="p-bar" onclick="seekTrack(event)">
+                    <div class="p-fill" id="progressFill" style="width:0%"></div>
+                </div><span class="p-time" id="timeTotal">4:12</span>
+            </div>
         </div>
-        <div class="pl-progress"><span class="pl-time">1:28</span>
-            <div class="pl-bar">
-                <div class="pl-fill"></div>
-            </div><span class="pl-time">4:21</span>
-        </div>
-        <div class="pl-right"><span>🔊</span>
-            <div class="vol-bar">
-                <div class="vol-fill"></div>
-            </div><span>📃</span>
+        <div class="p-right">
+            <span style="font-size:.85rem;cursor:pointer">🔊</span>
+            <div class="vol-bar" onclick="setVolume(event)">
+                <div class="vol-fill" id="volFill"></div>
+            </div>
         </div>
     </div>
+
+    <script>
+        const tracks = [
+            { name: 'Digital Sunrise', artist: 'Eclipse Waves', duration: '4:12', plays: '2.4M', img: 'https://picsum.photos/seed/album1/80/80', explicit: false },
+            { name: 'Neon Dreams', artist: 'Eclipse Waves', duration: '3:45', plays: '1.8M', img: 'https://picsum.photos/seed/album1/80/80', explicit: true },
+            { name: 'Midnight Protocol', artist: 'Eclipse Waves ft. Nova', duration: '5:01', plays: '3.1M', img: 'https://picsum.photos/seed/album1/80/80', explicit: false },
+            { name: 'Binary Stars', artist: 'Eclipse Waves', duration: '3:58', plays: '1.2M', img: 'https://picsum.photos/seed/album1/80/80', explicit: false },
+            { name: 'Cyber Pulse', artist: 'Eclipse Waves', duration: '4:33', plays: '956K', img: 'https://picsum.photos/seed/album1/80/80', explicit: true },
+            { name: 'Electric Horizon', artist: 'Eclipse Waves', duration: '3:22', plays: '2.7M', img: 'https://picsum.photos/seed/album1/80/80', explicit: false },
+            { name: 'Vapor Trail', artist: 'Eclipse Waves ft. Luna', duration: '4:47', plays: '1.5M', img: 'https://picsum.photos/seed/album1/80/80', explicit: false },
+            { name: 'Data Flow', artist: 'Eclipse Waves', duration: '3:10', plays: '834K', img: 'https://picsum.photos/seed/album1/80/80', explicit: false },
+        ];
+
+        const albums = [
+            { name: 'Cosmic Drive', artist: 'Stellar System', img: 'https://picsum.photos/seed/alb2/320/320' },
+            { name: 'After Hours', artist: 'Night Mode', img: 'https://picsum.photos/seed/alb3/320/320' },
+            { name: 'Crystal Clear', artist: 'Prism', img: 'https://picsum.photos/seed/alb4/320/320' },
+            { name: 'Deep Focus', artist: 'Flow State', img: 'https://picsum.photos/seed/alb5/320/320' },
+            { name: 'Sundown', artist: 'Golden Hour', img: 'https://picsum.photos/seed/alb6/320/320' },
+            { name: 'Frequencies', artist: 'Wave Theory', img: 'https://picsum.photos/seed/alb7/320/320' },
+        ];
+
+        let currentTrack = 0, playing = false, progress = 0, progressInterval;
+
+        function renderTracks() {
+            const list = document.getElementById('tracklist');
+            list.innerHTML = tracks.map((t, i) => `
+    <div class="track${i === currentTrack ? ' playing' : ''}" onclick="playTrack(${i})">
+      <div class="t-num">${i === currentTrack ? '<span class="t-playing-icon">♫</span>' : (i + 1)}</div>
+      <div class="t-art"><img src="${t.img}" alt="${t.name}" loading="lazy"></div>
+      <div class="t-info"><div class="t-name">${t.name}${t.explicit ? '<span class="t-explicit">E</span>' : ''}</div><div class="t-artist">${t.artist}</div></div>
+      <div class="t-plays">${t.plays}</div>
+      <div class="t-like${i < 3 ? ' liked' : ''}" onclick="event.stopPropagation();toggleLike(this)">${i < 3 ? '❤️' : '🤍'}</div>
+      <div class="t-duration">${t.duration}</div>
+    </div>
+  `).join('');
+        }
+
+        function renderAlbums() {
+            document.getElementById('albumsGrid').innerHTML = albums.map(a => `
+    <div class="album-card" onclick="playAlbumArt('${a.name}','${a.artist}','${a.img}')">
+      <div class="album-art"><img src="${a.img}" alt="${a.name}" loading="lazy"><button class="album-play" onclick="event.stopPropagation()">▶</button></div>
+      <div class="album-name">${a.name}</div>
+      <div class="album-artist">${a.artist}</div>
+    </div>
+  `).join('');
+        }
+
+        function playTrack(i) {
+            currentTrack = i;
+            playing = true;
+            const t = tracks[i];
+            document.getElementById('playerName').textContent = t.name;
+            document.getElementById('playerArtist').textContent = t.artist;
+            document.getElementById('playerArt').src = t.img;
+            document.getElementById('timeTotal').textContent = t.duration;
+            document.getElementById('playBtn').textContent = '⏸';
+            progress = 0;
+            startProgress();
+            renderTracks();
+        }
+
+        function playAlbum() { playTrack(0) }
+        function shuffleAlbum() { playTrack(Math.floor(Math.random() * tracks.length)) }
+
+        function playAlbumArt(name, artist, img) {
+            document.getElementById('playerName').textContent = name;
+            document.getElementById('playerArtist').textContent = artist;
+            document.getElementById('playerArt').src = img.replace('320', '96');
+            document.getElementById('playBtn').textContent = '⏸';
+            playing = true; progress = 0; startProgress();
+        }
+
+        function togglePlay() {
+            playing = !playing;
+            document.getElementById('playBtn').textContent = playing ? '⏸' : '▶';
+            if (playing) startProgress(); else clearInterval(progressInterval);
+        }
+
+        function nextTrack() { playTrack((currentTrack + 1) % tracks.length) }
+        function prevTrack() { playTrack((currentTrack - 1 + tracks.length) % tracks.length) }
+
+        function toggleLike(el) {
+            const liked = el.classList.toggle('liked');
+            el.textContent = liked ? '❤️' : '🤍';
+        }
+
+        function startProgress() {
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                progress += 0.25;
+                if (progress > 100) { progress = 0; nextTrack(); return }
+                document.getElementById('progressFill').style.width = progress + '%';
+                const totalSec = parseTime(tracks[currentTrack].duration);
+                const currentSec = Math.floor(totalSec * progress / 100);
+                document.getElementById('timeNow').textContent = formatTime(currentSec);
+            }, 100);
+        }
+
+        function parseTime(t) { const [m, s] = t.split(':'); return parseInt(m) * 60 + parseInt(s) }
+        function formatTime(s) { return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0') }
+
+        function seekTrack(e) {
+            const bar = e.currentTarget;
+            progress = (e.clientX - bar.getBoundingClientRect().left) / bar.clientWidth * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function setVolume(e) {
+            const bar = e.currentTarget;
+            const vol = (e.clientX - bar.getBoundingClientRect().left) / bar.clientWidth * 100;
+            document.getElementById('volFill').style.width = Math.max(0, Math.min(100, vol)) + '%';
+        }
+
+        function toggleShuffle() { }
+        function toggleRepeat() {
+            const btn = document.getElementById('repeatBtn');
+            btn.style.color = btn.style.color === 'rgb(250, 35, 59)' ? '' : 'rgb(250, 35, 59)';
+        }
+
+        function setNav(el) { document.querySelectorAll('.s-link').forEach(l => l.classList.remove('active')); el.classList.add('active') }
+
+        // Keyboard
+        document.addEventListener('keydown', e => {
+            if (e.key === ' ') { e.preventDefault(); togglePlay() }
+            if (e.key === 'ArrowRight') nextTrack();
+            if (e.key === 'ArrowLeft') prevTrack();
+        });
+
+        renderTracks(); renderAlbums(); startProgress();
+    </script>
 </body>
 
 </html>

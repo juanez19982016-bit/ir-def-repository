@@ -14,47 +14,184 @@
         }
 
         :root {
-            --bg: #1d2c3e;
+            --bg: #1d2c4d;
             --card: #fff;
-            --border: #e0e0e0;
-            --accent: #4285f4;
+            --shadow: 0 2px 6px rgba(0, 0, 0, .15);
+            --accent: #1a73e8;
             --text: #202124;
-            --muted: #70757a
+            --muted: #70757a;
+            --green: #34a853;
+            --road: #e8e0d2;
+            --road-main: #ffd54f
         }
 
         body {
             font-family: 'Inter', sans-serif;
             height: 100vh;
             overflow: hidden;
-            display: flex;
-            flex-direction: column
+            color: var(--text)
         }
 
-        .topbar {
-            background: #fff;
+        .map {
+            position: absolute;
+            inset: 0;
+            background: var(--bg);
+            overflow: hidden;
+            cursor: grab
+        }
+
+        .map:active {
+            cursor: grabbing
+        }
+
+        /* Road grid */
+        .roads {
+            position: absolute;
+            inset: 0
+        }
+
+        .road {
+            position: absolute;
+            background: var(--road);
+            border-radius: 2px
+        }
+
+        .road.main {
+            background: var(--road-main);
+            z-index: 1
+        }
+
+        .road.h {
+            height: 6px;
+            left: 0;
+            right: 0
+        }
+
+        .road.v {
+            width: 6px;
+            top: 0;
+            bottom: 0
+        }
+
+        .road.main.h {
+            height: 10px
+        }
+
+        .road.main.v {
+            width: 10px
+        }
+
+        /* Water */
+        .water {
+            position: absolute;
+            background: rgba(66, 133, 244, .25);
+            border-radius: 50%
+        }
+
+        /* Park */
+        .park {
+            position: absolute;
+            background: rgba(52, 168, 83, .2);
+            border-radius: 8px
+        }
+
+        /* Markers */
+        .marker {
+            position: absolute;
+            z-index: 5;
+            cursor: pointer;
+            transition: transform .2s;
+            user-select: none
+        }
+
+        .marker:hover {
+            transform: scale(1.2);
+            z-index: 6
+        }
+
+        .marker-pin {
+            width: 32px;
+            height: 40px;
             display: flex;
             align-items: center;
-            padding: 8px 16px;
-            gap: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+            justify-content: center;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .4))
+        }
+
+        .marker-dot {
+            position: absolute;
+            bottom: -2px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, .2)
+        }
+
+        .marker-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .9rem;
+            border: 2px solid #fff;
+            box-shadow: var(--shadow)
+        }
+
+        .marker-icon.restaurant {
+            background: #ea4335
+        }
+
+        .marker-icon.cafe {
+            background: #795548
+        }
+
+        .marker-icon.shop {
+            background: #34a853
+        }
+
+        .marker-icon.hotel {
+            background: #9c27b0
+        }
+
+        .marker-label {
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: .65rem;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, .8);
+            background: rgba(0, 0, 0, .5);
+            padding: 1px 6px;
+            border-radius: 3px
+        }
+
+        /* Search */
+        .search-container {
+            position: absolute;
+            top: 12px;
+            left: 12px;
             z-index: 10;
-            flex-shrink: 0
+            width: 360px
         }
 
         .search-box {
             display: flex;
-            align-items: center;
-            background: #fff;
+            background: var(--card);
             border-radius: 8px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
-            padding: 0 12px;
-            flex: 1;
-            max-width: 480px
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .3);
+            overflow: hidden
         }
 
         .search-box input {
             flex: 1;
-            padding: 10px 8px;
+            padding: 12px 16px;
             border: none;
             font-size: .92rem;
             outline: none;
@@ -62,411 +199,426 @@
         }
 
         .search-box button {
+            padding: 0 16px;
             background: none;
             border: none;
-            font-size: 1rem;
-            cursor: pointer;
-            padding: 4px
-        }
-
-        .t-actions {
-            display: flex;
-            gap: 8px;
-            margin-left: auto
-        }
-
-        .t-btn {
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: .82rem;
-            cursor: pointer;
-            background: #f1f3f4;
-            border: none;
-            font-family: 'Inter';
-            color: var(--text)
-        }
-
-        .t-btn:hover {
-            background: #e8eaed
-        }
-
-        .main {
-            flex: 1;
-            display: flex;
-            position: relative;
-            overflow: hidden
-        }
-
-        .map {
-            flex: 1;
-            background: var(--bg);
-            position: relative;
-            overflow: hidden
-        }
-
-        .map-grid {
-            position: absolute;
-            inset: 0;
-            background-image: linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
-            background-size: 80px 80px
-        }
-
-        .road {
-            position: absolute;
-            background: rgba(255, 255, 255, .06)
-        }
-
-        .road-h {
-            height: 3px;
-            left: 0;
-            right: 0
-        }
-
-        .road-v {
-            width: 3px;
-            top: 0;
-            bottom: 0
-        }
-
-        .road-main {
-            background: rgba(66, 133, 244, .15)
-        }
-
-        .marker {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            z-index: 2;
-            transition: transform .15s
-        }
-
-        .marker:hover {
-            transform: scale(1.15)
-        }
-
-        .m-pin {
-            width: 32px;
-            height: 32px;
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, .3)
-        }
-
-        .m-pin span {
-            transform: rotate(45deg);
-            font-size: .8rem
-        }
-
-        .m-label {
-            background: #fff;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: .68rem;
-            font-weight: 600;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
-            margin-top: 4px;
-            white-space: nowrap;
-            color: var(--text)
-        }
-
-        .m-price {
-            background: #fff;
-            padding: 4px 10px;
-            border-radius: 100px;
-            font-size: .72rem;
-            font-weight: 700;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
-            color: var(--text)
-        }
-
-        .controls {
-            position: absolute;
-            right: 12px;
-            bottom: 80px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            z-index: 3
-        }
-
-        .ctrl-btn {
-            width: 36px;
-            height: 36px;
-            background: #fff;
-            border-radius: 4px;
-            border: none;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             cursor: pointer;
             font-size: 1rem
         }
 
+        .search-results {
+            background: var(--card);
+            border-radius: 8px;
+            margin-top: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .3);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .3s
+        }
+
+        .search-results.open {
+            max-height: 300px
+        }
+
+        .sr-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: .85rem;
+            transition: background .1s;
+            border-bottom: 1px solid #f1f1f1
+        }
+
+        .sr-item:hover {
+            background: #f8f9fa
+        }
+
+        .sr-icon {
+            font-size: 1rem;
+            width: 24px;
+            text-align: center
+        }
+
+        .sr-name {
+            font-weight: 500
+        }
+
+        .sr-addr {
+            font-size: .75rem;
+            color: var(--muted)
+        }
+
+        /* Place panel */
         .panel {
+            position: absolute;
+            top: 0;
+            left: -380px;
+            bottom: 0;
             width: 380px;
+            background: var(--card);
+            z-index: 10;
+            box-shadow: 4px 0 12px rgba(0, 0, 0, .15);
+            transition: left .3s ease;
+            overflow-y: auto
+        }
+
+        .panel.open {
+            left: 0
+        }
+
+        .panel-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             background: #fff;
-            height: 100%;
-            overflow-y: auto;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, .1);
-            flex-shrink: 0;
-            z-index: 5
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            z-index: 2;
+            transition: background .1s
         }
 
-        .panel::-webkit-scrollbar {
-            width: 4px
+        .panel-close:hover {
+            background: #f1f1f1
         }
 
-        .panel::-webkit-scrollbar-thumb {
-            background: #ddd;
-            border-radius: 2px
+        .panel-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover
         }
 
-        .place-header {
+        .panel-body {
             padding: 16px
         }
 
-        .place-name {
-            font-size: 1.2rem;
+        .panel-name {
+            font-size: 1.3rem;
             font-weight: 700;
-            color: var(--text)
+            margin-bottom: 4px
         }
 
-        .place-cat {
-            font-size: .82rem;
-            color: var(--muted);
-            margin-top: 2px
-        }
-
-        .place-rating {
+        .panel-rating {
             display: flex;
             align-items: center;
             gap: 6px;
-            margin-top: 6px;
-            font-size: .85rem
+            margin-bottom: 8px;
+            font-size: .88rem
         }
 
-        .place-stars {
+        .panel-stars {
             color: #f59e0b
         }
 
-        .place-count {
+        .panel-reviews {
             color: var(--muted);
-            font-size: .78rem
+            font-size: .82rem
         }
 
-        .place-status {
+        .panel-tags {
             display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: .82rem;
-            margin-top: 4px
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 12px
         }
 
-        .place-actions {
+        .panel-tag {
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: #e8f0fe;
+            color: var(--accent);
+            font-size: .75rem;
+            font-weight: 500
+        }
+
+        .panel-actions {
             display: flex;
             gap: 8px;
-            padding: 0 16px 12px
+            margin-bottom: 16px
         }
 
         .pa-btn {
-            padding: 8px 14px;
-            border-radius: 100px;
+            flex: 1;
+            padding: 8px;
+            border-radius: 8px;
+            background: #e8f0fe;
+            color: var(--accent);
+            text-align: center;
             font-size: .78rem;
-            cursor: pointer;
-            font-family: 'Inter';
             font-weight: 600;
+            cursor: pointer;
+            transition: background .1s;
             border: none;
-            display: flex;
-            align-items: center;
-            gap: 4px
+            font-family: 'Inter'
         }
 
-        .pa-primary {
+        .pa-btn:hover {
+            background: #d2e3fc
+        }
+
+        .pa-btn.primary {
             background: var(--accent);
             color: #fff
         }
 
-        .pa-secondary {
-            background: #f1f3f4;
-            color: var(--text)
+        .pa-btn.primary:hover {
+            background: #1557b0
         }
 
-        .place-img {
-            width: 100%;
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem
+        .panel-info {
+            border-top: 1px solid #e0e0e0;
+            padding-top: 12px
         }
 
-        .place-info {
-            padding: 16px;
-            border-top: 1px solid var(--border)
-        }
-
-        .pi-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 0;
-            font-size: .85rem;
-            color: var(--text)
-        }
-
-        .pi-icon {
-            font-size: 1rem;
-            width: 24px;
-            text-align: center;
-            color: var(--muted)
-        }
-
-        .reviews {
-            padding: 16px;
-            border-top: 1px solid var(--border)
-        }
-
-        .reviews-title {
-            font-size: .92rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--text)
-        }
-
-        .review {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, .06)
-        }
-
-        .r-header {
+        .pi-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 4px
+            padding: 6px 0;
+            font-size: .85rem
         }
 
-        .r-avatar {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
+        .pi-icon {
+            width: 20px;
+            text-align: center;
+            font-size: .9rem
+        }
+
+        .pi-status {
+            color: var(--green);
+            font-weight: 500
+        }
+
+        /* Controls */
+        .map-controls {
+            position: absolute;
+            right: 12px;
+            bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 5
+        }
+
+        .map-ctrl {
+            width: 40px;
+            height: 40px;
+            background: var(--card);
+            box-shadow: var(--shadow);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: .5rem;
-            font-weight: 700
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background .1s;
+            border: none;
+            font-family: 'Inter'
         }
 
-        .r-name {
-            font-size: .82rem;
-            font-weight: 600;
-            color: var(--text)
+        .map-ctrl:hover {
+            background: #f1f1f1
         }
 
-        .r-date {
-            font-size: .72rem;
-            color: var(--muted)
+        .map-ctrl:first-child {
+            border-radius: 4px 4px 0 0
         }
 
-        .r-text {
-            font-size: .82rem;
-            line-height: 1.5;
-            color: var(--text)
+        .map-ctrl:last-child {
+            border-radius: 0 0 4px 4px
+        }
+
+        .map-ctrl-sep {
+            border-top: 1px solid #e0e0e0
+        }
+
+        .locate-btn {
+            position: absolute;
+            right: 12px;
+            bottom: 160px;
+            width: 40px;
+            height: 40px;
+            background: var(--card);
+            box-shadow: var(--shadow);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            border: none;
+            z-index: 5
+        }
+
+        .locate-btn:hover {
+            background: #f1f1f1
+        }
+
+        .user-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, .3), 0 0 12px rgba(26, 115, 232, .4);
+            z-index: 4;
+            animation: userPulse 2s infinite
+        }
+
+        @keyframes userPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 2px rgba(26, 115, 232, .3), 0 0 12px rgba(26, 115, 232, .4)
+            }
+
+            50% {
+                box-shadow: 0 0 0 6px rgba(26, 115, 232, .1), 0 0 20px rgba(26, 115, 232, .2)
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="topbar">
-        <div class="search-box"><button>🔍</button><input value="Tech cafes near San Francisco"><button>🎤</button>
+    <div class="map" id="map">
+        <!-- Roads -->
+        <div class="roads">
+            <div class="road h main" style="top:30%"></div>
+            <div class="road h main" style="top:60%"></div>
+            <div class="road v main" style="left:25%"></div>
+            <div class="road v main" style="left:65%"></div>
+            <div class="road h" style="top:15%"></div>
+            <div class="road h" style="top:45%"></div>
+            <div class="road h" style="top:75%"></div>
+            <div class="road h" style="top:90%"></div>
+            <div class="road v" style="left:10%"></div>
+            <div class="road v" style="left:40%"></div>
+            <div class="road v" style="left:50%"></div>
+            <div class="road v" style="left:80%"></div>
+            <div class="road v" style="left:92%"></div>
         </div>
-        <div class="t-actions"><button class="t-btn">🗺️ Layers</button><button class="t-btn">↗️
-                Directions</button><button class="t-btn">📍 Nearby</button></div>
-    </div>
-    <div class="main">
-        <div class="panel">
-            <div class="place-img" style="background:linear-gradient(135deg,#1a365d,#2b6cb0)">☕</div>
-            <div class="place-header">
-                <div class="place-name">DevCafe — Co-working & Coffee</div>
-                <div class="place-cat">Coffee shop · Co-working space</div>
-                <div class="place-rating"><span class="place-stars">⭐⭐⭐⭐⭐</span><span>4.8</span><span
-                        class="place-count">(1,247 reviews)</span></div>
-                <div class="place-status"><span style="color:#16a34a;font-weight:600">Open</span><span
-                        style="color:var(--muted)">· Closes 10:00 PM</span></div>
-            </div>
-            <div class="place-actions"><button class="pa-btn pa-primary">↗️ Directions</button><button
-                    class="pa-btn pa-secondary">📞 Call</button><button class="pa-btn pa-secondary">💾
-                    Save</button><button class="pa-btn pa-secondary">↗️ Share</button></div>
-            <div class="place-info">
-                <div class="pi-row"><span class="pi-icon">📍</span>350 5th Ave, San Francisco, CA 94107</div>
-                <div class="pi-row"><span class="pi-icon">🕐</span>Open · 7:00 AM – 10:00 PM</div>
-                <div class="pi-row"><span class="pi-icon">📞</span><span style="color:var(--accent)">(415)
-                        555-0187</span></div>
-                <div class="pi-row"><span class="pi-icon">🌐</span><span style="color:var(--accent)">devcafe.co</span>
-                </div>
-                <div class="pi-row"><span class="pi-icon">⭐</span>Best for: Coding sessions, Meetings, Specialty coffee
-                </div>
-            </div>
-            <div class="reviews">
-                <div class="reviews-title">Reviews</div>
-                <div class="review">
-                    <div class="r-header">
-                        <div class="r-avatar" style="background:#ec4899;color:#fff">SC</div>
-                        <div>
-                            <div class="r-name">Sarah Chen</div>
-                            <div class="r-date">⭐⭐⭐⭐⭐ · 2 weeks ago</div>
-                        </div>
-                    </div>
-                    <div class="r-text">Best co-working cafe in SF! Fast WiFi, great coffee, and plenty of outlets. The
-                        dev community here is amazing.</div>
-                </div>
-                <div class="review">
-                    <div class="r-header">
-                        <div class="r-avatar" style="background:#3b82f6;color:#fff">MR</div>
-                        <div>
-                            <div class="r-name">Mike Ross</div>
-                            <div class="r-date">⭐⭐⭐⭐ · 1 month ago</div>
-                        </div>
-                    </div>
-                    <div class="r-text">Solid spot for focused work. Can get crowded on weekends but weekdays are
-                        perfect. The cold brew is top-tier.</div>
-                </div>
-            </div>
+        <!-- Water -->
+        <div class="water" style="width:300px;height:280px;top:5%;right:-5%"></div>
+        <!-- Parks -->
+        <div class="park" style="width:120px;height:100px;top:50%;left:5%"></div>
+        <div class="park" style="width:80px;height:60px;top:20%;left:70%"></div>
+        <!-- User location -->
+        <div class="user-dot" style="top:52%;left:48%"></div>
+        <!-- Markers -->
+        <div class="marker" style="top:28%;left:23%" onclick="openPlace(0)">
+            <div class="marker-icon restaurant">🍕</div>
+            <div class="marker-label">Luigi's Pizza</div>
         </div>
-        <div class="map">
-            <div class="map-grid"></div>
-            <div class="road road-h road-main" style="top:35%"></div>
-            <div class="road road-h" style="top:55%"></div>
-            <div class="road road-h" style="top:75%"></div>
-            <div class="road road-v road-main" style="left:30%"></div>
-            <div class="road road-v" style="left:50%"></div>
-            <div class="road road-v" style="left:70%"></div>
-            <div class="marker" style="top:32%;left:28%">
-                <div class="m-pin" style="background:var(--accent)"><span>☕</span></div>
-                <div class="m-label">DevCafe</div>
-            </div>
-            <div class="marker" style="top:50%;left:45%">
-                <div class="m-price">$$$</div>
-            </div>
-            <div class="marker" style="top:40%;left:60%">
-                <div class="m-pin" style="background:#ea4335"><span>🍕</span></div>
-            </div>
-            <div class="marker" style="top:65%;left:35%">
-                <div class="m-pin" style="background:#34a853"><span>🏪</span></div>
-            </div>
-            <div class="marker" style="top:55%;left:70%">
-                <div class="m-pin" style="background:#fbbc04"><span>⛽</span></div>
-            </div>
-            <div class="controls"><button class="ctrl-btn">+</button><button class="ctrl-btn">−</button>
-                <div style="height:8px"></div><button class="ctrl-btn">📍</button><button class="ctrl-btn">🧭</button>
-            </div>
+        <div class="marker" style="top:35%;left:42%" onclick="openPlace(1)">
+            <div class="marker-icon cafe">☕</div>
+            <div class="marker-label">Code & Coffee</div>
+        </div>
+        <div class="marker" style="top:55%;left:63%" onclick="openPlace(2)">
+            <div class="marker-icon shop">🛍️</div>
+            <div class="marker-label">TechMart</div>
+        </div>
+        <div class="marker" style="top:22%;left:55%" onclick="openPlace(3)">
+            <div class="marker-icon hotel">🏨</div>
+            <div class="marker-label">Grand Hotel</div>
+        </div>
+        <div class="marker" style="top:70%;left:30%" onclick="openPlace(4)">
+            <div class="marker-icon restaurant">🍣</div>
+            <div class="marker-label">Sushi House</div>
+        </div>
+        <div class="marker" style="top:42%;left:78%" onclick="openPlace(5)">
+            <div class="marker-icon cafe">🧁</div>
+            <div class="marker-label">Sweet Bites</div>
         </div>
     </div>
+
+    <div class="search-container">
+        <div class="search-box"><input placeholder="Search maps" id="searchInput" oninput="filterSearch()"
+                onfocus="openSearch()"><button onclick="closeSearch()">🔍</button></div>
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <div class="panel" id="panel">
+        <span class="panel-close" onclick="closePanel()">✕</span>
+        <img class="panel-img" id="panelImg" src="" alt="Place">
+        <div class="panel-body">
+            <div class="panel-name" id="panelName"></div>
+            <div class="panel-rating"><span class="panel-stars" id="panelStars"></span><span
+                    id="panelRating"></span><span class="panel-reviews" id="panelReviews"></span></div>
+            <div class="panel-tags" id="panelTags"></div>
+            <div class="panel-actions">
+                <button class="pa-btn primary">📍 Directions</button>
+                <button class="pa-btn" onclick="savePlace()">💾 Save</button>
+                <button class="pa-btn">📤 Share</button>
+                <button class="pa-btn">📞 Call</button>
+            </div>
+            <div class="panel-info" id="panelInfo"></div>
+        </div>
+    </div>
+
+    <button class="locate-btn" onclick="locateUser()">📍</button>
+    <div class="map-controls">
+        <button class="map-ctrl" onclick="zoomIn()">+</button>
+        <button class="map-ctrl map-ctrl-sep" onclick="zoomOut()">−</button>
+    </div>
+
+    <script>
+        const places = [
+            { name: "Luigi's Pizza", rating: 4.6, reviews: 847, stars: '⭐⭐⭐⭐⭐', img: 'https://picsum.photos/seed/pizza/760/400', tags: ['Pizza', 'Italian', 'Dine-in'], info: [{ icon: '🟢', text: 'Open · Closes 11 PM', cls: 'pi-status' }, { icon: '📍', text: '123 Main Street, Downtown' }, { icon: '📞', text: '+1 (555) 123-4567' }, { icon: '🌐', text: 'luigispizza.com' }, { icon: '💰', text: '$$' }] },
+            { name: "Code & Coffee", rating: 4.8, reviews: 1203, stars: '⭐⭐⭐⭐⭐', img: 'https://picsum.photos/seed/coffee/760/400', tags: ['Coffee', 'WiFi', 'Workspace'], info: [{ icon: '🟢', text: 'Open · Closes 9 PM', cls: 'pi-status' }, { icon: '📍', text: '456 Tech Avenue' }, { icon: '📞', text: '+1 (555) 234-5678' }, { icon: '🌐', text: 'codeandcoffee.io' }, { icon: '💰', text: '$$' }] },
+            { name: "TechMart Electronics", rating: 4.3, reviews: 567, stars: '⭐⭐⭐⭐', img: 'https://picsum.photos/seed/tech/760/400', tags: ['Electronics', 'Laptops', 'Accessories'], info: [{ icon: '🟢', text: 'Open · Closes 8 PM', cls: 'pi-status' }, { icon: '📍', text: '789 Commerce Blvd' }, { icon: '📞', text: '+1 (555) 345-6789' }, { icon: '💰', text: '$$$' }] },
+            { name: "Grand Hotel", rating: 4.5, reviews: 2100, stars: '⭐⭐⭐⭐⭐', img: 'https://picsum.photos/seed/hotel/760/400', tags: ['Hotel', 'Pool', 'Spa', 'Restaurant'], info: [{ icon: '🟢', text: 'Open 24 hours', cls: 'pi-status' }, { icon: '📍', text: '1 Grand Plaza' }, { icon: '📞', text: '+1 (555) 456-7890' }, { icon: '🌐', text: 'grandhotel.com' }, { icon: '💰', text: '$$$$' }] },
+            { name: "Sushi House", rating: 4.7, reviews: 432, stars: '⭐⭐⭐⭐⭐', img: 'https://picsum.photos/seed/sushi/760/400', tags: ['Japanese', 'Sushi', 'Ramen'], info: [{ icon: '🔴', text: 'Closed · Opens 11:30 AM', cls: '' }, { icon: '📍', text: '321 Sakura Lane' }, { icon: '📞', text: '+1 (555) 567-8901' }, { icon: '💰', text: '$$$' }] },
+            { name: "Sweet Bites Bakery", rating: 4.9, reviews: 890, stars: '⭐⭐⭐⭐⭐', img: 'https://picsum.photos/seed/bakery/760/400', tags: ['Bakery', 'Pastries', 'Cakes'], info: [{ icon: '🟢', text: 'Open · Closes 6 PM', cls: 'pi-status' }, { icon: '📍', text: '55 Baker Street' }, { icon: '📞', text: '+1 (555) 678-9012' }, { icon: '💰', text: '$$' }] },
+        ];
+
+        function openPlace(i) {
+            const p = places[i], panel = document.getElementById('panel');
+            document.getElementById('panelImg').src = p.img;
+            document.getElementById('panelName').textContent = p.name;
+            document.getElementById('panelStars').textContent = p.stars;
+            document.getElementById('panelRating').textContent = p.rating;
+            document.getElementById('panelReviews').textContent = `(${p.reviews.toLocaleString()} reviews)`;
+            document.getElementById('panelTags').innerHTML = p.tags.map(t => `<span class="panel-tag">${t}</span>`).join('');
+            document.getElementById('panelInfo').innerHTML = p.info.map(i => `<div class="pi-item"><span class="pi-icon">${i.icon}</span><span class="${i.cls || ''}">${i.text}</span></div>`).join('');
+            panel.classList.add('open');
+            closeSearch();
+        }
+
+        function closePanel() { document.getElementById('panel').classList.remove('open') }
+
+        function openSearch() {
+            const r = document.getElementById('searchResults');
+            r.innerHTML = places.map((p, i) => `<div class="sr-item" onclick="openPlace(${i})"><span class="sr-icon">${p.tags[0] === 'Pizza' ? '🍕' : p.tags[0] === 'Coffee' ? '☕' : p.tags[0] === 'Electronics' ? '🛍️' : p.tags[0] === 'Hotel' ? '🏨' : p.tags[0] === 'Japanese' ? '🍣' : '🧁'}</span><div><div class="sr-name">${p.name}</div><div class="sr-addr">${p.rating} ⭐ · ${p.info[1].text}</div></div></div>`).join('');
+            r.classList.add('open');
+        }
+
+        function closeSearch() { document.getElementById('searchResults').classList.remove('open') }
+
+        function filterSearch() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const r = document.getElementById('searchResults');
+            const filtered = places.filter(p => p.name.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q)));
+            r.innerHTML = filtered.map((p, i) => `<div class="sr-item" onclick="openPlace(${places.indexOf(p)})"><span class="sr-icon">📍</span><div><div class="sr-name">${p.name}</div><div class="sr-addr">${p.rating} ⭐ · ${p.tags.join(', ')}</div></div></div>`).join('');
+            r.classList.add('open');
+        }
+
+        function savePlace() { alert('📌 Place saved!') }
+        function locateUser() { document.querySelector('.user-dot').style.animation = 'none'; void document.querySelector('.user-dot').offsetWidth; document.querySelector('.user-dot').style.animation = 'userPulse 2s infinite' }
+
+        let zoom = 1;
+        function zoomIn() { zoom = Math.min(zoom + 0.2, 3); document.querySelector('.roads').style.transform = `scale(${zoom})` }
+        function zoomOut() { zoom = Math.max(zoom - 0.2, 0.5); document.querySelector('.roads').style.transform = `scale(${zoom})` }
+
+        document.addEventListener('click', e => { if (!e.target.closest('.search-container') && !e.target.closest('.panel')) closeSearch() });
+    </script>
 </body>
 
 </html>

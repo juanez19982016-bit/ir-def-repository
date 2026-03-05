@@ -41,8 +41,8 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            border-bottom: 1px solid var(--border);
-            height: 56px
+            height: 56px;
+            border-bottom: 1px solid var(--border)
         }
 
         .nav-left {
@@ -54,7 +54,13 @@
         .ham {
             font-size: 1.2rem;
             cursor: pointer;
-            padding: 4px
+            padding: 8px;
+            border-radius: 50%;
+            transition: background .1s
+        }
+
+        .ham:hover {
+            background: rgba(255, 255, 255, .1)
         }
 
         .logo {
@@ -63,11 +69,11 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            color: var(--accent)
+            cursor: pointer
         }
 
         .logo span {
-            color: var(--text)
+            color: var(--accent)
         }
 
         .nav-search {
@@ -86,7 +92,12 @@
             color: var(--text);
             font-size: .88rem;
             outline: none;
-            font-family: 'Inter'
+            font-family: 'Inter';
+            transition: border-color .15s
+        }
+
+        .nav-search input:focus {
+            border-color: var(--accent)
         }
 
         .nav-search button {
@@ -97,26 +108,43 @@
             border-left: none;
             color: var(--muted);
             cursor: pointer;
-            font-size: .85rem
+            font-size: .85rem;
+            transition: background .1s
+        }
+
+        .nav-search button:hover {
+            background: rgba(255, 255, 255, .15)
         }
 
         .nav-right {
             display: flex;
-            gap: 12px;
-            align-items: center;
+            gap: 8px;
+            align-items: center
+        }
+
+        .nav-right span {
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
             font-size: 1rem;
-            color: var(--muted)
+            transition: background .1s
+        }
+
+        .nav-right span:hover {
+            background: rgba(255, 255, 255, .1)
         }
 
         .nav-avatar {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .7rem;
-            font-weight: 700
+            overflow: hidden
+        }
+
+        .nav-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .sidebar {
@@ -129,7 +157,8 @@
             overflow-y: auto;
             padding: 12px 0;
             border-right: 1px solid var(--border);
-            z-index: 5
+            z-index: 5;
+            transition: width .2s
         }
 
         .sidebar::-webkit-scrollbar {
@@ -189,18 +218,25 @@
             padding: 4px 24px;
             cursor: pointer;
             font-size: .85rem;
-            color: var(--muted)
+            color: var(--muted);
+            transition: background .1s
+        }
+
+        .sb-sub:hover {
+            background: rgba(255, 255, 255, .05)
         }
 
         .sb-sub-av {
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .55rem;
-            font-weight: 700
+            overflow: hidden
+        }
+
+        .sb-sub-av img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .main {
@@ -213,7 +249,13 @@
             display: flex;
             gap: 8px;
             margin-bottom: 24px;
-            flex-wrap: wrap
+            flex-wrap: wrap;
+            overflow-x: auto;
+            scrollbar-width: none
+        }
+
+        .chips::-webkit-scrollbar {
+            display: none
         }
 
         .chip {
@@ -223,7 +265,10 @@
             font-size: .85rem;
             cursor: pointer;
             transition: all .12s;
-            white-space: nowrap
+            white-space: nowrap;
+            border: none;
+            color: var(--text);
+            font-family: 'Inter'
         }
 
         .chip.active {
@@ -257,21 +302,54 @@
             border-radius: 12px;
             position: relative;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem
+            background: #222
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .3s
+        }
+
+        .video:hover .thumb img {
+            transform: scale(1.05)
         }
 
         .duration {
             position: absolute;
             bottom: 8px;
             right: 8px;
-            background: rgba(0, 0, 0, .8);
+            background: rgba(0, 0, 0, .85);
             padding: 2px 6px;
             border-radius: 4px;
             font-size: .72rem;
             font-weight: 500
+        }
+
+        .live-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: var(--accent);
+            color: #fff;
+            font-size: .68rem;
+            font-weight: 700;
+            text-transform: uppercase
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 0 2px 2px 0
         }
 
         .video-info {
@@ -284,12 +362,15 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .65rem;
-            font-weight: 700;
-            flex-shrink: 0
+            overflow: hidden;
+            flex-shrink: 0;
+            cursor: pointer
+        }
+
+        .ch-av img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .video-title {
@@ -312,170 +393,116 @@
             margin-right: 4px
         }
 
-        .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            background: var(--accent);
-            color: #fff;
-            font-size: .68rem;
-            font-weight: 700;
-            text-transform: uppercase
+        .video-dots {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            padding: 4px 8px;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity .2s;
+            cursor: pointer
+        }
+
+        .video:hover .video-dots {
+            opacity: 1
         }
     </style>
 </head>
 
 <body>
     <nav>
-        <div class="nav-left"><span class="ham">☰</span><span class="logo">▶ Stream<span>Tube</span></span></div>
-        <div class="nav-search"><input placeholder="Search"><button>🔍</button></div>
+        <div class="nav-left"><span class="ham" onclick="toggleSidebar()">☰</span><span class="logo">▶
+                Stream<span>Tube</span></span></div>
+        <div class="nav-search"><input placeholder="Search" id="searchInput"><button onclick="search()">🔍</button>
+        </div>
         <div class="nav-right"><span>🎬</span><span>🔔</span>
-            <div class="nav-avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD</div>
+            <div class="nav-avatar"><img src="https://i.pravatar.cc/64?img=11" alt="Avatar"></div>
         </div>
     </nav>
-    <aside class="sidebar">
-        <div class="sb-link active"><span class="icon">🏠</span>Home</div>
-        <div class="sb-link"><span class="icon">🔥</span>Trending</div>
-        <div class="sb-link"><span class="icon">🎵</span>Music</div>
-        <div class="sb-link"><span class="icon">🎮</span>Gaming</div>
-        <div class="sb-link"><span class="icon">📰</span>News</div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sb-link active" onclick="setLink(this)"><span class="icon">🏠</span>Home</div>
+        <div class="sb-link" onclick="setLink(this)"><span class="icon">🔥</span>Trending</div>
+        <div class="sb-link" onclick="setLink(this)"><span class="icon">🎵</span>Music</div>
+        <div class="sb-link" onclick="setLink(this)"><span class="icon">🎮</span>Gaming</div>
+        <div class="sb-link" onclick="setLink(this)"><span class="icon">📰</span>News</div>
         <div class="sb-sep"></div>
-        <div class="sb-link"><span class="icon">📚</span>Library</div>
-        <div class="sb-link"><span class="icon">⏰</span>History</div>
-        <div class="sb-link"><span class="icon">🎬</span>Your videos</div>
-        <div class="sb-link"><span class="icon">⏳</span>Watch later</div>
-        <div class="sb-link"><span class="icon">👍</span>Liked videos</div>
+        <div class="sb-link" onclick="setLink(this)"><span class="icon">📚</span>Library</div>
+        <div class="sb-link" onclick="setLink(this)"><span class="icon">⏰</span>History</div>
+        <div class="sb-link" onclick="setLink(this)"><span class="icon">⏳</span>Watch later</div>
+        <div class="sb-link" onclick="setLink(this)"><span class="icon">👍</span>Liked videos</div>
         <div class="sb-sep"></div>
         <div class="sb-section">Subscriptions</div>
         <div class="sb-sub">
-            <div class="sb-sub-av" style="background:#ef4444;color:#fff">FK</div>Fireship
+            <div class="sb-sub-av"><img src="https://i.pravatar.cc/48?img=1"></div>Fireship
         </div>
         <div class="sb-sub">
-            <div class="sb-sub-av" style="background:#3b82f6;color:#fff">TC</div>Theo
+            <div class="sb-sub-av"><img src="https://i.pravatar.cc/48?img=3"></div>Theo
         </div>
         <div class="sb-sub">
-            <div class="sb-sub-av" style="background:#22c55e;color:#fff">TR</div>Traversy Media
+            <div class="sb-sub-av"><img src="https://i.pravatar.cc/48?img=5"></div>Traversy Media
         </div>
         <div class="sb-sub">
-            <div class="sb-sub-av" style="background:#f59e0b;color:#fff">WD</div>Web Dev Simplified
+            <div class="sb-sub-av"><img src="https://i.pravatar.cc/48?img=8"></div>Web Dev Simplified
         </div>
         <div class="sb-sub">
-            <div class="sb-sub-av" style="background:#8b5cf6;color:#fff">JH</div>Jack Herrington
+            <div class="sb-sub-av"><img src="https://i.pravatar.cc/48?img=12"></div>Jack Herrington
         </div>
     </aside>
-    <div class="main">
-        <div class="chips">
-            <div class="chip active">All</div>
-            <div class="chip">JavaScript</div>
-            <div class="chip">React</div>
-            <div class="chip">Next.js</div>
-            <div class="chip">TypeScript</div>
-            <div class="chip">Web Dev</div>
-            <div class="chip">Docker</div>
-            <div class="chip">System Design</div>
-            <div class="chip">AI</div>
-            <div class="chip">CSS</div>
-            <div class="chip">Live</div>
-        </div>
-        <div class="grid">
-            <div class="video">
-                <div class="thumb" style="background:linear-gradient(135deg,#1e1b4b,#312e81)">🚀<span
-                        class="duration">12:47</span></div>
-                <div class="video-info">
-                    <div class="ch-av" style="background:#ef4444;color:#fff">FK</div>
-                    <div>
-                        <div class="video-title">Next.js 15 Just Changed Everything — Here's What You Need to Know</div>
-                        <div class="video-meta"><span>Fireship</span>·<span>2.1M views</span>·<span>3 hours ago</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="video">
-                <div class="thumb" style="background:linear-gradient(135deg,#023047,#0077b6)">🤖<span
-                        class="duration">18:32</span></div>
-                <div class="video-info">
-                    <div class="ch-av" style="background:#3b82f6;color:#fff">TC</div>
-                    <div>
-                        <div class="video-title">I Built a Full SaaS in 48 Hours with AI — The Future is Insane</div>
-                        <div class="video-meta"><span>Theo</span>·<span>845K views</span>·<span>1 day ago</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="video">
-                <div class="thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">💻<span
-                        class="duration">24:15</span></div>
-                <div class="video-info">
-                    <div class="ch-av" style="background:#22c55e;color:#fff">TR</div>
-                    <div>
-                        <div class="video-title">Build a Complete Dashboard with React, Tailwind & Recharts (2026)</div>
-                        <div class="video-meta"><span>Traversy Media</span>·<span>567K views</span>·<span>2 days
-                                ago</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="video">
-                <div class="thumb" style="background:linear-gradient(135deg,#3c1742,#6c2382)">⚡<span
-                        class="duration">15:08</span></div>
-                <div class="video-info">
-                    <div class="ch-av" style="background:#f59e0b;color:#fff">WD</div>
-                    <div>
-                        <div class="video-title">Stop Using useState — React 20 Changed Everything</div>
-                        <div class="video-meta"><span>Web Dev Simplified</span>·<span>1.2M views</span>·<span>4 days
-                                ago</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="video">
-                <div class="thumb" style="background:linear-gradient(135deg,#0c2d48,#145374)">🐳<span
-                        class="duration">31:20</span></div>
-                <div class="video-info">
-                    <div class="ch-av" style="background:#8b5cf6;color:#fff">JH</div>
-                    <div>
-                        <div class="video-title">Docker for Full-Stack Developers — Complete Guide 2026</div>
-                        <div class="video-meta"><span>Jack Herrington</span>·<span>234K views</span>·<span>1 week
-                                ago</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="video">
-                <div class="thumb" style="background:linear-gradient(135deg,#2d1b21,#5e3a46)">🔴<span class="live-badge"
-                        style="position:absolute;top:8px;left:8px">● LIVE</span></div>
-                <div class="video-info">
-                    <div class="ch-av" style="background:#ef4444;color:#fff">FK</div>
-                    <div>
-                        <div class="video-title">🔴 LIVE — Building a Chat App from Scratch with WebSockets</div>
-                        <div class="video-meta"><span>Fireship</span>·<span>14K watching</span>·<span>Started 45 min
-                                ago</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="video">
-                <div class="thumb" style="background:linear-gradient(135deg,#134e4a,#0d9488)">🧪<span
-                        class="duration">22:45</span></div>
-                <div class="video-info">
-                    <div class="ch-av" style="background:#22c55e;color:#fff">TR</div>
-                    <div>
-                        <div class="video-title">Testing React Apps Like a Pro — Jest + Playwright Tutorial</div>
-                        <div class="video-meta"><span>Traversy Media</span>·<span>189K views</span>·<span>2 weeks
-                                ago</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="video">
-                <div class="thumb" style="background:linear-gradient(135deg,#3b0764,#581c87)">🏗️<span
-                        class="duration">45:30</span></div>
-                <div class="video-info">
-                    <div class="ch-av" style="background:#3b82f6;color:#fff">TC</div>
-                    <div>
-                        <div class="video-title">System Design Interview: Design YouTube — Complete Walkthrough</div>
-                        <div class="video-meta"><span>Theo</span>·<span>423K views</span>·<span>3 weeks ago</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="main" id="main">
+        <div class="chips" id="chips"></div>
+        <div class="grid" id="grid"></div>
     </div>
+
+    <script>
+        const categories = ['All', 'JavaScript', 'React', 'Next.js', 'TypeScript', 'Web Dev', 'Docker', 'System Design', 'AI', 'CSS', 'Live', 'Python', 'Rust', 'DevOps'];
+        const channels = [
+            { name: 'Fireship', avatar: 'https://i.pravatar.cc/72?img=1' },
+            { name: 'Theo', avatar: 'https://i.pravatar.cc/72?img=3' },
+            { name: 'Traversy Media', avatar: 'https://i.pravatar.cc/72?img=5' },
+            { name: 'Web Dev Simplified', avatar: 'https://i.pravatar.cc/72?img=8' },
+            { name: 'Jack Herrington', avatar: 'https://i.pravatar.cc/72?img=12' },
+            { name: 'Kevin Powell', avatar: 'https://i.pravatar.cc/72?img=15' },
+        ];
+        const videos = [
+            { title: 'Next.js 15 Just Changed Everything — Here\'s What You Need to Know', ch: 0, views: '2.1M', time: '3 hours ago', dur: '12:47', img: 'https://picsum.photos/seed/yt1/640/360', progress: 65 },
+            { title: 'I Built a Full SaaS in 48 Hours with AI — The Future is Insane', ch: 1, views: '845K', time: '1 day ago', dur: '18:32', img: 'https://picsum.photos/seed/yt2/640/360' },
+            { title: 'Build a Complete Dashboard with React, Tailwind & Recharts', ch: 2, views: '567K', time: '2 days ago', dur: '24:15', img: 'https://picsum.photos/seed/yt3/640/360' },
+            { title: 'Stop Using useState — React 20 Changed Everything', ch: 3, views: '1.2M', time: '4 days ago', dur: '15:08', img: 'https://picsum.photos/seed/yt4/640/360', progress: 30 },
+            { title: 'Docker for Full-Stack Developers — Complete Guide 2026', ch: 4, views: '234K', time: '1 week ago', dur: '31:20', img: 'https://picsum.photos/seed/yt5/640/360' },
+            { title: '🔴 LIVE — Building a Chat App from Scratch with WebSockets', ch: 0, views: '14K watching', time: 'Started 45 min ago', live: true, img: 'https://picsum.photos/seed/yt6/640/360' },
+            { title: 'CSS Has Changed Forever — Container Queries, Layers & More', ch: 5, views: '189K', time: '2 weeks ago', dur: '22:45', img: 'https://picsum.photos/seed/yt7/640/360' },
+            { title: 'System Design Interview: Design YouTube — Complete Walkthrough', ch: 1, views: '423K', time: '3 weeks ago', dur: '45:30', img: 'https://picsum.photos/seed/yt8/640/360' },
+            { title: 'TypeScript 6.0 — Every New Feature Explained in 10 Minutes', ch: 0, views: '1.5M', time: '5 days ago', dur: '10:12', img: 'https://picsum.photos/seed/yt9/640/360' },
+            { title: 'Why I Switched from VS Code to Cursor — And You Should Too', ch: 3, views: '890K', time: '1 week ago', dur: '16:42', img: 'https://picsum.photos/seed/yt10/640/360', progress: 80 },
+            { title: 'Building a Real-Time Multiplayer Game with WebSockets', ch: 4, views: '312K', time: '2 weeks ago', dur: '38:15', img: 'https://picsum.photos/seed/yt11/640/360' },
+            { title: 'The Only CSS Tutorial You\'ll Ever Need (2026 Edition)', ch: 5, views: '675K', time: '3 days ago', dur: '28:00', img: 'https://picsum.photos/seed/yt12/640/360' },
+        ];
+
+        let activeChip = 0;
+
+        function renderChips() {
+            document.getElementById('chips').innerHTML = categories.map((c, i) => `<button class="chip${i === activeChip ? ' active' : ''}" onclick="setChip(${i})">${c}</button>`).join('');
+        }
+
+        function renderVideos() {
+            document.getElementById('grid').innerHTML = videos.map((v, i) => {
+                const ch = channels[v.ch];
+                return `<div class="video" onclick="watchVideo(${i})">
+      <div class="thumb"><img src="${v.img}" alt="${v.title}" loading="lazy">${v.live ? `<span class="live-badge">● LIVE</span>` : `<span class="duration">${v.dur}</span>`}${v.progress ? `<div class="progress-bar" style="width:${v.progress}%"></div>` : ''}<span class="video-dots">⋮</span></div>
+      <div class="video-info"><div class="ch-av"><img src="${ch.avatar}" alt="${ch.name}"></div><div><div class="video-title">${v.title}</div><div class="video-meta"><span>${ch.name}</span>·<span>${v.views} views</span>·<span>${v.time}</span></div></div></div>
+    </div>`;
+            }).join('');
+        }
+
+        function setChip(i) { activeChip = i; renderChips() }
+        function setLink(el) { document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active')); el.classList.add('active') }
+        function toggleSidebar() { const s = document.getElementById('sidebar'); const m = document.getElementById('main'); if (s.style.width === '0px') { s.style.width = '240px'; m.style.marginLeft = '240px' } else { s.style.width = '0px'; m.style.marginLeft = '0' } }
+        function watchVideo(i) { alert(`Now playing: ${videos[i].title}`) }
+        function search() { const q = document.getElementById('searchInput').value; if (q) alert(`Searching for: ${q}`) }
+
+        renderChips(); renderVideos();
+    </script>
 </body>
 
 </html>

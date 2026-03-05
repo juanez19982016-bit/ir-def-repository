@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamUI — Video Streaming Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    <title>StreamUI — Streaming Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <style>
         * {
@@ -15,13 +15,11 @@
         }
 
         :root {
-            --bg: #0a0a0f;
-            --sidebar: #0d0d14;
-            --card: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.06);
+            --bg: #141414;
+            --text: #fff;
+            --muted: #808080;
             --accent: #e50914;
-            --text: #f0f0f5;
-            --muted: #8a8a8a
+            --card: #181818
         }
 
         body {
@@ -32,488 +30,489 @@
         }
 
         nav {
-            padding: 1rem 3rem;
-            display: flex;
-            align-items: center;
-            gap: 3rem;
             position: fixed;
             top: 0;
-            width: 100%;
-            z-index: 100;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent)
+            left: 0;
+            right: 0;
+            z-index: 10;
+            padding: 12px 48px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            transition: background .3s;
+            background: linear-gradient(rgba(0, 0, 0, .9), transparent)
         }
 
-        .nav-logo {
+        nav.scrolled {
+            background: var(--bg)
+        }
+
+        .n-logo {
             font-weight: 900;
             font-size: 1.5rem;
             color: var(--accent);
-            letter-spacing: -0.02em
+            cursor: pointer;
+            letter-spacing: -1px
         }
 
-        .nav-links {
+        .n-links {
             display: flex;
-            gap: 1.5rem;
-            font-size: 0.88rem;
+            gap: 20px;
+            font-size: .85rem;
             color: var(--muted)
         }
 
-        .nav-links a {
-            transition: color 0.2s;
-            cursor: pointer
+        .n-links a {
+            cursor: pointer;
+            transition: color .15s;
+            text-decoration: none;
+            color: inherit
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--text);
-            font-weight: 500
+        .n-links a:hover,
+        .n-links a.active {
+            color: var(--text)
         }
 
-        .nav-right {
+        .n-right {
             margin-left: auto;
             display: flex;
+            gap: 16px;
             align-items: center;
-            gap: 1rem
+            font-size: 1rem;
+            color: var(--muted)
         }
 
-        .nav-search {
-            padding: 6px 14px;
-            border-radius: 4px;
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-size: 0.85rem;
-            outline: none;
-            font-family: 'Inter';
-            width: 180px
+        .n-right span {
+            cursor: pointer;
+            padding: 4px;
+            transition: color .15s
         }
 
-        .nav-av {
+        .n-right span:hover {
+            color: var(--text)
+        }
+
+        .n-avatar {
             width: 32px;
             height: 32px;
             border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 700;
+            overflow: hidden;
             cursor: pointer
         }
 
+        .n-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
         .hero {
-            height: 70vh;
+            height: 85vh;
             position: relative;
-            display: flex;
-            align-items: flex-end;
-            padding: 3rem;
-            margin-bottom: 1rem
+            overflow: hidden;
+            margin-bottom: -100px
         }
 
         .hero-bg {
             position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #1a0008, #0a0020, #000a18);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12rem;
-            opacity: 0.15
+            inset: 0
         }
 
-        .hero::after {
-            content: '';
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .hero-gradient {
             position: absolute;
             inset: 0;
-            background: linear-gradient(0deg, var(--bg) 5%, transparent 50%)
+            background: linear-gradient(to right, rgba(0, 0, 0, .9) 0%, rgba(0, 0, 0, .4) 50%, transparent 100%), linear-gradient(to top, var(--bg) 0%, transparent 40%)
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 550px
+        .hero-info {
+            position: absolute;
+            bottom: 200px;
+            left: 48px;
+            max-width: 500px;
+            z-index: 2
         }
 
         .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 4px;
             background: var(--accent);
-            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 2px;
+            font-size: .68rem;
             font-weight: 700;
+            display: inline-block;
+            margin-bottom: 8px;
             text-transform: uppercase;
-            margin-bottom: 1rem
+            letter-spacing: 1px
         }
 
-        .hero h1 {
-            font-size: 2.8rem;
+        .hero-title {
+            font-size: 3rem;
             font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 0.8rem
-        }
-
-        .hero p {
-            color: var(--muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem
+            line-height: 1;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, .5)
         }
 
         .hero-meta {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.82rem;
+            font-size: .82rem;
             color: var(--muted);
-            margin-bottom: 1.5rem
+            margin-bottom: 8px;
+            display: flex;
+            gap: 8px;
+            align-items: center
         }
 
-        .hero-meta span {
-            display: flex;
-            align-items: center;
-            gap: 4px
+        .hero-match {
+            color: #46d369;
+            font-weight: 700
+        }
+
+        .hero-desc {
+            font-size: .92rem;
+            line-height: 1.5;
+            color: #ddd;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden
         }
 
         .hero-btns {
             display: flex;
-            gap: 0.8rem
-        }
-
-        .h-btn {
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.92rem;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-            font-family: 'Inter';
-            display: flex;
-            align-items: center;
             gap: 8px
         }
 
-        .h-btn-p {
+        .h-btn {
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter';
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .15s
+        }
+
+        .h-btn-play {
             background: #fff;
             color: #000
         }
 
-        .h-btn-p:hover {
-            background: #e0e0e0
+        .h-btn-play:hover {
+            background: #ddd
         }
 
-        .h-btn-s {
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            backdrop-filter: blur(4px)
+        .h-btn-info {
+            background: rgba(109, 109, 110, .7);
+            color: #fff
         }
 
-        .section {
-            padding: 0 3rem;
-            margin-bottom: 2.5rem
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem
-        }
-
-        .section-header h2 {
-            font-size: 1.3rem;
-            font-weight: 700
-        }
-
-        .section-header a {
-            color: var(--muted);
-            font-size: 0.85rem;
-            cursor: pointer
+        .h-btn-info:hover {
+            background: rgba(109, 109, 110, .5)
         }
 
         .row {
-            display: flex;
-            gap: 0.8rem;
-            overflow-x: auto;
-            padding-bottom: 8px;
-            scroll-snap-type: x mandatory
+            padding: 0 48px;
+            margin-bottom: 40px;
+            position: relative
         }
 
-        .row::-webkit-scrollbar {
-            height: 0
+        .row-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px
+        }
+
+        .row-scroll {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            padding: 4px 0
+        }
+
+        .row-scroll::-webkit-scrollbar {
+            display: none
         }
 
         .card {
-            min-width: 240px;
             flex-shrink: 0;
+            width: 240px;
+            border-radius: 4px;
+            overflow: hidden;
             cursor: pointer;
-            scroll-snap-align: start;
-            transition: transform 0.3s
+            position: relative;
+            transition: transform .3s, z-index .1s
         }
 
         .card:hover {
-            transform: scale(1.05)
+            transform: scale(1.3);
+            z-index: 5
         }
 
-        .card-thumb {
+        .card-img {
+            width: 100%;
             aspect-ratio: 16/9;
-            border-radius: 8px;
             overflow: hidden;
-            position: relative;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem
+            position: relative
         }
 
-        .card-thumb .duration {
-            position: absolute;
-            bottom: 6px;
-            right: 6px;
-            padding: 2px 6px;
-            border-radius: 3px;
-            background: rgba(0, 0, 0, 0.7);
-            font-size: 0.7rem;
-            font-weight: 500
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
-        .card-thumb .play {
+        .card-overlay {
             position: absolute;
             inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.3);
+            background: linear-gradient(transparent 60%, rgba(0, 0, 0, .9));
             opacity: 0;
-            transition: opacity 0.2s;
-            font-size: 2rem
+            transition: opacity .3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 8px
         }
 
-        .card:hover .play {
+        .card:hover .card-overlay {
             opacity: 1
         }
 
-        .card-title {
-            font-size: 0.88rem;
-            font-weight: 600;
-            margin-bottom: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis
+        .card-actions {
+            display: flex;
+            gap: 4px
         }
 
-        .card-meta {
-            font-size: 0.78rem;
+        .card-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .5);
+            background: rgba(20, 20, 20, .7);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            cursor: pointer;
+            transition: all .15s
+        }
+
+        .card-btn:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, .2)
+        }
+
+        .card-btn.play-btn {
+            background: #fff;
+            color: #000;
+            border-color: #fff
+        }
+
+        .card-info-mini {
+            margin-top: 4px
+        }
+
+        .card-match {
+            font-size: .65rem;
+            color: #46d369;
+            font-weight: 700
+        }
+
+        .card-tags {
+            font-size: .6rem;
             color: var(--muted)
         }
 
-        .card-big {
-            min-width: 300px
+        .top10 {
+            display: flex;
+            gap: 48px;
+            padding: 4px 0
         }
 
-        .card-big .card-thumb {
-            aspect-ratio: 2/3;
-            border-radius: 6px
+        .top10-card {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform .2s;
+            position: relative
         }
 
-        .progress-bar {
+        .top10-card:hover {
+            transform: scale(1.05)
+        }
+
+        .top10-num {
+            font-size: 8rem;
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 3px #808080;
+            line-height: .8;
+            margin-right: -20px;
+            z-index: 0;
+            min-width: 80px;
+            text-align: center
+        }
+
+        .top10-img {
+            width: 120px;
+            height: 170px;
+            border-radius: 4px;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .5)
+        }
+
+        .top10-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .row-arrow {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 0 0 0 6px
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 80px;
+            background: rgba(0, 0, 0, .6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 3;
+            font-size: 1.2rem;
+            color: #fff;
+            opacity: 0;
+            transition: opacity .2s;
+            border: none
         }
 
-        footer {
-            text-align: center;
-            padding: 3rem;
-            font-size: 0.75rem;
-            color: var(--muted);
-            border-top: 1px solid var(--border);
-            margin-top: 2rem
+        .row:hover .row-arrow {
+            opacity: 1
+        }
+
+        .row-arrow:hover {
+            background: rgba(0, 0, 0, .8)
+        }
+
+        .row-arrow.left {
+            left: 48px;
+            border-radius: 0 4px 4px 0
+        }
+
+        .row-arrow.right {
+            right: 48px;
+            border-radius: 4px 0 0 4px
         }
     </style>
 </head>
 
 <body>
-    <nav>
-        <div class="nav-logo">STREAMUI</div>
-        <div class="nav-links"><a class="active">Home</a><a>TV Shows</a><a>Movies</a><a>New & Popular</a><a>My List</a>
+    <nav id="nav">
+        <span class="n-logo">STREAMUI</span>
+        <div class="n-links"><a class="active">Home</a><a>TV Shows</a><a>Movies</a><a>New & Popular</a><a>My List</a>
         </div>
-        <div class="nav-right"><input class="nav-search" placeholder="🔍 Search"><span
-                style="font-size:1.2rem;cursor:pointer">🔔</span>
-            <div class="nav-av" style="background:linear-gradient(135deg,var(--accent),#b20710)">JD</div>
+        <div class="n-right"><span>🔍</span><span>🔔</span>
+            <div class="n-avatar"><img src="https://i.pravatar.cc/64?img=11"></div>
         </div>
     </nav>
-    <section class="hero">
-        <div class="hero-bg">🎬</div>
-        <div class="hero-content">
-            <div class="hero-badge">🏆 #1 in US Today</div>
-            <h1>The Code Breakers</h1>
-            <div class="hero-meta"><span>⭐ 9.2</span><span>2026</span><span>Season 3</span><span>TV-MA</span><span>🔊
-                    Dolby Atmos</span></div>
-            <p>A team of underground hackers uncovers a global conspiracy hidden in the world's most secure financial
-                systems. When one of their own goes missing, they must decide how far they'll go for the truth.</p>
-            <div class="hero-btns"><button class="h-btn h-btn-p">▶ Play</button><button class="h-btn h-btn-s">ℹ️ More
-                    Info</button></div>
+
+    <div class="hero">
+        <div class="hero-bg"><img src="https://picsum.photos/seed/netflix-hero/1920/1080" alt="Hero"></div>
+        <div class="hero-gradient"></div>
+        <div class="hero-info">
+            <span class="hero-badge">🏆 #1 in TV Today</span>
+            <div class="hero-title">The Code Breakers</div>
+            <div class="hero-meta"><span class="hero-match">97% Match</span><span>2026</span><span>🔞
+                    TV-MA</span><span>3 Seasons</span><span>🔊 5.1</span></div>
+            <div class="hero-desc">A team of elite developers races against time to stop a rogue AI from taking over the
+                world's infrastructure. Part thriller, part love letter to open source.</div>
+            <div class="hero-btns"><button class="h-btn h-btn-play" onclick="play()">▶ Play</button><button
+                    class="h-btn h-btn-info">ℹ️ More Info</button></div>
         </div>
-    </section>
-    <section class="section">
-        <div class="section-header">
-            <h2>Continue Watching</h2><a>See All →</a>
-        </div>
-        <div class="row">
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#1a0018,#0a1028)">🕵️<span
-                        class="duration">S2 E4</span>
-                    <div class="progress-bar" style="width:65%"></div>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Cipher Protocol</div>
-                <div class="card-meta">65% watched</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#0a1a08,#081a14)">🌍<span
-                        class="duration">S1 E7</span>
-                    <div class="progress-bar" style="width:30%"></div>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Digital Nomads</div>
-                <div class="card-meta">30% watched</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#1a0a08,#1a1008)">🏙️<span
-                        class="duration">1:42:15</span>
-                    <div class="progress-bar" style="width:80%"></div>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">The Startup</div>
-                <div class="card-meta">80% watched</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#08081a,#0a0a20)">🤖<span
-                        class="duration">S3 E1</span>
-                    <div class="progress-bar" style="width:15%"></div>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Synthetic</div>
-                <div class="card-meta">15% watched</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#180808,#200a0a)">🔥<span
-                        class="duration">S1 E3</span>
-                    <div class="progress-bar" style="width:45%"></div>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Firewall</div>
-                <div class="card-meta">45% watched</div>
-            </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="section-header">
-            <h2>Trending Now</h2><a>See All →</a>
-        </div>
-        <div class="row">
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#1a0020,#0a0028)">💻<span
-                        class="duration">8 Episodes</span>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Silicon Dreams</div>
-                <div class="card-meta">Thriller · 2026</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#001a18,#001a10)">🧬<span
-                        class="duration">6 Episodes</span>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Gene Edit</div>
-                <div class="card-meta">Sci-Fi · 2026</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#1a1800,#1a0e00)">🔮<span
-                        class="duration">2h 15m</span>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">The Algorithm</div>
-                <div class="card-meta">Drama · 2025</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#0a0818,#0e0620)">🌌<span
-                        class="duration">10 Episodes</span>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Dark Matter</div>
-                <div class="card-meta">Sci-Fi · 2026</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#180a08,#200e0a)">⚡<span
-                        class="duration">1h 58m</span>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Zero Day</div>
-                <div class="card-meta">Action · 2026</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#081808,#0a200a)">🌿<span
-                        class="duration">S2</span>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Off Grid</div>
-                <div class="card-meta">Documentary · 2025</div>
-            </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="section-header">
-            <h2>Popular in Your Region</h2><a>See All →</a>
-        </div>
-        <div class="row">
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#200008,#180010)">🎭<span
-                        class="duration">S4 E2</span>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">The Last Code</div>
-                <div class="card-meta">Mystery · 2026</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#000820,#000418)">🚀<span
-                        class="duration">2h 30m</span>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Beyond Earth</div>
-                <div class="card-meta">Sci-Fi · 2026</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#0a1808,#081a10)">💰<span
-                        class="duration">S2 E5</span>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Crypto Wars</div>
-                <div class="card-meta">Thriller · 2025</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#18080a,#200a0e)">🎪<span
-                        class="duration">1h 45m</span>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">The Pitch</div>
-                <div class="card-meta">Comedy · 2026</div>
-            </div>
-            <div class="card">
-                <div class="card-thumb" style="background:linear-gradient(135deg,#100818,#180a22)">🧠<span
-                        class="duration">S1 E8</span>
-                    <div class="play">▶</div>
-                </div>
-                <div class="card-title">Neural Link</div>
-                <div class="card-meta">Sci-Fi · 2026</div>
-            </div>
-        </div>
-    </section>
-    <footer>© 2026 StreamUI — Built with DevVault Pro Templates</footer>
+    </div>
+
+    <div id="rows"></div>
+
+    <script>
+        const rows = [
+            {
+                title: 'Trending Now', items: [
+                    { title: 'The Algorithm', img: 'https://picsum.photos/seed/nf1/480/270', match: 96 },
+                    { title: 'Silicon Valley: Rebooted', img: 'https://picsum.photos/seed/nf2/480/270', match: 93 },
+                    { title: 'Hack the Planet', img: 'https://picsum.photos/seed/nf3/480/270', match: 88 },
+                    { title: 'Merge Conflicts', img: 'https://picsum.photos/seed/nf4/480/270', match: 91 },
+                    { title: 'Runtime Error', img: 'https://picsum.photos/seed/nf5/480/270', match: 85 },
+                    { title: 'Open Source', img: 'https://picsum.photos/seed/nf6/480/270', match: 94 },
+                    { title: 'Deploy Friday', img: 'https://picsum.photos/seed/nf7/480/270', match: 82 },
+                ]
+            },
+            {
+                title: 'Popular on StreamUI', items: [
+                    { title: 'The Git Rebase', img: 'https://picsum.photos/seed/nf8/480/270', match: 92 },
+                    { title: 'Container Wars', img: 'https://picsum.photos/seed/nf9/480/270', match: 87 },
+                    { title: 'Serverless', img: 'https://picsum.photos/seed/nf10/480/270', match: 90 },
+                    { title: 'The Cloud', img: 'https://picsum.photos/seed/nf11/480/270', match: 95 },
+                    { title: 'Zero Day', img: 'https://picsum.photos/seed/nf12/480/270', match: 89 },
+                    { title: 'API Gateway', img: 'https://picsum.photos/seed/nf13/480/270', match: 84 },
+                ]
+            },
+            {
+                title: 'Top 10 in Your Country', top10: true, items: [
+                    { title: 'The Algorithm', img: 'https://picsum.photos/seed/t1/240/340' },
+                    { title: 'Silicon Valley', img: 'https://picsum.photos/seed/t2/240/340' },
+                    { title: 'Hack the Planet', img: 'https://picsum.photos/seed/t3/240/340' },
+                    { title: 'Merge Conflicts', img: 'https://picsum.photos/seed/t4/240/340' },
+                    { title: 'Runtime Error', img: 'https://picsum.photos/seed/t5/240/340' },
+                ]
+            },
+            {
+                title: 'Continue Watching', items: [
+                    { title: 'The Code Breakers S2', img: 'https://picsum.photos/seed/nf14/480/270', match: 97, progress: 65 },
+                    { title: 'DevOps Diary', img: 'https://picsum.photos/seed/nf15/480/270', match: 86, progress: 30 },
+                    { title: 'Frontend Wars', img: 'https://picsum.photos/seed/nf16/480/270', match: 91, progress: 80 },
+                ]
+            },
+        ];
+
+        function renderRows() {
+            document.getElementById('rows').innerHTML = rows.map((r, ri) => {
+                if (r.top10) {
+                    return `<div class="row"><div class="row-title">${r.title}</div><div class="row-scroll top10">${r.items.map((item, i) => `<div class="top10-card"><span class="top10-num">${i + 1}</span><div class="top10-img"><img src="${item.img}" alt="${item.title}" loading="lazy"></div></div>`).join('')}</div></div>`;
+                }
+                return `<div class="row"><div class="row-title">${r.title}</div><button class="row-arrow left" onclick="scrollRow(${ri},-1)">‹</button><div class="row-scroll" id="row${ri}">${r.items.map(item => `<div class="card"><div class="card-img"><img src="${item.img}" alt="${item.title}" loading="lazy">${item.progress ? `<div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:#333"><div style="height:100%;width:${item.progress}%;background:var(--accent)"></div></div>` : ''}</div><div class="card-overlay"><div class="card-actions"><span class="card-btn play-btn">▶</span><span class="card-btn" onclick="event.stopPropagation();toggleMyList(this)">+</span><span class="card-btn">👍</span><span class="card-btn" style="margin-left:auto">▼</span></div><div class="card-info-mini"><div class="card-match">${item.match}% Match</div><div class="card-tags">${item.title}</div></div></div></div>`).join('')}</div><button class="row-arrow right" onclick="scrollRow(${ri},1)">›</button></div>`;
+            }).join('');
+        }
+
+        function scrollRow(i, dir) {
+            const row = document.getElementById('row' + i);
+            if (row) row.scrollBy({ left: dir * 600, behavior: 'smooth' });
+        }
+
+        function toggleMyList(btn) { btn.textContent = btn.textContent === '+' ? '✓' : '+' }
+        function play() { alert('▶ Now playing: The Code Breakers') }
+
+        // Nav background on scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 100);
+        });
+
+        renderRows();
+    </script>
 </body>
 
 </html>

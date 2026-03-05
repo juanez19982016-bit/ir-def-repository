@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InstaView — Photo Social Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <title>InstaView — Photo Sharing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,12 +15,12 @@
 
         :root {
             --bg: #000;
-            --card: #121212;
-            --border: rgba(255, 255, 255, .1);
+            --card: #000;
+            --border: #262626;
             --text: #fafafa;
-            --muted: #a8a8a8;
-            --pink: #e1306c;
-            --purple: #833ab4;
+            --muted: #8e8e8e;
+            --accent: #0095f6;
+            --like: #ed4956;
             --gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)
         }
 
@@ -38,78 +37,75 @@
             right: 0;
             background: var(--bg);
             z-index: 10;
-            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            height: 60px;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid var(--border);
-            height: 60px
+            justify-content: center;
+            padding: 0 16px
+        }
+
+        .nav-inner {
+            max-width: 935px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
         }
 
         .n-logo {
             font-weight: 800;
-            font-size: 1.2rem;
-            font-style: italic;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent
-        }
-
-        .n-center {
-            display: flex;
-            gap: 24px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
             font-size: 1.3rem;
-            color: var(--muted)
-        }
-
-        .n-center span {
             cursor: pointer;
-            padding: 4px
+            font-style: italic
         }
 
-        .n-center span.active {
-            color: var(--text)
-        }
-
-        .n-right {
-            margin-left: auto;
+        .n-icons {
             display: flex;
-            gap: 18px;
+            gap: 16px;
             font-size: 1.2rem;
-            align-items: center;
-            color: var(--text)
+            align-items: center
+        }
+
+        .n-icons span {
+            cursor: pointer;
+            padding: 4px;
+            transition: opacity .1s
+        }
+
+        .n-icons span:hover {
+            opacity: .7
         }
 
         .n-avatar {
             width: 28px;
             height: 28px;
             border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid transparent;
             cursor: pointer
         }
 
-        .container {
-            max-width: 935px;
-            margin: 80px auto 0;
-            display: flex;
-            gap: 32px;
-            padding: 0 20px
+        .n-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
-        .feed {
-            flex: 1;
-            max-width: 470px;
-            margin: 0 auto
+        .container {
+            max-width: 630px;
+            margin: 76px auto 0;
+            padding: 0 16px
         }
 
         .stories {
             display: flex;
             gap: 16px;
-            padding: 16px;
-            margin-bottom: 16px;
+            padding: 16px 0;
             overflow-x: auto;
-            scrollbar-width: none
+            scrollbar-width: none;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 12px
         }
 
         .stories::-webkit-scrollbar {
@@ -126,35 +122,34 @@
         }
 
         .story-ring {
-            width: 64px;
-            height: 64px;
+            width: 66px;
+            height: 66px;
             border-radius: 50%;
             padding: 3px;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center
+            background: var(--gradient)
         }
 
         .story-ring.seen {
-            background: var(--border)
+            background: #333
         }
 
-        .story-av {
-            width: 56px;
-            height: 56px;
+        .story-inner {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            border: 3px solid var(--bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .7rem;
-            font-weight: 700
+            overflow: hidden;
+            border: 3px solid var(--bg)
+        }
+
+        .story-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .story-name {
-            font-size: .72rem;
-            max-width: 64px;
+            font-size: .68rem;
+            max-width: 66px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -162,91 +157,184 @@
         }
 
         .post {
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            margin-bottom: 16px;
-            background: var(--bg)
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 12px
         }
 
         .post-header {
-            padding: 12px;
             display: flex;
             align-items: center;
-            gap: 10px
+            gap: 10px;
+            padding: 10px 0
         }
 
         .post-av {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .6rem;
-            font-weight: 700;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
             flex-shrink: 0
         }
 
-        .post-user {
-            font-size: .85rem;
-            font-weight: 600
+        .post-av.has-story {
+            padding: 2px;
+            border: none;
+            background: var(--gradient);
+            border-radius: 50%
         }
 
-        .post-loc {
+        .post-av.has-story .inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--bg)
+        }
+
+        .post-av img,
+        .post-av .inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .post-user {
+            font-weight: 600;
+            font-size: .85rem;
+            cursor: pointer
+        }
+
+        .post-user:hover {
+            opacity: .7
+        }
+
+        .post-location {
             font-size: .72rem;
             color: var(--muted)
         }
 
-        .post-more {
+        .post-menu {
             margin-left: auto;
-            font-size: 1rem;
-            color: var(--text);
-            cursor: pointer
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 4px
         }
 
         .post-img {
             width: 100%;
             aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            background: #111
+        }
+
+        .post-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .post-img-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-size: 5rem;
-            overflow: hidden
+            opacity: 0;
+            pointer-events: none;
+            filter: drop-shadow(0 2px 10px rgba(0, 0, 0, .5));
+            z-index: 2
+        }
+
+        .post-img-heart.show {
+            animation: heartPop .8s ease forwards
+        }
+
+        @keyframes heartPop {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(.3)
+            }
+
+            15% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2)
+            }
+
+            45% {
+                transform: translate(-50%, -50%) scale(1)
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1) translateY(-20px)
+            }
         }
 
         .post-actions {
-            padding: 10px 12px;
             display: flex;
-            gap: 14px;
+            align-items: center;
+            padding: 8px 0;
+            gap: 12px
+        }
+
+        .pa-icon {
             font-size: 1.3rem;
-            align-items: center
-        }
-
-        .post-actions span {
             cursor: pointer;
-            transition: transform .15s
+            transition: transform .15s;
+            user-select: none
         }
 
-        .post-actions span:hover {
-            transform: scale(1.1)
+        .pa-icon:hover {
+            opacity: .7
         }
 
-        .post-save {
+        .pa-icon:active {
+            transform: scale(1.2)
+        }
+
+        .pa-icon.liked {
+            color: var(--like);
+            animation: likeAnim .3s ease
+        }
+
+        @keyframes likeAnim {
+            0% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.3)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        .pa-right {
             margin-left: auto
         }
 
+        .pa-icon.saved {
+            color: var(--text)
+        }
+
         .post-likes {
-            padding: 0 12px;
-            font-size: .85rem;
             font-weight: 600;
-            margin-bottom: 4px
+            font-size: .85rem;
+            padding: 2px 0;
+            cursor: pointer
         }
 
         .post-caption {
-            padding: 0 12px;
             font-size: .85rem;
-            margin-bottom: 4px;
-            line-height: 1.4
+            line-height: 1.4;
+            padding: 2px 0
         }
 
         .post-caption strong {
@@ -254,27 +342,26 @@
             cursor: pointer
         }
 
-        .post-comments {
-            padding: 0 12px;
-            font-size: .82rem;
+        .post-comments-link {
+            font-size: .85rem;
             color: var(--muted);
             cursor: pointer;
-            margin-bottom: 4px
+            padding: 2px 0
         }
 
         .post-time {
-            padding: 0 12px 12px;
-            font-size: .72rem;
+            font-size: .68rem;
             color: var(--muted);
-            text-transform: uppercase
+            padding: 4px 0;
+            text-transform: uppercase;
+            letter-spacing: .5px
         }
 
         .post-add-comment {
-            padding: 10px 12px;
             display: flex;
             align-items: center;
             gap: 8px;
-            border-top: 1px solid var(--border)
+            padding: 8px 0
         }
 
         .post-add-comment input {
@@ -290,217 +377,257 @@
         .post-add-comment button {
             background: none;
             border: none;
-            color: #0095f6;
+            color: var(--accent);
             font-weight: 600;
             font-size: .85rem;
             cursor: pointer;
-            font-family: 'Inter'
+            opacity: .5;
+            font-family: 'Inter';
+            transition: opacity .1s
         }
 
-        .sidebar-fixed {
+        .post-add-comment button.active {
+            opacity: 1
+        }
+
+        .suggestions {
             position: fixed;
-            right: calc(50% - 467px - 32px - 280px);
-            width: 280px
+            right: calc((100% - 935px)/2);
+            top: 76px;
+            width: 290px
         }
 
-        .sidebar-profile {
+        .sg-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 16px 0
+            margin-bottom: 12px
         }
 
-        .sp-av {
-            width: 44px;
-            height: 44px;
+        .sg-avatar {
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: .85rem
+            overflow: hidden;
+            cursor: pointer
         }
 
-        .sp-name {
+        .sg-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .sg-name {
+            font-weight: 600;
             font-size: .85rem;
-            font-weight: 600
+            cursor: pointer
         }
 
-        .sp-fullname {
+        .sg-name:hover {
+            opacity: .7
+        }
+
+        .sg-fullname {
             font-size: .82rem;
             color: var(--muted)
         }
 
-        .sp-switch {
-            margin-left: auto;
-            font-size: .72rem;
-            color: #0095f6;
-            cursor: pointer;
-            font-weight: 600
-        }
-
-        .suggest-header {
+        .sg-title {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 8px 0
+            margin-bottom: 8px
         }
 
-        .suggest-header span:first-child {
+        .sg-title span:first-child {
+            font-weight: 600;
             font-size: .82rem;
-            color: var(--muted);
-            font-weight: 600
+            color: var(--muted)
         }
 
-        .suggest-header span:last-child {
-            font-size: .72rem;
+        .sg-title span:last-child {
+            font-size: .78rem;
             cursor: pointer;
             font-weight: 600
         }
 
-        .suggest-item {
+        .sg-user {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             padding: 6px 0
         }
 
-        .si-av {
+        .sg-user-av {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .55rem;
-            font-weight: 700;
+            overflow: hidden;
             flex-shrink: 0
         }
 
-        .si-name {
-            font-size: .82rem;
-            font-weight: 600
+        .sg-user-av img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
-        .si-reason {
+        .sg-user-info {
+            flex: 1;
+            min-width: 0
+        }
+
+        .sg-user-name {
+            font-weight: 600;
+            font-size: .82rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .sg-user-reason {
             font-size: .72rem;
             color: var(--muted)
         }
 
-        .si-follow {
-            margin-left: auto;
-            font-size: .72rem;
-            color: #0095f6;
+        .sg-follow {
+            font-size: .78rem;
+            color: var(--accent);
+            font-weight: 600;
             cursor: pointer;
-            font-weight: 600
+            background: none;
+            border: none;
+            font-family: 'Inter'
         }
 
-        .footer-links {
-            padding: 16px 0;
-            font-size: .68rem;
-            color: var(--muted);
-            line-height: 1.8
+        .sg-follow.following {
+            color: var(--text)
+        }
+
+        @media(max-width:1024px) {
+            .suggestions {
+                display: none
+            }
         }
     </style>
 </head>
 
 <body>
     <nav>
-        <span class="n-logo">InstaView</span>
-        <div class="n-center"><span class="active">🏠</span><span>🔍</span><span>🧭</span><span>🎬</span><span>💬</span>
-        </div>
-        <div class="n-right"><span>❤️</span>
-            <div class="n-avatar"
-                style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:700">
-                JD</div>
+        <div class="nav-inner"><span class="n-logo">InstaView</span>
+            <div class="n-icons">
+                <span>🏠</span><span>🔍</span><span>🧭</span><span>💬</span><span>❤️</span><span>➕</span>
+                <div class="n-avatar"><img src="https://i.pravatar.cc/56?img=11"></div>
+            </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="feed">
-            <div class="stories">
-                <div class="story">
-                    <div class="story-ring">
-                        <div class="story-av" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">SC
-                        </div>
-                    </div>
-                    <div class="story-name">sarah_chen</div>
-                </div>
-                <div class="story">
-                    <div class="story-ring">
-                        <div class="story-av" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR
-                        </div>
-                    </div>
-                    <div class="story-name">mike.ross</div>
-                </div>
-                <div class="story">
-                    <div class="story-ring">
-                        <div class="story-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">AL
-                        </div>
-                    </div>
-                    <div class="story-name">alex_liu</div>
-                </div>
-                <div class="story">
-                    <div class="story-ring seen">
-                        <div class="story-av" style="background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff">LR
-                        </div>
-                    </div>
-                    <div class="story-name">lisa.ray</div>
-                </div>
-                <div class="story">
-                    <div class="story-ring">
-                        <div class="story-av" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff">TK
-                        </div>
-                    </div>
-                    <div class="story-name">tom_king</div>
-                </div>
-                <div class="story">
-                    <div class="story-ring seen">
-                        <div class="story-av" style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff">NP
-                        </div>
-                    </div>
-                    <div class="story-name">nina_patel</div>
-                </div>
-            </div>
-            <div class="post">
-                <div class="post-header">
-                    <div class="post-av" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">SC</div>
-                    <div>
-                        <div class="post-user">sarah_chen</div>
-                        <div class="post-loc">San Francisco, CA</div>
-                    </div><span class="post-more">⋯</span>
-                </div>
-                <div class="post-img" style="background:linear-gradient(135deg,#1e1b4b,#4338ca)">🌆</div>
-                <div class="post-actions"><span style="color:#ed4956">❤️</span><span>💬</span><span>➤</span><span
-                        class="post-save">🔖</span></div>
-                <div class="post-likes">2,847 likes</div>
-                <div class="post-caption"><strong>sarah_chen</strong> Golden hour in SF never gets old 🌅 Working on
-                    something exciting — can't wait to share! #buildinpublic #devlife</div>
-                <div class="post-comments">View all 42 comments</div>
-                <div class="post-time">3 hours ago</div>
-                <div class="post-add-comment"><span>😊</span><input placeholder="Add a comment..."><button>Post</button>
-                </div>
-            </div>
-            <div class="post">
-                <div class="post-header">
-                    <div class="post-av" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR</div>
-                    <div>
-                        <div class="post-user">mike.ross</div>
-                        <div class="post-loc">New York, NY</div>
-                    </div><span class="post-more">⋯</span>
-                </div>
-                <div class="post-img" style="background:linear-gradient(135deg,#0c4a6e,#0284c7)">💻</div>
-                <div class="post-actions"><span>🤍</span><span>💬</span><span>➤</span><span class="post-save">🔖</span>
-                </div>
-                <div class="post-likes">1,234 likes</div>
-                <div class="post-caption"><strong>mike.ross</strong> Just shipped a new feature using Next.js 15 Server
-                    Actions 🚀 The DX is incredible. Performance gains are insane!</div>
-                <div class="post-comments">View all 18 comments</div>
-                <div class="post-time">8 hours ago</div>
-                <div class="post-add-comment"><span>😊</span><input placeholder="Add a comment..."><button>Post</button>
-                </div>
+
+    <div class="container" id="container"></div>
+    <div class="suggestions">
+        <div class="sg-header">
+            <div class="sg-avatar"><img src="https://i.pravatar.cc/112?img=11"></div>
+            <div>
+                <div class="sg-name">john_dev</div>
+                <div class="sg-fullname">John Developer</div>
             </div>
         </div>
+        <div class="sg-title"><span>Suggested for you</span><span>See All</span></div>
+        <div id="suggestions"></div>
     </div>
+
+    <script>
+        const storyUsers = [
+            { name: 'sarah_ui', img: 'https://i.pravatar.cc/132?img=1', seen: false },
+            { name: 'mike_code', img: 'https://i.pravatar.cc/132?img=3', seen: false },
+            { name: 'alex_dev', img: 'https://i.pravatar.cc/132?img=5', seen: true },
+            { name: 'tom_react', img: 'https://i.pravatar.cc/132?img=8', seen: false },
+            { name: 'lisa_css', img: 'https://i.pravatar.cc/132?img=9', seen: true },
+            { name: 'emma_ux', img: 'https://i.pravatar.cc/132?img=16', seen: false },
+            { name: 'david_ts', img: 'https://i.pravatar.cc/132?img=12', seen: true },
+        ];
+
+        const posts = [
+            { user: 'sarah_ui', avatar: 'https://i.pravatar.cc/64?img=1', location: 'San Francisco, CA', img: 'https://picsum.photos/seed/ig1/640/640', likes: 2847, caption: 'Just shipped a new design system 🎨✨ 200+ components, dark mode, and accessibility built-in. Link in bio!', tags: '#uidesign #designsystem #react', comments: 142, time: '3 HOURS AGO', hasStory: true },
+            { user: 'mike_code', avatar: 'https://i.pravatar.cc/64?img=3', location: 'New York, NY', img: 'https://picsum.photos/seed/ig2/640/640', likes: 1203, caption: 'POV: Your deployment passed all tests on the first try 🤯', tags: '#developer #coding #devhumor', comments: 67, time: '5 HOURS AGO', hasStory: true },
+            { user: 'alex_dev', avatar: 'https://i.pravatar.cc/64?img=5', img: 'https://picsum.photos/seed/ig3/640/640', likes: 4521, caption: 'My workspace setup for 2026 🖥️ — ultrawide monitor, ergo keyboard, and a plant named "Sudo" 🌱', tags: '#workspace #developer #setup', comments: 234, time: '8 HOURS AGO' },
+            { user: 'tom_react', avatar: 'https://i.pravatar.cc/64?img=8', location: 'Austin, TX', img: 'https://picsum.photos/seed/ig4/640/640', likes: 892, caption: 'Built this dashboard from scratch in 3 hours using DevVault Pro templates. Best investment I made this year 💰', tags: '#react #dashboard #webdev', comments: 45, time: '12 HOURS AGO', hasStory: true },
+        ];
+
+        const suggestedUsers = [
+            { name: 'next_guru', fullname: 'Anna Next.js', img: 'https://i.pravatar.cc/64?img=14', reason: 'Followed by sarah_ui' },
+            { name: 'rust_dev', fullname: 'Max Rustman', img: 'https://i.pravatar.cc/64?img=15', reason: 'Suggested for you' },
+            { name: 'css_queen', fullname: 'Maya Styles', img: 'https://i.pravatar.cc/64?img=16', reason: 'Followed by mike_code' },
+            { name: 'go_master', fullname: 'Leo Golang', img: 'https://i.pravatar.cc/64?img=17', reason: 'Popular in your area' },
+        ];
+
+        function render() {
+            const c = document.getElementById('container');
+            // Stories
+            let html = '<div class="stories">';
+            html += storyUsers.map(s => `<div class="story" onclick="viewStory('${s.name}')"><div class="story-ring${s.seen ? ' seen' : ''}"><div class="story-inner"><img src="${s.img}" alt="${s.name}"></div></div><div class="story-name">${s.name}</div></div>`).join('');
+            html += '</div>';
+
+            // Posts
+            posts.forEach((p, i) => {
+                html += `<div class="post">
+      <div class="post-header">
+        <div class="post-av${p.hasStory ? ' has-story' : ''}">${p.hasStory ? `<div class="inner"><img src="${p.avatar}"></div>` : `<img src="${p.avatar}">`}</div>
+        <div><div class="post-user">${p.user}</div>${p.location ? `<div class="post-location">${p.location}</div>` : ''}</div>
+        <span class="post-menu">⋯</span>
+      </div>
+      <div class="post-img" ondblclick="doubleTapLike(${i})"><img src="${p.img}" alt="Post" loading="lazy"><div class="post-img-heart" id="heart${i}">❤️</div></div>
+      <div class="post-actions">
+        <span class="pa-icon" id="like${i}" onclick="toggleLike(${i})">🤍</span>
+        <span class="pa-icon">💬</span>
+        <span class="pa-icon">↗️</span>
+        <span class="pa-right"><span class="pa-icon" id="save${i}" onclick="toggleSave(${i})">🔖</span></span>
+      </div>
+      <div class="post-likes" id="likeCount${i}">${p.likes.toLocaleString()} likes</div>
+      <div class="post-caption"><strong>${p.user}</strong> ${p.caption} <span style="color:var(--accent)">${p.tags}</span></div>
+      <div class="post-comments-link">View all ${p.comments} comments</div>
+      <div class="post-time">${p.time}</div>
+      <div class="post-add-comment"><span style="font-size:1.1rem;cursor:pointer">😊</span><input placeholder="Add a comment..." oninput="this.nextElementSibling.classList.toggle('active',this.value.length>0)"><button>Post</button></div>
+    </div>`;
+            });
+            c.innerHTML = html;
+
+            // Suggestions
+            document.getElementById('suggestions').innerHTML = suggestedUsers.map((s, i) => `<div class="sg-user"><div class="sg-user-av"><img src="${s.img}"></div><div class="sg-user-info"><div class="sg-user-name">${s.name}</div><div class="sg-user-reason">${s.reason}</div></div><button class="sg-follow" id="sgFollow${i}" onclick="toggleSugFollow(${i})">${'Follow'}</button></div>`).join('');
+        }
+
+        const likeState = {};
+        function toggleLike(i) {
+            likeState[i] = !likeState[i];
+            const icon = document.getElementById('like' + i);
+            const count = document.getElementById('likeCount' + i);
+            icon.textContent = likeState[i] ? '❤️' : '🤍';
+            icon.classList.toggle('liked', likeState[i]);
+            const p = posts[i];
+            count.textContent = (likeState[i] ? p.likes + 1 : p.likes).toLocaleString() + ' likes';
+        }
+
+        function doubleTapLike(i) {
+            if (!likeState[i]) toggleLike(i);
+            const heart = document.getElementById('heart' + i);
+            heart.classList.remove('show'); void heart.offsetWidth; heart.classList.add('show');
+        }
+
+        function toggleSave(i) {
+            const s = document.getElementById('save' + i);
+            const saved = s.textContent === '💛';
+            s.textContent = saved ? '🔖' : '💛';
+        }
+
+        function toggleSugFollow(i) {
+            const btn = document.getElementById('sgFollow' + i);
+            const following = btn.classList.toggle('following');
+            btn.textContent = following ? 'Following' : 'Follow';
+        }
+
+        function viewStory(name) { alert(`Viewing ${name}'s story`) }
+
+        render();
+    </script>
 </body>
 
 </html>

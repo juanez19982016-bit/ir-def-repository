@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsChat — Messaging App</title>
+    <title>WhatsChat — Messaging</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -16,48 +16,38 @@
         :root {
             --bg: #111b21;
             --panel: #202c33;
-            --sidebar: #111b21;
-            --border: rgba(255, 255, 255, .08);
-            --green: #00a884;
-            --blue: #53bdeb;
+            --chat-bg: #0b141a;
+            --border: #2a3942;
+            --accent: #00a884;
             --text: #e9edef;
             --muted: #8696a0;
             --out: #005c4b;
-            --in: #202c33
+            --in: #202c33;
+            --blue: #53bdeb
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #0b141a;
+            background: var(--bg);
             color: var(--text);
             height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center
-        }
-
-        .app {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            max-width: 1400px;
-            border: 1px solid var(--border)
+            display: flex
         }
 
         .contacts {
-            width: 380px;
+            width: 340px;
+            background: var(--panel);
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            border-right: 1px solid var(--border);
-            flex-shrink: 0;
-            background: var(--sidebar)
+            flex-shrink: 0
         }
 
         .ct-header {
-            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 10px 16px;
             background: var(--panel)
         }
 
@@ -65,30 +55,43 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: .8rem
+            overflow: hidden;
+            cursor: pointer
         }
 
-        .ct-actions {
+        .ct-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .ct-icons {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             color: var(--muted);
-            font-size: 1rem
+            font-size: 1.1rem
+        }
+
+        .ct-icons span {
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 50%;
+            transition: background .1s
+        }
+
+        .ct-icons span:hover {
+            background: rgba(255, 255, 255, .05)
         }
 
         .ct-search {
-            padding: 8px 12px;
-            background: var(--sidebar)
+            padding: 4px 12px 8px
         }
 
         .ct-search input {
             width: 100%;
-            padding: 8px 12px 8px 36px;
+            padding: 8px 32px 8px 36px;
             border-radius: 8px;
-            background: var(--panel);
+            background: #2a3942;
             border: none;
             color: var(--text);
             font-size: .85rem;
@@ -98,32 +101,30 @@
 
         .ct-tabs {
             display: flex;
-            border-bottom: 1px solid var(--border)
+            padding: 0 12px 8px;
+            gap: 8px
         }
 
         .ct-tab {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            font-size: .82rem;
-            color: var(--muted);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: .78rem;
             cursor: pointer;
-            position: relative
+            border: none;
+            font-family: 'Inter';
+            color: var(--muted);
+            background: none;
+            font-weight: 500;
+            transition: all .12s
         }
 
         .ct-tab.active {
-            color: var(--green)
+            background: rgba(0, 168, 132, .15);
+            color: var(--accent)
         }
 
-        .ct-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 20%;
-            right: 20%;
-            height: 3px;
-            background: var(--green);
-            border-radius: 2px 2px 0 0
+        .ct-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, .04)
         }
 
         .ct-list {
@@ -141,11 +142,11 @@
         }
 
         .contact {
-            padding: 10px 16px;
             display: flex;
             gap: 12px;
+            padding: 10px 16px;
             cursor: pointer;
-            transition: background .1s;
+            transition: background .08s;
             border-bottom: 1px solid rgba(255, 255, 255, .03)
         }
 
@@ -154,150 +155,181 @@
         }
 
         .contact.active {
-            background: #2a3942
+            background: rgba(0, 168, 132, .08)
         }
 
-        .c-avatar {
+        .ct-av {
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: .85rem;
+            overflow: hidden;
             flex-shrink: 0;
             position: relative
         }
 
-        .c-online {
+        .ct-av img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .ct-online {
             position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 14px;
-            height: 14px;
+            bottom: 1px;
+            right: 1px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: var(--green);
-            border: 3px solid var(--sidebar)
+            background: var(--accent);
+            border: 2px solid var(--panel)
         }
 
-        .c-info {
+        .ct-info {
             flex: 1;
-            min-width: 0
-        }
-
-        .c-top {
+            min-width: 0;
             display: flex;
-            justify-content: space-between;
-            align-items: center
+            flex-direction: column;
+            justify-content: center
         }
 
-        .c-name {
+        .ct-name {
+            font-weight: 500;
             font-size: .92rem;
-            font-weight: 500
-        }
-
-        .c-time {
-            font-size: .72rem;
-            color: var(--muted)
-        }
-
-        .c-bottom {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 2px
+            justify-content: space-between
         }
 
-        .c-msg {
+        .ct-name .time {
+            font-size: .72rem;
+            color: var(--muted);
+            font-weight: 400
+        }
+
+        .ct-name .time.unread {
+            color: var(--accent)
+        }
+
+        .ct-preview {
             font-size: .82rem;
             color: var(--muted);
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            white-space: nowrap;
-            flex: 1
+            display: flex;
+            align-items: center;
+            gap: 4px
         }
 
-        .c-badge {
-            padding: 0 6px;
-            border-radius: 100px;
-            background: var(--green);
+        .ct-badge {
+            min-width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent);
             color: #fff;
-            font-size: .68rem;
-            font-weight: 700;
-            min-width: 18px;
-            height: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-left: 8px
+            font-size: .65rem;
+            font-weight: 700;
+            margin-left: auto;
+            flex-shrink: 0
         }
 
         .chat {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: #0b141a
+            background: var(--chat-bg)
+        }
+
+        .chat-bg {
+            position: absolute;
+            inset: 0;
+            opacity: .06;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M0 0h80v80H0z' fill='none'/%3E%3Cpath d='M20 20h40v40H20z' fill='%23fff' opacity='.02'/%3E%3C/svg%3E")
         }
 
         .chat-header {
-            padding: 10px 16px;
             display: flex;
             align-items: center;
             gap: 12px;
-            background: var(--panel)
+            padding: 10px 16px;
+            background: var(--panel);
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0
         }
 
-        .ch-info {
-            flex: 1
+        .ch-av {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer
+        }
+
+        .ch-av img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .ch-name {
-            font-size: .92rem;
-            font-weight: 500
+            font-weight: 500;
+            font-size: .92rem
         }
 
         .ch-status {
-            font-size: .78rem;
-            color: var(--green)
+            font-size: .72rem;
+            color: var(--accent)
         }
 
-        .ch-actions {
+        .ch-icons {
+            margin-left: auto;
             display: flex;
-            gap: 18px;
+            gap: 12px;
             color: var(--muted);
             font-size: 1rem
+        }
+
+        .ch-icons span {
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 50%;
+            transition: background .1s
+        }
+
+        .ch-icons span:hover {
+            background: rgba(255, 255, 255, .05)
         }
 
         .messages {
             flex: 1;
             overflow-y: auto;
-            padding: 16px 60px;
+            padding: 16px 48px;
             display: flex;
             flex-direction: column;
-            gap: 2px;
-            background: linear-gradient(var(--bg), var(--bg))
+            gap: 4px;
+            position: relative
         }
 
         .messages::-webkit-scrollbar {
-            width: 6px
+            width: 4px
         }
 
         .messages::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .04);
-            border-radius: 3px
-        }
-
-        .date-sep {
-            text-align: center;
-            margin: 12px 0
-        }
-
-        .date-label {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 8px;
             background: rgba(255, 255, 255, .06);
+            border-radius: 2px
+        }
+
+        .msg-date {
+            text-align: center;
+            margin: 8px 0
+        }
+
+        .msg-date span {
+            background: #1e2d36;
+            padding: 4px 12px;
+            border-radius: 6px;
             font-size: .72rem;
             color: var(--muted)
         }
@@ -307,298 +339,288 @@
             padding: 6px 8px;
             border-radius: 8px;
             font-size: .88rem;
-            line-height: 1.5;
+            line-height: 1.4;
             position: relative;
-            display: flex;
-            flex-direction: column
+            animation: msgIn .2s ease
         }
 
-        .msg-out {
-            align-self: flex-end;
-            background: var(--out);
-            border-radius: 8px 0 8px 8px
+        @keyframes msgIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
         }
 
         .msg-in {
-            align-self: flex-start;
             background: var(--in);
+            align-self: flex-start;
             border-radius: 0 8px 8px 8px
         }
 
+        .msg-out {
+            background: var(--out);
+            align-self: flex-end;
+            border-radius: 8px 0 8px 8px
+        }
+
         .msg-text {
-            word-wrap: break-word
-        }
-
-        .msg-footer {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            justify-content: flex-end;
-            margin-top: 2px
-        }
-
-        .msg-time {
-            font-size: .68rem;
-            color: var(--muted)
-        }
-
-        .msg-check {
-            font-size: .65rem;
-            color: var(--blue)
-        }
-
-        .msg-reply {
-            padding: 6px 8px;
-            background: rgba(0, 0, 0, .2);
-            border-radius: 4px;
-            border-left: 3px solid var(--green);
-            margin-bottom: 4px;
-            font-size: .78rem
-        }
-
-        .msg-reply-name {
-            color: var(--green);
-            font-size: .72rem;
-            font-weight: 600;
             margin-bottom: 2px
         }
 
+        .msg-time {
+            font-size: .65rem;
+            color: var(--muted);
+            text-align: right;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px
+        }
+
+        .msg-check {
+            font-size: .55rem;
+            color: var(--blue)
+        }
+
         .msg-img {
-            width: 280px;
             border-radius: 6px;
-            margin-bottom: 4px;
-            height: 160px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem
+            overflow: hidden;
+            margin-bottom: 4px
         }
 
-        .msg-voice {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 0
-        }
-
-        .voice-play {
-            font-size: 1.2rem;
-            cursor: pointer
-        }
-
-        .voice-wave {
-            flex: 1;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            gap: 1px
-        }
-
-        .voice-bar {
-            width: 3px;
-            border-radius: 2px;
-            background: var(--muted);
-            min-height: 3px
-        }
-
-        .voice-time {
-            font-size: .72rem;
-            color: var(--muted)
+        .msg-img img {
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            border-radius: 6px
         }
 
         .compose {
-            padding: 10px 16px;
             display: flex;
-            align-items: center;
             gap: 8px;
-            background: var(--panel)
+            padding: 8px 16px;
+            background: var(--panel);
+            align-items: flex-end;
+            flex-shrink: 0
         }
 
-        .c-btn {
-            padding: 8px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            color: var(--muted);
-            transition: color .12s;
-            border-radius: 50%
-        }
-
-        .c-btn:hover {
-            color: var(--text)
-        }
-
-        .compose input {
+        .compose-input {
             flex: 1;
             padding: 10px 16px;
             border-radius: 8px;
-            background: var(--bg);
+            background: #2a3942;
             border: none;
             color: var(--text);
             font-size: .88rem;
             outline: none;
-            font-family: 'Inter'
+            font-family: 'Inter';
+            max-height: 100px;
+            resize: none;
+            line-height: 1.4
         }
 
-        .send-btn {
+        .compose-btn {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: var(--green);
+            background: var(--accent);
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            flex-shrink: 0;
+            transition: all .12s
+        }
+
+        .compose-btn:hover {
+            background: #00c49a
+        }
+
+        .compose-icon {
+            padding: 8px;
             font-size: 1.1rem;
-            color: #fff;
-            border: none
+            color: var(--muted);
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background .1s
+        }
+
+        .compose-icon:hover {
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .typing-indicator {
+            padding: 6px 12px;
+            background: var(--in);
+            border-radius: 0 8px 8px 8px;
+            align-self: flex-start;
+            display: none
+        }
+
+        .typing-indicator.show {
+            display: block
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 3px
+        }
+
+        .typing-dots span {
+            width: 5px;
+            height: 5px;
+            background: var(--muted);
+            border-radius: 50%;
+            animation: typeBounce .6s infinite
+        }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: .1s
+        }
+
+        .typing-dots span:nth-child(3) {
+            animation-delay: .2s
+        }
+
+        @keyframes typeBounce {
+
+            0%,
+            80%,
+            100% {
+                transform: translateY(0)
+            }
+
+            40% {
+                transform: translateY(-5px)
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="app">
-        <div class="contacts">
-            <div class="ct-header">
-                <div class="ct-avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD</div>
-                <div class="ct-actions"><span>👥</span><span>💬</span><span>⋯</span></div>
-            </div>
-            <div class="ct-search"><input placeholder="🔍 Search or start new chat"></div>
-            <div class="ct-tabs">
-                <div class="ct-tab active">All</div>
-                <div class="ct-tab">Unread</div>
-                <div class="ct-tab">Groups</div>
-            </div>
-            <div class="ct-list">
-                <div class="contact active">
-                    <div class="c-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">SC<div
-                            class="c-online"></div>
-                    </div>
-                    <div class="c-info">
-                        <div class="c-top"><span class="c-name">Sarah Chen</span><span class="c-time">2:30 PM</span>
-                        </div>
-                        <div class="c-bottom"><span class="c-msg">✓✓ Looks great! I'll review it now 🚀</span></div>
-                    </div>
-                </div>
-                <div class="contact">
-                    <div class="c-avatar" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">DT</div>
-                    <div class="c-info">
-                        <div class="c-top"><span class="c-name">Dev Team 💻</span><span class="c-time"
-                                style="color:var(--green)">1:45 PM</span></div>
-                        <div class="c-bottom"><span class="c-msg">Mike: Just pushed the fix for the auth bug</span><span
-                                class="c-badge">3</span></div>
-                    </div>
-                </div>
-                <div class="contact">
-                    <div class="c-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">AL<div
-                            class="c-online"></div>
-                    </div>
-                    <div class="c-info">
-                        <div class="c-top"><span class="c-name">Alex Liu</span><span class="c-time">12:20 PM</span>
-                        </div>
-                        <div class="c-bottom"><span class="c-msg">📎 shared a document</span></div>
-                    </div>
-                </div>
-                <div class="contact">
-                    <div class="c-avatar" style="background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff">MR</div>
-                    <div class="c-info">
-                        <div class="c-top"><span class="c-name">Mike Ross</span><span class="c-time">Yesterday</span>
-                        </div>
-                        <div class="c-bottom"><span class="c-msg">✓✓ Sure, let me check that</span></div>
-                    </div>
-                </div>
-                <div class="contact">
-                    <div class="c-avatar" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff">PC</div>
-                    <div class="c-info">
-                        <div class="c-top"><span class="c-name">Product Chat 📦</span><span class="c-time"
-                                style="color:var(--green)">Yesterday</span></div>
-                        <div class="c-bottom"><span class="c-msg">Lisa: New feature spec attached</span><span
-                                class="c-badge">8</span></div>
-                    </div>
-                </div>
-                <div class="contact">
-                    <div class="c-avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff">LR</div>
-                    <div class="c-info">
-                        <div class="c-top"><span class="c-name">Lisa Ray</span><span class="c-time">Monday</span></div>
-                        <div class="c-bottom"><span class="c-msg">🎤 Voice message (0:42)</span></div>
-                    </div>
-                </div>
-            </div>
+    <div class="contacts">
+        <div class="ct-header">
+            <div class="ct-avatar"><img src="https://i.pravatar.cc/80?img=11"></div>
+            <div class="ct-icons"><span>👥</span><span>💬</span><span>⋮</span></div>
         </div>
-        <div class="chat">
-            <div class="chat-header">
-                <div class="c-avatar"
-                    style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff;width:40px;height:40px;font-size:.8rem">
-                    SC</div>
-                <div class="ch-info">
-                    <div class="ch-name">Sarah Chen</div>
-                    <div class="ch-status">online</div>
-                </div>
-                <div class="ch-actions"><span>📞</span><span>📹</span><span>🔍</span><span>⋯</span></div>
+        <div class="ct-search"><input placeholder="🔍 Search or start new chat" oninput="filterContacts(this.value)">
+        </div>
+        <div class="ct-tabs"><button class="ct-tab active" onclick="setTab(this)">All</button><button class="ct-tab"
+                onclick="setTab(this)">Unread</button><button class="ct-tab" onclick="setTab(this)">Groups</button>
+        </div>
+        <div class="ct-list" id="contactList"></div>
+    </div>
+    <div class="chat">
+        <div class="chat-header">
+            <div class="ch-av"><img src="https://i.pravatar.cc/80?img=1" id="chatAvatar"></div>
+            <div>
+                <div class="ch-name" id="chatName">Sarah Chen</div>
+                <div class="ch-status" id="chatStatus">online</div>
             </div>
-            <div class="messages">
-                <div class="date-sep"><span class="date-label">TODAY</span></div>
-                <div class="msg msg-in">
-                    <div class="msg-text">Hey! I just finished the dashboard PR. Can you take a look? 👀</div>
-                    <div class="msg-footer"><span class="msg-time">9:30 AM</span></div>
-                </div>
-                <div class="msg msg-out">
-                    <div class="msg-text">Sure! Give me 10 minutes ☕</div>
-                    <div class="msg-footer"><span class="msg-time">9:32 AM</span><span class="msg-check">✓✓</span></div>
-                </div>
-                <div class="msg msg-in">
-                    <div class="msg-img" style="background:linear-gradient(135deg,#1e1b4b,#312e81)">📊</div>
-                    <div class="msg-text">Here's a screenshot of the new charts</div>
-                    <div class="msg-footer"><span class="msg-time">9:45 AM</span></div>
-                </div>
-                <div class="msg msg-out">
-                    <div class="msg-reply">
-                        <div class="msg-reply-name">Sarah Chen</div>Here's a screenshot of the new charts
-                    </div>
-                    <div class="msg-text">This looks amazing! The donut chart is so clean 🎨</div>
-                    <div class="msg-footer"><span class="msg-time">10:15 AM</span><span class="msg-check">✓✓</span>
-                    </div>
-                </div>
-                <div class="msg msg-in">
-                    <div class="msg-text">Thanks! I also refactored the API layer. Now it's using the new Server Actions
-                        pattern from Next.js 15</div>
-                    <div class="msg-footer"><span class="msg-time">10:20 AM</span></div>
-                </div>
-                <div class="msg msg-out">
-                    <div class="msg-text">Perfect. I noticed the auth token refresh has a race condition though. Let me
-                        send you a fix</div>
-                    <div class="msg-footer"><span class="msg-time">2:15 PM</span><span class="msg-check">✓✓</span></div>
-                </div>
-                <div class="msg msg-in">
-                    <div class="msg-voice"><span class="voice-play">▶</span>
-                        <div class="voice-wave">
-                            <div class="voice-bar" style="height:8px"></div>
-                            <div class="voice-bar" style="height:14px"></div>
-                            <div class="voice-bar" style="height:6px"></div>
-                            <div class="voice-bar" style="height:18px"></div>
-                            <div class="voice-bar" style="height:10px"></div>
-                            <div class="voice-bar" style="height:22px"></div>
-                            <div class="voice-bar" style="height:14px"></div>
-                            <div class="voice-bar" style="height:8px"></div>
-                            <div class="voice-bar" style="height:16px"></div>
-                            <div class="voice-bar" style="height:12px"></div>
-                            <div class="voice-bar" style="height:20px"></div>
-                            <div class="voice-bar" style="height:6px"></div>
-                            <div class="voice-bar" style="height:14px"></div>
-                            <div class="voice-bar" style="height:18px"></div>
-                            <div class="voice-bar" style="height:8px"></div>
-                        </div><span class="voice-time">0:18</span>
-                    </div>
-                    <div class="msg-footer"><span class="msg-time">2:25 PM</span></div>
-                </div>
-                <div class="msg msg-in">
-                    <div class="msg-text">Looks great! I'll review it now 🚀</div>
-                    <div class="msg-footer"><span class="msg-time">2:30 PM</span></div>
-                </div>
-            </div>
-            <div class="compose"><span class="c-btn">😊</span><span class="c-btn">📎</span><input
-                    placeholder="Type a message"><span class="c-btn">🎤</span><button class="send-btn">➤</button></div>
+            <div class="ch-icons"><span>📞</span><span>📹</span><span>🔍</span><span>⋮</span></div>
+        </div>
+        <div class="messages" id="messages"></div>
+        <div class="compose"><span class="compose-icon">😊</span><span class="compose-icon">📎</span><textarea
+                class="compose-input" rows="1" placeholder="Type a message" id="msgInput"
+                onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"
+                oninput="autoResize(this)"></textarea><button class="compose-btn" onclick="sendMessage()">➤</button>
         </div>
     </div>
+
+    <script>
+        const contacts = [
+            { name: 'Sarah Chen', avatar: 'https://i.pravatar.cc/96?img=1', last: 'Hey! Check out the new design I just pushed 🎨', 'time': '2:34 PM', unread: 3, online: true },
+            { name: 'Dev Team', avatar: 'https://i.pravatar.cc/96?img=20', last: 'Mike: Merged the PR, looks great!', 'time': '1:15 PM', unread: 12, online: false, group: true },
+            { name: 'Alex Rivera', avatar: 'https://i.pravatar.cc/96?img=5', last: 'The API is ready for testing', 'time': '12:00 PM', unread: 0, online: true },
+            { name: 'Emma Wilson', avatar: 'https://i.pravatar.cc/96?img=9', last: 'Thanks for the code review!', 'time': '11:30 AM', unread: 0, online: false },
+            { name: 'Tom King', avatar: 'https://i.pravatar.cc/96?img=8', last: 'You: I\'ll push the fix tonight', 'time': 'Yesterday', unread: 0, online: false },
+            { name: 'Lisa Park', avatar: 'https://i.pravatar.cc/96?img=14', last: 'The deployment went smoothly 🚀', 'time': 'Yesterday', unread: 1, online: true },
+            { name: 'Code Review', avatar: 'https://i.pravatar.cc/96?img=22', last: 'Emma: LGTM! Merge when ready', 'time': 'Monday', unread: 0, online: false, group: true },
+        ];
+
+        const chatMessages = [
+            { type: 'date', text: 'Today' },
+            { type: 'in', text: 'Hey! Check out the new design I just pushed 🎨', time: '2:30 PM' },
+            { type: 'in', text: 'I used that glassmorphism pattern from DevVault Pro', time: '2:31 PM', img: 'https://picsum.photos/seed/wa1/600/400' },
+            { type: 'out', text: 'Wow this looks amazing! 😍', time: '2:32 PM' },
+            { type: 'out', text: 'How did you get the blur effect so smooth?', time: '2:32 PM' },
+            { type: 'in', text: 'backdrop-filter: blur(20px) + border: 1px solid rgba(255,255,255,0.1)\n\nThat\'s the magic combo ✨', time: '2:33 PM' },
+            { type: 'out', text: 'Genius. I\'m stealing this for our dashboard 😄', time: '2:34 PM' },
+            { type: 'in', text: 'Go for it! The DevVault templates have like 50+ component patterns you can copy', time: '2:34 PM' },
+        ];
+
+        let activeContact = 0;
+
+        function renderContacts() {
+            document.getElementById('contactList').innerHTML = contacts.map((c, i) => `
+    <div class="contact${i === activeContact ? ' active' : ''}" onclick="selectContact(${i})">
+      <div class="ct-av"><img src="${c.avatar}" alt="${c.name}">${c.online ? '<div class="ct-online"></div>' : ''}</div>
+      <div class="ct-info">
+        <div class="ct-name">${c.name}<span class="time${c.unread ? ' unread' : ''}">${c.time}</span></div>
+        <div class="ct-preview">${c.last}${c.unread ? `<span class="ct-badge">${c.unread}</span>` : ''}</div>
+      </div>
+    </div>
+  `).join('');
+        }
+
+        function renderMessages() {
+            document.getElementById('messages').innerHTML = chatMessages.map(m => {
+                if (m.type === 'date') return `<div class="msg-date"><span>${m.text}</span></div>`;
+                return `<div class="msg msg-${m.type}">${m.img ? `<div class="msg-img"><img src="${m.img}" alt="Photo" loading="lazy"></div>` : ''}<div class="msg-text">${m.text.replace(/\n/g, '<br>')}</div><div class="msg-time">${m.time}${m.type === 'out' ? '<span class="msg-check">✓✓</span>' : ''}</div></div>`;
+            }).join('') + '<div class="typing-indicator" id="typing"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+            const msgs = document.getElementById('messages');
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+
+        function selectContact(i) {
+            activeContact = i;
+            const c = contacts[i];
+            document.getElementById('chatAvatar').src = c.avatar;
+            document.getElementById('chatName').textContent = c.name;
+            document.getElementById('chatStatus').textContent = c.online ? 'online' : 'last seen recently';
+            contacts[i].unread = 0;
+            renderContacts();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('msgInput');
+            const text = input.value.trim();
+            if (!text) return;
+            const now = new Date();
+            const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            chatMessages.push({ type: 'out', text, time });
+            input.value = ''; input.style.height = 'auto';
+            renderMessages();
+
+            // Show typing + auto reply
+            setTimeout(() => { document.getElementById('typing').classList.add('show'); document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight }, 500);
+            setTimeout(() => {
+                document.getElementById('typing').classList.remove('show');
+                const replies = ['That sounds great! 👍', 'Let me check and get back to you', 'Nice one! 🔥', 'Agreed, let\'s do it', 'I\'ll take a look at that'];
+                chatMessages.push({ type: 'in', text: replies[Math.floor(Math.random() * replies.length)], time });
+                renderMessages();
+            }, 2000 + Math.random() * 1500);
+        }
+
+        function autoResize(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 100) + 'px' }
+        function setTab(el) { document.querySelectorAll('.ct-tab').forEach(t => t.classList.remove('active')); el.classList.add('active') }
+        function filterContacts(q) {
+            document.querySelectorAll('.contact').forEach(c => {
+                const name = c.querySelector('.ct-name').textContent.toLowerCase();
+                c.style.display = name.includes(q.toLowerCase()) ? 'flex' : 'none';
+            });
+        }
+
+        renderContacts(); renderMessages();
+    </script>
 </body>
 
 </html>

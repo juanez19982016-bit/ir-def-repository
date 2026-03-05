@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Clone — TeamChat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #313338;
+            --sidebar: #2b2d31;
+            --darker: #1e1f22;
+            --accent: #5865f2;
+            --green: #23a55a;
+            --text: #dbdee1;
+            --muted: #949ba4;
+            --msg-hover: rgba(0, 0, 0, .06)
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden
+        }
+
+        .servers {
+            width: 72px;
+            background: var(--darker);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px 0;
+            gap: 8px;
+            flex-shrink: 0
+        }
+
+        .srv {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: border-radius .15s
+        }
+
+        .srv:hover,
+        .srv.active {
+            border-radius: 16px
+        }
+
+        .srv.active {
+            background: var(--accent)
+        }
+
+        .srv-sep {
+            width: 32px;
+            height: 2px;
+            background: var(--sidebar);
+            border-radius: 1px
+        }
+
+        .channels {
+            width: 240px;
+            background: var(--sidebar);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0
+        }
+
+        .ch-header {
+            padding: 12px 16px;
+            font-weight: 700;
+            font-size: .95rem;
+            border-bottom: 1px solid rgba(0, 0, 0, .15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .ch-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px
+        }
+
+        .ch-list::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .ch-list::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, .3);
+            border-radius: 2px
+        }
+
+        .ch-cat {
+            padding: 18px 8px 4px;
+            font-size: .68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .ch-item {
+            padding: 6px 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .88rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background .1s;
+            color: var(--muted)
+        }
+
+        .ch-item:hover {
+            background: rgba(255, 255, 255, .04);
+            color: var(--text)
+        }
+
+        .ch-item.active {
+            background: rgba(255, 255, 255, .06);
+            color: #fff
+        }
+
+        .ch-item .icon {
+            font-size: .85rem
+        }
+
+        .ch-badge {
+            margin-left: auto;
+            padding: 0 6px;
+            border-radius: 100px;
+            background: var(--accent);
+            color: #fff;
+            font-size: .68rem;
+            font-weight: 700;
+            min-width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .ch-user {
+            padding: 8px;
+            background: rgba(0, 0, 0, .15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: auto
+        }
+
+        .ch-user-av {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .7rem;
+            position: relative
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 3px solid var(--sidebar)
+        }
+
+        .ch-user-name {
+            font-size: .82rem;
+            font-weight: 500
+        }
+
+        .ch-user-tag {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column
+        }
+
+        .main-header {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(0, 0, 0, .15);
+            font-weight: 600;
+            font-size: .95rem
+        }
+
+        .main-header .hash {
+            color: var(--muted);
+            font-size: 1.1rem
+        }
+
+        .header-desc {
+            font-size: .82rem;
+            color: var(--muted);
+            font-weight: 400;
+            margin-left: 12px;
+            padding-left: 12px;
+            border-left: 1px solid rgba(255, 255, 255, .08)
+        }
+
+        .header-right {
+            margin-left: auto;
+            display: flex;
+            gap: 16px;
+            color: var(--muted);
+            font-size: 1rem
+        }
+
+        .header-right span {
+            cursor: pointer
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 0
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 6px
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, .2);
+            border-radius: 3px
+        }
+
+        .msg {
+            padding: 2px 16px;
+            display: flex;
+            gap: 16px;
+            transition: background .1s;
+            margin: 0 -16px;
+            border-radius: 0
+        }
+
+        .msg:hover {
+            background: var(--msg-hover)
+        }
+
+        .msg-full {
+            padding-top: 1rem
+        }
+
+        .msg-av {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .8rem;
+            flex-shrink: 0
+        }
+
+        .msg-head {
+            display: flex;
+            align-items: baseline;
+            gap: 8px
+        }
+
+        .msg-name {
+            font-weight: 600;
+            font-size: .92rem
+        }
+
+        .msg-role {
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: .62rem;
+            font-weight: 700
+        }
+
+        .msg-time {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .msg-text {
+            font-size: .92rem;
+            line-height: 1.5;
+            color: var(--text);
+            margin-top: 2px
+        }
+
+        .msg-text code {
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, .2);
+            font-size: .85rem;
+            font-family: monospace
+        }
+
+        .msg-reactions {
+            display: flex;
+            gap: 4px;
+            margin-top: 4px
+        }
+
+        .reaction {
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, .06);
+            background: rgba(88, 101, 242, .1);
+            font-size: .78rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .msg-embed {
+            margin-top: 8px;
+            padding: 12px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, .15);
+            border-left: 4px solid var(--accent);
+            max-width: 400px
+        }
+
+        .msg-embed-title {
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 4px
+        }
+
+        .msg-embed-desc {
+            font-size: .82rem;
+            color: var(--muted);
+            line-height: 1.4
+        }
+
+        .msg-continuation {
+            padding-left: 56px
+        }
+
+        .compose {
+            padding: 0 16px 24px;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .compose-input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .06);
+            border: none;
+            color: var(--text);
+            font-size: .88rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .compose-btns {
+            display: flex;
+            gap: 4px
+        }
+
+        .c-btn {
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--muted);
+            transition: color .12s
+        }
+
+        .c-btn:hover {
+            color: var(--text)
+        }
+
+        .members-panel {
+            width: 240px;
+            background: var(--sidebar);
+            border-left: 1px solid rgba(0, 0, 0, .15);
+            padding: 16px;
+            overflow-y: auto;
+            flex-shrink: 0
+        }
+
+        .mp-section {
+            font-size: .68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--muted);
+            margin: 16px 0 8px
+        }
+
+        .mp-user {
+            padding: 6px 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background .1s
+        }
+
+        .mp-user:hover {
+            background: rgba(255, 255, 255, .04)
+        }
+
+        .mp-av {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .65rem;
+            flex-shrink: 0;
+            position: relative
+        }
+
+        .mp-name {
+            font-size: .85rem
+        }
+
+        .mp-status {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="servers">
+        <div class="srv" style="background:var(--accent);border-radius:16px;color:#fff">🏠</div>
+        <div class="srv-sep"></div>
+        <div class="srv active" style="color:#fff">AC</div>
+        <div class="srv" style="background:#2b2d31">🎮</div>
+        <div class="srv" style="background:#2b2d31">🎵</div>
+        <div class="srv" style="background:#2b2d31">📚</div>
+        <div class="srv-sep"></div>
+        <div class="srv" style="background:var(--green);border-radius:16px;color:#fff">+</div>
+    </div>
+    <div class="channels">
+        <div class="ch-header">Acme Dev Team <span style="font-size:.85rem;cursor:pointer">▾</span></div>
+        <div class="ch-list">
+            <div class="ch-cat">Text Channels <span style="font-size:.7rem;cursor:pointer">+</span></div>
+            <div class="ch-item active"><span class="icon">#</span>general</div>
+            <div class="ch-item"><span class="icon">#</span>announcements<span class="ch-badge">2</span></div>
+            <div class="ch-item"><span class="icon">#</span>random</div>
+            <div class="ch-cat">Development</div>
+            <div class="ch-item"><span class="icon">#</span>frontend<span class="ch-badge">5</span></div>
+            <div class="ch-item"><span class="icon">#</span>backend</div>
+            <div class="ch-item"><span class="icon">#</span>devops</div>
+            <div class="ch-item"><span class="icon">#</span>code-review</div>
+            <div class="ch-cat">Voice Channels</div>
+            <div class="ch-item"><span class="icon">🔊</span>General Voice</div>
+            <div class="ch-item"><span class="icon">🔊</span>Pair Programming</div>
+        </div>
+        <div class="ch-user">
+            <div class="ch-user-av" style="background:linear-gradient(135deg,#5865f2,#4752c4);color:#fff">JD<div
+                    class="status-dot" style="background:var(--green)"></div>
+            </div>
+            <div>
+                <div class="ch-user-name">johndoe</div>
+                <div class="ch-user-tag">Online</div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="main-header"><span class="hash">#</span>general<span class="header-desc">General chat for the
+                team</span>
+            <div class="header-right"><span>🔔</span><span>📌</span><span>👥</span><span>🔍</span></div>
+        </div>
+        <div class="messages">
+            <div class="msg msg-full">
+                <div class="msg-av" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">SC</div>
+                <div>
+                    <div class="msg-head"><span class="msg-name" style="color:#ec4899">Sarah Chen</span><span
+                            class="msg-role" style="background:rgba(88,101,242,.2);color:#7289da">Admin</span><span
+                            class="msg-time">Today at 9:30 AM</span></div>
+                    <div class="msg-text">Good morning team! 👋 Quick update: the dashboard v2 is ready for final
+                        review. I've pushed all the changes to the <code>feature/dashboard-v2</code> branch.</div>
+                    <div class="msg-embed">
+                        <div class="msg-embed-title">Pull Request #47</div>
+                        <div class="msg-embed-desc">feat: Dashboard v2 with real-time charts, improved performance, and
+                            new responsive layout</div>
+                    </div>
+                    <div class="msg-reactions"><span class="reaction">🚀 4</span><span class="reaction">👍 3</span><span
+                            class="reaction">🎉 2</span></div>
+                </div>
+            </div>
+            <div class="msg msg-full">
+                <div class="msg-av" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR</div>
+                <div>
+                    <div class="msg-head"><span class="msg-name" style="color:#22c55e">Mike Ross</span><span
+                            class="msg-time">Today at 9:45 AM</span></div>
+                    <div class="msg-text">Awesome! I'll start reviewing right now. The chart components look clean 👀
+                    </div>
+                </div>
+            </div>
+            <div class="msg msg-full">
+                <div class="msg-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">AL</div>
+                <div>
+                    <div class="msg-head"><span class="msg-name" style="color:#f59e0b">Alex Liu</span><span
+                            class="msg-role" style="background:rgba(35,165,90,.2);color:#23a55a">Mod</span><span
+                            class="msg-time">Today at 10:12 AM</span></div>
+                    <div class="msg-text">Found a small issue with the revenue chart tooltip — it doesn't show on
+                        mobile. Here's the fix:</div>
+                    <div class="msg-text"
+                        style="margin-top:8px;padding:12px;background:rgba(0,0,0,.2);border-radius:4px;font-family:monospace;font-size:.82rem;color:#e6edf3">
+                        <span style="color:#ff7b72">const</span> tooltip = <span
+                            style="color:#79c0ff">useRef</span>(<span style="color:#ff7b72">null</span>)<br><span
+                            style="color:#8b949e">// Add touch event listeners</span><br>tooltip.<span
+                            style="color:#79c0ff">addEventListener</span>(<span
+                            style="color:#a5d6ff">'touchstart'</span>, handler)</div>
+                </div>
+            </div>
+            <div class="msg msg-full">
+                <div class="msg-av" style="background:linear-gradient(135deg,#5865f2,#4752c4);color:#fff">JD</div>
+                <div>
+                    <div class="msg-head"><span class="msg-name" style="color:#5865f2">John Doe</span><span
+                            class="msg-time">Today at 10:30 AM</span></div>
+                    <div class="msg-text">Great catch @Alex! I'll fix that in the next commit. Also, don't forget we
+                        have the sprint review at 2 PM 📅</div>
+                    <div class="msg-reactions"><span class="reaction">👍 2</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="compose"><span class="c-btn">➕</span><input class="compose-input" placeholder="Message #general">
+            <div class="compose-btns"><span class="c-btn">🎁</span><span class="c-btn">📎</span><span
+                    class="c-btn">😀</span></div>
+        </div>
+    </div>
+    <div class="members-panel">
+        <div class="mp-section">Online — 4</div>
+        <div class="mp-user">
+            <div class="mp-av" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">SC<div
+                    class="status-dot"
+                    style="background:var(--green);width:10px;height:10px;border:2px solid var(--sidebar)"></div>
+            </div>
+            <div>
+                <div class="mp-name">Sarah Chen</div>
+                <div class="mp-status">🎵 Listening to Spotify</div>
+            </div>
+        </div>
+        <div class="mp-user">
+            <div class="mp-av" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR<div
+                    class="status-dot"
+                    style="background:var(--green);width:10px;height:10px;border:2px solid var(--sidebar)"></div>
+            </div>
+            <div>
+                <div class="mp-name">Mike Ross</div>
+                <div class="mp-status">Reviewing PRs</div>
+            </div>
+        </div>
+        <div class="mp-user">
+            <div class="mp-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">AL<div
+                    class="status-dot"
+                    style="background:var(--green);width:10px;height:10px;border:2px solid var(--sidebar)"></div>
+            </div>
+            <div>
+                <div class="mp-name">Alex Liu</div>
+            </div>
+        </div>
+        <div class="mp-user">
+            <div class="mp-av" style="background:linear-gradient(135deg,#5865f2,#4752c4);color:#fff">JD<div
+                    class="status-dot"
+                    style="background:var(--green);width:10px;height:10px;border:2px solid var(--sidebar)"></div>
+            </div>
+            <div>
+                <div class="mp-name">John Doe</div>
+            </div>
+        </div>
+        <div class="mp-section">Offline — 2</div>
+        <div class="mp-user" style="opacity:.4">
+            <div class="mp-av" style="background:#4e5058;color:#9a9da1">LR</div>
+            <div>
+                <div class="mp-name">Lisa Ray</div>
+            </div>
+        </div>
+        <div class="mp-user" style="opacity:.4">
+            <div class="mp-av" style="background:#4e5058;color:#9a9da1">TK</div>
+            <div>
+                <div class="mp-name">Tom King</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

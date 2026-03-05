@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataViz — Analytics Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #09090b;
+            --card: #111115;
+            --border: rgba(255, 255, 255, .06);
+            --accent: #8b5cf6;
+            --green: #22c55e;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --amber: #f59e0b;
+            --pink: #ec4899;
+            --cyan: #06b6d4;
+            --text: #fafafa;
+            --muted: #71717a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 1.5rem
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem
+        }
+
+        .header h1 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .header-right {
+            display: flex;
+            gap: 8px
+        }
+
+        .h-btn {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: .82rem;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--muted);
+            font-family: 'Inter'
+        }
+
+        .h-btn-p {
+            background: var(--accent);
+            border: none;
+            color: #fff;
+            font-weight: 600
+        }
+
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 1.5rem
+        }
+
+        .kpi {
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .kpi-label {
+            font-size: .75rem;
+            color: var(--muted);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: .03em;
+            font-weight: 500
+        }
+
+        .kpi-value {
+            font-size: 1.6rem;
+            font-weight: 800
+        }
+
+        .kpi-change {
+            font-size: .75rem;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 3px
+        }
+
+        .kpi-spark {
+            display: flex;
+            align-items: flex-end;
+            gap: 1px;
+            height: 24px;
+            margin-top: 8px
+        }
+
+        .ks {
+            flex: 1;
+            border-radius: 1px 1px 0 0;
+            min-height: 1px
+        }
+
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+            margin-bottom: 1.5rem
+        }
+
+        .chart-box {
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem
+        }
+
+        .chart-title {
+            font-size: .9rem;
+            font-weight: 600
+        }
+
+        .chart-tabs {
+            display: flex;
+            gap: 4px
+        }
+
+        .ct {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: .72rem;
+            cursor: pointer;
+            color: var(--muted);
+            border: none;
+            background: none;
+            font-family: 'Inter'
+        }
+
+        .ct.active {
+            background: rgba(139, 92, 246, .1);
+            color: var(--accent)
+        }
+
+        .line-chart {
+            height: 180px;
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            position: relative
+        }
+
+        .line-chart::before {
+            content: '';
+            position: absolute;
+            bottom: 40%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border);
+            z-index: 0
+        }
+
+        .line-chart::after {
+            content: '';
+            position: absolute;
+            bottom: 70%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border);
+            z-index: 0
+        }
+
+        .bar {
+            flex: 1;
+            border-radius: 3px 3px 0 0;
+            min-height: 2px;
+            position: relative;
+            z-index: 1;
+            transition: height .4s
+        }
+
+        .bar:hover {
+            opacity: .8
+        }
+
+        .donut-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem
+        }
+
+        .donut {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .donut::before {
+            content: '';
+            position: absolute;
+            inset: 30px;
+            background: var(--card);
+            border-radius: 50%;
+            z-index: 1
+        }
+
+        .donut-value {
+            position: relative;
+            z-index: 2;
+            text-align: center
+        }
+
+        .donut-value .num {
+            font-size: 1.5rem;
+            font-weight: 800
+        }
+
+        .donut-value .label {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .donut-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .82rem;
+            justify-content: space-between
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            flex-shrink: 0
+        }
+
+        .legend-name {
+            flex: 1
+        }
+
+        .legend-pct {
+            font-weight: 600;
+            font-size: .78rem
+        }
+
+        .bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px
+        }
+
+        .table-box {
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .table-box h3 {
+            font-size: .9rem;
+            font-weight: 600;
+            margin-bottom: 1rem
+        }
+
+        .mini-table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        .mini-table th {
+            text-align: left;
+            font-size: .72rem;
+            color: var(--muted);
+            font-weight: 500;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .mini-table td {
+            padding: 8px 0;
+            font-size: .82rem;
+            border-bottom: 1px solid rgba(255, 255, 255, .02)
+        }
+
+        .mini-table .name {
+            font-weight: 500
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, .04);
+            border-radius: 100px;
+            overflow: hidden;
+            width: 80px
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 100px
+        }
+
+        .geo-map {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative
+        }
+
+        .map-placeholder {
+            font-size: 3rem;
+            opacity: .3
+        }
+
+        .geo-list {
+            margin-top: 1rem
+        }
+
+        .geo-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+            font-size: .82rem
+        }
+
+        .geo-flag {
+            font-size: 1.1rem
+        }
+
+        .geo-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, .04);
+            border-radius: 100px;
+            overflow: hidden
+        }
+
+        .geo-fill {
+            height: 100%;
+            border-radius: 100px;
+            background: var(--accent)
+        }
+
+        .geo-pct {
+            font-size: .75rem;
+            color: var(--muted);
+            width: 32px;
+            text-align: right
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .activity {
+            display: flex;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .02)
+        }
+
+        .act-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .85rem;
+            flex-shrink: 0
+        }
+
+        .act-text {
+            font-size: .82rem;
+            line-height: 1.4
+        }
+
+        .act-time {
+            font-size: .72rem;
+            color: var(--muted);
+            margin-top: 2px
+        }
+
+        @media(max-width:768px) {
+            .kpi-row {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .charts-row,
+            .bottom-row {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>📊 DataViz Pro</h1>
+        <div class="header-right"><button class="h-btn">📅 Jan 1 — Mar 4, 2026</button><button class="h-btn h-btn-p">📥
+                Export</button></div>
+    </div>
+    <div class="kpi-row">
+        <div class="kpi">
+            <div class="kpi-label">Revenue</div>
+            <div class="kpi-value">$48.2K</div>
+            <div class="kpi-change" style="color:var(--green)">↑ 12.5%</div>
+            <div class="kpi-spark">
+                <div class="ks" style="height:30%;background:var(--accent)"></div>
+                <div class="ks" style="height:45%;background:var(--accent)"></div>
+                <div class="ks" style="height:35%;background:var(--accent)"></div>
+                <div class="ks" style="height:55%;background:var(--accent)"></div>
+                <div class="ks" style="height:60%;background:var(--accent)"></div>
+                <div class="ks" style="height:50%;background:var(--accent)"></div>
+                <div class="ks" style="height:70%;background:var(--accent)"></div>
+                <div class="ks" style="height:75%;background:var(--accent)"></div>
+                <div class="ks" style="height:80%;background:var(--accent)"></div>
+                <div class="ks" style="height:85%;background:var(--accent)"></div>
+            </div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-label">Users</div>
+            <div class="kpi-value">12,847</div>
+            <div class="kpi-change" style="color:var(--green)">↑ 8.3%</div>
+            <div class="kpi-spark">
+                <div class="ks" style="height:40%;background:var(--green)"></div>
+                <div class="ks" style="height:50%;background:var(--green)"></div>
+                <div class="ks" style="height:45%;background:var(--green)"></div>
+                <div class="ks" style="height:60%;background:var(--green)"></div>
+                <div class="ks" style="height:55%;background:var(--green)"></div>
+                <div class="ks" style="height:65%;background:var(--green)"></div>
+                <div class="ks" style="height:70%;background:var(--green)"></div>
+                <div class="ks" style="height:68%;background:var(--green)"></div>
+                <div class="ks" style="height:75%;background:var(--green)"></div>
+                <div class="ks" style="height:80%;background:var(--green)"></div>
+            </div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-label">Conversion</div>
+            <div class="kpi-value">3.24%</div>
+            <div class="kpi-change" style="color:var(--red)">↓ 0.8%</div>
+            <div class="kpi-spark">
+                <div class="ks" style="height:80%;background:var(--blue)"></div>
+                <div class="ks" style="height:75%;background:var(--blue)"></div>
+                <div class="ks" style="height:70%;background:var(--blue)"></div>
+                <div class="ks" style="height:72%;background:var(--blue)"></div>
+                <div class="ks" style="height:65%;background:var(--blue)"></div>
+                <div class="ks" style="height:68%;background:var(--blue)"></div>
+                <div class="ks" style="height:60%;background:var(--blue)"></div>
+                <div class="ks" style="height:62%;background:var(--blue)"></div>
+                <div class="ks" style="height:55%;background:var(--blue)"></div>
+                <div class="ks" style="height:58%;background:var(--blue)"></div>
+            </div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-label">Avg Order</div>
+            <div class="kpi-value">$67.50</div>
+            <div class="kpi-change" style="color:var(--green)">↑ 4.2%</div>
+            <div class="kpi-spark">
+                <div class="ks" style="height:40%;background:var(--amber)"></div>
+                <div class="ks" style="height:55%;background:var(--amber)"></div>
+                <div class="ks" style="height:50%;background:var(--amber)"></div>
+                <div class="ks" style="height:45%;background:var(--amber)"></div>
+                <div class="ks" style="height:60%;background:var(--amber)"></div>
+                <div class="ks" style="height:65%;background:var(--amber)"></div>
+                <div class="ks" style="height:58%;background:var(--amber)"></div>
+                <div class="ks" style="height:70%;background:var(--amber)"></div>
+                <div class="ks" style="height:75%;background:var(--amber)"></div>
+                <div class="ks" style="height:72%;background:var(--amber)"></div>
+            </div>
+        </div>
+        <div class="kpi">
+            <div class="kpi-label">Churn Rate</div>
+            <div class="kpi-value">1.8%</div>
+            <div class="kpi-change" style="color:var(--green)">↓ 0.3%</div>
+            <div class="kpi-spark">
+                <div class="ks" style="height:60%;background:var(--pink)"></div>
+                <div class="ks" style="height:55%;background:var(--pink)"></div>
+                <div class="ks" style="height:50%;background:var(--pink)"></div>
+                <div class="ks" style="height:48%;background:var(--pink)"></div>
+                <div class="ks" style="height:45%;background:var(--pink)"></div>
+                <div class="ks" style="height:42%;background:var(--pink)"></div>
+                <div class="ks" style="height:40%;background:var(--pink)"></div>
+                <div class="ks" style="height:38%;background:var(--pink)"></div>
+                <div class="ks" style="height:35%;background:var(--pink)"></div>
+                <div class="ks" style="height:30%;background:var(--pink)"></div>
+            </div>
+        </div>
+    </div>
+    <div class="charts-row">
+        <div class="chart-box">
+            <div class="chart-header"><span class="chart-title">Revenue Overview</span>
+                <div class="chart-tabs"><button class="ct active">Weekly</button><button
+                        class="ct">Monthly</button><button class="ct">Yearly</button></div>
+            </div>
+            <div class="line-chart">
+                <div class="bar" style="height:30%;background:var(--accent)"></div>
+                <div class="bar" style="height:45%;background:var(--accent)"></div>
+                <div class="bar" style="height:35%;background:var(--accent)"></div>
+                <div class="bar" style="height:55%;background:var(--accent)"></div>
+                <div class="bar" style="height:50%;background:var(--accent)"></div>
+                <div class="bar" style="height:65%;background:var(--accent)"></div>
+                <div class="bar" style="height:60%;background:var(--accent)"></div>
+                <div class="bar" style="height:70%;background:var(--accent)"></div>
+                <div class="bar" style="height:75%;background:var(--accent)"></div>
+                <div class="bar" style="height:68%;background:var(--accent)"></div>
+                <div class="bar" style="height:80%;background:var(--accent)"></div>
+                <div class="bar" style="height:85%;background:var(--accent)"></div>
+                <div class="bar" style="height:78%;background:var(--accent)"></div>
+                <div class="bar" style="height:90%;background:var(--accent)"></div>
+                <div class="bar" style="height:88%;background:var(--accent)"></div>
+                <div class="bar" style="height:95%;background:var(--accent)"></div>
+                <div class="bar" style="height:92%;background:var(--accent)"></div>
+                <div class="bar" style="height:85%;background:var(--accent)"></div>
+                <div class="bar" style="height:25%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:35%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:30%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:40%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:38%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:50%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:45%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:55%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:58%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:52%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:60%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:65%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:58%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:70%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:68%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:75%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:72%;background:rgba(99,102,241,.3)"></div>
+                <div class="bar" style="height:65%;background:rgba(99,102,241,.3)"></div>
+            </div>
+        </div>
+        <div class="chart-box">
+            <div class="chart-header"><span class="chart-title">Traffic Sources</span></div>
+            <div class="donut-container">
+                <div class="donut"
+                    style="background:conic-gradient(var(--accent) 0% 35%, var(--blue) 35% 55%, var(--green) 55% 72%, var(--amber) 72% 85%, var(--pink) 85% 100%)">
+                    <div class="donut-value">
+                        <div class="num">24.5K</div>
+                        <div class="label">Total Visits</div>
+                    </div>
+                </div>
+                <div class="donut-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:var(--accent)"></div><span class="legend-name">Organic
+                            Search</span><span class="legend-pct">35%</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:var(--blue)"></div><span
+                            class="legend-name">Direct</span><span class="legend-pct">20%</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:var(--green)"></div><span class="legend-name">Social
+                            Media</span><span class="legend-pct">17%</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:var(--amber)"></div><span
+                            class="legend-name">Referral</span><span class="legend-pct">13%</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:var(--pink)"></div><span class="legend-name">Paid
+                            Ads</span><span class="legend-pct">15%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-row">
+        <div class="table-box">
+            <h3>Top Pages</h3>
+            <table class="mini-table">
+                <thead>
+                    <tr>
+                        <th>Page</th>
+                        <th>Views</th>
+                        <th>Bounce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="name">/dashboard</td>
+                        <td>8,432</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width:24%;background:var(--green)"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="name">/pricing</td>
+                        <td>5,891</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width:38%;background:var(--amber)"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="name">/templates</td>
+                        <td>4,267</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width:31%;background:var(--green)"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="name">/blog</td>
+                        <td>3,145</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width:52%;background:var(--red)"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="name">/docs</td>
+                        <td>2,890</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width:19%;background:var(--green)"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-box">
+            <h3>Top Locations</h3>
+            <div class="geo-list">
+                <div class="geo-item"><span class="geo-flag">🇺🇸</span><span>United States</span>
+                    <div class="geo-bar">
+                        <div class="geo-fill" style="width:42%"></div>
+                    </div><span class="geo-pct">42%</span>
+                </div>
+                <div class="geo-item"><span class="geo-flag">🇬🇧</span><span>United Kingdom</span>
+                    <div class="geo-bar">
+                        <div class="geo-fill" style="width:15%"></div>
+                    </div><span class="geo-pct">15%</span>
+                </div>
+                <div class="geo-item"><span class="geo-flag">🇩🇪</span><span>Germany</span>
+                    <div class="geo-bar">
+                        <div class="geo-fill" style="width:11%"></div>
+                    </div><span class="geo-pct">11%</span>
+                </div>
+                <div class="geo-item"><span class="geo-flag">🇮🇳</span><span>India</span>
+                    <div class="geo-bar">
+                        <div class="geo-fill" style="width:9%"></div>
+                    </div><span class="geo-pct">9%</span>
+                </div>
+                <div class="geo-item"><span class="geo-flag">🇧🇷</span><span>Brazil</span>
+                    <div class="geo-bar">
+                        <div class="geo-fill" style="width:7%"></div>
+                    </div><span class="geo-pct">7%</span>
+                </div>
+            </div>
+        </div>
+        <div class="table-box">
+            <h3>Recent Activity</h3>
+            <div class="activity-list">
+                <div class="activity">
+                    <div class="act-icon" style="background:rgba(34,197,94,.1)">💰</div>
+                    <div>
+                        <div class="act-text">New sale: <strong>DevVault Pro</strong> — $149</div>
+                        <div class="act-time">2 min ago</div>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="act-icon" style="background:rgba(59,130,246,.1)">👤</div>
+                    <div>
+                        <div class="act-text">New user signup: <strong>sarah@acme.com</strong></div>
+                        <div class="act-time">8 min ago</div>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="act-icon" style="background:rgba(245,158,11,.1)">⭐</div>
+                    <div>
+                        <div class="act-text">5-star review received</div>
+                        <div class="act-time">15 min ago</div>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="act-icon" style="background:rgba(236,72,153,.1)">📧</div>
+                    <div>
+                        <div class="act-text">Campaign email sent to <strong>2.4K</strong> users</div>
+                        <div class="act-time">1 hour ago</div>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="act-icon" style="background:rgba(139,92,246,.1)">🚀</div>
+                    <div>
+                        <div class="act-text">New deployment: <strong>v2.4.1</strong></div>
+                        <div class="act-time">3 hours ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

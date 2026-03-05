@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckoutPro — Payment Flow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #09090b;
+            --card: #111115;
+            --border: rgba(255, 255, 255, .06);
+            --accent: #6366f1;
+            --green: #22c55e;
+            --text: #fafafa;
+            --muted: #71717a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem
+        }
+
+        .checkout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 0;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--card)
+        }
+
+        .left {
+            padding: 2.5rem;
+            border-right: 1px solid var(--border)
+        }
+
+        .right {
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, .01)
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .steps {
+            display: flex;
+            gap: 0;
+            margin-bottom: 2rem
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .82rem;
+            color: var(--muted)
+        }
+
+        .step.active {
+            color: var(--text)
+        }
+
+        .step-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .72rem;
+            font-weight: 700
+        }
+
+        .step.active .step-num {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff
+        }
+
+        .step.done .step-num {
+            background: var(--green);
+            border-color: var(--green);
+            color: #fff
+        }
+
+        .step-line {
+            width: 24px;
+            height: 2px;
+            background: var(--border);
+            margin: 0 6px
+        }
+
+        .step-line.done {
+            background: var(--green)
+        }
+
+        .section-title {
+            font-size: .92rem;
+            font-weight: 600;
+            margin-bottom: 1rem
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 12px
+        }
+
+        .form-label {
+            font-size: .78rem;
+            color: var(--muted);
+            font-weight: 500
+        }
+
+        .form-input {
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: .88rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, .1)
+        }
+
+        .form-select {
+            appearance: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: .88rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .card-icons {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px
+        }
+
+        .card-icon {
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: border-color .12s
+        }
+
+        .card-icon.active {
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, .08)
+        }
+
+        .card-number {
+            position: relative
+        }
+
+        .card-number .form-input {
+            padding-right: 40px
+        }
+
+        .card-type {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px
+        }
+
+        .pay-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter';
+            margin-top: 1.5rem;
+            transition: all .15s
+        }
+
+        .pay-btn:hover {
+            background: #4f46e5;
+            transform: translateY(-1px)
+        }
+
+        .secure {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 12px;
+            font-size: .78rem;
+            color: var(--muted)
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem
+        }
+
+        .order-header h2 {
+            font-size: 1rem;
+            font-weight: 700
+        }
+
+        .order-edit {
+            font-size: .82rem;
+            color: var(--accent);
+            cursor: pointer
+        }
+
+        .order-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .item-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0
+        }
+
+        .item-name {
+            font-size: .88rem;
+            font-weight: 500
+        }
+
+        .item-desc {
+            font-size: .75rem;
+            color: var(--muted)
+        }
+
+        .item-qty {
+            font-size: .72rem;
+            color: var(--muted);
+            margin-top: 2px
+        }
+
+        .item-price {
+            margin-left: auto;
+            font-size: .88rem;
+            font-weight: 600;
+            flex-shrink: 0
+        }
+
+        .coupon {
+            display: flex;
+            gap: 8px;
+            margin: 1.5rem 0
+        }
+
+        .coupon input {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: .82rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .coupon button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--text);
+            font-size: .82rem;
+            cursor: pointer;
+            font-family: 'Inter'
+        }
+
+        .totals {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-top: 1rem
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: .85rem
+        }
+
+        .total-row.muted {
+            color: var(--muted)
+        }
+
+        .total-row.final {
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding-top: 8px;
+            border-top: 1px solid var(--border)
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: .68rem;
+            font-weight: 600;
+            background: rgba(34, 197, 94, .1);
+            color: var(--green)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="checkout">
+        <div class="left">
+            <div class="logo">💳 CheckoutPro</div>
+            <div class="steps">
+                <div class="step done">
+                    <div class="step-num">✓</div>Cart
+                </div>
+                <div class="step-line done"></div>
+                <div class="step done">
+                    <div class="step-num">✓</div>Shipping
+                </div>
+                <div class="step-line done"></div>
+                <div class="step active">
+                    <div class="step-num">3</div>Payment
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-num">4</div>Confirm
+                </div>
+            </div>
+            <div class="section-title">Payment Method</div>
+            <div class="card-icons">
+                <div class="card-icon active">💳</div>
+                <div class="card-icon">🏦</div>
+                <div class="card-icon">📱</div>
+            </div>
+            <div class="form-group card-number">
+                <div class="form-label">Card Number</div><input class="form-input" value="4242 4242 4242 4242"
+                    placeholder="1234 5678 9012 3456"><span class="card-type">💳</span>
+            </div>
+            <div class="form-group">
+                <div class="form-label">Cardholder Name</div><input class="form-input" value="John Developer"
+                    placeholder="Full name on card">
+            </div>
+            <div class="card-row">
+                <div class="form-group">
+                    <div class="form-label">Expiry Date</div><input class="form-input" value="12/28"
+                        placeholder="MM/YY">
+                </div>
+                <div class="form-group">
+                    <div class="form-label">CVC</div><input class="form-input" value="•••" placeholder="123">
+                </div>
+            </div>
+            <div class="section-title" style="margin-top:1.5rem">Billing Address</div>
+            <div class="form-group">
+                <div class="form-label">Email</div><input class="form-input" value="john@example.com"
+                    placeholder="john@example.com">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="form-label">Country</div><select class="form-select">
+                        <option>United States</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="form-label">ZIP Code</div><input class="form-input" value="94105" placeholder="12345">
+                </div>
+            </div>
+            <button class="pay-btn">Pay $179.98</button>
+            <div class="secure">🔒 Secured by 256-bit SSL encryption</div>
+        </div>
+        <div class="right">
+            <div class="order-header">
+                <h2>Order Summary</h2><span class="order-edit">Edit</span>
+            </div>
+            <div class="order-item">
+                <div class="item-img" style="background:rgba(99,102,241,.1)">📦</div>
+                <div>
+                    <div class="item-name">DevVault Pro 2026</div>
+                    <div class="item-desc">Lifetime Access — All Templates + PRO Toolkit</div>
+                    <div class="item-qty">Qty: 1</div>
+                </div>
+                <div class="item-price">$149.00</div>
+            </div>
+            <div class="order-item">
+                <div class="item-img" style="background:rgba(245,158,11,.1)">⚡</div>
+                <div>
+                    <div class="item-name">Priority Support Add-on</div>
+                    <div class="item-desc">12 months — Direct Discord access</div>
+                    <div class="item-qty">Qty: 1</div>
+                </div>
+                <div class="item-price">$29.99</div>
+            </div>
+            <div class="order-item">
+                <div class="item-img" style="background:rgba(34,197,94,.1)">🎁</div>
+                <div>
+                    <div class="item-name">Free Bonus: Cheat Sheets</div>
+                    <div class="item-desc">20 quick-reference cheat sheets</div>
+                </div>
+                <div class="item-price" style="color:var(--green)">FREE</div>
+            </div>
+            <div class="coupon"><input placeholder="Discount code"><button>Apply</button></div>
+            <div class="totals">
+                <div class="total-row muted"><span>Subtotal</span><span>$178.99</span></div>
+                <div class="total-row muted"><span>Discount <span class="badge">LAUNCH20</span></span><span
+                        style="color:var(--green)">-$35.80</span></div>
+                <div class="total-row muted"><span>Tax</span><span>$0.00</span></div>
+                <div class="total-row final"><span>Total</span><span>$143.19</span></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

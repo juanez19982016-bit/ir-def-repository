@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trello Clone — TaskFlow Board</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #09090b;
+            --col-bg: rgba(255, 255, 255, .02);
+            --border: rgba(255, 255, 255, .06);
+            --accent: #6366f1;
+            --green: #22c55e;
+            --amber: #f59e0b;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --text: #fafafa;
+            --muted: #71717a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        .topbar {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(9, 9, 11, .95);
+            flex-shrink: 0
+        }
+
+        .topbar h1 {
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .topbar-right {
+            margin-left: auto;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .t-btn {
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: .82rem;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--text);
+            font-family: 'Inter'
+        }
+
+        .t-btn-p {
+            background: var(--accent);
+            border: none;
+            color: #fff;
+            font-weight: 600
+        }
+
+        .members {
+            display: flex
+        }
+
+        .member {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .6rem;
+            font-weight: 700;
+            margin-left: -6px;
+            border: 2px solid var(--bg)
+        }
+
+        .board {
+            flex: 1;
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            overflow-x: auto;
+            align-items: flex-start
+        }
+
+        .board::-webkit-scrollbar {
+            height: 8px
+        }
+
+        .board::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .06);
+            border-radius: 4px
+        }
+
+        .column {
+            min-width: 280px;
+            max-width: 280px;
+            background: var(--col-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 80px)
+        }
+
+        .col-header {
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .col-title {
+            font-size: .85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .col-count {
+            font-size: .72rem;
+            color: var(--muted);
+            padding: 1px 8px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .col-menu {
+            font-size: .85rem;
+            cursor: pointer;
+            color: var(--muted);
+            padding: 2px 6px;
+            border-radius: 4px
+        }
+
+        .col-menu:hover {
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .cards {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .cards::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .cards::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .04);
+            border-radius: 2px
+        }
+
+        .card {
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .025);
+            border: 1px solid var(--border);
+            cursor: grab;
+            transition: all .15s
+        }
+
+        .card:hover {
+            border-color: rgba(255, 255, 255, .1);
+            background: rgba(255, 255, 255, .04)
+        }
+
+        .card-labels {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px
+        }
+
+        .c-label {
+            height: 6px;
+            width: 32px;
+            border-radius: 100px
+        }
+
+        .card-title {
+            font-size: .85rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            line-height: 1.4
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 3px
+        }
+
+        .card-assignees {
+            margin-left: auto;
+            display: flex
+        }
+
+        .card-av {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .5rem;
+            font-weight: 700;
+            margin-left: -4px;
+            border: 2px solid rgba(9, 9, 11, .8)
+        }
+
+        .card-due {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: .68rem;
+            font-weight: 600
+        }
+
+        .due-warning {
+            background: rgba(245, 158, 11, .1);
+            color: #fbbf24
+        }
+
+        .due-danger {
+            background: rgba(239, 68, 68, .1);
+            color: #f87171
+        }
+
+        .due-ok {
+            background: rgba(34, 197, 94, .1);
+            color: #4ade80
+        }
+
+        .add-card {
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .82rem;
+            color: var(--muted);
+            cursor: pointer;
+            border-top: 1px solid var(--border);
+            transition: background .12s
+        }
+
+        .add-card:hover {
+            background: rgba(255, 255, 255, .02);
+            color: var(--text)
+        }
+
+        .add-col {
+            min-width: 280px;
+            max-width: 280px;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px dashed var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: .85rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .15s;
+            height: fit-content
+        }
+
+        .add-col:hover {
+            border-color: rgba(255, 255, 255, .15);
+            color: var(--text)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topbar">
+        <h1>📋 TaskFlow <span style="color:var(--muted);font-weight:400;font-size:.85rem">/ Sprint 14</span></h1>
+        <div class="topbar-right">
+            <div class="members">
+                <div class="member" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff">SK</div>
+                <div class="member" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR</div>
+                <div class="member" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">AL</div>
+                <div class="member" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">JD</div>
+            </div>
+            <button class="t-btn">🔍 Filter</button>
+            <button class="t-btn t-btn-p">+ Invite</button>
+        </div>
+    </div>
+    <div class="board">
+        <div class="column">
+            <div class="col-header">
+                <div class="col-title">📋 Backlog <span class="col-count">4</span></div><span class="col-menu">⋯</span>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-labels">
+                        <div class="c-label" style="background:var(--blue)"></div>
+                    </div>
+                    <div class="card-title">Research competitor pricing models</div>
+                    <div class="card-meta"><span>💬 3</span><span>📎 1</span>
+                        <div class="card-assignees">
+                            <div class="card-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">
+                                JD</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-labels">
+                        <div class="c-label" style="background:var(--green)"></div>
+                        <div class="c-label" style="background:var(--blue)"></div>
+                    </div>
+                    <div class="card-title">Write unit tests for payment module</div>
+                    <div class="card-meta"><span>💬 1</span><span class="card-due due-ok">Mar 15</span>
+                        <div class="card-assignees">
+                            <div class="card-av" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">
+                                MR</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Update API documentation</div>
+                    <div class="card-meta"><span>📎 2</span>
+                        <div class="card-assignees">
+                            <div class="card-av" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">
+                                AL</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-labels">
+                        <div class="c-label" style="background:var(--accent)"></div>
+                    </div>
+                    <div class="card-title">Design mobile responsive layout</div>
+                    <div class="card-meta"><span>💬 5</span><span>📎 3</span></div>
+                </div>
+            </div>
+            <div class="add-card">+ Add card</div>
+        </div>
+        <div class="column">
+            <div class="col-header">
+                <div class="col-title">🔄 In Progress <span class="col-count">3</span></div><span
+                    class="col-menu">⋯</span>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-labels">
+                        <div class="c-label" style="background:var(--red)"></div>
+                    </div>
+                    <div class="card-title">Fix authentication token refresh bug</div>
+                    <div class="card-meta"><span>💬 8</span><span>📎 2</span><span
+                            class="card-due due-danger">Today</span>
+                        <div class="card-assignees">
+                            <div class="card-av" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff">
+                                SK</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-labels">
+                        <div class="c-label" style="background:var(--green)"></div>
+                    </div>
+                    <div class="card-title">Implement Stripe webhook retry mechanism with exponential backoff</div>
+                    <div class="card-meta"><span>💬 4</span><span class="card-due due-warning">Mar 6</span>
+                        <div class="card-assignees">
+                            <div class="card-av" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">
+                                MR</div>
+                            <div class="card-av" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">
+                                AL</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-labels">
+                        <div class="c-label" style="background:var(--amber)"></div>
+                        <div class="c-label" style="background:var(--accent)"></div>
+                    </div>
+                    <div class="card-title">Build dashboard analytics charts</div>
+                    <div class="card-meta"><span>💬 2</span><span>📎 4</span><span class="card-due due-warning">Mar
+                            8</span>
+                        <div class="card-assignees">
+                            <div class="card-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">
+                                JD</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="add-card">+ Add card</div>
+        </div>
+        <div class="column">
+            <div class="col-header">
+                <div class="col-title">👀 Review <span class="col-count">2</span></div><span class="col-menu">⋯</span>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-labels">
+                        <div class="c-label" style="background:var(--accent)"></div>
+                    </div>
+                    <div class="card-title">Add dark mode toggle with system preference detection</div>
+                    <div class="card-meta"><span>💬 6</span><span>📎 1</span>
+                        <div class="card-assignees">
+                            <div class="card-av" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">
+                                AL</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-labels">
+                        <div class="c-label" style="background:var(--blue)"></div>
+                    </div>
+                    <div class="card-title">Redesign onboarding flow</div>
+                    <div class="card-meta"><span>💬 12</span><span>📎 5</span><span class="card-due due-ok">Mar
+                            10</span>
+                        <div class="card-assignees">
+                            <div class="card-av" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff">
+                                SK</div>
+                            <div class="card-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">
+                                JD</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="add-card">+ Add card</div>
+        </div>
+        <div class="column">
+            <div class="col-header">
+                <div class="col-title">✅ Done <span class="col-count">3</span></div><span class="col-menu">⋯</span>
+            </div>
+            <div class="cards">
+                <div class="card" style="opacity:.7">
+                    <div class="card-title" style="text-decoration:line-through">Setup CI/CD pipeline with automated
+                        tests</div>
+                    <div class="card-meta"><span>💬 3</span>
+                        <div class="card-assignees">
+                            <div class="card-av" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">
+                                MR</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="opacity:.7">
+                    <div class="card-title" style="text-decoration:line-through">Migrate database to PostgreSQL 16</div>
+                    <div class="card-meta"><span>💬 1</span>
+                        <div class="card-assignees">
+                            <div class="card-av" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff">
+                                SK</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="opacity:.7">
+                    <div class="card-title" style="text-decoration:line-through">Add email verification flow</div>
+                    <div class="card-meta"><span>💬 4</span>
+                        <div class="card-assignees">
+                            <div class="card-av" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">
+                                AL</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="add-card">+ Add card</div>
+        </div>
+        <div class="add-col">+ Add column</div>
+    </div>
+</body>
+
+</html>

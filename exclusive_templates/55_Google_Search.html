@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SearchPro — Search Engine</title>
+    <title>SearchPro — Search Results</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -16,465 +16,666 @@
         :root {
             --bg: #202124;
             --card: #303134;
-            --border: #5f6368;
-            --accent: #8ab4f8;
+            --border: #3c4043;
             --text: #bdc1c6;
-            --muted: #9aa0a6;
             --link: #8ab4f8;
-            --green: #aecbfa;
-            --url: #bdc1c6
+            --green: #69d4a5;
+            --visited: #c58af9;
+            --heading: #e8eaed
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
-            color: var(--text)
+            color: var(--text);
+            font-size: .88rem
         }
 
         nav {
-            background: var(--bg);
-            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px
+        }
+
+        .n-top {
             display: flex;
             align-items: center;
-            gap: 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, .06)
+            gap: 20px;
+            margin-bottom: 16px
         }
 
         .n-logo {
+            font-weight: 900;
             font-size: 1.5rem;
-            font-weight: 900
+            display: flex;
+            gap: 1px;
+            cursor: pointer
         }
 
-        .n-logo .g {
+        .n-logo span:nth-child(1) {
             color: #4285f4
         }
 
-        .n-logo .o1 {
+        .n-logo span:nth-child(2) {
             color: #ea4335
         }
 
-        .n-logo .o2 {
-            color: #fbbc05
+        .n-logo span:nth-child(3) {
+            color: #fbbc04
         }
 
-        .n-logo .l {
+        .n-logo span:nth-child(4) {
             color: #4285f4
         }
 
-        .n-logo .e {
+        .n-logo span:nth-child(5) {
             color: #34a853
         }
 
-        .search-wrap {
-            flex: 1;
-            max-width: 692px
+        .n-logo span:nth-child(6) {
+            color: #ea4335
         }
 
         .search-bar {
+            flex: 1;
+            max-width: 690px;
             display: flex;
             align-items: center;
             background: var(--card);
+            border-radius: 100px;
+            padding: 4px 16px;
             border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 8px 16px;
-            transition: box-shadow .15s
+            transition: all .15s
         }
 
         .search-bar:focus-within {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
-            border-color: rgba(255, 255, 255, .15)
+            border-color: #8ab4f8;
+            box-shadow: 0 0 0 1px #8ab4f8
         }
 
         .search-bar input {
             flex: 1;
             background: none;
             border: none;
-            color: var(--text);
-            font-size: .92rem;
+            color: var(--heading);
+            font-size: .95rem;
+            padding: 8px 0;
             outline: none;
             font-family: 'Inter'
         }
 
-        .search-icons {
+        .search-bar .s-icons {
             display: flex;
             gap: 8px;
-            color: var(--muted);
-            font-size: 1rem
+            font-size: 1rem;
+            color: var(--text)
         }
 
-        .search-icons span {
+        .search-bar .s-icons span {
             cursor: pointer;
-            padding: 4px
+            padding: 4px;
+            border-radius: 50%;
+            transition: background .12s
+        }
+
+        .search-bar .s-icons span:hover {
+            background: rgba(255, 255, 255, .06)
         }
 
         .n-right {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             align-items: center;
-            margin-left: auto
+            margin-left: auto;
+            font-size: 1rem
         }
 
         .n-right span {
             cursor: pointer;
-            color: var(--muted);
-            font-size: 1rem
+            padding: 8px;
+            border-radius: 50%;
+            transition: background .12s
+        }
+
+        .n-right span:hover {
+            background: rgba(255, 255, 255, .06)
         }
 
         .n-avatar {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .6rem;
-            font-weight: 700
+            overflow: hidden;
+            cursor: pointer
+        }
+
+        .n-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .tabs {
-            background: var(--bg);
-            padding: 0 24px 0 180px;
             display: flex;
-            gap: 0;
-            border-bottom: 1px solid rgba(255, 255, 255, .06)
+            gap: 4px;
+            max-width: 690px;
+            margin-left: 152px
         }
 
         .tab {
-            padding: 12px 16px;
+            padding: 8px 16px;
             font-size: .82rem;
-            color: var(--muted);
             cursor: pointer;
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 6px
+            color: var(--text);
+            border-bottom: 3px solid transparent;
+            transition: all .12s
+        }
+
+        .tab:hover {
+            color: var(--heading)
         }
 
         .tab.active {
-            color: var(--accent)
+            color: #8ab4f8;
+            border-color: #8ab4f8
         }
 
-        .tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 2px 2px 0 0
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: grid;
+            grid-template-columns: 690px 1fr;
+            gap: 40px
         }
 
-        .results {
-            max-width: 692px;
-            margin-left: 180px;
-            padding: 16px 0
+        .main {
+            padding-left: 152px
         }
 
-        .stats {
+        .result-stats {
             font-size: .78rem;
-            color: var(--muted);
-            margin-bottom: 20px
+            color: var(--text);
+            margin-bottom: 16px
         }
 
-        .result {
-            margin-bottom: 24px
+        .snippet-card {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border)
         }
 
-        .r-url-wrap {
+        .snippet-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--heading);
+            margin-bottom: 8px
+        }
+
+        .snippet-text {
+            font-size: .88rem;
+            line-height: 1.6
+        }
+
+        .snippet-text strong {
+            color: var(--heading)
+        }
+
+        .snippet-source {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 4px
+            gap: 6px;
+            margin-top: 10px;
+            font-size: .78rem;
+            color: var(--text)
         }
 
-        .r-favicon {
-            width: 28px;
-            height: 28px;
+        .snippet-favicon {
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            background: var(--card);
+            overflow: hidden;
+            background: #333;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: .65rem
+            font-size: .55rem
         }
 
-        .r-site {
+        .snippet-favicon img {
+            width: 100%;
+            height: 100%
+        }
+
+        .result {
+            margin-bottom: 20px;
+            cursor: pointer
+        }
+
+        .r-source {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 2px
+        }
+
+        .r-favicon {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden
+        }
+
+        .r-favicon img {
+            width: 100%;
+            height: 100%
+        }
+
+        .r-url {
             font-size: .78rem;
-            color: var(--url)
-        }
-
-        .r-breadcrumb {
-            font-size: .72rem;
-            color: var(--muted)
+            color: var(--green)
         }
 
         .r-title {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
+            font-weight: 400;
             color: var(--link);
-            cursor: pointer;
+            margin-bottom: 4px;
             line-height: 1.3;
-            text-decoration: none
+            transition: all .1s
         }
 
-        .r-title:hover {
+        .result:hover .r-title {
             text-decoration: underline
+        }
+
+        .result.visited .r-title {
+            color: var(--visited)
         }
 
         .r-desc {
             font-size: .85rem;
             line-height: 1.5;
-            color: var(--text);
-            margin-top: 4px
+            color: var(--text)
         }
 
         .r-desc strong {
-            font-weight: 700;
-            color: #fff
+            color: var(--heading)
         }
 
         .r-date {
-            color: var(--muted)
+            color: var(--text);
+            opacity: .7
         }
 
-        .featured {
-            background: var(--card);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(255, 255, 255, .06)
+        .paa {
+            margin: 20px 0
         }
 
-        .f-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--link)
+        .paa-title {
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--heading);
+            margin-bottom: 8px
         }
 
-        .f-content {
-            font-size: .85rem;
-            line-height: 1.6
+        .paa-item {
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: -1px;
+            overflow: hidden
         }
 
-        .f-source {
-            font-size: .78rem;
-            color: var(--muted);
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px
-        }
-
-        .people-also {
-            margin-top: 24px
-        }
-
-        .pa-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 12px
-        }
-
-        .pa-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 12px;
-            border: 1px solid rgba(255, 255, 255, .08);
-            border-radius: 8px;
-            margin-bottom: 6px;
+        .paa-q {
+            padding: 12px 16px;
             cursor: pointer;
-            transition: background .1s;
-            font-size: .88rem
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: .88rem;
+            color: var(--heading);
+            transition: background .12s
         }
 
-        .pa-item:hover {
+        .paa-q:hover {
             background: rgba(255, 255, 255, .03)
         }
 
-        .pa-icon {
-            color: var(--muted)
+        .paa-arrow {
+            transition: transform .2s;
+            font-size: .7rem
         }
 
-        .sidebar-r {
-            position: fixed;
-            right: 24px;
-            top: 120px;
-            width: 360px;
+        .paa-item.open .paa-arrow {
+            transform: rotate(180deg)
+        }
+
+        .paa-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .3s ease;
+            padding: 0 16px;
+            font-size: .85rem;
+            line-height: 1.6;
+            color: var(--text)
+        }
+
+        .paa-item.open .paa-a {
+            max-height: 200px;
+            padding: 0 16px 12px
+        }
+
+        .knowledge {
             background: var(--card);
-            border-radius: 12px;
-            padding: 16px;
-            border: 1px solid rgba(255, 255, 255, .06)
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 80px
         }
 
-        .sr-title {
+        .k-title {
             font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 4px;
-            color: var(--text)
+            color: var(--heading);
+            margin-bottom: 4px
         }
 
-        .sr-subtitle {
+        .k-subtitle {
             font-size: .82rem;
-            color: var(--muted);
+            color: var(--text);
             margin-bottom: 12px
         }
 
-        .sr-info {
+        .k-desc {
+            font-size: .85rem;
+            line-height: 1.6;
+            margin-bottom: 12px
+        }
+
+        .k-link {
+            color: var(--link);
+            font-size: .82rem;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 12px
+        }
+
+        .k-link:hover {
+            text-decoration: underline
+        }
+
+        .k-stats {
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 12px
+            gap: 8px
         }
 
-        .sr-stat {
-            padding: 8px;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, .03)
-        }
-
-        .sr-label {
+        .k-stat-label {
             font-size: .72rem;
-            color: var(--muted)
-        }
-
-        .sr-value {
-            font-size: .88rem;
-            font-weight: 600
-        }
-
-        .sr-desc {
-            font-size: .82rem;
-            line-height: 1.5;
             color: var(--text)
         }
 
-        .sr-links {
-            margin-top: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px
+        .k-stat-val {
+            font-size: .88rem;
+            font-weight: 600;
+            color: var(--heading)
         }
 
-        .sr-link {
-            font-size: .82rem;
-            color: var(--link);
+        .k-images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            overflow: hidden
+        }
+
+        .k-images img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
             cursor: pointer;
+            transition: filter .12s
+        }
+
+        .k-images img:hover {
+            filter: brightness(1.1)
+        }
+
+        .pagination {
             display: flex;
-            align-items: center;
-            gap: 6px
+            gap: 8px;
+            justify-content: center;
+            padding: 24px;
+            margin-left: 152px
+        }
+
+        .page-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--heading);
+            cursor: pointer;
+            font-family: 'Inter';
+            font-size: .85rem;
+            transition: all .12s
+        }
+
+        .page-btn:hover {
+            background: rgba(255, 255, 255, .08)
+        }
+
+        .page-btn.active {
+            background: #8ab4f8;
+            color: var(--bg);
+            border-color: #8ab4f8
         }
     </style>
 </head>
 
 <body>
     <nav>
-        <div class="n-logo"><span class="g">S</span><span class="o1">e</span><span class="o2">a</span><span
-                class="g">r</span><span class="l">c</span><span class="e">h</span></div>
-        <div class="search-wrap">
-            <div class="search-bar"><input value="DevVault Pro 2026 best developer toolkit">
-                <div class="search-icons"><span>✕</span><span>🎤</span><span>🔍</span></div>
+        <div class="n-top">
+            <div class="n-logo"><span>S</span><span>e</span><span>a</span><span>r</span><span>c</span><span>h</span>
+            </div>
+            <div class="search-bar"><input type="text" value="DevVault Pro 2026" id="searchInput"
+                    onkeydown="if(event.key==='Enter'){search()}">
+                <div class="s-icons"><span onclick="clearSearch()">✕</span><span>🎤</span><span>📷</span><span
+                        onclick="search()">🔍</span></div>
+            </div>
+            <div class="n-right"><span>⚙️</span><span>🧩</span>
+                <div class="n-avatar"><img src="https://i.pravatar.cc/64?img=11" alt="User"></div>
             </div>
         </div>
-        <div class="n-right"><span>⚙️</span><span>🔲</span>
-            <div class="n-avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD</div>
+        <div class="tabs">
+            <div class="tab active" onclick="setTab(this)">🔍 All</div>
+            <div class="tab" onclick="setTab(this)">📷 Images</div>
+            <div class="tab" onclick="setTab(this)">📰 News</div>
+            <div class="tab" onclick="setTab(this)">🎬 Videos</div>
+            <div class="tab" onclick="setTab(this)">🛒 Shopping</div>
+            <div class="tab" onclick="setTab(this)">⋯ More</div>
         </div>
     </nav>
-    <div class="tabs">
-        <div class="tab active">🔍 All</div>
-        <div class="tab">📰 News</div>
-        <div class="tab">🖼️ Images</div>
-        <div class="tab">▶️ Videos</div>
-        <div class="tab">🛍️ Shopping</div>
-        <div class="tab">📚 Books</div>
-        <div class="tab">⋯ More</div>
-    </div>
-    <div class="results">
-        <div class="stats">About 2,450,000 results (0.32 seconds)</div>
-        <div class="featured">
-            <div class="f-title">DevVault Pro 2026</div>
-            <div class="f-content">DevVault Pro 2026 is the most comprehensive web development toolkit available,
-                featuring <strong>55 exclusive UI templates</strong>, a production-ready <strong>SaaS Starter
-                    Kit</strong> with Next.js 15, Auth.js v5, and Stripe integration, plus a <strong>complete developer
-                    toolkit</strong> with 30+ TypeScript utilities, 15 React Hooks, 10 API patterns, and more. Valued at
-                $12,000+, available for <strong>$149</strong>.</div>
-            <div class="f-source">🌐 devvault.pro · Updated Mar 2026</div>
-        </div>
-        <div class="result">
-            <div class="r-url-wrap">
-                <div class="r-favicon" style="background:#4f46e5;color:#fff">DV</div>
-                <div>
-                    <div class="r-site">devvault.pro</div>
-                    <div class="r-breadcrumb">https://devvault.pro › templates</div>
+
+    <div class="container">
+        <div class="main">
+            <div class="result-stats">About <span id="resultCount">12,400,000</span> results (0.42 seconds)</div>
+
+            <div class="snippet-card">
+                <div class="snippet-title">DevVault Pro 2026 — The Ultimate Developer Toolkit</div>
+                <div class="snippet-text"><strong>DevVault Pro 2026</strong> is the most comprehensive web development
+                    resource ever assembled. It includes <strong>55 exclusive UI templates</strong>, <strong>34
+                        pixel-perfect app clones</strong>, a complete SaaS starter kit with Next.js 15, and 12 PRO
+                    developer toolkit files covering AI/LLM integration, authentication, WebSockets, and e-commerce
+                    backends.</div>
+                <div class="snippet-source">
+                    <div class="snippet-favicon">🔥</div>devvaultpro.com
                 </div>
-            </div><a class="r-title">DevVault Pro 2026 — 55 Exclusive Templates + SaaS Starter Kit</a>
-            <div class="r-desc"><span class="r-date">3 hours ago — </span>The ultimate developer vault with <strong>55
-                    exclusive templates</strong> including clones of YouTube, Instagram, ChatGPT, Airbnb, VS Code, and
-                more. Complete <strong>PRO developer toolkit</strong> included.</div>
-        </div>
-        <div class="result">
-            <div class="r-url-wrap">
-                <div class="r-favicon" style="background:#22c55e;color:#fff">DH</div>
-                <div>
-                    <div class="r-site">dev.to</div>
-                    <div class="r-breadcrumb">https://dev.to › reviews</div>
+            </div>
+
+            <div class="result" onclick="visitResult(this)">
+                <div class="r-source">
+                    <div class="r-favicon"><img src="https://i.pravatar.cc/52?img=20" alt="Site"></div>
+                    <div>
+                        <div class="r-url">devvaultpro.com › product › devvault-2026</div>
+                    </div>
                 </div>
-            </div><a class="r-title">I Bought DevVault Pro 2026 and Here's My Honest Review</a>
-            <div class="r-desc"><span class="r-date">1 day ago — </span>"This is insane value. 55 templates, each one is
-                production-ready. The <strong>ChatGPT clone</strong> alone would have saved me weeks of work. 10/10."
+                <div class="r-title">DevVault Pro 2026 — $12,500+ Value for $149 (99% Off)</div>
+                <div class="r-desc"><span class="r-date">Mar 5, 2026 — </span><strong>55 exclusive templates</strong>,
+                    34 app clones (ChatGPT, TikTok, LinkedIn, Amazon...), AI/LLM toolkit, auth system, e-commerce
+                    backend. <strong>One-time payment, lifetime access.</strong></div>
+            </div>
+
+            <div class="result" onclick="visitResult(this)">
+                <div class="r-source">
+                    <div class="r-favicon"><img src="https://i.pravatar.cc/52?img=22" alt="Site"></div>
+                    <div>
+                        <div class="r-url">reddit.com › r/webdev › DevVault Pro review</div>
+                    </div>
+                </div>
+                <div class="r-title">"DevVault Pro saved me 200+ hours on my last project" — r/webdev</div>
+                <div class="r-desc"><span class="r-date">Feb 28, 2026 — </span>Honest review: The <strong>SaaS
+                        boilerplate alone</strong> is worth the price. Auth system with 2FA, Stripe integration,
+                    real-time WebSocket kit...</div>
+            </div>
+
+            <div class="result" onclick="visitResult(this)">
+                <div class="r-source">
+                    <div class="r-favicon"><img src="https://i.pravatar.cc/52?img=24" alt="Site"></div>
+                    <div>
+                        <div class="r-url">youtube.com › watch › DevVault Pro walkthrough</div>
+                    </div>
+                </div>
+                <div class="r-title">I Reviewed DevVault Pro 2026 — Is It Worth $149? (YES) — YouTube</div>
+                <div class="r-desc"><span class="r-date">Mar 1, 2026 — </span>Complete walkthrough of all 55 templates,
+                    12 PRO toolkit files, and the full SaaS starter kit. Spoiler: this is insanely underpriced.</div>
+            </div>
+
+            <div class="paa">
+                <div class="paa-title">People also ask</div>
+                <div class="paa-item" onclick="togglePAA(this)">
+                    <div class="paa-q">What is included in DevVault Pro 2026?<span class="paa-arrow">▼</span></div>
+                    <div class="paa-a">DevVault Pro 2026 includes 55 exclusive UI templates, 34 pixel-perfect app
+                        clones, a complete SaaS starter kit (Next.js 15 + Auth.js + Stripe + Prisma), 12 PRO developer
+                        toolkit files (AI/LLM integration, authentication, WebSocket, e-commerce), Docker + CI/CD, and
+                        500+ professional projects (7.2 GB).</div>
+                </div>
+                <div class="paa-item" onclick="togglePAA(this)">
+                    <div class="paa-q">Is DevVault Pro worth the price?<span class="paa-arrow">▼</span></div>
+                    <div class="paa-a">Based on community reviews, DevVault Pro offers exceptional value. The SaaS
+                        starter kit alone is worth $199 on competing platforms, and the AI/LLM toolkit with RAG, agents,
+                        and function calling patterns is unique in this price range. Total estimated value: $12,500+.
+                    </div>
+                </div>
+                <div class="paa-item" onclick="togglePAA(this)">
+                    <div class="paa-q">What app clones are included?<span class="paa-arrow">▼</span></div>
+                    <div class="paa-a">34 app clones including: ChatGPT, TikTok, LinkedIn, Amazon, Reddit, Pinterest,
+                        YouTube, WhatsApp, Instagram, Airbnb, VS Code, Uber, Zoom, Figma, Twitter/X, Notion, Netflix,
+                        Slack, Spotify, Discord, Google Maps, Apple Music, Tinder, Google Search, and more.</div>
+                </div>
+                <div class="paa-item" onclick="togglePAA(this)">
+                    <div class="paa-q">Does DevVault Pro include AI/LLM tools?<span class="paa-arrow">▼</span></div>
+                    <div class="paa-a">Yes, the AI/LLM Integration Toolkit includes streaming chat with OpenAI, RAG
+                        pipeline with vector store, function calling/tool use, AI agents with memory, structured output
+                        with Zod, DALL-E image generation, text-to-speech, and content moderation.</div>
+                </div>
+            </div>
+
+            <div class="result" onclick="visitResult(this)">
+                <div class="r-source">
+                    <div class="r-favicon"><img src="https://i.pravatar.cc/52?img=26" alt="Site"></div>
+                    <div>
+                        <div class="r-url">dev.to › sarah_dev › devvault-pro-review</div>
+                    </div>
+                </div>
+                <div class="r-title">DevVault Pro 2026 Review: From Skeptic to Fan — DEV Community</div>
+                <div class="r-desc"><span class="r-date">Mar 3, 2026 — </span>I was skeptical at first but the
+                    <strong>code quality is production-grade</strong>. The auth system with 2FA, RBAC, and session
+                    management is genuinely impressive.</div>
             </div>
         </div>
-        <div class="result">
-            <div class="r-url-wrap">
-                <div class="r-favicon" style="background:#ef4444;color:#fff">YT</div>
-                <div>
-                    <div class="r-site">youtube.com</div>
-                    <div class="r-breadcrumb">https://youtube.com › watch</div>
+
+        <div>
+            <div class="knowledge">
+                <div class="k-images">
+                    <img src="https://picsum.photos/seed/gs1/200/160" alt="Screenshot">
+                    <img src="https://picsum.photos/seed/gs2/200/160" alt="Screenshot">
+                    <img src="https://picsum.photos/seed/gs3/200/160" alt="Screenshot">
                 </div>
-            </div><a class="r-title">DevVault Pro 2026 Full Walkthrough — Is It Worth $149?</a>
-            <div class="r-desc"><span class="r-date">2 days ago — </span>Complete video review of DevVault Pro 2026.
-                Showing every template, the <strong>SaaS Starter Kit</strong>, TypeScript utilities, and the freelancer
-                toolkit. Spoiler: Yes, it's worth it.</div>
-        </div>
-        <div class="people-also">
-            <div class="pa-title">People also ask</div>
-            <div class="pa-item"><span class="pa-icon">❓</span>What is DevVault Pro 2026?<span
-                    style="margin-left:auto">▾</span></div>
-            <div class="pa-item"><span class="pa-icon">❓</span>How many templates does DevVault Pro include?<span
-                    style="margin-left:auto">▾</span></div>
-            <div class="pa-item"><span class="pa-icon">❓</span>Is DevVault Pro worth the price?<span
-                    style="margin-left:auto">▾</span></div>
-            <div class="pa-item"><span class="pa-icon">❓</span>What technologies does DevVault Pro use?<span
-                    style="margin-left:auto">▾</span></div>
+                <div class="k-title">DevVault Pro 2026</div>
+                <div class="k-subtitle">Web Development Resource Pack</div>
+                <div class="k-desc">The most comprehensive developer toolkit available. Includes 55 exclusive UI
+                    templates, production-ready starter kits, and advanced developer toolkits for AI, authentication,
+                    real-time apps, and e-commerce.</div>
+                <a class="k-link" href="#">devvaultpro.com</a>
+                <div class="k-stats">
+                    <div>
+                        <div class="k-stat-label">Templates</div>
+                        <div class="k-stat-val">55</div>
+                    </div>
+                    <div>
+                        <div class="k-stat-label">App Clones</div>
+                        <div class="k-stat-val">34</div>
+                    </div>
+                    <div>
+                        <div class="k-stat-label">PRO Files</div>
+                        <div class="k-stat-val">12</div>
+                    </div>
+                    <div>
+                        <div class="k-stat-label">Total Value</div>
+                        <div class="k-stat-val">$12,500+</div>
+                    </div>
+                    <div>
+                        <div class="k-stat-label">Price</div>
+                        <div class="k-stat-val">$149</div>
+                    </div>
+                    <div>
+                        <div class="k-stat-label">Rating</div>
+                        <div class="k-stat-val">⭐ 4.9/5</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="sidebar-r">
-        <div class="sr-title">DevVault Pro 2026</div>
-        <div class="sr-subtitle">Premium Web Development Toolkit</div>
-        <div class="sr-info">
-            <div class="sr-stat">
-                <div class="sr-label">Templates</div>
-                <div class="sr-value">55</div>
-            </div>
-            <div class="sr-stat">
-                <div class="sr-label">App Clones</div>
-                <div class="sr-value">34</div>
-            </div>
-            <div class="sr-stat">
-                <div class="sr-label">Total Value</div>
-                <div class="sr-value">$12,000+</div>
-            </div>
-            <div class="sr-stat">
-                <div class="sr-label">Price</div>
-                <div class="sr-value">$149</div>
-            </div>
-        </div>
-        <div class="sr-desc">The most complete web development collection available online, featuring 55 exclusive
-            templates, SaaS boilerplate, and professional developer tools.</div>
-        <div class="sr-links"><span class="sr-link">🌐 Official website</span><span class="sr-link">⭐ Reviews
-                (847)</span><span class="sr-link">📱 Social media</span></div>
+
+    <div class="pagination">
+        <button class="page-btn active">1</button>
+        <button class="page-btn" onclick="showToast('Page 2')">2</button>
+        <button class="page-btn" onclick="showToast('Page 3')">3</button>
+        <button class="page-btn" onclick="showToast('Page 4')">4</button>
+        <button class="page-btn" onclick="showToast('Next ›')">Next</button>
     </div>
+
+    <script>
+        function setTab(el) { document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); el.classList.add('active') }
+
+        function togglePAA(el) {
+            document.querySelectorAll('.paa-item').forEach(i => { if (i !== el) i.classList.remove('open') });
+            el.classList.toggle('open');
+        }
+
+        function visitResult(el) { el.classList.add('visited') }
+
+        function clearSearch() { document.getElementById('searchInput').value = ''; document.getElementById('searchInput').focus() }
+
+        function search() {
+            const val = document.getElementById('searchInput').value;
+            if (val) document.querySelector('.result-stats').innerHTML = `About <span>${Math.floor(Math.random() * 50000000).toLocaleString()}</span> results (${(Math.random() * 0.8 + 0.1).toFixed(2)} seconds)`;
+        }
+
+        function showToast(msg) { alert(msg) }
+    </script>
 </body>
 
 </html>

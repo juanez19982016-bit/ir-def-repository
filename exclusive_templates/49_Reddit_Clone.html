@@ -52,29 +52,42 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            margin-right: 16px
+            margin-right: 16px;
+            cursor: pointer
         }
 
         .n-search {
             flex: 1;
             max-width: 600px;
-            margin: 0 auto
+            margin: 0 auto;
+            position: relative
         }
 
         .n-search input {
             width: 100%;
-            padding: 8px 16px;
+            padding: 8px 16px 8px 36px;
             border-radius: 100px;
             background: #272729;
             border: 1px solid var(--border);
             color: var(--text);
             font-size: .85rem;
             outline: none;
-            font-family: 'Inter'
+            font-family: 'Inter';
+            transition: all .15s
         }
 
         .n-search input:focus {
-            border-color: var(--text)
+            border-color: var(--text);
+            background: #333
+        }
+
+        .n-search::before {
+            content: '🔍';
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: .8rem
         }
 
         .n-right {
@@ -85,13 +98,14 @@
         }
 
         .n-btn {
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 100px;
             font-size: .82rem;
             cursor: pointer;
             font-family: 'Inter';
             border: none;
-            font-weight: 600
+            font-weight: 600;
+            transition: all .12s
         }
 
         .n-btn-outline {
@@ -100,9 +114,17 @@
             color: var(--text)
         }
 
+        .n-btn-outline:hover {
+            background: rgba(255, 255, 255, .05)
+        }
+
         .n-btn-fill {
             background: var(--accent);
             color: #fff
+        }
+
+        .n-btn-fill:hover {
+            background: #e03d00
         }
 
         .container {
@@ -137,7 +159,7 @@
             border: none;
             color: var(--muted);
             font-family: 'Inter';
-            transition: all .1s
+            transition: all .12s
         }
 
         .sort-btn.active {
@@ -155,8 +177,7 @@
             border-radius: 4px;
             margin-bottom: 8px;
             display: flex;
-            transition: border-color .1s;
-            cursor: pointer
+            transition: border-color .15s
         }
 
         .post:hover {
@@ -173,30 +194,39 @@
         }
 
         .vote-btn {
-            font-size: 1rem;
+            font-size: 1.1rem;
             cursor: pointer;
-            padding: 2px;
-            border-radius: 2px;
-            color: var(--muted);
-            transition: color .1s
+            padding: 4px;
+            border-radius: 4px;
+            transition: all .12s;
+            user-select: none;
+            line-height: 1
         }
 
         .vote-btn:hover {
-            color: var(--upvote)
+            background: rgba(255, 255, 255, .05)
         }
 
-        .vote-btn:last-child:hover {
-            color: var(--downvote)
+        .vote-btn.upvoted {
+            color: var(--upvote);
+            transform: scale(1.2)
+        }
+
+        .vote-btn.downvoted {
+            color: var(--downvote);
+            transform: scale(1.2)
         }
 
         .vote-count {
             font-size: .78rem;
-            font-weight: 700
+            font-weight: 700;
+            transition: color .2s
         }
 
         .post-content {
             flex: 1;
-            padding: 8px 12px 8px 0
+            padding: 8px 12px 8px 0;
+            cursor: pointer
         }
 
         .post-meta {
@@ -227,21 +257,20 @@
 
         .post-title .flair {
             font-size: .68rem;
-            padding: 2px 6px;
+            padding: 2px 8px;
             border-radius: 100px;
             margin-right: 6px;
-            display: inline-block
+            display: inline-block;
+            font-weight: 600
         }
 
         .post-img {
             width: 100%;
-            border-radius: 4px;
-            margin-bottom: 6px;
-            aspect-ratio: 16/9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem
+            border-radius: 8px;
+            margin-bottom: 8px;
+            max-height: 400px;
+            object-fit: cover;
+            display: block
         }
 
         .post-actions {
@@ -254,16 +283,22 @@
             align-items: center;
             gap: 4px;
             padding: 6px 8px;
-            border-radius: 2px;
+            border-radius: 4px;
             font-size: .72rem;
             color: var(--muted);
             cursor: pointer;
             font-weight: 700;
-            transition: background .1s
+            transition: all .12s;
+            user-select: none
         }
 
         .pa:hover {
-            background: rgba(255, 255, 255, .04)
+            background: rgba(255, 255, 255, .06);
+            color: var(--text)
+        }
+
+        .pa.saved {
+            color: var(--accent)
         }
 
         .sidebar-r {
@@ -283,7 +318,9 @@
             height: 80px;
             padding: 12px;
             display: flex;
-            align-items: flex-end
+            align-items: flex-end;
+            background-size: cover;
+            background-position: center
         }
 
         .cc-info {
@@ -324,6 +361,28 @@
             color: var(--muted)
         }
 
+        .online-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #46d160;
+            margin-right: 4px;
+            animation: pulse 2s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .5
+            }
+        }
+
         .cc-join {
             margin: 8px 12px 12px;
             padding: 8px;
@@ -335,35 +394,77 @@
             font-size: .85rem;
             cursor: pointer;
             width: calc(100% - 24px);
-            font-family: 'Inter'
+            font-family: 'Inter';
+            transition: all .15s
+        }
+
+        .cc-join:hover {
+            background: #e03d00
+        }
+
+        .cc-join.joined {
+            background: transparent;
+            border: 1px solid var(--text);
+            color: var(--text)
         }
 
         .rules-card {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 4px;
-            padding: 12px
+            overflow: hidden
         }
 
         .rules-title {
             font-size: .88rem;
             font-weight: 700;
-            margin-bottom: 8px
+            padding: 12px 12px 8px
         }
 
         .rule {
-            display: flex;
-            gap: 8px;
-            padding: 8px 0;
+            padding: 8px 12px;
             border-bottom: 1px solid rgba(255, 255, 255, .04);
             font-size: .82rem;
-            color: var(--muted)
+            color: var(--muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background .12s
+        }
+
+        .rule:hover {
+            background: rgba(255, 255, 255, .03)
         }
 
         .rule-num {
             font-weight: 700;
             color: var(--text);
-            min-width: 18px
+            min-width: 24px
+        }
+
+        .rule-arrow {
+            transition: transform .2s;
+            font-size: .7rem
+        }
+
+        .rule.open .rule-arrow {
+            transform: rotate(180deg)
+        }
+
+        .rule-detail {
+            padding: 0 12px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all .25s ease;
+            font-size: .78rem;
+            color: var(--muted);
+            line-height: 1.5
+        }
+
+        .rule-detail.open {
+            max-height: 100px;
+            padding: 8px 12px
         }
     </style>
 </head>
@@ -371,72 +472,107 @@
 <body>
     <nav>
         <span class="n-logo">🔥 ThreadIt</span>
-        <div class="n-search"><input placeholder="🔍 Search ThreadIt"></div>
+        <div class="n-search"><input placeholder="Search ThreadIt" id="searchInput"></div>
         <div class="n-right"><button class="n-btn n-btn-outline">Log In</button><button class="n-btn n-btn-fill">Sign
                 Up</button></div>
     </nav>
     <div class="container">
         <div class="main">
-            <div class="sort-bar"><button class="sort-btn active">🔥 Hot</button><button class="sort-btn">✨
-                    New</button><button class="sort-btn">📈 Top</button><button class="sort-btn">🏆 Rising</button>
+            <div class="sort-bar" id="sortBar">
+                <button class="sort-btn active" onclick="setSort(this)">🔥 Hot</button>
+                <button class="sort-btn" onclick="setSort(this)">✨ New</button>
+                <button class="sort-btn" onclick="setSort(this)">📈 Top</button>
+                <button class="sort-btn" onclick="setSort(this)">🏆 Rising</button>
             </div>
+
             <div class="post">
-                <div class="vote"><span class="vote-btn">⬆</span><span class="vote-count"
-                        style="color:var(--upvote)">14.2k</span><span class="vote-btn">⬇</span></div>
+                <div class="vote">
+                    <span class="vote-btn" onclick="upvote(this)">⬆</span>
+                    <span class="vote-count" style="color:var(--upvote)">14.2k</span>
+                    <span class="vote-btn" onclick="downvote(this)">⬇</span>
+                </div>
                 <div class="post-content">
                     <div class="post-meta"><span class="post-sub">r/webdev</span> · Posted by u/sarah_dev · 3h</div>
                     <div class="post-title"><span class="flair"
                             style="background:rgba(0,166,126,.15);color:#00a67e">Discussion</span>Next.js 16 just
                         dropped and Server Components got even better</div>
-                    <div class="post-img" style="background:linear-gradient(135deg,#1e1b4b,#312e81)">🚀</div>
-                    <div class="post-actions"><span class="pa">💬 847 Comments</span><span class="pa">↗️
-                            Share</span><span class="pa">⭐ Save</span><span class="pa">⋯</span></div>
+                    <img class="post-img" src="https://picsum.photos/seed/reddit1/800/400" alt="Post image">
+                    <div class="post-actions">
+                        <span class="pa">💬 847 Comments</span>
+                        <span class="pa" onclick="sharePost(event)">↗️ Share</span>
+                        <span class="pa" onclick="savePost(this)">⭐ Save</span>
+                        <span class="pa">🎖 Award</span>
+                        <span class="pa">⋯</span>
+                    </div>
                 </div>
             </div>
+
             <div class="post">
-                <div class="vote"><span class="vote-btn">⬆</span><span class="vote-count"
-                        style="color:var(--upvote)">8.4k</span><span class="vote-btn">⬇</span></div>
+                <div class="vote">
+                    <span class="vote-btn" onclick="upvote(this)">⬆</span>
+                    <span class="vote-count" style="color:var(--upvote)">8.4k</span>
+                    <span class="vote-btn" onclick="downvote(this)">⬇</span>
+                </div>
                 <div class="post-content">
                     <div class="post-meta"><span class="post-sub">r/typescript</span> · Posted by u/type_master · 5h
                     </div>
                     <div class="post-title"><span class="flair"
                             style="background:rgba(59,130,246,.15);color:#3b82f6">Resource</span>I built a collection of
                         30+ TypeScript utilities that I use in every project</div>
-                    <div class="post-actions"><span class="pa">💬 234 Comments</span><span class="pa">↗️
-                            Share</span><span class="pa">⭐ Save</span><span class="pa">🎖 Award</span></div>
+                    <div class="post-actions">
+                        <span class="pa">💬 234 Comments</span>
+                        <span class="pa" onclick="sharePost(event)">↗️ Share</span>
+                        <span class="pa" onclick="savePost(this)">⭐ Save</span>
+                        <span class="pa">🎖 Award</span>
+                    </div>
                 </div>
             </div>
+
             <div class="post">
-                <div class="vote"><span class="vote-btn">⬆</span><span class="vote-count">6.1k</span><span
-                        class="vote-btn">⬇</span></div>
+                <div class="vote">
+                    <span class="vote-btn" onclick="upvote(this)">⬆</span>
+                    <span class="vote-count">6.1k</span>
+                    <span class="vote-btn" onclick="downvote(this)">⬇</span>
+                </div>
                 <div class="post-content">
                     <div class="post-meta"><span class="post-sub">r/programming</span> · Posted by u/rust_fan · 8h</div>
                     <div class="post-title"><span class="flair"
                             style="background:rgba(245,158,11,.15);color:#f59e0b">News</span>GitHub Copilot now supports
                         real-time pair programming with voice</div>
-                    <div class="post-actions"><span class="pa">💬 1.2k Comments</span><span class="pa">↗️
-                            Share</span><span class="pa">⭐ Save</span></div>
+                    <img class="post-img" src="https://picsum.photos/seed/reddit3/800/350" alt="Post image">
+                    <div class="post-actions">
+                        <span class="pa">💬 1.2k Comments</span>
+                        <span class="pa" onclick="sharePost(event)">↗️ Share</span>
+                        <span class="pa" onclick="savePost(this)">⭐ Save</span>
+                    </div>
                 </div>
             </div>
+
             <div class="post">
-                <div class="vote"><span class="vote-btn">⬆</span><span class="vote-count">4.7k</span><span
-                        class="vote-btn">⬇</span></div>
+                <div class="vote">
+                    <span class="vote-btn" onclick="upvote(this)">⬆</span>
+                    <span class="vote-count">4.7k</span>
+                    <span class="vote-btn" onclick="downvote(this)">⬇</span>
+                </div>
                 <div class="post-content">
                     <div class="post-meta"><span class="post-sub">r/reactjs</span> · Posted by u/hook_master · 12h</div>
                     <div class="post-title"><span class="flair"
                             style="background:rgba(139,92,246,.15);color:#8b5cf6">Tutorial</span>Stop using useEffect
                         for everything — here's the React 20 way</div>
-                    <div class="post-actions"><span class="pa">💬 567 Comments</span><span class="pa">↗️
-                            Share</span><span class="pa">⭐ Save</span></div>
+                    <div class="post-actions">
+                        <span class="pa">💬 567 Comments</span>
+                        <span class="pa" onclick="sharePost(event)">↗️ Share</span>
+                        <span class="pa" onclick="savePost(this)">⭐ Save</span>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="sidebar-r">
             <div class="community-card">
-                <div class="cc-banner" style="background:linear-gradient(135deg,#ff4500,#ff6b35)"><span
-                        style="font-size:2rem">💻</span></div>
+                <div class="cc-banner" style="background:linear-gradient(135deg,#ff4500,#ff6b35)"></div>
                 <div class="cc-info">
-                    <div class="cc-name">r/webdev</div>
+                    <div class="cc-name">💻 r/webdev</div>
                     <div class="cc-desc">A community dedicated to all things web development: front-end, back-end,
                         full-stack, and everything in between.</div>
                     <div class="cc-stats">
@@ -445,21 +581,92 @@
                             <div class="cs-label">Members</div>
                         </div>
                         <div>
-                            <div class="cs-val">12.8K</div>
+                            <div class="cs-val"><span class="online-dot"></span>12.8K</div>
                             <div class="cs-label">Online</div>
                         </div>
-                    </div><button class="cc-join">Join Community</button>
+                    </div>
+                    <button class="cc-join" id="joinBtn" onclick="toggleJoin()">Join Community</button>
                 </div>
             </div>
+
             <div class="rules-card">
-                <div class="rules-title">r/webdev Rules</div>
-                <div class="rule"><span class="rule-num">1</span>No self-promotion or spam</div>
-                <div class="rule"><span class="rule-num">2</span>Be respectful and constructive</div>
-                <div class="rule"><span class="rule-num">3</span>Use descriptive titles</div>
-                <div class="rule"><span class="rule-num">4</span>Include code snippets when asking for help</div>
+                <div class="rules-title">📜 r/webdev Rules</div>
+                <div class="rule" onclick="toggleRule(this)">
+                    <div style="display:flex;gap:8px"><span class="rule-num">1</span>No self-promotion or spam</div>
+                    <span class="rule-arrow">▼</span>
+                </div>
+                <div class="rule-detail">Links to your own content are only allowed if you're an active member of the
+                    community. Blatant advertising will result in a ban.</div>
+                <div class="rule" onclick="toggleRule(this)">
+                    <div style="display:flex;gap:8px"><span class="rule-num">2</span>Be respectful and constructive
+                    </div><span class="rule-arrow">▼</span>
+                </div>
+                <div class="rule-detail">Treat others with respect. No personal attacks, harassment, or hate speech.
+                    Constructive criticism is welcome.</div>
+                <div class="rule" onclick="toggleRule(this)">
+                    <div style="display:flex;gap:8px"><span class="rule-num">3</span>Use descriptive titles</div><span
+                        class="rule-arrow">▼</span>
+                </div>
+                <div class="rule-detail">Titles should clearly describe the content. Clickbait or vague titles will be
+                    removed.</div>
+                <div class="rule" onclick="toggleRule(this)">
+                    <div style="display:flex;gap:8px"><span class="rule-num">4</span>Include code snippets when asking
+                        for help</div><span class="rule-arrow">▼</span>
+                </div>
+                <div class="rule-detail">When posting questions, always include relevant code snippets, error messages,
+                    and what you've already tried.</div>
             </div>
         </div>
     </div>
+
+    <script>
+        function setSort(btn) {
+            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function upvote(btn) {
+            const vote = btn.parentElement;
+            const count = vote.querySelector('.vote-count');
+            const down = vote.querySelectorAll('.vote-btn')[1];
+            const wasActive = btn.classList.contains('upvoted');
+            btn.classList.toggle('upvoted');
+            down.classList.remove('downvoted');
+            count.style.color = wasActive ? 'var(--text)' : 'var(--upvote)';
+        }
+
+        function downvote(btn) {
+            const vote = btn.parentElement;
+            const count = vote.querySelector('.vote-count');
+            const up = vote.querySelectorAll('.vote-btn')[0];
+            const wasActive = btn.classList.contains('downvoted');
+            btn.classList.toggle('downvoted');
+            up.classList.remove('upvoted');
+            count.style.color = wasActive ? 'var(--text)' : 'var(--downvote)';
+        }
+
+        function savePost(el) {
+            el.classList.toggle('saved');
+            el.textContent = el.classList.contains('saved') ? '✅ Saved' : '⭐ Save';
+        }
+
+        function sharePost(e) {
+            e.stopPropagation();
+            if (navigator.clipboard) { navigator.clipboard.writeText(window.location.href); e.target.textContent = '✅ Copied!'; setTimeout(() => e.target.textContent = '↗️ Share', 1500) }
+        }
+
+        function toggleJoin() {
+            const btn = document.getElementById('joinBtn');
+            const joined = btn.classList.toggle('joined');
+            btn.textContent = joined ? 'Joined ✓' : 'Join Community';
+        }
+
+        function toggleRule(el) {
+            el.classList.toggle('open');
+            const detail = el.nextElementSibling;
+            detail.classList.toggle('open');
+        }
+    </script>
 </body>
 
 </html>

@@ -56,7 +56,7 @@
             font-size: .88rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background .12s
+            transition: all .12s
         }
 
         .n-link.active {
@@ -70,7 +70,8 @@
 
         .n-search {
             flex: 1;
-            margin: 0 8px
+            margin: 0 8px;
+            position: relative
         }
 
         .n-search input {
@@ -81,11 +82,21 @@
             border: none;
             font-size: .88rem;
             outline: none;
-            font-family: 'Inter'
+            font-family: 'Inter';
+            transition: background .12s
         }
 
         .n-search input:focus {
             background: #e2e2e2
+        }
+
+        .n-search::before {
+            content: '🔍';
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: .85rem
         }
 
         .n-right {
@@ -96,28 +107,60 @@
             color: var(--muted)
         }
 
-        .n-avatar {
-            width: 28px;
-            height: 28px;
+        .n-right span {
+            cursor: pointer;
+            padding: 4px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .55rem;
-            font-weight: 700
+            transition: background .12s
+        }
+
+        .n-right span:hover {
+            background: #f1f1f1
+        }
+
+        .n-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer
+        }
+
+        .n-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .masonry {
             column-count: 5;
-            column-gap: 12px;
+            column-gap: 14px;
             padding: 72px 16px 24px;
             max-width: 1400px;
             margin: 0 auto
         }
 
+        @media(max-width:1200px) {
+            .masonry {
+                column-count: 4
+            }
+        }
+
+        @media(max-width:900px) {
+            .masonry {
+                column-count: 3
+            }
+        }
+
+        @media(max-width:600px) {
+            .masonry {
+                column-count: 2
+            }
+        }
+
         .pin {
             break-inside: avoid;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             border-radius: 16px;
             overflow: hidden;
             cursor: pointer;
@@ -135,16 +178,14 @@
 
         .pin-img {
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: block;
             border-radius: 16px
         }
 
         .pin-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, .4);
+            background: rgba(0, 0, 0, .45);
             opacity: 0;
             transition: opacity .2s;
             display: flex;
@@ -160,13 +201,14 @@
         }
 
         .pin-btn {
-            padding: 6px 12px;
+            padding: 8px 14px;
             border-radius: 100px;
             font-size: .78rem;
             font-weight: 700;
             cursor: pointer;
             border: none;
-            font-family: 'Inter'
+            font-family: 'Inter';
+            transition: all .12s
         }
 
         .save-btn {
@@ -174,9 +216,22 @@
             color: #fff
         }
 
+        .save-btn:hover {
+            background: #c9001f
+        }
+
+        .save-btn.saved {
+            background: #000;
+            color: #fff
+        }
+
         .more-btn {
             background: rgba(255, 255, 255, .9);
             color: #111
+        }
+
+        .more-btn:hover {
+            background: #fff
         }
 
         .pin-bottom {
@@ -186,7 +241,7 @@
         }
 
         .pin-link {
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 100px;
             background: rgba(255, 255, 255, .9);
             font-size: .72rem;
@@ -198,7 +253,13 @@
             max-width: 180px;
             overflow: hidden;
             text-overflow: ellipsis;
-            white-space: nowrap
+            white-space: nowrap;
+            text-decoration: none;
+            transition: background .12s
+        }
+
+        .pin-link:hover {
+            background: #fff
         }
 
         .pin-info {
@@ -221,14 +282,36 @@
         }
 
         .pin-author-av {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .45rem;
-            font-weight: 700
+            overflow: hidden
+        }
+
+        .pin-author-av img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #111;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: .85rem;
+            font-weight: 600;
+            transition: transform .3s ease;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .3)
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0)
         }
     </style>
 </head>
@@ -236,138 +319,78 @@
 <body>
     <nav>
         <span class="n-logo">📌</span>
-        <span class="n-link active">Home</span>
-        <span class="n-link">Explore</span>
-        <span class="n-link">Create</span>
-        <div class="n-search"><input placeholder="🔍 Search for ideas"></div>
+        <span class="n-link active" onclick="setNav(this)">Home</span>
+        <span class="n-link" onclick="setNav(this)">Explore</span>
+        <span class="n-link" onclick="setNav(this)">Create</span>
+        <div class="n-search"><input placeholder="Search for ideas" id="searchInput"></div>
         <div class="n-right"><span>🔔</span><span>💬</span>
-            <div class="n-avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD</div>
-            <span>▾</span>
+            <div class="n-avatar"><img src="https://i.pravatar.cc/64?img=11" alt="User"></div><span>▾</span>
         </div>
     </nav>
-    <div class="masonry">
-        <div class="pin">
-            <div class="pin-img" style="height:280px;background:linear-gradient(135deg,#1e1b4b,#312e81);font-size:3rem">
-                🎨</div>
-            <div class="pin-overlay">
-                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
-                <div class="pin-bottom"><span class="pin-link">🔗 dribbble.com</span></div>
-            </div>
-            <div class="pin-info">
-                <div class="pin-title">Modern Dashboard UI Design — Dark Mode with Gradients</div>
-                <div class="pin-author">
-                    <div class="pin-author-av" style="background:#ec4899;color:#fff">SC</div>sarah_designs
-                </div>
-            </div>
+    <div class="masonry" id="masonry"></div>
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const pins = [
+            { img: 'https://picsum.photos/seed/pin1/400/560', title: 'Modern Dashboard UI Design — Dark Mode with Gradients', author: 'sarah_designs', avatar: 'https://i.pravatar.cc/48?img=1', link: 'dribbble.com' },
+            { img: 'https://picsum.photos/seed/pin2/400/320', title: 'Minimal Website Inspiration — Clean & Modern', author: 'nature_photos', avatar: 'https://i.pravatar.cc/48?img=2' },
+            { img: 'https://picsum.photos/seed/pin3/400/500', title: 'Glassmorphism UI Kit — Components for Web Apps', author: 'alex_ui', avatar: 'https://i.pravatar.cc/48?img=3', link: 'behance.net' },
+            { img: 'https://picsum.photos/seed/pin4/400/380', title: 'SaaS Landing Page — Hero Section Concepts', author: 'design_hub', avatar: 'https://i.pravatar.cc/48?img=4' },
+            { img: 'https://picsum.photos/seed/pin5/400/280', title: 'Typography Pairing Guide 2026', author: 'font_lover', avatar: 'https://i.pravatar.cc/48?img=5' },
+            { img: 'https://picsum.photos/seed/pin6/400/450', title: 'Mobile App Design System — Complete UI Kit', author: 'mike_design', avatar: 'https://i.pravatar.cc/48?img=6', link: 'figma.com' },
+            { img: 'https://picsum.photos/seed/pin7/400/520', title: 'Dark Mode Design Patterns — Best Practices', author: 'tom_ux', avatar: 'https://i.pravatar.cc/48?img=7' },
+            { img: 'https://picsum.photos/seed/pin8/400/340', title: 'Data Visualization — Chart Design Inspiration', author: 'data_viz', avatar: 'https://i.pravatar.cc/48?img=8' },
+            { img: 'https://picsum.photos/seed/pin9/400/440', title: 'E-Commerce Product Cards — Premium Designs', author: 'lisa_dev', avatar: 'https://i.pravatar.cc/48?img=9', link: 'dribbble.com' },
+            { img: 'https://picsum.photos/seed/pin10/400/300', title: 'Startup Landing Pages — Conversion Optimized', author: 'growth_ui', avatar: 'https://i.pravatar.cc/48?img=10' },
+            { img: 'https://picsum.photos/seed/pin11/400/480', title: '3D Illustrations for Web — Isometric Pack', author: 'art_3d', avatar: 'https://i.pravatar.cc/48?img=11', link: 'figma.com' },
+            { img: 'https://picsum.photos/seed/pin12/400/360', title: 'Color Palette Generator — Modern Harmonies', author: 'color_pro', avatar: 'https://i.pravatar.cc/48?img=12' },
+            { img: 'https://picsum.photos/seed/pin13/400/500', title: 'Portfolio Templates — Developer Showcase', author: 'portfolios', avatar: 'https://i.pravatar.cc/48?img=14' },
+            { img: 'https://picsum.photos/seed/pin14/400/420', title: 'AI Interface Design — Chatbot UX Patterns', author: 'ai_ux', avatar: 'https://i.pravatar.cc/48?img=15', link: 'behance.net' },
+            { img: 'https://picsum.photos/seed/pin15/400/300', title: 'Icon Design System — 500+ Consistent Icons', author: 'icon_pack', avatar: 'https://i.pravatar.cc/48?img=16' },
+        ];
+
+        function renderPins() {
+            const grid = document.getElementById('masonry');
+            grid.innerHTML = pins.map((p, i) => `
+    <div class="pin">
+      <img class="pin-img" src="${p.img}" alt="${p.title}" loading="lazy">
+      <div class="pin-overlay">
+        <div class="pin-top">
+          <button class="pin-btn save-btn" onclick="event.stopPropagation();savePin(this,${i})">Save</button>
         </div>
-        <div class="pin">
-            <div class="pin-img" style="height:200px;background:linear-gradient(135deg,#059669,#047857);font-size:3rem">
-                🌿</div>
-            <div class="pin-overlay">
-                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
-            </div>
-            <div class="pin-info">
-                <div class="pin-title">Minimal Website Inspiration</div>
-                <div class="pin-author">
-                    <div class="pin-author-av" style="background:#22c55e;color:#fff">NP</div>nature_photos
-                </div>
-            </div>
+        <div class="pin-bottom">
+          ${p.link ? `<a class="pin-link" href="#" onclick="event.stopPropagation()">🔗 ${p.link}</a>` : ''}
+          <button class="pin-btn more-btn" onclick="event.stopPropagation()" style="margin-left:auto">⋯</button>
         </div>
-        <div class="pin">
-            <div class="pin-img" style="height:320px;background:linear-gradient(135deg,#7c3aed,#6d28d9);font-size:3rem">
-                ✨</div>
-            <div class="pin-overlay">
-                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
-                <div class="pin-bottom"><span class="pin-link">🔗 behance.net</span></div>
-            </div>
-            <div class="pin-info">
-                <div class="pin-title">Glassmorphism UI Kit — Components for Web Apps</div>
-                <div class="pin-author">
-                    <div class="pin-author-av" style="background:#8b5cf6;color:#fff">AL</div>alex_ui
-                </div>
-            </div>
-        </div>
-        <div class="pin">
-            <div class="pin-img" style="height:240px;background:linear-gradient(135deg,#dc2626,#b91c1c);font-size:3rem">
-                🔥</div>
-            <div class="pin-overlay">
-                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
-            </div>
-            <div class="pin-info">
-                <div class="pin-title">SaaS Landing Page — Hero Section Concepts</div>
-            </div>
-        </div>
-        <div class="pin">
-            <div class="pin-img" style="height:180px;background:linear-gradient(135deg,#0284c7,#0ea5e9);font-size:3rem">
-                💎</div>
-            <div class="pin-overlay">
-                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
-            </div>
-            <div class="pin-info">
-                <div class="pin-title">Typography Pairing Guide 2026</div>
-            </div>
-        </div>
-        <div class="pin">
-            <div class="pin-img" style="height:260px;background:linear-gradient(135deg,#d97706,#f59e0b);font-size:3rem">
-                🎯</div>
-            <div class="pin-overlay">
-                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
-                <div class="pin-bottom"><span class="pin-link">🔗 figma.com</span></div>
-            </div>
-            <div class="pin-info">
-                <div class="pin-title">Mobile App Design System — Complete UI Kit</div>
-                <div class="pin-author">
-                    <div class="pin-author-av" style="background:#f59e0b;color:#fff">MR</div>mike_design
-                </div>
-            </div>
-        </div>
-        <div class="pin">
-            <div class="pin-img" style="height:300px;background:linear-gradient(135deg,#0f172a,#1e293b);font-size:3rem">
-                🌙</div>
-            <div class="pin-overlay">
-                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
-            </div>
-            <div class="pin-info">
-                <div class="pin-title">Dark Mode Design Patterns — Best Practices</div>
-                <div class="pin-author">
-                    <div class="pin-author-av" style="background:#3b82f6;color:#fff">TK</div>tom_ux
-                </div>
-            </div>
-        </div>
-        <div class="pin">
-            <div class="pin-img" style="height:220px;background:linear-gradient(135deg,#166534,#22c55e);font-size:3rem">
-                📊</div>
-            <div class="pin-overlay">
-                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
-            </div>
-            <div class="pin-info">
-                <div class="pin-title">Data Visualization — Chart Design Inspiration</div>
-            </div>
-        </div>
-        <div class="pin">
-            <div class="pin-img" style="height:250px;background:linear-gradient(135deg,#581c87,#7c3aed);font-size:3rem">
-                💜</div>
-            <div class="pin-overlay">
-                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
-            </div>
-            <div class="pin-info">
-                <div class="pin-title">E-Commerce Product Cards — Premium Designs</div>
-                <div class="pin-author">
-                    <div class="pin-author-av" style="background:#ec4899;color:#fff">LR</div>lisa_dev
-                </div>
-            </div>
-        </div>
-        <div class="pin">
-            <div class="pin-img" style="height:190px;background:linear-gradient(135deg,#1e3a5f,#0ea5e9);font-size:3rem">
-                🚀</div>
-            <div class="pin-overlay">
-                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
-            </div>
-            <div class="pin-info">
-                <div class="pin-title">Startup Landing Pages — Conversion Optimized</div>
-            </div>
-        </div>
+      </div>
+      <div class="pin-info">
+        <div class="pin-title">${p.title}</div>
+        <div class="pin-author"><div class="pin-author-av"><img src="${p.avatar}" alt="${p.author}"></div>${p.author}</div>
+      </div>
     </div>
+  `).join('');
+        }
+
+        function savePin(btn, i) {
+            const saved = btn.classList.toggle('saved');
+            btn.textContent = saved ? 'Saved' : 'Save';
+            showToast(saved ? `Saved "${pins[i].title.substring(0, 30)}..."` : 'Pin removed from saved');
+        }
+
+        function setNav(el) {
+            document.querySelectorAll('.n-link').forEach(l => l.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        }
+
+        renderPins();
+    </script>
 </body>
 
 </html>

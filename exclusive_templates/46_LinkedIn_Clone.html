@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProLink — Professional Network</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,17 +16,18 @@
         :root {
             --bg: #f4f2ee;
             --card: #fff;
-            --border: #e0dfdc;
+            --border: #e0e0e0;
             --accent: #0a66c2;
             --text: #191919;
             --muted: #666;
-            --green: #057642
+            --success: #057642
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
-            color: var(--text)
+            color: var(--text);
+            font-size: .88rem
         }
 
         nav {
@@ -35,45 +35,57 @@
             top: 0;
             left: 0;
             right: 0;
-            background: #fff;
+            background: var(--card);
             z-index: 10;
-            border-bottom: 1px solid var(--border);
-            height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: center
+            padding: 0 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .08)
         }
 
-        .n-inner {
+        .nav-inner {
             max-width: 1128px;
-            width: 100%;
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 0 16px
+            height: 52px;
+            gap: 8px
         }
 
         .n-logo {
             font-weight: 900;
-            font-size: 1.4rem;
-            color: var(--accent)
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-right: 4px
         }
 
         .n-search {
-            padding: 6px 12px 6px 32px;
-            border-radius: 4px;
-            background: #edf3f8;
-            border: none;
-            font-size: .82rem;
-            width: 280px;
-            outline: none;
-            font-family: 'Inter'
+            position: relative;
+            margin-right: auto
         }
 
-        .n-links {
-            display: flex;
-            gap: 0;
-            margin-left: auto
+        .n-search input {
+            padding: 8px 12px 8px 36px;
+            border-radius: 4px;
+            border: none;
+            background: #eef3f8;
+            font-size: .85rem;
+            width: 280px;
+            outline: none;
+            font-family: 'Inter';
+            transition: all .15s
+        }
+
+        .n-search input:focus {
+            width: 340px;
+            box-shadow: 0 0 0 2px var(--accent)
+        }
+
+        .n-search::before {
+            content: '🔍';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: .75rem
         }
 
         .n-link {
@@ -81,136 +93,126 @@
             flex-direction: column;
             align-items: center;
             padding: 0 12px;
-            cursor: pointer;
-            color: var(--muted);
-            font-size: .72rem;
             gap: 2px;
-            position: relative
+            font-size: .68rem;
+            color: var(--muted);
+            cursor: pointer;
+            height: 52px;
+            justify-content: center;
+            border-bottom: 2px solid transparent;
+            transition: all .12s
         }
 
-        .n-link.active {
+        .n-link:hover {
             color: var(--text)
         }
 
-        .n-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--text)
+        .n-link.active {
+            color: var(--text);
+            border-color: var(--text)
         }
 
-        .n-link .ni {
-            font-size: 1.2rem
+        .n-link span {
+            font-size: 1.1rem
         }
 
         .n-avatar {
             width: 28px;
             height: 28px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .5rem;
-            font-weight: 700
+            overflow: hidden;
+            border: 2px solid var(--accent)
+        }
+
+        .n-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .container {
             max-width: 1128px;
             margin: 68px auto 0;
-            padding: 0 16px;
+            padding: 16px;
             display: grid;
             grid-template-columns: 225px 1fr 300px;
             gap: 16px
         }
 
-        .profile-card {
+        .card {
             background: var(--card);
             border-radius: 8px;
             border: 1px solid var(--border);
             overflow: hidden
         }
 
-        .pc-banner {
-            height: 56px;
-            background: linear-gradient(135deg, #0a66c2, #004182)
+        .profile-card .p-banner {
+            height: 70px;
+            background: linear-gradient(135deg, #0a66c2, #004182);
+            position: relative
         }
 
-        .pc-info {
-            padding: 0 12px 12px;
+        .profile-card .p-info {
+            padding: 0 16px 16px;
             text-align: center;
-            margin-top: -24px
+            margin-top: -36px
         }
 
-        .pc-avatar {
-            width: 64px;
-            height: 64px;
+        .p-avatar {
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
             border: 3px solid #fff;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 4px
+            overflow: hidden;
+            margin: 0 auto 8px
         }
 
-        .pc-name {
-            font-size: .88rem;
-            font-weight: 600
+        .p-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
-        .pc-title {
-            font-size: .72rem;
+        .p-name {
+            font-weight: 700;
+            font-size: .95rem
+        }
+
+        .p-title {
+            font-size: .78rem;
             color: var(--muted);
-            margin-top: 2px
+            margin-top: 2px;
+            line-height: 1.3
         }
 
-        .pc-stats {
-            padding: 8px 12px;
-            border-top: 1px solid var(--border);
-            font-size: .72rem
+        .p-stats {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border)
         }
 
-        .pc-stat {
+        .p-stat {
             display: flex;
             justify-content: space-between;
-            padding: 3px 0;
-            cursor: pointer
+            padding: 4px 0;
+            font-size: .78rem;
+            cursor: pointer;
+            transition: background .1s;
+            padding: 4px 8px;
+            border-radius: 4px
         }
 
-        .pc-stat span:first-child {
+        .p-stat:hover {
+            background: #f5f5f5
+        }
+
+        .p-stat-label {
             color: var(--muted)
         }
 
-        .pc-stat span:last-child {
+        .p-stat-val {
             color: var(--accent);
             font-weight: 600
-        }
-
-        .sidebar-links {
-            background: var(--card);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            padding: 8px 0;
-            margin-top: 8px
-        }
-
-        .sl-link {
-            padding: 6px 12px;
-            font-size: .82rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--muted)
-        }
-
-        .sl-link:hover {
-            text-decoration: underline;
-            color: var(--accent)
         }
 
         .feed {
@@ -220,140 +222,141 @@
         }
 
         .create-post {
-            background: var(--card);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            padding: 12px 16px
-        }
-
-        .cp-top {
+            padding: 12px 16px;
             display: flex;
             gap: 8px;
-            align-items: center;
-            margin-bottom: 8px
+            align-items: center
         }
 
-        .cp-av {
-            width: 40px;
-            height: 40px;
+        .create-avatar {
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .75rem;
-            font-weight: 700;
+            overflow: hidden;
             flex-shrink: 0
         }
 
-        .cp-input {
+        .create-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .create-input {
             flex: 1;
-            padding: 8px 16px;
+            padding: 10px 16px;
             border-radius: 100px;
             border: 1px solid var(--border);
-            font-size: .85rem;
             cursor: pointer;
+            font-size: .88rem;
             color: var(--muted);
-            background: none;
-            font-family: 'Inter'
+            transition: all .12s;
+            font-family: 'Inter';
+            background: none
         }
 
-        .cp-actions {
+        .create-input:hover {
+            background: #f5f5f5;
+            border-color: #aaa
+        }
+
+        .create-actions {
             display: flex;
-            gap: 4px;
-            margin-top: 4px
+            padding: 4px 16px 8px;
+            gap: 4px
         }
 
-        .cp-action {
+        .create-action {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
             padding: 8px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: .82rem;
+            font-size: .78rem;
+            text-align: center;
+            transition: background .1s;
             font-weight: 500;
-            color: var(--muted);
-            transition: background .12s
+            color: var(--muted)
         }
 
-        .cp-action:hover {
-            background: rgba(0, 0, 0, .04)
+        .create-action:hover {
+            background: #f5f5f5;
+            color: var(--text)
         }
 
-        .post {
-            background: var(--card);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            overflow: hidden
-        }
-
-        .p-header {
-            padding: 12px 16px;
+        .post .p-header {
             display: flex;
-            gap: 8px
+            gap: 8px;
+            padding: 12px 16px
         }
 
-        .p-av {
+        .post-avatar {
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .85rem;
-            font-weight: 700;
+            overflow: hidden;
             flex-shrink: 0
         }
 
-        .p-info {
-            flex: 1
+        .post-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
-        .p-name {
-            font-size: .88rem;
-            font-weight: 600
+        .post-user {
+            font-weight: 600;
+            font-size: .88rem
         }
 
-        .p-headline {
+        .post-headline {
+            font-size: .72rem;
+            color: var(--muted);
+            line-height: 1.3
+        }
+
+        .post-time {
             font-size: .72rem;
             color: var(--muted)
         }
 
-        .p-time {
-            font-size: .72rem;
-            color: var(--muted);
-            display: flex;
-            align-items: center;
-            gap: 4px
-        }
-
-        .p-follow {
-            margin-left: auto;
-            font-size: .82rem;
-            color: var(--accent);
-            font-weight: 600;
-            cursor: pointer;
-            align-self: flex-start
-        }
-
-        .p-content {
-            padding: 4px 16px 12px;
+        .post-body {
+            padding: 0 16px 8px;
             font-size: .88rem;
             line-height: 1.5
         }
 
-        .p-img {
-            width: 100%;
-            aspect-ratio: 16/9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem
+        .post-body.truncated {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden
         }
 
-        .p-engagement {
+        .post-more {
+            padding: 0 16px 8px;
+            font-size: .82rem;
+            color: var(--muted);
+            cursor: pointer;
+            font-weight: 600
+        }
+
+        .post-more:hover {
+            color: var(--accent)
+        }
+
+        .post-img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: filter .15s
+        }
+
+        .post-img:hover {
+            filter: brightness(.95)
+        }
+
+        .post-stats {
             padding: 8px 16px;
             display: flex;
             justify-content: space-between;
@@ -361,115 +364,128 @@
             color: var(--muted)
         }
 
-        .p-reactions {
+        .post-reactions {
             display: flex;
             align-items: center;
             gap: 2px
         }
 
-        .p-actions {
+        .reaction-icons {
+            display: flex
+        }
+
+        .reaction-icons span {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .65rem;
+            border-radius: 50%;
+            background: #fff;
+            margin-left: -4px;
+            border: 1px solid #fff
+        }
+
+        .post-bar {
             display: flex;
             border-top: 1px solid var(--border);
             padding: 4px 8px
         }
 
-        .p-action {
+        .post-btn {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 8px;
+            padding: 10px 4px;
             border-radius: 4px;
+            font-size: .78rem;
             cursor: pointer;
-            font-size: .82rem;
+            text-align: center;
+            font-weight: 600;
             color: var(--muted);
-            font-weight: 500;
-            transition: background .12s
+            transition: all .12s;
+            user-select: none
         }
 
-        .p-action:hover {
-            background: rgba(0, 0, 0, .04)
+        .post-btn:hover {
+            background: #f5f5f5;
+            color: var(--text)
         }
 
-        .right-col {
-            display: flex;
-            flex-direction: column;
-            gap: 8px
+        .post-btn.liked {
+            color: var(--accent)
         }
 
         .news-card {
-            background: var(--card);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            padding: 12px
+            padding: 12px 16px
         }
 
         .news-title {
-            font-size: .88rem;
             font-weight: 600;
-            margin-bottom: 8px
+            font-size: .88rem;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
         }
 
         .news-item {
             padding: 6px 0;
-            font-size: .82rem;
+            font-size: .78rem;
             cursor: pointer;
-            display: flex;
-            gap: 4px
-        }
-
-        .news-item::before {
-            content: '•';
-            color: var(--muted)
+            border-bottom: 1px solid rgba(0, 0, 0, .04);
+            transition: color .1s
         }
 
         .news-item:hover {
             color: var(--accent)
         }
 
-        .news-item .time {
+        .news-item-title {
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 2px
+        }
+
+        .news-item-time {
             font-size: .68rem;
-            color: var(--muted);
-            margin-left: auto;
-            white-space: nowrap
+            color: var(--muted)
         }
 
         .people-card {
-            background: var(--card);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            padding: 12px
+            padding: 12px 16px
         }
 
         .people-title {
+            font-weight: 700;
             font-size: .88rem;
-            font-weight: 600;
             margin-bottom: 8px
         }
 
         .person {
             display: flex;
-            align-items: center;
             gap: 8px;
-            padding: 8px 0
+            padding: 8px 0;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, .04)
         }
 
         .person-av {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .65rem;
-            font-weight: 700;
+            overflow: hidden;
             flex-shrink: 0
         }
 
+        .person-av img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
         .person-name {
-            font-size: .82rem;
-            font-weight: 600
+            font-weight: 600;
+            font-size: .82rem
         }
 
         .person-title {
@@ -479,158 +495,210 @@
 
         .connect-btn {
             margin-left: auto;
-            padding: 4px 12px;
+            padding: 4px 14px;
             border-radius: 100px;
             border: 1px solid var(--accent);
             color: var(--accent);
             font-size: .75rem;
             font-weight: 600;
-            background: none;
             cursor: pointer;
-            font-family: 'Inter'
+            background: none;
+            font-family: 'Inter';
+            transition: all .12s
+        }
+
+        .connect-btn:hover {
+            background: rgba(10, 102, 194, .05)
+        }
+
+        .connect-btn.connected {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent)
         }
     </style>
 </head>
 
 <body>
     <nav>
-        <div class="n-inner">
+        <div class="nav-inner">
             <span class="n-logo">in</span>
-            <input class="n-search" placeholder="🔍 Search">
-            <div class="n-links">
-                <div class="n-link active"><span class="ni">🏠</span>Home</div>
-                <div class="n-link"><span class="ni">👥</span>Network</div>
-                <div class="n-link"><span class="ni">💼</span>Jobs</div>
-                <div class="n-link"><span class="ni">💬</span>Messaging</div>
-                <div class="n-link"><span class="ni">🔔</span>Notifications</div>
-                <div class="n-link">
-                    <div class="n-avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD</div>
-                    Me ▾
-                </div>
+            <div class="n-search"><input placeholder="Search"></div>
+            <div class="n-link active"><span>🏠</span>Home</div>
+            <div class="n-link"><span>👥</span>Network</div>
+            <div class="n-link"><span>💼</span>Jobs</div>
+            <div class="n-link"><span>💬</span>Messaging</div>
+            <div class="n-link"><span>🔔</span>Notifications</div>
+            <div class="n-link">
+                <div class="n-avatar"><img src="https://i.pravatar.cc/56?img=11" alt="Me"></div>Me ▾
             </div>
         </div>
     </nav>
+
     <div class="container">
-        <div>
-            <div class="profile-card">
-                <div class="pc-banner"></div>
-                <div class="pc-info">
-                    <div class="pc-avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD
+        <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="card profile-card">
+                <div class="p-banner"></div>
+                <div class="p-info">
+                    <div class="p-avatar"><img src="https://i.pravatar.cc/144?img=11" alt="Profile"></div>
+                    <div class="p-name">John Developer</div>
+                    <div class="p-title">Senior Full-Stack Engineer · Building amazing products</div>
+                    <div class="p-stats">
+                        <div class="p-stat"><span class="p-stat-label">Connections</span><span
+                                class="p-stat-val">847</span></div>
+                        <div class="p-stat"><span class="p-stat-label">Profile views</span><span
+                                class="p-stat-val">234</span></div>
+                        <div class="p-stat"><span class="p-stat-label">Post impressions</span><span
+                                class="p-stat-val">12.4K</span></div>
                     </div>
-                    <div class="pc-name">John Developer</div>
-                    <div class="pc-title">Senior Full-Stack Engineer | Next.js, React, TypeScript</div>
                 </div>
-                <div class="pc-stats">
-                    <div class="pc-stat"><span>Profile views</span><span>247</span></div>
-                    <div class="pc-stat"><span>Post impressions</span><span>1,843</span></div>
-                    <div class="pc-stat"><span>Search appearances</span><span>89</span></div>
-                </div>
-            </div>
-            <div class="sidebar-links">
-                <div class="sl-link">📑 Groups</div>
-                <div class="sl-link">📅 Events</div>
-                <div class="sl-link">📰 Newsletters</div>
-                <div class="sl-link">#️⃣ Hashtags</div>
             </div>
         </div>
+
         <div class="feed">
-            <div class="create-post">
-                <div class="cp-top">
-                    <div class="cp-av" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD</div>
-                    <input class="cp-input" placeholder="Start a post, try writing with AI">
+            <div class="card">
+                <div class="create-post">
+                    <div class="create-avatar"><img src="https://i.pravatar.cc/88?img=11" alt="Me"></div>
+                    <input class="create-input" placeholder="Start a post, try writing with AI" readonly
+                        onclick="this.placeholder='What do you want to talk about?'">
                 </div>
-                <div class="cp-actions">
-                    <div class="cp-action">🖼️ Media</div>
-                    <div class="cp-action">📅 Event</div>
-                    <div class="cp-action">📝 Article</div>
-                </div>
-            </div>
-            <div class="post">
-                <div class="p-header">
-                    <div class="p-av" style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff">SC</div>
-                    <div class="p-info">
-                        <div class="p-name">Sarah Chen</div>
-                        <div class="p-headline">CTO at TechStartup · Ex-Google · 50K+ followers</div>
-                        <div class="p-time">2h · 🌐</div>
-                    </div><span class="p-follow">+ Follow</span>
-                </div>
-                <div class="p-content">Just launched our Series A announcement! 🚀<br><br>After 18 months of building,
-                    we've raised $12M to transform how developers build AI applications. The future of development is
-                    here — and it's powered by intelligent tooling.<br><br>Grateful for the incredible team and
-                    investors who believed in this vision. #startup #ai #developer #fundraising</div>
-                <div class="p-img" style="background:linear-gradient(135deg,#1e1b4b,#312e81)">🚀</div>
-                <div class="p-engagement">
-                    <div class="p-reactions">👍❤️🎉 <span>847</span></div><span>42 comments · 18 reposts</span>
-                </div>
-                <div class="p-actions">
-                    <div class="p-action">👍 Like</div>
-                    <div class="p-action">💬 Comment</div>
-                    <div class="p-action">🔄 Repost</div>
-                    <div class="p-action">✉️ Send</div>
+                <div class="create-actions">
+                    <div class="create-action">📷 Media</div>
+                    <div class="create-action">📅 Event</div>
+                    <div class="create-action">📝 Article</div>
                 </div>
             </div>
-            <div class="post">
+
+            <div class="card post" id="post1">
                 <div class="p-header">
-                    <div class="p-av" style="background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff">MR</div>
-                    <div class="p-info">
-                        <div class="p-name">Mike Ross</div>
-                        <div class="p-headline">Staff Engineer at Vercel · Open Source Contributor</div>
-                        <div class="p-time">5h · 🌐</div>
+                    <div class="post-avatar"><img src="https://i.pravatar.cc/96?img=1" alt="User"></div>
+                    <div>
+                        <div class="post-user">Sarah Chen</div>
+                        <div class="post-headline">Engineering Manager at Meta · React Core Team</div>
+                        <div class="post-time">3h · 🌐</div>
                     </div>
                 </div>
-                <div class="p-content">Hot take: The best code is the code you don't write. 🔥<br><br>We shipped a
-                    feature yesterday that reduced our codebase by 3,000 lines. Server Components + Server Actions made
-                    half our API layer unnecessary.<br><br>Less code = fewer bugs = happier developers.<br><br>What's
-                    your biggest codebase reduction win?</div>
-                <div class="p-engagement">
-                    <div class="p-reactions">👍🔥 <span>1,234</span></div><span>89 comments · 34 reposts</span>
+                <div class="post-body truncated" id="postBody1">After 8 years in tech, here are the 5 things I wish
+                    someone told me on day one:
+
+                    1. Your code quality matters less than your communication skills
+                    2. The best engineers are the ones who make others around them better
+                    3. Taking a break is not laziness — it's maintenance
+                    4. Impostor syndrome never fully goes away, and that's okay
+                    5. The most important design pattern is empathy
+
+                    Save this for when you need a reminder. 💙</div>
+                <div class="post-more" onclick="togglePost('postBody1',this)">...see more</div>
+                <img class="post-img" src="https://picsum.photos/seed/linkedin1/800/420" alt="Post image">
+                <div class="post-stats">
+                    <div class="post-reactions">
+                        <div class="reaction-icons"><span>👍</span><span>❤️</span><span>💡</span></div> <span
+                            id="likeCount1">2,847</span>
+                    </div><span>142 comments · 89 reposts</span>
                 </div>
-                <div class="p-actions">
-                    <div class="p-action">👍 Like</div>
-                    <div class="p-action">💬 Comment</div>
-                    <div class="p-action">🔄 Repost</div>
-                    <div class="p-action">✉️ Send</div>
+                <div class="post-bar">
+                    <div class="post-btn" onclick="toggleLike(this,'likeCount1')">👍 Like</div>
+                    <div class="post-btn">💬 Comment</div>
+                    <div class="post-btn">🔄 Repost</div>
+                    <div class="post-btn">↗️ Send</div>
+                </div>
+            </div>
+
+            <div class="card post">
+                <div class="p-header">
+                    <div class="post-avatar"><img src="https://i.pravatar.cc/96?img=3" alt="User"></div>
+                    <div>
+                        <div class="post-user">Alex Rivera</div>
+                        <div class="post-headline">Staff Software Engineer at Google</div>
+                        <div class="post-time">5h · 🌐</div>
+                    </div>
+                </div>
+                <div class="post-body">We just open-sourced our internal TypeScript utilities library. 30+ battle-tested
+                    functions used across Google's web infrastructure. Link in comments 🔗</div>
+                <div class="post-stats">
+                    <div class="post-reactions">
+                        <div class="reaction-icons"><span>👍</span><span>🎉</span></div> <span
+                            id="likeCount2">1,203</span>
+                    </div><span>67 comments · 245 reposts</span>
+                </div>
+                <div class="post-bar">
+                    <div class="post-btn" onclick="toggleLike(this,'likeCount2')">👍 Like</div>
+                    <div class="post-btn">💬 Comment</div>
+                    <div class="post-btn">🔄 Repost</div>
+                    <div class="post-btn">↗️ Send</div>
                 </div>
             </div>
         </div>
-        <div class="right-col">
-            <div class="news-card">
-                <div class="news-title">LinkedIn News</div>
-                <div class="news-item">AI tools reshape developer workflow<span class="time">2h ago</span></div>
-                <div class="news-item">Remote work debate continues in tech<span class="time">4h ago</span></div>
-                <div class="news-item">Next.js 16 beta announced<span class="time">6h ago</span></div>
-                <div class="news-item">Series A funding hits record highs<span class="time">8h ago</span></div>
-                <div class="news-item">TypeScript 6.0 release candidate<span class="time">1d ago</span></div>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="card news-card">
+                <div class="news-title">LinkedIn News <span style="font-size:.75rem;cursor:pointer">ℹ️</span></div>
+                <div class="news-item">
+                    <div class="news-item-title">AI reshaping developer workflows</div>
+                    <div class="news-item-time">12h ago · 8,421 readers</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-item-title">React 20 announced at ReactConf</div>
+                    <div class="news-item-time">1d ago · 24,110 readers</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-item-title">Remote work still dominant in tech</div>
+                    <div class="news-item-time">2d ago · 15,300 readers</div>
+                </div>
+                <div class="news-item">
+                    <div class="news-item-title">TypeScript 6.0 brings major improvements</div>
+                    <div class="news-item-time">3d ago · 11,890 readers</div>
+                </div>
             </div>
-            <div class="people-card">
+
+            <div class="card people-card">
                 <div class="people-title">People you may know</div>
                 <div class="person">
-                    <div class="person-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">AL
-                    </div>
+                    <div class="person-av"><img src="https://i.pravatar.cc/80?img=5"></div>
                     <div>
-                        <div class="person-name">Alex Liu</div>
-                        <div class="person-title">Design Engineer at Stripe</div>
-                    </div><button class="connect-btn">+ Connect</button>
+                        <div class="person-name">Emma Wilson</div>
+                        <div class="person-title">Senior UX Designer at Apple</div>
+                    </div><button class="connect-btn" onclick="toggleConnect(this)">+ Connect</button>
                 </div>
                 <div class="person">
-                    <div class="person-av" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff">LR
-                    </div>
-                    <div>
-                        <div class="person-name">Lisa Ray</div>
-                        <div class="person-title">Product Manager at Meta</div>
-                    </div><button class="connect-btn">+ Connect</button>
-                </div>
-                <div class="person">
-                    <div class="person-av" style="background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff">TK
-                    </div>
+                    <div class="person-av"><img src="https://i.pravatar.cc/80?img=8"></div>
                     <div>
                         <div class="person-name">Tom King</div>
-                        <div class="person-title">Founder at DevTools Inc</div>
-                    </div><button class="connect-btn">+ Connect</button>
+                        <div class="person-title">DevOps Lead at Netflix</div>
+                    </div><button class="connect-btn" onclick="toggleConnect(this)">+ Connect</button>
+                </div>
+                <div class="person">
+                    <div class="person-av"><img src="https://i.pravatar.cc/80?img=14"></div>
+                    <div>
+                        <div class="person-name">Lisa Park</div>
+                        <div class="person-title">Frontend Engineer at Stripe</div>
+                    </div><button class="connect-btn" onclick="toggleConnect(this)">+ Connect</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function togglePost(id, btn) {
+            const body = document.getElementById(id);
+            body.classList.toggle('truncated');
+            btn.textContent = body.classList.contains('truncated') ? '...see more' : 'show less';
+        }
+
+        function toggleLike(btn, countId) {
+            btn.classList.toggle('liked');
+            const liked = btn.classList.contains('liked');
+            btn.textContent = liked ? '👍 Liked' : '👍 Like';
+            const count = document.getElementById(countId);
+            const num = parseInt(count.textContent.replace(/,/g, ''));
+            count.textContent = (liked ? num + 1 : num - 1).toLocaleString();
+        }
+
+        function toggleConnect(btn) {
+            const connected = btn.classList.toggle('connected');
+            btn.textContent = connected ? '✓ Connected' : '+ Connect';
+        }
+    </script>
 </body>
 
 </html>

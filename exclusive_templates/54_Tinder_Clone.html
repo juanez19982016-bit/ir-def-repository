@@ -31,16 +31,18 @@
             height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center
+            justify-content: center;
+            overflow: hidden
         }
 
         .app {
             width: 100%;
             max-width: 420px;
-            height: 90vh;
+            height: 92vh;
             display: flex;
             flex-direction: column;
-            margin: 0 auto
+            margin: 0 auto;
+            position: relative
         }
 
         .app-header {
@@ -68,29 +70,45 @@
 
         .h-icon {
             cursor: pointer;
-            transition: color .12s;
-            position: relative
+            transition: all .12s;
+            position: relative;
+            padding: 4px
         }
 
         .h-icon:hover {
-            color: var(--text)
+            color: var(--text);
+            transform: scale(1.1)
         }
 
         .h-badge {
             position: absolute;
-            top: -4px;
-            right: -4px;
+            top: 0;
+            right: 0;
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--accent)
+            background: var(--accent);
+            animation: pulse 2s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .4
+            }
         }
 
         .card-stack {
             flex: 1;
             position: relative;
             overflow: hidden;
-            margin: 0 16px
+            margin: 0 16px;
+            border-radius: 16px
         }
 
         .profile-card {
@@ -100,22 +118,41 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end
+            justify-content: flex-end;
+            transition: transform .5s cubic-bezier(.4, 0, .2, 1), opacity .3s;
+            will-change: transform
         }
 
-        .pc-bg {
+        .profile-card.swiping-left {
+            transform: translateX(-120%) rotate(-15deg);
+            opacity: 0
+        }
+
+        .profile-card.swiping-right {
+            transform: translateX(120%) rotate(15deg);
+            opacity: 0
+        }
+
+        .profile-card.swiping-up {
+            transform: translateY(-120%) scale(.8);
+            opacity: 0
+        }
+
+        .pc-img {
             position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8rem
+            inset: 0
+        }
+
+        .pc-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .pc-gradient {
             position: absolute;
             inset: 0;
-            background: linear-gradient(transparent 40%, rgba(0, 0, 0, .8) 100%)
+            background: linear-gradient(transparent 35%, rgba(0, 0, 0, .85) 100%)
         }
 
         .pc-info {
@@ -143,10 +180,11 @@
 
         .pc-verified {
             font-size: .65rem;
-            padding: 2px 8px;
+            padding: 3px 8px;
             border-radius: 100px;
             background: rgba(59, 130, 246, .2);
-            color: #60a5fa
+            color: #60a5fa;
+            font-weight: 600
         }
 
         .pc-distance {
@@ -160,8 +198,8 @@
 
         .pc-bio {
             font-size: .88rem;
-            line-height: 1.4;
-            margin-bottom: 8px
+            line-height: 1.5;
+            margin-bottom: 10px
         }
 
         .pc-tags {
@@ -172,11 +210,12 @@
         }
 
         .pc-tag {
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 100px;
             background: rgba(255, 255, 255, .1);
-            font-size: .72rem;
-            backdrop-filter: blur(10px)
+            font-size: .75rem;
+            backdrop-filter: blur(10px);
+            font-weight: 500
         }
 
         .pc-interests {
@@ -186,10 +225,17 @@
         }
 
         .pc-interest {
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 100px;
             border: 1px solid rgba(255, 255, 255, .15);
-            font-size: .72rem
+            font-size: .75rem;
+            font-weight: 500;
+            transition: background .12s;
+            cursor: pointer
+        }
+
+        .pc-interest:hover {
+            background: rgba(255, 255, 255, .05)
         }
 
         .pc-dots {
@@ -202,11 +248,53 @@
             flex: 1;
             height: 3px;
             border-radius: 100px;
-            background: rgba(255, 255, 255, .2)
+            background: rgba(255, 255, 255, .2);
+            cursor: pointer;
+            transition: background .2s
         }
 
         .pc-dot.active {
             background: #fff
+        }
+
+        .swipe-label {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            font-weight: 900;
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: 4px solid;
+            opacity: 0;
+            transition: opacity .2s;
+            z-index: 3;
+            pointer-events: none
+        }
+
+        .swipe-label.like {
+            right: 24px;
+            color: #22c55e;
+            border-color: #22c55e;
+            transform: translateY(-50%) rotate(15deg)
+        }
+
+        .swipe-label.nope {
+            left: 24px;
+            color: #ef4444;
+            border-color: #ef4444;
+            transform: translateY(-50%) rotate(-15deg)
+        }
+
+        .swipe-label.super {
+            left: 50%;
+            color: #3b82f6;
+            border-color: #3b82f6;
+            transform: translate(-50%, -50%)
+        }
+
+        .swipe-label.show {
+            opacity: 1
         }
 
         .actions {
@@ -224,23 +312,28 @@
             justify-content: center;
             cursor: pointer;
             border: 2px solid;
-            transition: all .15s
+            transition: all .2s;
+            background: transparent
         }
 
         .action-btn:hover {
-            transform: scale(1.1)
+            transform: scale(1.15)
+        }
+
+        .action-btn:active {
+            transform: scale(.9)
         }
 
         .btn-sm {
-            width: 44px;
-            height: 44px;
-            font-size: 1rem
+            width: 46px;
+            height: 46px;
+            font-size: 1.1rem
         }
 
         .btn-lg {
-            width: 56px;
-            height: 56px;
-            font-size: 1.3rem
+            width: 60px;
+            height: 60px;
+            font-size: 1.4rem
         }
 
         .btn-nope {
@@ -250,7 +343,7 @@
 
         .btn-nope:hover {
             background: rgba(239, 68, 68, .1);
-            box-shadow: 0 0 20px rgba(239, 68, 68, .2)
+            box-shadow: 0 0 25px rgba(239, 68, 68, .2)
         }
 
         .btn-super {
@@ -259,7 +352,8 @@
         }
 
         .btn-super:hover {
-            background: rgba(59, 130, 246, .1)
+            background: rgba(59, 130, 246, .1);
+            box-shadow: 0 0 25px rgba(59, 130, 246, .2)
         }
 
         .btn-like {
@@ -269,7 +363,7 @@
 
         .btn-like:hover {
             background: rgba(34, 197, 94, .1);
-            box-shadow: 0 0 20px rgba(34, 197, 94, .2)
+            box-shadow: 0 0 25px rgba(34, 197, 94, .2)
         }
 
         .btn-boost {
@@ -290,57 +384,6 @@
             background: rgba(245, 158, 11, .1)
         }
 
-        .match-popup {
-            display: none;
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, .9);
-            z-index: 10;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            text-align: center;
-            backdrop-filter: blur(20px)
-        }
-
-        .mp-title {
-            font-size: 2rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ec4899, #f59e0b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent
-        }
-
-        .mp-avatars {
-            display: flex;
-            gap: -12px;
-            justify-content: center
-        }
-
-        .mp-av {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem
-        }
-
-        .mp-btn {
-            padding: 12px 48px;
-            border-radius: 100px;
-            background: linear-gradient(135deg, #ec4899, #f59e0b);
-            color: #fff;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            font-family: 'Inter';
-            font-size: 1rem
-        }
-
         .nav-bar {
             display: flex;
             justify-content: space-around;
@@ -354,14 +397,108 @@
             flex-direction: column;
             align-items: center;
             gap: 2px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--muted);
             cursor: pointer;
-            padding: 4px 16px
+            padding: 4px 16px;
+            transition: color .12s
         }
 
         .nav-item.active {
             color: var(--accent)
+        }
+
+        .nav-item:hover {
+            color: var(--text)
+        }
+
+        .match-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, .92);
+            z-index: 20;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            border-radius: 16px
+        }
+
+        .match-overlay.show {
+            display: flex;
+            animation: matchIn .5s ease
+        }
+
+        @keyframes matchIn {
+            from {
+                opacity: 0;
+                transform: scale(.8)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+
+        .match-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .match-avatars {
+            display: flex;
+            gap: 16px
+        }
+
+        .match-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .5)
+        }
+
+        .match-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .match-btn {
+            padding: 14px 48px;
+            border-radius: 100px;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter';
+            font-size: 1rem;
+            transition: transform .12s
+        }
+
+        .match-btn:hover {
+            transform: scale(1.05)
+        }
+
+        .match-close {
+            color: var(--muted);
+            cursor: pointer;
+            font-size: .88rem;
+            margin-top: 8px;
+            transition: color .12s
+        }
+
+        .match-close:hover {
+            color: #fff
         }
     </style>
 </head>
@@ -372,49 +509,137 @@
             <div class="h-icons"><span class="h-icon">🛡️</span><span class="h-icon">🔔<div class="h-badge"></div>
                     </span></div>
         </div>
-        <div class="card-stack">
-            <div class="profile-card" style="transform:rotate(2deg);opacity:.4;z-index:0">
-                <div class="pc-bg" style="background:linear-gradient(135deg,#22c55e,#16a34a)">🌿</div>
-                <div class="pc-gradient"></div>
-            </div>
-            <div class="profile-card" style="z-index:1">
-                <div class="pc-bg" style="background:linear-gradient(135deg,#7c3aed,#ec4899)">👩‍💻</div>
-                <div class="pc-gradient"></div>
-                <div class="pc-info">
-                    <div class="pc-dots">
-                        <div class="pc-dot active"></div>
-                        <div class="pc-dot"></div>
-                        <div class="pc-dot"></div>
-                        <div class="pc-dot"></div>
-                    </div>
-                    <div class="pc-top"><span class="pc-name">Sarah</span><span class="pc-age">28</span><span
-                            class="pc-verified">✓ Verified</span></div>
-                    <div class="pc-distance">📍 3 miles away</div>
-                    <div class="pc-bio">Full-stack dev who speaks fluent TypeScript. Looking for someone who can explain
-                        the event loop without Googling it 😄</div>
-                    <div class="pc-tags"><span class="pc-tag">👩‍💻 Software Engineer</span><span class="pc-tag">🎓
-                            Stanford CS</span></div>
-                    <div class="pc-interests"><span class="pc-interest">🧗 Rock Climbing</span><span
-                            class="pc-interest">☕ Coffee</span><span class="pc-interest">🎮 Gaming</span><span
-                            class="pc-interest">📚 Books</span></div>
-                </div>
-            </div>
-        </div>
+        <div class="card-stack" id="cardStack"></div>
         <div class="actions">
-            <button class="action-btn btn-sm btn-rewind">↩️</button>
-            <button class="action-btn btn-lg btn-nope">✕</button>
-            <button class="action-btn btn-sm btn-super">⭐</button>
-            <button class="action-btn btn-lg btn-like">♥</button>
-            <button class="action-btn btn-sm btn-boost">⚡</button>
+            <button class="action-btn btn-sm btn-rewind" onclick="rewind()">↩️</button>
+            <button class="action-btn btn-lg btn-nope" onclick="swipe('left')">✕</button>
+            <button class="action-btn btn-sm btn-super" onclick="swipe('up')">⭐</button>
+            <button class="action-btn btn-lg btn-like" onclick="swipe('right')">♥</button>
+            <button class="action-btn btn-sm btn-boost" onclick="boost()">⚡</button>
         </div>
         <div class="nav-bar">
-            <div class="nav-item active">🔥</div>
-            <div class="nav-item">🔍</div>
-            <div class="nav-item">💎</div>
-            <div class="nav-item">💬</div>
-            <div class="nav-item">👤</div>
+            <div class="nav-item active" onclick="setNav(this)">🔥</div>
+            <div class="nav-item" onclick="setNav(this)">🔍</div>
+            <div class="nav-item" onclick="setNav(this)">💎</div>
+            <div class="nav-item" onclick="setNav(this)">💬</div>
+            <div class="nav-item" onclick="setNav(this)">👤</div>
+        </div>
+        <div class="match-overlay" id="matchOverlay">
+            <div class="match-title">It's a Match! 🎉</div>
+            <div class="match-avatars">
+                <div class="match-avatar"><img src="https://i.pravatar.cc/160?img=11" alt="You"></div>
+                <div class="match-avatar" id="matchAvatar"><img src="" alt="Match"></div>
+            </div>
+            <button class="match-btn" onclick="closeMatch()">Send a Message</button>
+            <span class="match-close" onclick="closeMatch()">Keep Swiping</span>
         </div>
     </div>
+
+    <script>
+        const profiles = [
+            { name: 'Sarah', age: 28, img: 'https://picsum.photos/seed/t1/500/800', avatar: 'https://i.pravatar.cc/160?img=1', distance: '3 miles', bio: 'Full-stack dev who speaks fluent TypeScript. Looking for someone who can explain the event loop without Googling it 😄', tags: ['👩‍💻 Software Engineer', '🎓 Stanford CS'], interests: ['🧗 Rock Climbing', '☕ Coffee', '🎮 Gaming', '📚 Books'], verified: true },
+            { name: 'Emma', age: 25, img: 'https://picsum.photos/seed/t2/500/800', avatar: 'https://i.pravatar.cc/160?img=5', distance: '5 miles', bio: 'UI/UX designer by day, indie game dev by night. Let\'s debate tabs vs spaces over ramen 🍜', tags: ['🎨 UX Designer', '🏢 Google'], interests: ['🎨 Art', '🍜 Food', '🎵 Music', '✈️ Travel'], verified: true },
+            { name: 'Alex', age: 30, img: 'https://picsum.photos/seed/t3/500/800', avatar: 'https://i.pravatar.cc/160?img=9', distance: '2 miles', bio: 'DevOps engineer who can deploy on Friday and sleep soundly. Yes, I exist. 🚀', tags: ['🔧 DevOps Lead', '💼 Netflix'], interests: ['🏋️ Gym', '🐱 Cats', '🎸 Guitar', '🏔️ Hiking'], verified: false },
+            { name: 'Maya', age: 27, img: 'https://picsum.photos/seed/t4/500/800', avatar: 'https://i.pravatar.cc/160?img=16', distance: '7 miles', bio: 'Data scientist who believes correlation really does imply causation (in love). Looking for someone statistically significant ❤️', tags: ['📊 Data Scientist', '🎓 MIT'], interests: ['📖 Reading', '🧘 Yoga', '🎬 Movies', '🌿 Plants'], verified: true },
+        ];
+
+        let currentIdx = 0;
+        let history = [];
+
+        function renderCards() {
+            const stack = document.getElementById('cardStack');
+            stack.innerHTML = '';
+            const remaining = profiles.slice(currentIdx);
+            remaining.slice(0, 3).reverse().forEach((p, i, arr) => {
+                const isTop = i === arr.length - 1;
+                const card = document.createElement('div');
+                card.className = 'profile-card';
+                card.style.zIndex = i;
+                if (!isTop) { card.style.transform = `scale(${.95 - (.03 * (arr.length - 1 - i))}) translateY(${(arr.length - 1 - i) * -8}px)`; card.style.opacity = '.6' }
+                card.innerHTML = `
+      <div class="pc-img"><img src="${p.img}" alt="${p.name}"></div>
+      <div class="pc-gradient"></div>
+      <div class="swipe-label like">LIKE</div>
+      <div class="swipe-label nope">NOPE</div>
+      <div class="swipe-label super">SUPER</div>
+      <div class="pc-info">
+        <div class="pc-dots">${[0, 1, 2, 3].map(n => `<div class="pc-dot${n === 0 ? ' active' : ''}" onclick="event.stopPropagation();switchPhoto(${n})"></div>`).join('')}</div>
+        <div class="pc-top"><span class="pc-name">${p.name}</span><span class="pc-age">${p.age}</span>${p.verified ? '<span class="pc-verified">✓ Verified</span>' : ''}</div>
+        <div class="pc-distance">📍 ${p.distance} away</div>
+        <div class="pc-bio">${p.bio}</div>
+        <div class="pc-tags">${p.tags.map(t => `<span class="pc-tag">${t}</span>`).join('')}</div>
+        <div class="pc-interests">${p.interests.map(i => `<span class="pc-interest">${i}</span>`).join('')}</div>
+      </div>
+    `;
+                stack.appendChild(card);
+            });
+        }
+
+        function swipe(dir) {
+            const cards = document.querySelectorAll('.profile-card');
+            const top = cards[cards.length - 1];
+            if (!top) return;
+
+            // Show label
+            const label = top.querySelector(`.swipe-label.${dir === 'left' ? 'nope' : dir === 'right' ? 'like' : 'super'}`);
+            label.classList.add('show');
+
+            setTimeout(() => {
+                top.classList.add(dir === 'left' ? 'swiping-left' : dir === 'up' ? 'swiping-up' : 'swiping-right');
+                history.push(currentIdx);
+
+                // Random match on right swipe (30% chance)
+                if (dir === 'right' && Math.random() < 0.3) {
+                    setTimeout(() => showMatch(), 400);
+                }
+
+                setTimeout(() => {
+                    currentIdx = (currentIdx + 1) % profiles.length;
+                    renderCards();
+                }, 400);
+            }, 200);
+        }
+
+        function rewind() {
+            if (history.length === 0) return;
+            currentIdx = history.pop();
+            renderCards();
+        }
+
+        function boost() {
+            const top = document.querySelectorAll('.profile-card');
+            const card = top[top.length - 1];
+            if (card) { card.style.boxShadow = '0 0 40px rgba(139,92,246,.5)'; setTimeout(() => card.style.boxShadow = '', 1500) }
+        }
+
+        function showMatch() {
+            const p = profiles[(currentIdx - 1 + profiles.length) % profiles.length];
+            document.querySelector('#matchAvatar img').src = p.avatar;
+            document.getElementById('matchOverlay').classList.add('show');
+        }
+
+        function closeMatch() {
+            document.getElementById('matchOverlay').classList.remove('show');
+        }
+
+        function switchPhoto(idx) {
+            document.querySelectorAll('.pc-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+        }
+
+        function setNav(el) {
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft') swipe('left');
+            if (e.key === 'ArrowRight') swipe('right');
+            if (e.key === 'ArrowUp') swipe('up');
+        });
+
+        renderCards();
+    </script>
 </body>
 
 </html>

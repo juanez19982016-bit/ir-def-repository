@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SearchPro — Search Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #202124;
+            --card: #303134;
+            --border: #5f6368;
+            --accent: #8ab4f8;
+            --text: #bdc1c6;
+            --muted: #9aa0a6;
+            --link: #8ab4f8;
+            --green: #aecbfa;
+            --url: #bdc1c6
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text)
+        }
+
+        nav {
+            background: var(--bg);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, .06)
+        }
+
+        .n-logo {
+            font-size: 1.5rem;
+            font-weight: 900
+        }
+
+        .n-logo .g {
+            color: #4285f4
+        }
+
+        .n-logo .o1 {
+            color: #ea4335
+        }
+
+        .n-logo .o2 {
+            color: #fbbc05
+        }
+
+        .n-logo .l {
+            color: #4285f4
+        }
+
+        .n-logo .e {
+            color: #34a853
+        }
+
+        .search-wrap {
+            flex: 1;
+            max-width: 692px
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 8px 16px;
+            transition: box-shadow .15s
+        }
+
+        .search-bar:focus-within {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+            border-color: rgba(255, 255, 255, .15)
+        }
+
+        .search-bar input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: .92rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .search-icons {
+            display: flex;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 1rem
+        }
+
+        .search-icons span {
+            cursor: pointer;
+            padding: 4px
+        }
+
+        .n-right {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-left: auto
+        }
+
+        .n-right span {
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 1rem
+        }
+
+        .n-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .6rem;
+            font-weight: 700
+        }
+
+        .tabs {
+            background: var(--bg);
+            padding: 0 24px 0 180px;
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .06)
+        }
+
+        .tab {
+            padding: 12px 16px;
+            font-size: .82rem;
+            color: var(--muted);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .tab.active {
+            color: var(--accent)
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px 2px 0 0
+        }
+
+        .results {
+            max-width: 692px;
+            margin-left: 180px;
+            padding: 16px 0
+        }
+
+        .stats {
+            font-size: .78rem;
+            color: var(--muted);
+            margin-bottom: 20px
+        }
+
+        .result {
+            margin-bottom: 24px
+        }
+
+        .r-url-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px
+        }
+
+        .r-favicon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .65rem
+        }
+
+        .r-site {
+            font-size: .78rem;
+            color: var(--url)
+        }
+
+        .r-breadcrumb {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .r-title {
+            font-size: 1.15rem;
+            color: var(--link);
+            cursor: pointer;
+            line-height: 1.3;
+            text-decoration: none
+        }
+
+        .r-title:hover {
+            text-decoration: underline
+        }
+
+        .r-desc {
+            font-size: .85rem;
+            line-height: 1.5;
+            color: var(--text);
+            margin-top: 4px
+        }
+
+        .r-desc strong {
+            font-weight: 700;
+            color: #fff
+        }
+
+        .r-date {
+            color: var(--muted)
+        }
+
+        .featured {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, .06)
+        }
+
+        .f-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--link)
+        }
+
+        .f-content {
+            font-size: .85rem;
+            line-height: 1.6
+        }
+
+        .f-source {
+            font-size: .78rem;
+            color: var(--muted);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .people-also {
+            margin-top: 24px
+        }
+
+        .pa-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px
+        }
+
+        .pa-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 8px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: background .1s;
+            font-size: .88rem
+        }
+
+        .pa-item:hover {
+            background: rgba(255, 255, 255, .03)
+        }
+
+        .pa-icon {
+            color: var(--muted)
+        }
+
+        .sidebar-r {
+            position: fixed;
+            right: 24px;
+            top: 120px;
+            width: 360px;
+            background: var(--card);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, .06)
+        }
+
+        .sr-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text)
+        }
+
+        .sr-subtitle {
+            font-size: .82rem;
+            color: var(--muted);
+            margin-bottom: 12px
+        }
+
+        .sr-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px
+        }
+
+        .sr-stat {
+            padding: 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, .03)
+        }
+
+        .sr-label {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .sr-value {
+            font-size: .88rem;
+            font-weight: 600
+        }
+
+        .sr-desc {
+            font-size: .82rem;
+            line-height: 1.5;
+            color: var(--text)
+        }
+
+        .sr-links {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .sr-link {
+            font-size: .82rem;
+            color: var(--link);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="n-logo"><span class="g">S</span><span class="o1">e</span><span class="o2">a</span><span
+                class="g">r</span><span class="l">c</span><span class="e">h</span></div>
+        <div class="search-wrap">
+            <div class="search-bar"><input value="DevVault Pro 2026 best developer toolkit">
+                <div class="search-icons"><span>✕</span><span>🎤</span><span>🔍</span></div>
+            </div>
+        </div>
+        <div class="n-right"><span>⚙️</span><span>🔲</span>
+            <div class="n-avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD</div>
+        </div>
+    </nav>
+    <div class="tabs">
+        <div class="tab active">🔍 All</div>
+        <div class="tab">📰 News</div>
+        <div class="tab">🖼️ Images</div>
+        <div class="tab">▶️ Videos</div>
+        <div class="tab">🛍️ Shopping</div>
+        <div class="tab">📚 Books</div>
+        <div class="tab">⋯ More</div>
+    </div>
+    <div class="results">
+        <div class="stats">About 2,450,000 results (0.32 seconds)</div>
+        <div class="featured">
+            <div class="f-title">DevVault Pro 2026</div>
+            <div class="f-content">DevVault Pro 2026 is the most comprehensive web development toolkit available,
+                featuring <strong>55 exclusive UI templates</strong>, a production-ready <strong>SaaS Starter
+                    Kit</strong> with Next.js 15, Auth.js v5, and Stripe integration, plus a <strong>complete developer
+                    toolkit</strong> with 30+ TypeScript utilities, 15 React Hooks, 10 API patterns, and more. Valued at
+                $12,000+, available for <strong>$149</strong>.</div>
+            <div class="f-source">🌐 devvault.pro · Updated Mar 2026</div>
+        </div>
+        <div class="result">
+            <div class="r-url-wrap">
+                <div class="r-favicon" style="background:#4f46e5;color:#fff">DV</div>
+                <div>
+                    <div class="r-site">devvault.pro</div>
+                    <div class="r-breadcrumb">https://devvault.pro › templates</div>
+                </div>
+            </div><a class="r-title">DevVault Pro 2026 — 55 Exclusive Templates + SaaS Starter Kit</a>
+            <div class="r-desc"><span class="r-date">3 hours ago — </span>The ultimate developer vault with <strong>55
+                    exclusive templates</strong> including clones of YouTube, Instagram, ChatGPT, Airbnb, VS Code, and
+                more. Complete <strong>PRO developer toolkit</strong> included.</div>
+        </div>
+        <div class="result">
+            <div class="r-url-wrap">
+                <div class="r-favicon" style="background:#22c55e;color:#fff">DH</div>
+                <div>
+                    <div class="r-site">dev.to</div>
+                    <div class="r-breadcrumb">https://dev.to › reviews</div>
+                </div>
+            </div><a class="r-title">I Bought DevVault Pro 2026 and Here's My Honest Review</a>
+            <div class="r-desc"><span class="r-date">1 day ago — </span>"This is insane value. 55 templates, each one is
+                production-ready. The <strong>ChatGPT clone</strong> alone would have saved me weeks of work. 10/10."
+            </div>
+        </div>
+        <div class="result">
+            <div class="r-url-wrap">
+                <div class="r-favicon" style="background:#ef4444;color:#fff">YT</div>
+                <div>
+                    <div class="r-site">youtube.com</div>
+                    <div class="r-breadcrumb">https://youtube.com › watch</div>
+                </div>
+            </div><a class="r-title">DevVault Pro 2026 Full Walkthrough — Is It Worth $149?</a>
+            <div class="r-desc"><span class="r-date">2 days ago — </span>Complete video review of DevVault Pro 2026.
+                Showing every template, the <strong>SaaS Starter Kit</strong>, TypeScript utilities, and the freelancer
+                toolkit. Spoiler: Yes, it's worth it.</div>
+        </div>
+        <div class="people-also">
+            <div class="pa-title">People also ask</div>
+            <div class="pa-item"><span class="pa-icon">❓</span>What is DevVault Pro 2026?<span
+                    style="margin-left:auto">▾</span></div>
+            <div class="pa-item"><span class="pa-icon">❓</span>How many templates does DevVault Pro include?<span
+                    style="margin-left:auto">▾</span></div>
+            <div class="pa-item"><span class="pa-icon">❓</span>Is DevVault Pro worth the price?<span
+                    style="margin-left:auto">▾</span></div>
+            <div class="pa-item"><span class="pa-icon">❓</span>What technologies does DevVault Pro use?<span
+                    style="margin-left:auto">▾</span></div>
+        </div>
+    </div>
+    <div class="sidebar-r">
+        <div class="sr-title">DevVault Pro 2026</div>
+        <div class="sr-subtitle">Premium Web Development Toolkit</div>
+        <div class="sr-info">
+            <div class="sr-stat">
+                <div class="sr-label">Templates</div>
+                <div class="sr-value">55</div>
+            </div>
+            <div class="sr-stat">
+                <div class="sr-label">App Clones</div>
+                <div class="sr-value">34</div>
+            </div>
+            <div class="sr-stat">
+                <div class="sr-label">Total Value</div>
+                <div class="sr-value">$12,000+</div>
+            </div>
+            <div class="sr-stat">
+                <div class="sr-label">Price</div>
+                <div class="sr-value">$149</div>
+            </div>
+        </div>
+        <div class="sr-desc">The most complete web development collection available online, featuring 55 exclusive
+            templates, SaaS boilerplate, and professional developer tools.</div>
+        <div class="sr-links"><span class="sr-link">🌐 Official website</span><span class="sr-link">⭐ Reviews
+                (847)</span><span class="sr-link">📱 Social media</span></div>
+    </div>
+</body>
+
+</html>

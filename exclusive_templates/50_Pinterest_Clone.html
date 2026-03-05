@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PinBoard — Visual Discovery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #fff;
+            --card: #fff;
+            --border: #ddd;
+            --accent: #e60023;
+            --text: #111;
+            --muted: #767676
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text)
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            z-index: 10;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 56px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .08)
+        }
+
+        .n-logo {
+            font-weight: 900;
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-right: 4px
+        }
+
+        .n-link {
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: .88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .12s
+        }
+
+        .n-link.active {
+            background: #111;
+            color: #fff
+        }
+
+        .n-link:not(.active):hover {
+            background: #f1f1f1
+        }
+
+        .n-search {
+            flex: 1;
+            margin: 0 8px
+        }
+
+        .n-search input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border-radius: 100px;
+            background: #eee;
+            border: none;
+            font-size: .88rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .n-search input:focus {
+            background: #e2e2e2
+        }
+
+        .n-right {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 1.1rem;
+            color: var(--muted)
+        }
+
+        .n-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .55rem;
+            font-weight: 700
+        }
+
+        .masonry {
+            column-count: 5;
+            column-gap: 12px;
+            padding: 72px 16px 24px;
+            max-width: 1400px;
+            margin: 0 auto
+        }
+
+        .pin {
+            break-inside: avoid;
+            margin-bottom: 12px;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: transform .15s
+        }
+
+        .pin:hover {
+            transform: translateY(-2px)
+        }
+
+        .pin:hover .pin-overlay {
+            opacity: 1
+        }
+
+        .pin-img {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px
+        }
+
+        .pin-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, .4);
+            opacity: 0;
+            transition: opacity .2s;
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            border-radius: 16px
+        }
+
+        .pin-top {
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px
+        }
+
+        .pin-btn {
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-size: .78rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter'
+        }
+
+        .save-btn {
+            background: var(--accent);
+            color: #fff
+        }
+
+        .more-btn {
+            background: rgba(255, 255, 255, .9);
+            color: #111
+        }
+
+        .pin-bottom {
+            margin-top: auto;
+            display: flex;
+            gap: 6px
+        }
+
+        .pin-link {
+            padding: 4px 10px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, .9);
+            font-size: .72rem;
+            font-weight: 500;
+            color: #111;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            max-width: 180px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .pin-info {
+            padding: 8px 4px
+        }
+
+        .pin-title {
+            font-size: .82rem;
+            font-weight: 500;
+            line-height: 1.3
+        }
+
+        .pin-author {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            font-size: .75rem;
+            color: var(--muted)
+        }
+
+        .pin-author-av {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .45rem;
+            font-weight: 700
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <span class="n-logo">📌</span>
+        <span class="n-link active">Home</span>
+        <span class="n-link">Explore</span>
+        <span class="n-link">Create</span>
+        <div class="n-search"><input placeholder="🔍 Search for ideas"></div>
+        <div class="n-right"><span>🔔</span><span>💬</span>
+            <div class="n-avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD</div>
+            <span>▾</span>
+        </div>
+    </nav>
+    <div class="masonry">
+        <div class="pin">
+            <div class="pin-img" style="height:280px;background:linear-gradient(135deg,#1e1b4b,#312e81);font-size:3rem">
+                🎨</div>
+            <div class="pin-overlay">
+                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
+                <div class="pin-bottom"><span class="pin-link">🔗 dribbble.com</span></div>
+            </div>
+            <div class="pin-info">
+                <div class="pin-title">Modern Dashboard UI Design — Dark Mode with Gradients</div>
+                <div class="pin-author">
+                    <div class="pin-author-av" style="background:#ec4899;color:#fff">SC</div>sarah_designs
+                </div>
+            </div>
+        </div>
+        <div class="pin">
+            <div class="pin-img" style="height:200px;background:linear-gradient(135deg,#059669,#047857);font-size:3rem">
+                🌿</div>
+            <div class="pin-overlay">
+                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
+            </div>
+            <div class="pin-info">
+                <div class="pin-title">Minimal Website Inspiration</div>
+                <div class="pin-author">
+                    <div class="pin-author-av" style="background:#22c55e;color:#fff">NP</div>nature_photos
+                </div>
+            </div>
+        </div>
+        <div class="pin">
+            <div class="pin-img" style="height:320px;background:linear-gradient(135deg,#7c3aed,#6d28d9);font-size:3rem">
+                ✨</div>
+            <div class="pin-overlay">
+                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
+                <div class="pin-bottom"><span class="pin-link">🔗 behance.net</span></div>
+            </div>
+            <div class="pin-info">
+                <div class="pin-title">Glassmorphism UI Kit — Components for Web Apps</div>
+                <div class="pin-author">
+                    <div class="pin-author-av" style="background:#8b5cf6;color:#fff">AL</div>alex_ui
+                </div>
+            </div>
+        </div>
+        <div class="pin">
+            <div class="pin-img" style="height:240px;background:linear-gradient(135deg,#dc2626,#b91c1c);font-size:3rem">
+                🔥</div>
+            <div class="pin-overlay">
+                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
+            </div>
+            <div class="pin-info">
+                <div class="pin-title">SaaS Landing Page — Hero Section Concepts</div>
+            </div>
+        </div>
+        <div class="pin">
+            <div class="pin-img" style="height:180px;background:linear-gradient(135deg,#0284c7,#0ea5e9);font-size:3rem">
+                💎</div>
+            <div class="pin-overlay">
+                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
+            </div>
+            <div class="pin-info">
+                <div class="pin-title">Typography Pairing Guide 2026</div>
+            </div>
+        </div>
+        <div class="pin">
+            <div class="pin-img" style="height:260px;background:linear-gradient(135deg,#d97706,#f59e0b);font-size:3rem">
+                🎯</div>
+            <div class="pin-overlay">
+                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
+                <div class="pin-bottom"><span class="pin-link">🔗 figma.com</span></div>
+            </div>
+            <div class="pin-info">
+                <div class="pin-title">Mobile App Design System — Complete UI Kit</div>
+                <div class="pin-author">
+                    <div class="pin-author-av" style="background:#f59e0b;color:#fff">MR</div>mike_design
+                </div>
+            </div>
+        </div>
+        <div class="pin">
+            <div class="pin-img" style="height:300px;background:linear-gradient(135deg,#0f172a,#1e293b);font-size:3rem">
+                🌙</div>
+            <div class="pin-overlay">
+                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
+            </div>
+            <div class="pin-info">
+                <div class="pin-title">Dark Mode Design Patterns — Best Practices</div>
+                <div class="pin-author">
+                    <div class="pin-author-av" style="background:#3b82f6;color:#fff">TK</div>tom_ux
+                </div>
+            </div>
+        </div>
+        <div class="pin">
+            <div class="pin-img" style="height:220px;background:linear-gradient(135deg,#166534,#22c55e);font-size:3rem">
+                📊</div>
+            <div class="pin-overlay">
+                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
+            </div>
+            <div class="pin-info">
+                <div class="pin-title">Data Visualization — Chart Design Inspiration</div>
+            </div>
+        </div>
+        <div class="pin">
+            <div class="pin-img" style="height:250px;background:linear-gradient(135deg,#581c87,#7c3aed);font-size:3rem">
+                💜</div>
+            <div class="pin-overlay">
+                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
+            </div>
+            <div class="pin-info">
+                <div class="pin-title">E-Commerce Product Cards — Premium Designs</div>
+                <div class="pin-author">
+                    <div class="pin-author-av" style="background:#ec4899;color:#fff">LR</div>lisa_dev
+                </div>
+            </div>
+        </div>
+        <div class="pin">
+            <div class="pin-img" style="height:190px;background:linear-gradient(135deg,#1e3a5f,#0ea5e9);font-size:3rem">
+                🚀</div>
+            <div class="pin-overlay">
+                <div class="pin-top"><button class="save-btn pin-btn">Save</button></div>
+            </div>
+            <div class="pin-info">
+                <div class="pin-title">Startup Landing Pages — Conversion Optimized</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

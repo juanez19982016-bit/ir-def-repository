@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapVault — Interactive Maps</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #1d2c3e;
+            --card: #fff;
+            --border: #e0e0e0;
+            --accent: #4285f4;
+            --text: #202124;
+            --muted: #70757a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column
+        }
+
+        .topbar {
+            background: #fff;
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+            z-index: 10;
+            flex-shrink: 0
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
+            padding: 0 12px;
+            flex: 1;
+            max-width: 480px
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 10px 8px;
+            border: none;
+            font-size: .92rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 4px
+        }
+
+        .t-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: auto
+        }
+
+        .t-btn {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: .82rem;
+            cursor: pointer;
+            background: #f1f3f4;
+            border: none;
+            font-family: 'Inter';
+            color: var(--text)
+        }
+
+        .t-btn:hover {
+            background: #e8eaed
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            position: relative;
+            overflow: hidden
+        }
+
+        .map {
+            flex: 1;
+            background: var(--bg);
+            position: relative;
+            overflow: hidden
+        }
+
+        .map-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, .03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .03) 1px, transparent 1px);
+            background-size: 80px 80px
+        }
+
+        .road {
+            position: absolute;
+            background: rgba(255, 255, 255, .06)
+        }
+
+        .road-h {
+            height: 3px;
+            left: 0;
+            right: 0
+        }
+
+        .road-v {
+            width: 3px;
+            top: 0;
+            bottom: 0
+        }
+
+        .road-main {
+            background: rgba(66, 133, 244, .15)
+        }
+
+        .marker {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: transform .15s
+        }
+
+        .marker:hover {
+            transform: scale(1.15)
+        }
+
+        .m-pin {
+            width: 32px;
+            height: 32px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .3)
+        }
+
+        .m-pin span {
+            transform: rotate(45deg);
+            font-size: .8rem
+        }
+
+        .m-label {
+            background: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: .68rem;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+            margin-top: 4px;
+            white-space: nowrap;
+            color: var(--text)
+        }
+
+        .m-price {
+            background: #fff;
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: .72rem;
+            font-weight: 700;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+            color: var(--text)
+        }
+
+        .controls {
+            position: absolute;
+            right: 12px;
+            bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 3
+        }
+
+        .ctrl-btn {
+            width: 36px;
+            height: 36px;
+            background: #fff;
+            border-radius: 4px;
+            border: none;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem
+        }
+
+        .panel {
+            width: 380px;
+            background: #fff;
+            height: 100%;
+            overflow-y: auto;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, .1);
+            flex-shrink: 0;
+            z-index: 5
+        }
+
+        .panel::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .panel::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 2px
+        }
+
+        .place-header {
+            padding: 16px
+        }
+
+        .place-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text)
+        }
+
+        .place-cat {
+            font-size: .82rem;
+            color: var(--muted);
+            margin-top: 2px
+        }
+
+        .place-rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            font-size: .85rem
+        }
+
+        .place-stars {
+            color: #f59e0b
+        }
+
+        .place-count {
+            color: var(--muted);
+            font-size: .78rem
+        }
+
+        .place-status {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: .82rem;
+            margin-top: 4px
+        }
+
+        .place-actions {
+            display: flex;
+            gap: 8px;
+            padding: 0 16px 12px
+        }
+
+        .pa-btn {
+            padding: 8px 14px;
+            border-radius: 100px;
+            font-size: .78rem;
+            cursor: pointer;
+            font-family: 'Inter';
+            font-weight: 600;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .pa-primary {
+            background: var(--accent);
+            color: #fff
+        }
+
+        .pa-secondary {
+            background: #f1f3f4;
+            color: var(--text)
+        }
+
+        .place-img {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem
+        }
+
+        .place-info {
+            padding: 16px;
+            border-top: 1px solid var(--border)
+        }
+
+        .pi-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: .85rem;
+            color: var(--text)
+        }
+
+        .pi-icon {
+            font-size: 1rem;
+            width: 24px;
+            text-align: center;
+            color: var(--muted)
+        }
+
+        .reviews {
+            padding: 16px;
+            border-top: 1px solid var(--border)
+        }
+
+        .reviews-title {
+            font-size: .92rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text)
+        }
+
+        .review {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, .06)
+        }
+
+        .r-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px
+        }
+
+        .r-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .5rem;
+            font-weight: 700
+        }
+
+        .r-name {
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--text)
+        }
+
+        .r-date {
+            font-size: .72rem;
+            color: var(--muted)
+        }
+
+        .r-text {
+            font-size: .82rem;
+            line-height: 1.5;
+            color: var(--text)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="search-box"><button>🔍</button><input value="Tech cafes near San Francisco"><button>🎤</button>
+        </div>
+        <div class="t-actions"><button class="t-btn">🗺️ Layers</button><button class="t-btn">↗️
+                Directions</button><button class="t-btn">📍 Nearby</button></div>
+    </div>
+    <div class="main">
+        <div class="panel">
+            <div class="place-img" style="background:linear-gradient(135deg,#1a365d,#2b6cb0)">☕</div>
+            <div class="place-header">
+                <div class="place-name">DevCafe — Co-working & Coffee</div>
+                <div class="place-cat">Coffee shop · Co-working space</div>
+                <div class="place-rating"><span class="place-stars">⭐⭐⭐⭐⭐</span><span>4.8</span><span
+                        class="place-count">(1,247 reviews)</span></div>
+                <div class="place-status"><span style="color:#16a34a;font-weight:600">Open</span><span
+                        style="color:var(--muted)">· Closes 10:00 PM</span></div>
+            </div>
+            <div class="place-actions"><button class="pa-btn pa-primary">↗️ Directions</button><button
+                    class="pa-btn pa-secondary">📞 Call</button><button class="pa-btn pa-secondary">💾
+                    Save</button><button class="pa-btn pa-secondary">↗️ Share</button></div>
+            <div class="place-info">
+                <div class="pi-row"><span class="pi-icon">📍</span>350 5th Ave, San Francisco, CA 94107</div>
+                <div class="pi-row"><span class="pi-icon">🕐</span>Open · 7:00 AM – 10:00 PM</div>
+                <div class="pi-row"><span class="pi-icon">📞</span><span style="color:var(--accent)">(415)
+                        555-0187</span></div>
+                <div class="pi-row"><span class="pi-icon">🌐</span><span style="color:var(--accent)">devcafe.co</span>
+                </div>
+                <div class="pi-row"><span class="pi-icon">⭐</span>Best for: Coding sessions, Meetings, Specialty coffee
+                </div>
+            </div>
+            <div class="reviews">
+                <div class="reviews-title">Reviews</div>
+                <div class="review">
+                    <div class="r-header">
+                        <div class="r-avatar" style="background:#ec4899;color:#fff">SC</div>
+                        <div>
+                            <div class="r-name">Sarah Chen</div>
+                            <div class="r-date">⭐⭐⭐⭐⭐ · 2 weeks ago</div>
+                        </div>
+                    </div>
+                    <div class="r-text">Best co-working cafe in SF! Fast WiFi, great coffee, and plenty of outlets. The
+                        dev community here is amazing.</div>
+                </div>
+                <div class="review">
+                    <div class="r-header">
+                        <div class="r-avatar" style="background:#3b82f6;color:#fff">MR</div>
+                        <div>
+                            <div class="r-name">Mike Ross</div>
+                            <div class="r-date">⭐⭐⭐⭐ · 1 month ago</div>
+                        </div>
+                    </div>
+                    <div class="r-text">Solid spot for focused work. Can get crowded on weekends but weekdays are
+                        perfect. The cold brew is top-tier.</div>
+                </div>
+            </div>
+        </div>
+        <div class="map">
+            <div class="map-grid"></div>
+            <div class="road road-h road-main" style="top:35%"></div>
+            <div class="road road-h" style="top:55%"></div>
+            <div class="road road-h" style="top:75%"></div>
+            <div class="road road-v road-main" style="left:30%"></div>
+            <div class="road road-v" style="left:50%"></div>
+            <div class="road road-v" style="left:70%"></div>
+            <div class="marker" style="top:32%;left:28%">
+                <div class="m-pin" style="background:var(--accent)"><span>☕</span></div>
+                <div class="m-label">DevCafe</div>
+            </div>
+            <div class="marker" style="top:50%;left:45%">
+                <div class="m-price">$$$</div>
+            </div>
+            <div class="marker" style="top:40%;left:60%">
+                <div class="m-pin" style="background:#ea4335"><span>🍕</span></div>
+            </div>
+            <div class="marker" style="top:65%;left:35%">
+                <div class="m-pin" style="background:#34a853"><span>🏪</span></div>
+            </div>
+            <div class="marker" style="top:55%;left:70%">
+                <div class="m-pin" style="background:#fbbc04"><span>⛽</span></div>
+            </div>
+            <div class="controls"><button class="ctrl-btn">+</button><button class="ctrl-btn">−</button>
+                <div style="height:8px"></div><button class="ctrl-btn">📍</button><button class="ctrl-btn">🧭</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

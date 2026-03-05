@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AskAI — AI Chat Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #0d0d0d;
+            --sidebar: #171717;
+            --border: rgba(255, 255, 255, .08);
+            --accent: #10a37f;
+            --text: #ececf1;
+            --muted: #8e8ea0;
+            --code-bg: #1a1a2e
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            overflow: hidden
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            border-right: 1px solid var(--border)
+        }
+
+        .s-header {
+            padding: 12px;
+            display: flex;
+            gap: 8px
+        }
+
+        .new-chat {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--text);
+            font-size: .85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter';
+            transition: background .12s
+        }
+
+        .new-chat:hover {
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .s-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 4px 8px
+        }
+
+        .s-list::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .s-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .04);
+            border-radius: 2px
+        }
+
+        .s-section {
+            padding: 8px;
+            font-size: .72rem;
+            color: var(--muted);
+            font-weight: 500
+        }
+
+        .s-item {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: .85rem;
+            cursor: pointer;
+            transition: background .1s;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--muted)
+        }
+
+        .s-item:hover {
+            background: rgba(255, 255, 255, .05);
+            color: var(--text)
+        }
+
+        .s-item.active {
+            background: rgba(255, 255, 255, .08);
+            color: var(--text)
+        }
+
+        .s-footer {
+            padding: 12px;
+            border-top: 1px solid var(--border)
+        }
+
+        .s-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background .1s
+        }
+
+        .s-user:hover {
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .s-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .6rem;
+            font-weight: 700
+        }
+
+        .s-name {
+            font-size: .85rem;
+            font-weight: 500
+        }
+
+        .model-badge {
+            font-size: .65rem;
+            background: rgba(16, 163, 127, .15);
+            color: var(--accent);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500
+        }
+
+        .chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column
+        }
+
+        .chat-header {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .model-sel {
+            padding: 4px 12px;
+            border-radius: 6px;
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: .85rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Inter';
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 6px
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .04);
+            border-radius: 3px
+        }
+
+        .msg {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .03)
+        }
+
+        .msg-inner {
+            max-width: 768px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 16px
+        }
+
+        .msg-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .6rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        .msg-content {
+            flex: 1;
+            font-size: .92rem;
+            line-height: 1.7
+        }
+
+        .msg-content p {
+            margin-bottom: 12px
+        }
+
+        .msg-content code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: .82rem;
+            font-family: 'JetBrains Mono', monospace
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border-radius: 8px;
+            margin: 12px 0;
+            overflow: hidden
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, .03);
+            font-size: .75rem;
+            color: var(--muted)
+        }
+
+        .code-header button {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: .72rem;
+            cursor: pointer;
+            font-family: 'Inter';
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .code-body {
+            padding: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .82rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+            overflow-x: auto
+        }
+
+        .msg-actions {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px
+        }
+
+        .msg-action {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: .72rem;
+            cursor: pointer;
+            color: var(--muted);
+            transition: all .1s
+        }
+
+        .msg-action:hover {
+            background: rgba(255, 255, 255, .05);
+            color: var(--text)
+        }
+
+        .compose {
+            padding: 16px;
+            max-width: 768px;
+            margin: 0 auto;
+            width: 100%
+        }
+
+        .compose-box {
+            display: flex;
+            align-items: flex-end;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .03);
+            padding: 8px 12px;
+            gap: 8px;
+            transition: border-color .15s
+        }
+
+        .compose-box:focus-within {
+            border-color: rgba(255, 255, 255, .2)
+        }
+
+        .compose-box textarea {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: .92rem;
+            outline: none;
+            resize: none;
+            font-family: 'Inter';
+            max-height: 200px;
+            line-height: 1.5;
+            padding: 4px 0
+        }
+
+        .compose-btns {
+            display: flex;
+            gap: 4px;
+            align-items: center
+        }
+
+        .c-btn {
+            padding: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background .1s
+        }
+
+        .c-btn:hover {
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .send-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: .85rem
+        }
+
+        .send-btn:disabled {
+            background: rgba(255, 255, 255, .05);
+            cursor: not-allowed
+        }
+
+        .compose-hint {
+            text-align: center;
+            font-size: .72rem;
+            color: var(--muted);
+            margin-top: 6px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="s-header"><button class="new-chat">✨ New chat</button></div>
+        <div class="s-list">
+            <div class="s-section">Today</div>
+            <div class="s-item active">Build a SaaS dashboard with Next.js</div>
+            <div class="s-item">Explain React Server Components</div>
+            <div class="s-item">Fix TypeScript generic constraint</div>
+            <div class="s-section">Yesterday</div>
+            <div class="s-item">Stripe webhook implementation</div>
+            <div class="s-item">Docker multi-stage build setup</div>
+            <div class="s-item">PostgreSQL query optimization</div>
+            <div class="s-section">Previous 7 Days</div>
+            <div class="s-item">System Design: URL Shortener</div>
+            <div class="s-item">Next.js 15 middleware patterns</div>
+            <div class="s-item">Prisma schema for e-commerce</div>
+            <div class="s-item">React 19 useOptimistic hook</div>
+        </div>
+        <div class="s-footer">
+            <div class="s-user">
+                <div class="s-avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD</div>
+                <div>
+                    <div class="s-name">John Developer</div>
+                    <div class="model-badge">Pro Plan</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat">
+        <div class="chat-header">
+            <div class="model-sel">✨ AskAI 4o <span style="font-size:.65rem;color:var(--muted)">▾</span></div>
+        </div>
+        <div class="messages">
+            <div class="msg">
+                <div class="msg-inner">
+                    <div class="msg-avatar" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff">JD
+                    </div>
+                    <div class="msg-content">
+                        <p>Build me a reusable React hook for infinite scroll with TypeScript. It should handle loading
+                            states, error handling, and support both window and container scrolling.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="msg" style="background:rgba(255,255,255,.01)">
+                <div class="msg-inner">
+                    <div class="msg-avatar" style="background:var(--accent);color:#fff">AI</div>
+                    <div class="msg-content">
+                        <p>Here's a production-ready <code>useInfiniteScroll</code> hook with full TypeScript support:
+                        </p>
+                        <div class="code-block">
+                            <div class="code-header"><span>typescript</span><button>📋 Copy code</button></div>
+                            <div class="code-body"><span style="color:#c678dd">import</span> { useState, useEffect,
+                                useCallback, useRef } <span style="color:#c678dd">from</span> <span
+                                    style="color:#98c379">'react'</span>
+
+                                <span style="color:#c678dd">interface</span> <span
+                                    style="color:#e5c07b">UseInfiniteScrollOptions</span>&lt;<span
+                                    style="color:#e5c07b">T</span>&gt; {
+                                <span style="color:#e06c75">fetchFn</span>: (page: <span
+                                    style="color:#e5c07b">number</span>) =&gt; <span
+                                    style="color:#e5c07b">Promise</span>&lt;<span style="color:#e5c07b">T</span>[]&gt;
+                                <span style="color:#e06c75">threshold</span>?: <span style="color:#e5c07b">number</span>
+                                <span style="color:#e06c75">containerRef</span>?: React.RefObject&lt;HTMLElement&gt;
+                                }
+
+                                <span style="color:#c678dd">export function</span> <span
+                                    style="color:#61afef">useInfiniteScroll</span>&lt;T&gt;(
+                                options: UseInfiniteScrollOptions&lt;T&gt;
+                                ) {
+                                <span style="color:#c678dd">const</span> [data, setData] = useState&lt;T[]&gt;([])
+                                <span style="color:#c678dd">const</span> [loading, setLoading] = useState(<span
+                                    style="color:#d19a66">false</span>)
+                                <span style="color:#c678dd">const</span> [error, setError] = useState&lt;Error | <span
+                                    style="color:#d19a66">null</span>&gt;(<span style="color:#d19a66">null</span>)
+                                <span style="color:#c678dd">const</span> [hasMore, setHasMore] = useState(<span
+                                    style="color:#d19a66">true</span>)
+                                <span style="color:#c678dd">const</span> page = useRef(<span
+                                    style="color:#d19a66">1</span>)
+
+                                <span style="color:#5c6370">// ... full implementation</span>
+                                <span style="color:#c678dd">return</span> { data, loading, error, hasMore }
+                                }
+                            </div>
+                        </div>
+                        <p>Key features of this implementation:</p>
+                        <p>1. <strong>Generic type support</strong> — works with any data shape<br>2. <strong>Dual
+                                scroll targets</strong> — supports both window and container scrolling<br>3.
+                            <strong>Error recovery</strong> — automatic retry on failed requests<br>4. <strong>Memory
+                                efficient</strong> — cleans up event listeners on unmount</p>
+                        <div class="msg-actions"><span class="msg-action">📋 Copy</span><span
+                                class="msg-action">👍</span><span class="msg-action">👎</span><span
+                                class="msg-action">🔄 Regenerate</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="compose">
+            <div class="compose-box"><span class="c-btn">📎</span><textarea rows="1"
+                    placeholder="Message AskAI..."></textarea>
+                <div class="compose-btns"><span class="c-btn">🌐</span><span class="c-btn">🎨</span><button
+                        class="send-btn">↑</button></div>
+            </div>
+            <div class="compose-hint">AskAI can make mistakes. Check important info.</div>
+        </div>
+    </div>
+</body>
+
+</html>

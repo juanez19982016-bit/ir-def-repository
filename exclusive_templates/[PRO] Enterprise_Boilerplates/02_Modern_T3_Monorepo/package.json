@@ -1,0 +1,30 @@
+{
+    "name": "t3-drizzle-monorepo",
+    "private": true,
+    "engines": {
+        "npm": ">=8.0.0",
+        "node": ">=20.0.0"
+    },
+    "packageManager": "npm@10.2.4",
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ],
+    "scripts": {
+        "build": "turbo run build",
+        "dev": "turbo run dev --parallel",
+        "lint": "turbo run lint",
+        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+        "clean": "turbo run clean && rm -rf node_modules",
+        "db:push": "npm run db:push --workspace=@acme/db",
+        "db:studio": "npm run db:studio --workspace=@acme/db"
+    },
+    "dependencies": {
+        "drizzle-orm": "^0.29.3",
+        "zod": "^3.22.4",
+        "turbo": "^1.12.3",
+        "@trpc/server": "next",
+        "@trpc/client": "next",
+        "@trpc/react-query": "next"
+    }
+}

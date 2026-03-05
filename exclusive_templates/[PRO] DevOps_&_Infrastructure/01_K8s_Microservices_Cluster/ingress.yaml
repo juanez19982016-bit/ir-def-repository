@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: saas-production-ingress
+  namespace: saas-production
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    # Essential for Websockets and SSR Next.js
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+spec:
+  tls:
+    - hosts:
+        - "app.yoursaas.com"
+        - "api.yoursaas.com"
+        - "*.yoursaas.com" # Wildcard SSL for Multi-tenant Apps
+      secretName: saas-prod-tls
+  rules:
+    - host: "app.yoursaas.com"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: nextjs-frontend-srv
+                port: 
+                  number: 3000
+    - host: "api.yoursaas.com"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: node-api-srv
+                port: 
+                  number: 8080

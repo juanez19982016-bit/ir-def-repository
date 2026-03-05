@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack Clone — Team Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #1a1d21;
+            --sidebar: #19171d;
+            --main: #1a1d21;
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #4a154b;
+            --green: #007a5a;
+            --text: #d1d2d3;
+            --muted: #9a9b9d;
+            --white: #fff;
+            --hover: rgba(255, 255, 255, 0.04)
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden
+        }
+
+        .workspace-bar {
+            width: 68px;
+            background: #3f0e40;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 0;
+            gap: 4px;
+            flex-shrink: 0
+        }
+
+        .ws-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent
+        }
+
+        .ws-icon.active {
+            border-color: var(--white);
+            border-radius: 10px
+        }
+
+        .ws-icon:hover {
+            border-radius: 8px
+        }
+
+        .ws-divider {
+            width: 32px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 4px 0;
+            border-radius: 2px
+        }
+
+        .ws-add {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.5)
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            border-right: 1px solid var(--border)
+        }
+
+        .sb-header {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .sb-team {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--white)
+        }
+
+        .sb-compose {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--sidebar);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem
+        }
+
+        .sb-search {
+            margin: 8px 12px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.85rem;
+            outline: none;
+            font-family: 'Inter'
+        }
+
+        .sb-section {
+            padding: 8px 12px 4px;
+            font-size: 0.82rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .sb-channel {
+            padding: 4px 12px 4px 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.1s;
+            border-radius: 0;
+            color: var(--muted)
+        }
+
+        .sb-channel:hover {
+            background: rgba(255, 255, 255, 0.04)
+        }
+
+        .sb-channel.active {
+            background: rgba(18, 100, 163, 0.2);
+            color: var(--white)
+        }
+
+        .sb-channel .hash {
+            font-size: 1rem;
+            opacity: 0.6;
+            width: 16px
+        }
+
+        .sb-channel .badge {
+            margin-left: auto;
+            padding: 0 6px;
+            border-radius: 10px;
+            background: var(--accent);
+            color: var(--white);
+            font-size: 0.7rem;
+            font-weight: 700;
+            min-width: 18px;
+            text-align: center
+        }
+
+        .sb-dm {
+            padding: 4px 12px 4px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.1s
+        }
+
+        .sb-dm:hover {
+            background: rgba(255, 255, 255, 0.04)
+        }
+
+        .dm-av {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            font-weight: 700;
+            position: relative
+        }
+
+        .dm-av .status {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 2px solid var(--sidebar)
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column
+        }
+
+        .ch-header {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+            background: var(--main)
+        }
+
+        .ch-header h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white)
+        }
+
+        .ch-header .ch-topic {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-left: 8px;
+            padding-left: 8px;
+            border-left: 1px solid var(--border)
+        }
+
+        .ch-header .ch-right {
+            margin-left: auto;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .ch-btn {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            color: var(--muted);
+            transition: background 0.15s
+        }
+
+        .ch-btn:hover {
+            background: var(--hover)
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 6px
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px
+        }
+
+        .msg-date {
+            text-align: center;
+            padding: 16px 0 8px;
+            position: relative
+        }
+
+        .msg-date::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border)
+        }
+
+        .msg-date span {
+            position: relative;
+            background: var(--main);
+            padding: 0 12px;
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-weight: 500;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            display: inline-block
+        }
+
+        .msg {
+            display: flex;
+            gap: 10px;
+            padding: 8px 0;
+            margin: 0
+        }
+
+        .msg:hover {
+            background: var(--hover);
+            margin: 0 -20px;
+            padding: 8px 20px
+        }
+
+        .msg-av {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        .msg-content {
+            flex: 1;
+            min-width: 0
+        }
+
+        .msg-header {
+            display: flex;
+            align-items: baseline;
+            gap: 8px
+        }
+
+        .msg-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--white);
+            cursor: pointer
+        }
+
+        .msg-name:hover {
+            text-decoration: underline
+        }
+
+        .msg-time {
+            font-size: 0.72rem;
+            color: var(--muted)
+        }
+
+        .msg-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 2px
+        }
+
+        .msg-text code {
+            padding: 2px 4px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            font-size: 0.85rem;
+            color: #e06c75
+        }
+
+        .msg-text a {
+            color: #1d9bd1
+        }
+
+        .msg-reactions {
+            display: flex;
+            gap: 4px;
+            margin-top: 6px
+        }
+
+        .reaction {
+            padding: 2px 8px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .reaction:hover {
+            border-color: rgba(29, 155, 240, 0.3);
+            background: rgba(29, 155, 240, 0.05)
+        }
+
+        .reaction .r-count {
+            font-size: 0.75rem;
+            color: var(--muted)
+        }
+
+        .msg-code-block {
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            font-family: monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: pre;
+            color: #abb2bf
+        }
+
+        .compose-area {
+            padding: 12px 20px;
+            border-top: 1px solid var(--border)
+        }
+
+        .compose-box {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden
+        }
+
+        .compose-bar {
+            display: flex;
+            padding: 4px 8px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02)
+        }
+
+        .fmt-btn {
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--muted);
+            transition: background 0.15s
+        }
+
+        .fmt-btn:hover {
+            background: var(--hover)
+        }
+
+        .compose-text {
+            padding: 10px 12px;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            outline: none;
+            width: 100%;
+            resize: none;
+            min-height: 40px;
+            font-family: 'Inter'
+        }
+
+        .compose-text::placeholder {
+            color: var(--muted)
+        }
+
+        .compose-bottom {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 8px;
+            align-items: center
+        }
+
+        .attach-icons {
+            display: flex;
+            gap: 2px
+        }
+
+        .send-btn {
+            padding: 6px 10px;
+            border-radius: 6px;
+            background: var(--green);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: 'Inter';
+            opacity: 0.4
+        }
+    </style>
+</head>
+
+<body>
+    <div class="workspace-bar">
+        <div class="ws-icon active" style="background:linear-gradient(135deg,#4a154b,#611f69)">A</div>
+        <div class="ws-icon" style="background:linear-gradient(135deg,#1264a3,#0b4f8a)">D</div>
+        <div class="ws-icon" style="background:linear-gradient(135deg,#007a5a,#005e47)">P</div>
+        <div class="ws-divider"></div>
+        <div class="ws-add">+</div>
+    </div>
+    <aside class="sidebar">
+        <div class="sb-header"><span class="sb-team">Acme Inc</span>
+            <div class="sb-compose">✏️</div>
+        </div>
+        <input class="sb-search" placeholder="🔍 Search Acme Inc">
+        <div class="sb-section"><span>Channels</span><span style="cursor:pointer">+</span></div>
+        <div class="sb-channel active"><span class="hash">#</span>general</div>
+        <div class="sb-channel"><span class="hash">#</span>engineering<span class="badge">3</span></div>
+        <div class="sb-channel"><span class="hash">#</span>design</div>
+        <div class="sb-channel"><span class="hash">#</span>random</div>
+        <div class="sb-channel"><span class="hash">#</span>announcements</div>
+        <div class="sb-channel"><span class="hash">#</span>devops</div>
+        <div class="sb-section"><span>Direct Messages</span><span style="cursor:pointer">+</span></div>
+        <div class="sb-dm">
+            <div class="dm-av" style="background:#e0a030">
+                <div class="status" style="background:#007a5a"></div>SK
+            </div>Sarah Kim
+        </div>
+        <div class="sb-dm">
+            <div class="dm-av" style="background:#6b82f6">
+                <div class="status" style="background:#007a5a"></div>MR
+            </div>Mike Ross
+        </div>
+        <div class="sb-dm">
+            <div class="dm-av" style="background:#ec4899">
+                <div class="status" style="background:var(--muted)"></div>AL
+            </div>Alex Liu
+        </div>
+    </aside>
+    <div class="main">
+        <div class="ch-header"><span>#</span>
+            <h2>general</h2><span class="ch-topic">Company-wide announcements and updates</span>
+            <div class="ch-right"><span class="ch-btn">👤 24</span><span class="ch-btn">📌</span><span
+                    class="ch-btn">🔍</span></div>
+        </div>
+        <div class="messages">
+            <div class="msg-date"><span>Monday, March 3</span></div>
+            <div class="msg">
+                <div class="msg-av" style="background:linear-gradient(135deg,#e0a030,#c9890a)">SK</div>
+                <div class="msg-content">
+                    <div class="msg-header"><span class="msg-name">Sarah Kim</span><span class="msg-time">9:15 AM</span>
+                    </div>
+                    <div class="msg-text">Good morning team! 👋 Quick update: the v2 migration is complete. All services
+                        are now running on the new infrastructure. Performance improvements are already visible — avg
+                        response time dropped from 180ms to 42ms 🚀</div>
+                    <div class="msg-reactions"><span class="reaction">🎉 <span class="r-count">8</span></span><span
+                            class="reaction">🚀 <span class="r-count">5</span></span><span class="reaction">🔥 <span
+                                class="r-count">3</span></span></div>
+                </div>
+            </div>
+            <div class="msg">
+                <div class="msg-av" style="background:linear-gradient(135deg,#6b82f6,#4f46e5)">MR</div>
+                <div class="msg-content">
+                    <div class="msg-header"><span class="msg-name">Mike Ross</span><span class="msg-time">9:32 AM</span>
+                    </div>
+                    <div class="msg-text">That's incredible! The <code>loadDashboard()</code> function went from 3.2s to
+                        400ms. Users are going to love this.<br><br>I've already pushed the monitoring dashboards
+                        update: <a>grafana.acme.dev/v2-perf</a></div>
+                </div>
+            </div>
+            <div class="msg">
+                <div class="msg-av" style="background:linear-gradient(135deg,#ec4899,#db2777)">AL</div>
+                <div class="msg-content">
+                    <div class="msg-header"><span class="msg-name">Alex Liu</span><span class="msg-time">10:05 AM</span>
+                    </div>
+                    <div class="msg-text">Design team has the new component library ready. Here's a sneak peek of the
+                        updated dashboard:<div class="msg-code-block">// New API hook pattern
+                            const { data, isLoading } = useQuery({
+                            queryKey: ['dashboard', userId],
+                            queryFn: () => fetchDashboard(userId),
+                            staleTime: 5 * 60 * 1000,
+                            });</div>
+                    </div>
+                    <div class="msg-reactions"><span class="reaction">👀 <span class="r-count">4</span></span><span
+                            class="reaction">💯 <span class="r-count">6</span></span></div>
+                </div>
+            </div>
+            <div class="msg-date"><span>Today</span></div>
+            <div class="msg">
+                <div class="msg-av" style="background:linear-gradient(135deg,#22c55e,#16a34a)">JD</div>
+                <div class="msg-content">
+                    <div class="msg-header"><span class="msg-name">John Doe</span><span class="msg-time">8:45 AM</span>
+                    </div>
+                    <div class="msg-text">@channel Reminder: Sprint review at 2pm today. Please have your demos ready.
+                        We'll be showcasing the new features to stakeholders. 🎯</div>
+                    <div class="msg-reactions"><span class="reaction">👍 <span class="r-count">12</span></span><span
+                            class="reaction">✅ <span class="r-count">8</span></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="compose-area">
+            <div class="compose-box">
+                <div class="compose-bar"><span class="fmt-btn"><b>B</b></span><span class="fmt-btn"><i>I</i></span><span
+                        class="fmt-btn"><s>S</s></span><span class="fmt-btn">🔗</span><span
+                        class="fmt-btn">📋</span><span class="fmt-btn"><code>&lt;/&gt;</code></span></div><textarea
+                    class="compose-text" placeholder="Message #general"></textarea>
+                <div class="compose-bottom">
+                    <div class="attach-icons"><span class="fmt-btn">📎</span><span class="fmt-btn">📷</span><span
+                            class="fmt-btn">😀</span><span class="fmt-btn">@</span></div><button
+                        class="send-btn">➤</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

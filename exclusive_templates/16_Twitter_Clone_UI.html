@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chirp — Social Media App Clone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #000;
+            --sidebar: #000;
+            --card: #16181c;
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #1d9bf0;
+            --text: #e7e9ea;
+            --muted: #71767b;
+            --hover: rgba(255, 255, 255, 0.03)
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden
+        }
+
+        .app {
+            display: flex;
+            max-width: 1280px;
+            width: 100%;
+            height: 100%
+        }
+
+        .sidebar {
+            width: 240px;
+            padding: 0 12px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border);
+            flex-shrink: 0
+        }
+
+        .sb-logo {
+            padding: 12px;
+            font-size: 1.5rem;
+            margin-bottom: 4px
+        }
+
+        .sb-item {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 1rem;
+            border-radius: 100px;
+            transition: background 0.2s;
+            cursor: pointer;
+            color: var(--text)
+        }
+
+        .sb-item:hover {
+            background: var(--hover)
+        }
+
+        .sb-item.active {
+            font-weight: 700
+        }
+
+        .sb-item .icon {
+            font-size: 1.3rem;
+            width: 26px;
+            text-align: center
+        }
+
+        .sb-item .badge {
+            margin-left: auto;
+            background: var(--accent);
+            color: #fff;
+            padding: 1px 8px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700
+        }
+
+        .sb-tweet {
+            margin-top: 1rem;
+            padding: 14px;
+            border-radius: 100px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            font-family: 'Inter', sans-serif
+        }
+
+        .sb-profile {
+            margin-top: auto;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 12px
+        }
+
+        .sb-profile:hover {
+            background: var(--hover)
+        }
+
+        .sb-av {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0
+        }
+
+        .sb-info .name {
+            font-weight: 700;
+            font-size: 0.88rem
+        }
+
+        .sb-info .handle {
+            color: var(--muted);
+            font-size: 0.85rem
+        }
+
+        .feed {
+            flex: 1;
+            border-right: 1px solid var(--border);
+            overflow-y: auto
+        }
+
+        .feed::-webkit-scrollbar {
+            width: 0
+        }
+
+        .feed-header {
+            padding: 16px;
+            font-size: 1.15rem;
+            font-weight: 800;
+            position: sticky;
+            top: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            z-index: 10;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .feed-tabs {
+            display: flex;
+            position: sticky;
+            top: 53px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            z-index: 9;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .feed-tab {
+            flex: 1;
+            text-align: center;
+            padding: 16px 0;
+            font-size: 0.92rem;
+            color: var(--muted);
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s
+        }
+
+        .feed-tab.active {
+            color: var(--text);
+            font-weight: 600
+        }
+
+        .feed-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 56px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 4px
+        }
+
+        .compose {
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .compose-av {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700
+        }
+
+        .compose-box {
+            flex: 1
+        }
+
+        .compose-input {
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.1rem;
+            outline: none;
+            resize: none;
+            font-family: 'Inter', sans-serif;
+            min-height: 50px
+        }
+
+        .compose-input::placeholder {
+            color: var(--muted)
+        }
+
+        .compose-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border)
+        }
+
+        .compose-icons {
+            display: flex;
+            gap: 4px
+        }
+
+        .c-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.9rem;
+            color: var(--accent)
+        }
+
+        .c-icon:hover {
+            background: rgba(29, 155, 240, 0.1)
+        }
+
+        .c-btn {
+            padding: 8px 20px;
+            border-radius: 100px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.88rem;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            opacity: 0.5
+        }
+
+        .tweet {
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+            cursor: pointer
+        }
+
+        .tweet:hover {
+            background: var(--hover)
+        }
+
+        .tweet-av {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem
+        }
+
+        .tweet-content {
+            flex: 1;
+            min-width: 0
+        }
+
+        .tweet-header {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .tweet-name {
+            font-weight: 700;
+            font-size: 0.92rem
+        }
+
+        .tweet-verified {
+            color: var(--accent);
+            font-size: 0.9rem
+        }
+
+        .tweet-handle,
+        .tweet-time {
+            color: var(--muted);
+            font-size: 0.88rem
+        }
+
+        .tweet-text {
+            margin-top: 4px;
+            font-size: 0.95rem;
+            line-height: 1.5
+        }
+
+        .tweet-text a {
+            color: var(--accent)
+        }
+
+        .tweet-img {
+            margin-top: 12px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem
+        }
+
+        .tweet-actions {
+            display: flex;
+            gap: 0;
+            margin-top: 12px;
+            margin-left: -8px
+        }
+
+        .tweet-action {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 100px;
+            font-size: 0.82rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+            max-width: 120px
+        }
+
+        .tweet-action:hover {
+            color: var(--accent);
+            background: rgba(29, 155, 240, 0.1)
+        }
+
+        .tweet-action.liked {
+            color: #f91880
+        }
+
+        .tweet-action.liked:hover {
+            background: rgba(249, 24, 128, 0.1)
+        }
+
+        .tweet-action.rt {
+            color: var(--muted)
+        }
+
+        .tweet-action.rt:hover {
+            color: #00ba7c;
+            background: rgba(0, 186, 124, 0.1)
+        }
+
+        .trending {
+            width: 320px;
+            padding: 0 16px;
+            overflow-y: auto
+        }
+
+        .trending::-webkit-scrollbar {
+            width: 0
+        }
+
+        .search {
+            margin: 12px 0;
+            position: relative
+        }
+
+        .search input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            border-radius: 100px;
+            background: var(--card);
+            border: 1px solid transparent;
+            color: var(--text);
+            font-size: 0.88rem;
+            outline: none;
+            font-family: 'Inter', sans-serif
+        }
+
+        .search input:focus {
+            border-color: var(--accent);
+            background: var(--bg)
+        }
+
+        .search .s-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted)
+        }
+
+        .trend-box {
+            background: var(--card);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden
+        }
+
+        .trend-header {
+            padding: 16px;
+            font-size: 1.15rem;
+            font-weight: 800
+        }
+
+        .trend-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background 0.2s
+        }
+
+        .trend-item:hover {
+            background: rgba(255, 255, 255, 0.03)
+        }
+
+        .trend-cat {
+            font-size: 0.75rem;
+            color: var(--muted)
+        }
+
+        .trend-name {
+            font-weight: 700;
+            font-size: 0.92rem;
+            margin: 2px 0
+        }
+
+        .trend-count {
+            font-size: 0.75rem;
+            color: var(--muted)
+        }
+
+        .trend-more {
+            padding: 16px;
+            color: var(--accent);
+            font-size: 0.88rem;
+            cursor: pointer
+        }
+
+        .who-item {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background 0.2s
+        }
+
+        .who-item:hover {
+            background: rgba(255, 255, 255, 0.03)
+        }
+
+        .who-av {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0
+        }
+
+        .who-info {
+            flex: 1
+        }
+
+        .who-name {
+            font-weight: 700;
+            font-size: 0.88rem
+        }
+
+        .who-handle {
+            font-size: 0.82rem;
+            color: var(--muted)
+        }
+
+        .who-btn {
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: #fff;
+            color: #000;
+            font-weight: 700;
+            font-size: 0.82rem;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif
+        }
+
+        @media(max-width:1000px) {
+            .trending {
+                display: none
+            }
+        }
+
+        @media(max-width:700px) {
+            .sidebar {
+                width: 68px
+            }
+
+            .sidebar .sb-text,
+            .sidebar .sb-info {
+                display: none
+            }
+
+            .sidebar .sb-tweet {
+                width: 50px;
+                height: 50px;
+                padding: 0;
+                border-radius: 50%
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sb-logo">🐦</div>
+            <div class="sb-item active"><span class="icon">🏠</span><span class="sb-text">Home</span></div>
+            <div class="sb-item"><span class="icon">🔍</span><span class="sb-text">Explore</span></div>
+            <div class="sb-item"><span class="icon">🔔</span><span class="sb-text">Notifications</span><span
+                    class="badge">3</span></div>
+            <div class="sb-item"><span class="icon">✉️</span><span class="sb-text">Messages</span></div>
+            <div class="sb-item"><span class="icon">📋</span><span class="sb-text">Lists</span></div>
+            <div class="sb-item"><span class="icon">🔖</span><span class="sb-text">Bookmarks</span></div>
+            <div class="sb-item"><span class="icon">👤</span><span class="sb-text">Profile</span></div>
+            <div class="sb-item"><span class="icon">⚙️</span><span class="sb-text">Settings</span></div>
+            <button class="sb-tweet">Post</button>
+            <div class="sb-profile">
+                <div class="sb-av" style="background:linear-gradient(135deg,#1d9bf0,#0a66c2)">JD</div>
+                <div class="sb-info">
+                    <div class="name">John Doe</div>
+                    <div class="handle">@johndoe</div>
+                </div>
+            </div>
+        </aside>
+        <main class="feed">
+            <div class="feed-header">Home</div>
+            <div class="feed-tabs">
+                <div class="feed-tab active">For you</div>
+                <div class="feed-tab">Following</div>
+            </div>
+            <div class="compose">
+                <div class="compose-av" style="background:linear-gradient(135deg,#1d9bf0,#0a66c2)">JD</div>
+                <div class="compose-box"><textarea class="compose-input" placeholder="What's happening?"></textarea>
+                    <div class="compose-actions">
+                        <div class="compose-icons"><span class="c-icon">📷</span><span class="c-icon">📊</span><span
+                                class="c-icon">😀</span><span class="c-icon">📅</span></div><button
+                            class="c-btn">Post</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tweet">
+                <div class="tweet-av" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)">VR</div>
+                <div class="tweet-content">
+                    <div class="tweet-header"><span class="tweet-name">Vercel</span><span
+                            class="tweet-verified">✓</span><span class="tweet-handle">@vercel</span><span
+                            class="tweet-time">· 2h</span></div>
+                    <div class="tweet-text">Next.js 15.2 is here! 🚀<br><br>• Turbopack is now stable<br>• React
+                        Compiler integration<br>• 40% faster cold starts<br><br>Upgrade today: <a>nextjs.org/blog</a>
+                    </div>
+                    <div class="tweet-img" style="background:linear-gradient(135deg,#000,#111)">▲</div>
+                    <div class="tweet-actions"><span class="tweet-action">💬 842</span><span class="tweet-action rt">🔄
+                            3.2K</span><span class="tweet-action liked">❤️ 12.4K</span><span class="tweet-action">📊
+                            340K</span></div>
+                </div>
+            </div>
+            <div class="tweet">
+                <div class="tweet-av" style="background:linear-gradient(135deg,#22c55e,#16a34a)">SK</div>
+                <div class="tweet-content">
+                    <div class="tweet-header"><span class="tweet-name">Sarah Kim</span><span
+                            class="tweet-verified">✓</span><span class="tweet-handle">@sarahcodes</span><span
+                            class="tweet-time">· 4h</span></div>
+                    <div class="tweet-text">Hot take: Most developers over-engineer their auth.<br><br>You don't need
+                        OAuth2 + JWT + refresh tokens for your todo app.<br><br>Session cookies work fine for 99% of use
+                        cases. Stop making auth harder than it needs to be.</div>
+                    <div class="tweet-actions"><span class="tweet-action">💬 234</span><span class="tweet-action rt">🔄
+                            1.8K</span><span class="tweet-action">❤️ 8.2K</span><span class="tweet-action">📊
+                            180K</span></div>
+                </div>
+            </div>
+            <div class="tweet">
+                <div class="tweet-av" style="background:linear-gradient(135deg,#f59e0b,#d97706)">TH</div>
+                <div class="tweet-content">
+                    <div class="tweet-header"><span class="tweet-name">Theo</span><span
+                            class="tweet-verified">✓</span><span class="tweet-handle">@t3dotgg</span><span
+                            class="tweet-time">· 6h</span></div>
+                    <div class="tweet-text">Just found <a>DevVault Pro</a> and I'm genuinely confused how this is only
+                        $149.<br><br>It includes a full SaaS starter kit that's better than most $200+ boilerplates I've
+                        seen. Plus 15 exclusive templates AND production Docker configs.<br><br>This is actually insane
+                        value. 🤯</div>
+                    <div class="tweet-actions"><span class="tweet-action">💬 127</span><span class="tweet-action rt">🔄
+                            892</span><span class="tweet-action liked">❤️ 4.1K</span><span class="tweet-action">📊
+                            95K</span></div>
+                </div>
+            </div>
+            <div class="tweet">
+                <div class="tweet-av" style="background:linear-gradient(135deg,#ec4899,#db2777)">AL</div>
+                <div class="tweet-content">
+                    <div class="tweet-header"><span class="tweet-name">Alex Liu</span><span
+                            class="tweet-handle">@alexliu_dev</span><span class="tweet-time">· 8h</span></div>
+                    <div class="tweet-text">Day 47 of building my SaaS in public:<br><br>✅ Landed 3 paying
+                        customers<br>✅ MRR: $87<br>✅ Fixed the auth bug that haunted my dreams<br>❌ Still haven't
+                        touched that landing page<br><br>Baby steps. 🐣</div>
+                    <div class="tweet-actions"><span class="tweet-action">💬 56</span><span class="tweet-action rt">🔄
+                            423</span><span class="tweet-action">❤️ 2.3K</span><span class="tweet-action">📊 42K</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <aside class="trending">
+            <div class="search"><span class="s-icon">🔍</span><input placeholder="Search"></div>
+            <div class="trend-box">
+                <div class="trend-header">Trends for you</div>
+                <div class="trend-item">
+                    <div class="trend-cat">Technology · Trending</div>
+                    <div class="trend-name">Next.js 15</div>
+                    <div class="trend-count">42.3K posts</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-cat">Development · Trending</div>
+                    <div class="trend-name">React Compiler</div>
+                    <div class="trend-count">28.1K posts</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-cat">Tech · Trending</div>
+                    <div class="trend-name">#BuildInPublic</div>
+                    <div class="trend-count">18.7K posts</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-cat">Programming · Trending</div>
+                    <div class="trend-name">Rust vs Go</div>
+                    <div class="trend-count">12.4K posts</div>
+                </div>
+                <div class="trend-more">Show more</div>
+            </div>
+            <div class="trend-box">
+                <div class="trend-header">Who to follow</div>
+                <div class="who-item">
+                    <div class="who-av" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">GR</div>
+                    <div class="who-info">
+                        <div class="who-name">Guillermo Rauch</div>
+                        <div class="who-handle">@raabordon</div>
+                    </div><button class="who-btn">Follow</button>
+                </div>
+                <div class="who-item">
+                    <div class="who-av" style="background:linear-gradient(135deg,#ef4444,#b91c1c)">DK</div>
+                    <div class="who-info">
+                        <div class="who-name">Dan Abramov</div>
+                        <div class="who-handle">@dan_abramov2</div>
+                    </div><button class="who-btn">Follow</button>
+                </div>
+                <div class="who-item">
+                    <div class="who-av" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">LR</div>
+                    <div class="who-info">
+                        <div class="who-name">Lee Robinson</div>
+                        <div class="who-handle">@leeerob</div>
+                    </div><button class="who-btn">Follow</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>
+
+</html>

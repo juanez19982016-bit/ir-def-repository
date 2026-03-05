@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Clone — Music Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #000;
+            --sidebar: #121212;
+            --card: #181818;
+            --card-hover: #282828;
+            --border: rgba(255, 255, 255, 0.06);
+            --accent: #1db954;
+            --text: #fff;
+            --muted: #b3b3b3;
+            --subdued: #6a6a6a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden
+        }
+
+        .app {
+            display: flex;
+            flex: 1;
+            gap: 8px;
+            padding: 8px;
+            padding-bottom: 0;
+            overflow: hidden
+        }
+
+        .sidebar {
+            width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0
+        }
+
+        .sb-nav {
+            background: var(--sidebar);
+            border-radius: 8px;
+            padding: 8px 12px
+        }
+
+        .sb-item {
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+            color: var(--muted)
+        }
+
+        .sb-item:hover,
+        .sb-item.active {
+            color: var(--text)
+        }
+
+        .sb-item .icon {
+            font-size: 1.3rem;
+            width: 24px;
+            text-align: center
+        }
+
+        .sb-lib {
+            background: var(--sidebar);
+            border-radius: 8px;
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column
+        }
+
+        .sb-lib-header {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .sb-lib-header h3 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .sb-lib-header .add {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 1.2rem;
+            transition: all 0.15s
+        }
+
+        .sb-lib-header .add:hover {
+            color: var(--text);
+            background: var(--card-hover)
+        }
+
+        .sb-filter {
+            display: flex;
+            gap: 8px;
+            padding: 0 16px 12px
+        }
+
+        .filter-chip {
+            padding: 6px 14px;
+            border-radius: 100px;
+            background: var(--card-hover);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.15s
+        }
+
+        .filter-chip.active {
+            background: var(--text);
+            color: #000
+        }
+
+        .sb-playlists {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 8px 8px
+        }
+
+        .sb-playlists::-webkit-scrollbar {
+            width: 0
+        }
+
+        .sb-pl {
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.15s
+        }
+
+        .sb-pl:hover {
+            background: var(--card-hover)
+        }
+
+        .pl-cover {
+            width: 48px;
+            height: 48px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.3rem
+        }
+
+        .pl-info {
+            min-width: 0
+        }
+
+        .pl-name {
+            font-size: 0.88rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .pl-name.active {
+            color: var(--accent)
+        }
+
+        .pl-desc {
+            font-size: 0.78rem;
+            color: var(--subdued);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .main {
+            flex: 1;
+            background: var(--sidebar);
+            border-radius: 8px;
+            overflow-y: auto;
+            position: relative
+        }
+
+        .main::-webkit-scrollbar {
+            width: 8px
+        }
+
+        .main::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px
+        }
+
+        .main-gradient {
+            height: 340px;
+            background: linear-gradient(180deg, #3d155b, var(--sidebar) 100%);
+            padding: 2rem;
+            display: flex;
+            align-items: flex-end;
+            gap: 1.5rem
+        }
+
+        .album-cover {
+            width: 232px;
+            height: 232px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+            flex-shrink: 0
+        }
+
+        .album-info {
+            padding-bottom: 1rem
+        }
+
+        .album-type {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            font-weight: 600
+        }
+
+        .album-title {
+            font-size: clamp(2rem, 5vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin: 0.5rem 0
+        }
+
+        .album-meta {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            color: var(--muted)
+        }
+
+        .album-meta strong {
+            color: var(--text)
+        }
+
+        .controls {
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem
+        }
+
+        .play-big {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.1s;
+            border: none;
+            color: #000
+        }
+
+        .play-big:hover {
+            transform: scale(1.06)
+        }
+
+        .ctrl-icon {
+            font-size: 1.5rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: color 0.15s
+        }
+
+        .ctrl-icon:hover {
+            color: var(--text)
+        }
+
+        .tracklist {
+            padding: 0 2rem 2rem
+        }
+
+        .track-header {
+            display: grid;
+            grid-template-columns: 32px 1fr 1fr 60px;
+            gap: 16px;
+            padding: 8px 16px;
+            font-size: 0.78rem;
+            color: var(--subdued);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 4px
+        }
+
+        .track {
+            display: grid;
+            grid-template-columns: 32px 1fr 1fr 60px;
+            gap: 16px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.15s;
+            align-items: center
+        }
+
+        .track:hover {
+            background: rgba(255, 255, 255, 0.05)
+        }
+
+        .track-num {
+            font-size: 0.92rem;
+            color: var(--subdued);
+            text-align: center
+        }
+
+        .track:hover .track-num {
+            visibility: hidden
+        }
+
+        .track:hover .track-num::after {
+            content: '▶';
+            visibility: visible;
+            color: var(--text);
+            font-size: 0.8rem
+        }
+
+        .track-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px
+        }
+
+        .track-title {
+            font-size: 0.92rem;
+            font-weight: 500
+        }
+
+        .track.playing .track-title {
+            color: var(--accent)
+        }
+
+        .track-artist {
+            font-size: 0.82rem;
+            color: var(--subdued)
+        }
+
+        .track-album {
+            font-size: 0.85rem;
+            color: var(--subdued)
+        }
+
+        .track-dur {
+            font-size: 0.85rem;
+            color: var(--subdued);
+            text-align: right
+        }
+
+        .player {
+            height: 72px;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            border-top: 1px solid var(--border)
+        }
+
+        .player-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 30%;
+            min-width: 180px
+        }
+
+        .player-cover {
+            width: 56px;
+            height: 56px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0
+        }
+
+        .player-info {
+            min-width: 0
+        }
+
+        .now-title {
+            font-size: 0.82rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .now-artist {
+            font-size: 0.72rem;
+            color: var(--subdued)
+        }
+
+        .player-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            max-width: 722px;
+            margin: 0 auto
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px
+        }
+
+        .p-btn {
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.15s
+        }
+
+        .p-btn:hover {
+            color: var(--text)
+        }
+
+        .p-play {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--text);
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.85rem
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%
+        }
+
+        .progress-time {
+            font-size: 0.7rem;
+            color: var(--subdued);
+            min-width: 35px
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative
+        }
+
+        .progress-fill {
+            width: 35%;
+            height: 100%;
+            background: var(--text);
+            border-radius: 2px;
+            position: relative;
+            transition: background 0.15s
+        }
+
+        .progress-bar:hover .progress-fill {
+            background: var(--accent)
+        }
+
+        .player-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 30%;
+            justify-content: flex-end
+        }
+
+        .vol-bar {
+            width: 100px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative
+        }
+
+        .vol-fill {
+            width: 65%;
+            height: 100%;
+            background: var(--text);
+            border-radius: 2px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sb-nav">
+                <div class="sb-item active"><span class="icon">🏠</span>Home</div>
+                <div class="sb-item"><span class="icon">🔍</span>Search</div>
+            </div>
+            <div class="sb-lib">
+                <div class="sb-lib-header">
+                    <h3>📚 Your Library</h3><span class="add">+</span>
+                </div>
+                <div class="sb-filter"><span class="filter-chip active">Playlists</span><span
+                        class="filter-chip">Albums</span><span class="filter-chip">Artists</span></div>
+                <div class="sb-playlists">
+                    <div class="sb-pl">
+                        <div class="pl-cover" style="background:linear-gradient(135deg,#3d155b,#4a1663)">🎵</div>
+                        <div class="pl-info">
+                            <div class="pl-name active">Liked Songs</div>
+                            <div class="pl-desc">Playlist · 247 songs</div>
+                        </div>
+                    </div>
+                    <div class="sb-pl">
+                        <div class="pl-cover" style="background:linear-gradient(135deg,#1a3a1a,#224422)">🎧</div>
+                        <div class="pl-info">
+                            <div class="pl-name">Coding Focus</div>
+                            <div class="pl-desc">Playlist · 89 songs</div>
+                        </div>
+                    </div>
+                    <div class="sb-pl">
+                        <div class="pl-cover" style="background:linear-gradient(135deg,#3a1a10,#442210)">☕</div>
+                        <div class="pl-info">
+                            <div class="pl-name">Morning Coffee</div>
+                            <div class="pl-desc">Playlist · 42 songs</div>
+                        </div>
+                    </div>
+                    <div class="sb-pl">
+                        <div class="pl-cover" style="background:linear-gradient(135deg,#1a1a3a,#222244)">🌙</div>
+                        <div class="pl-info">
+                            <div class="pl-name">Late Night</div>
+                            <div class="pl-desc">Playlist · 63 songs</div>
+                        </div>
+                    </div>
+                    <div class="sb-pl">
+                        <div class="pl-cover" style="background:linear-gradient(135deg,#3a3a1a,#444422)">🏋️</div>
+                        <div class="pl-info">
+                            <div class="pl-name">Workout Beast</div>
+                            <div class="pl-desc">Playlist · 78 songs</div>
+                        </div>
+                    </div>
+                    <div class="sb-pl">
+                        <div class="pl-cover" style="background:linear-gradient(135deg,#3a1a30,#442240)">💜</div>
+                        <div class="pl-info">
+                            <div class="pl-name">Synthwave Dreams</div>
+                            <div class="pl-desc">Playlist · 55 songs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <main class="main">
+            <div class="main-gradient">
+                <div class="album-cover" style="background:linear-gradient(135deg,#5b3d8f,#3d155b)">🎵</div>
+                <div class="album-info"><span class="album-type">Playlist</span>
+                    <h1 class="album-title">Coding Focus</h1><span class="album-meta"><strong>John Doe</strong> · 89
+                        songs, about 5 hr 30 min</span>
+                </div>
+            </div>
+            <div class="controls"><button class="play-big">▶</button><span class="ctrl-icon">🔀</span><span
+                    class="ctrl-icon">⋯</span></div>
+            <div class="tracklist">
+                <div class="track-header"><span>#</span><span>Title</span><span>Album</span><span>🕐</span></div>
+                <div class="track playing"><span class="track-num">1</span>
+                    <div class="track-info"><span class="track-title">Midnight City</span><span
+                            class="track-artist">M83</span></div><span class="track-album">Hurry Up, We're
+                        Dreaming</span><span class="track-dur">4:03</span>
+                </div>
+                <div class="track"><span class="track-num">2</span>
+                    <div class="track-info"><span class="track-title">Intro</span><span class="track-artist">The
+                            xx</span></div><span class="track-album">xx</span><span class="track-dur">2:07</span>
+                </div>
+                <div class="track"><span class="track-num">3</span>
+                    <div class="track-info"><span class="track-title">Breathe</span><span
+                            class="track-artist">Télépopmusik</span></div><span class="track-album">Genetic
+                        World</span><span class="track-dur">4:50</span>
+                </div>
+                <div class="track"><span class="track-num">4</span>
+                    <div class="track-info"><span class="track-title">Strobe</span><span
+                            class="track-artist">Deadmau5</span></div><span class="track-album">For Lack of a Better
+                        Name</span><span class="track-dur">10:37</span>
+                </div>
+                <div class="track"><span class="track-num">5</span>
+                    <div class="track-info"><span class="track-title">Avril 14th</span><span class="track-artist">Aphex
+                            Twin</span></div><span class="track-album">Drukqs</span><span class="track-dur">2:05</span>
+                </div>
+                <div class="track"><span class="track-num">6</span>
+                    <div class="track-info"><span class="track-title">Teardrop</span><span class="track-artist">Massive
+                            Attack</span></div><span class="track-album">Mezzanine</span><span
+                        class="track-dur">5:30</span>
+                </div>
+                <div class="track"><span class="track-num">7</span>
+                    <div class="track-info"><span class="track-title">Sunset Lover</span><span
+                            class="track-artist">Petit Biscuit</span></div><span
+                        class="track-album">Presence</span><span class="track-dur">3:31</span>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="player">
+        <div class="player-left">
+            <div class="player-cover" style="background:linear-gradient(135deg,#5b3d8f,#3d155b)">🎵</div>
+            <div class="player-info">
+                <div class="now-title">Midnight City</div>
+                <div class="now-artist">M83</div>
+            </div><span style="color:var(--accent);cursor:pointer">♥</span>
+        </div>
+        <div class="player-center">
+            <div class="player-controls"><span class="p-btn">🔀</span><span class="p-btn">⏮</span>
+                <div class="p-play">▶</div><span class="p-btn">⏭</span><span class="p-btn">🔁</span>
+            </div>
+            <div class="progress"><span class="progress-time">1:24</span>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div><span class="progress-time">4:03</span>
+            </div>
+        </div>
+        <div class="player-right"><span class="p-btn" style="font-size:0.85rem">📋</span><span class="p-btn"
+                style="font-size:0.85rem">🔊</span>
+            <div class="vol-bar">
+                <div class="vol-fill"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

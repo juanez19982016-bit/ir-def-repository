@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthDash — Medical Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #09090b;
+            --card: #111115;
+            --border: rgba(255, 255, 255, .06);
+            --accent: #06b6d4;
+            --green: #22c55e;
+            --red: #ef4444;
+            --text: #fafafa;
+            --muted: #71717a
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 2rem
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .header h1 span {
+            color: var(--accent)
+        }
+
+        .header-right {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .h-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: .85rem;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: none;
+            color: var(--text);
+            font-family: 'Inter'
+        }
+
+        .h-btn-primary {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            font-weight: 600
+        }
+
+        .patient-card {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            margin-bottom: 2rem
+        }
+
+        .patient-av {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0
+        }
+
+        .patient-info h2 {
+            font-size: 1.1rem;
+            font-weight: 600
+        }
+
+        .patient-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: .82rem;
+            color: var(--muted);
+            margin-top: 4px
+        }
+
+        .patient-tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px
+        }
+
+        .ptag {
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: .72rem;
+            font-weight: 600
+        }
+
+        .ptag-blue {
+            background: rgba(6, 182, 212, .1);
+            color: #22d3ee
+        }
+
+        .ptag-red {
+            background: rgba(239, 68, 68, .1);
+            color: #f87171
+        }
+
+        .ptag-green {
+            background: rgba(34, 197, 94, .1);
+            color: #4ade80
+        }
+
+        .vitals {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem
+        }
+
+        .vital {
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            text-align: center
+        }
+
+        .vital-icon {
+            font-size: 1.5rem;
+            margin-bottom: .5rem
+        }
+
+        .vital-value {
+            font-size: 2rem;
+            font-weight: 800
+        }
+
+        .vital-label {
+            font-size: .78rem;
+            color: var(--muted);
+            margin-top: 2px
+        }
+
+        .vital-status {
+            font-size: .72rem;
+            margin-top: 4px;
+            font-weight: 600
+        }
+
+        .v-normal {
+            color: var(--green)
+        }
+
+        .v-high {
+            color: var(--red)
+        }
+
+        .v-low {
+            color: #f59e0b
+        }
+
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem
+        }
+
+        .chart-card {
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .chart-card h3 {
+            font-size: .92rem;
+            font-weight: 600;
+            margin-bottom: 1rem
+        }
+
+        .hr-chart {
+            height: 150px;
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            padding: 0 8px
+        }
+
+        .hr-bar {
+            flex: 1;
+            border-radius: 3px 3px 0 0;
+            min-height: 4px;
+            transition: height .5s
+        }
+
+        .meds {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .med {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .02)
+        }
+
+        .med-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0
+        }
+
+        .med-name {
+            font-size: .85rem;
+            font-weight: 500
+        }
+
+        .med-dose {
+            font-size: .75rem;
+            color: var(--muted)
+        }
+
+        .med-time {
+            margin-left: auto;
+            font-size: .75rem;
+            color: var(--muted)
+        }
+
+        .timeline {
+            margin-bottom: 2rem
+        }
+
+        .timeline h3 {
+            font-size: .92rem;
+            font-weight: 600;
+            margin-bottom: 1rem
+        }
+
+        .tl-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0
+        }
+
+        .tl-item {
+            display: flex;
+            gap: 1rem;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            align-items: flex-start
+        }
+
+        .tl-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-top: 5px;
+            flex-shrink: 0
+        }
+
+        .tl-content h4 {
+            font-size: .88rem;
+            font-weight: 500
+        }
+
+        .tl-content p {
+            font-size: .78rem;
+            color: var(--muted)
+        }
+
+        .tl-date {
+            margin-left: auto;
+            font-size: .75rem;
+            color: var(--muted);
+            white-space: nowrap
+        }
+
+        .appts {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem
+        }
+
+        .apt {
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid var(--border)
+        }
+
+        .apt-date {
+            font-size: .75rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .05em
+        }
+
+        .apt-title {
+            font-size: .92rem;
+            font-weight: 600;
+            margin: 4px 0 2px
+        }
+
+        .apt-doc {
+            font-size: .82rem;
+            color: var(--muted)
+        }
+
+        .apt-time {
+            font-size: .82rem;
+            color: var(--muted);
+            margin-top: 6px
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            font-size: .75rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            margin-top: 2rem
+        }
+
+        @media(max-width:768px) {
+
+            .vitals,
+            .charts-row,
+            .appts {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>🏥 Health<span>Dash</span></h1>
+        <div class="header-right"><button class="h-btn">📅 Schedule</button><button class="h-btn h-btn-primary">+ New
+                Appointment</button></div>
+    </div>
+    <div class="patient-card">
+        <div class="patient-av" style="background:linear-gradient(135deg,var(--accent),#0891b2);color:#fff">JD</div>
+        <div class="patient-info">
+            <h2>John Doe</h2>
+            <div class="patient-meta"><span>🎂 32 years old</span><span>🩸 O+</span><span>📏 178 cm / 75
+                    kg</span><span>ID: PT-2026-0042</span></div>
+            <div class="patient-tags"><span class="ptag ptag-blue">Regular Checkup</span><span
+                    class="ptag ptag-red">Allergy: Penicillin</span><span class="ptag ptag-green">Active</span></div>
+        </div>
+    </div>
+    <div class="vitals">
+        <div class="vital">
+            <div class="vital-icon">❤️</div>
+            <div class="vital-value" style="color:var(--green)">72</div>
+            <div class="vital-label">Heart Rate (bpm)</div>
+            <div class="vital-status v-normal">Normal</div>
+        </div>
+        <div class="vital">
+            <div class="vital-icon">🩸</div>
+            <div class="vital-value" style="color:var(--red)">140/90</div>
+            <div class="vital-label">Blood Pressure</div>
+            <div class="vital-status v-high">Slightly High</div>
+        </div>
+        <div class="vital">
+            <div class="vital-icon">🌡️</div>
+            <div class="vital-value" style="color:var(--green)">98.6°F</div>
+            <div class="vital-label">Temperature</div>
+            <div class="vital-status v-normal">Normal</div>
+        </div>
+        <div class="vital">
+            <div class="vital-icon">🫁</div>
+            <div class="vital-value" style="color:var(--green)">98%</div>
+            <div class="vital-label">SpO2 Level</div>
+            <div class="vital-status v-normal">Normal</div>
+        </div>
+    </div>
+    <div class="charts-row">
+        <div class="chart-card">
+            <h3>Heart Rate — Last 24h</h3>
+            <div class="hr-chart">
+                <div class="hr-bar" style="height:55%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:60%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:50%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:45%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:40%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:42%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:55%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:70%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:85%;background:var(--red)"></div>
+                <div class="hr-bar" style="height:75%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:65%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:60%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:58%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:62%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:55%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:50%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:48%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:52%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:60%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:65%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:70%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:68%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:62%;background:var(--accent)"></div>
+                <div class="hr-bar" style="height:58%;background:var(--accent)"></div>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h3>Current Medications</h3>
+            <div class="meds">
+                <div class="med">
+                    <div class="med-icon" style="background:rgba(6,182,212,.1)">💊</div>
+                    <div>
+                        <div class="med-name">Lisinopril 10mg</div>
+                        <div class="med-dose">1x daily — morning</div>
+                    </div>
+                    <div class="med-time">8:00 AM</div>
+                </div>
+                <div class="med">
+                    <div class="med-icon" style="background:rgba(34,197,94,.1)">💊</div>
+                    <div>
+                        <div class="med-name">Metformin 500mg</div>
+                        <div class="med-dose">2x daily</div>
+                    </div>
+                    <div class="med-time">8AM/8PM</div>
+                </div>
+                <div class="med">
+                    <div class="med-icon" style="background:rgba(245,158,11,.1)">💊</div>
+                    <div>
+                        <div class="med-name">Vitamin D 2000IU</div>
+                        <div class="med-dose">1x daily</div>
+                    </div>
+                    <div class="med-time">12:00 PM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="timeline">
+        <h3>Medical History</h3>
+        <div class="tl-list">
+            <div class="tl-item">
+                <div class="tl-dot" style="background:var(--accent)"></div>
+                <div class="tl-content">
+                    <h4>Annual Physical Exam</h4>
+                    <p>All values normal except BP slightly elevated</p>
+                </div>
+                <div class="tl-date">Mar 1, 2026</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-dot" style="background:var(--green)"></div>
+                <div class="tl-content">
+                    <h4>Blood Work Results</h4>
+                    <p>Cholesterol: 195 · A1C: 5.8%</p>
+                </div>
+                <div class="tl-date">Feb 15, 2026</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-dot" style="background:#f59e0b"></div>
+                <div class="tl-content">
+                    <h4>Flu Vaccination</h4>
+                    <p>Administered quad-valent influenza vaccine</p>
+                </div>
+                <div class="tl-date">Oct 20, 2025</div>
+            </div>
+            <div class="tl-item">
+                <div class="tl-dot" style="background:var(--red)"></div>
+                <div class="tl-content">
+                    <h4>ER Visit — Allergic Reaction</h4>
+                    <p>Penicillin allergy identified, treated with epinephrine</p>
+                </div>
+                <div class="tl-date">Jun 8, 2025</div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h3 style="font-size:.92rem;font-weight:600;margin-bottom:1rem">Upcoming Appointments</h3>
+    </div>
+    <div class="appts">
+        <div class="apt">
+            <div class="apt-date">March 15</div>
+            <div class="apt-title">Cardiology Follow-up</div>
+            <div class="apt-doc">Dr. Sarah Chen</div>
+            <div class="apt-time">⏰ 10:30 AM</div>
+        </div>
+        <div class="apt">
+            <div class="apt-date">March 22</div>
+            <div class="apt-title">Dental Cleaning</div>
+            <div class="apt-doc">Dr. Michael Park</div>
+            <div class="apt-time">⏰ 2:00 PM</div>
+        </div>
+        <div class="apt">
+            <div class="apt-date">April 5</div>
+            <div class="apt-title">Blood Work</div>
+            <div class="apt-doc">Quest Diagnostics</div>
+            <div class="apt-time">⏰ 8:00 AM</div>
+        </div>
+    </div>
+    <footer>© 2026 HealthDash — Built with DevVault Pro Templates</footer>
+</body>
+
+</html>

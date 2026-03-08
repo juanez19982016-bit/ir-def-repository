@@ -1,0 +1,8 @@
+2026-03-08 01:51:52,401 [INFO] ============================================================
+2026-03-08 01:51:52,401 [INFO] MEGA DOWNLOADER v3 | tier=catalog | out=explorer/public/data
+2026-03-08 01:51:52,401 [INFO] Repos: 194 | Releases: 13 | Direct ZIPs: 99
+2026-03-08 01:51:52,401 [INFO] Remote: gdrive2:IR_DEF_REPOSITORY
+2026-03-08 01:51:52,401 [INFO] ============================================================
+2026-03-08 01:51:52,401 [INFO] 📊 GENERATING WEB CATALOG (Remote Scan)...
+2026-03-08 01:51:52,401 [INFO]   Running: rclone lsjson -R --hash --no-mimetype gdrive2:IR_DEF_REPOSITORY
+2026-03-08 01:51:54,083 [INFO] ✅ Catalog generated: 50 items. Saved to explorer/public/data/catalog.json
